@@ -2,6 +2,172 @@
 Claude Code adds a new entry at the top after every task (format in ~/Hackathons/CLAUDE.md).
 The planner reads this file when Vedhanth says "handoffs". Never delete old entries.
 
+## 2026-11-09 1:45 PM PST — Phase 1: FDA data layer, matcher, verdict engine, ResultView — prompts/phase-1.md
+
+HANDOFF — Phase 1 (real FDA data → verdict, no AI yet) — Mon Nov 9, 2026, 1:45 PM PST
+STATUS: DONE — commit 9ca21d2 on main, live on production, every How-to-test item verified there (bottom).
+
+LINKS
+- Dev check (noindex, not in nav): https://getsecondlook.vercel.app/dev/check — 3 prefill buttons auto-run.
+- Samples (real engine on recorded FDA data): https://getsecondlook.vercel.app/samples and /samples/{match,different-maker,mismatch}
+- APIs: GET /api/lookup?ndc=0573-0160 · GET /api/lookup?q=ibuprofen 200 mg · POST /api/verify
+- Vercel ↔ GitHub: `vercel git connect` done → every push to main auto-deploys production.
+
+WHAT I DID
+- FDA clients (src/lib/fda/): fetchJson with 8 s timeout + one retry on timeout / network / 5xx / 429 and friendly
+  error text (never a raw error). `cached()` = memory (300 entries) → Redis `sl:fda:<url>` (24 h) → fetch; Redis
+  errors are ignored so FDA still works if Redis is down. We cache the SLIM parsed product list, not raw JSON
+  (ibuprofen 200 mg raw RxNav = 1.2 MB, over Upstash's 1 MB value limit).
+- NDC parsing (ndc.ts): 4-4-2, 5-3-2, 5-4-1, 5-4-2 dashed, product-only (4-4/5-3/5-4), undashed 11/10/9/8 digits,
+  "NDC" prefix, spaces, en dashes. A bare 10-digit NDC is tried all three ways and only accepted if exactly ONE
+  is a real product (Codex finding); if two are real we say so and fall back to the drug name.
+- RxNorm: label NDC → product (ndcproperties, ndcstatus=ALL so discontinued ones are found). Drug name → concept
+  via approximateTerm. "Same drug" = the generic SCD + every brand SBD of it (Advil 153008 → related SCD 310965 →
+  its 8 SBDs), all products merged and deduped by product code = 507 ibuprofen 200 mg tablets live today.
+- DailyMed v2 (dailymed.ts): label title + published date per setid; labels that were taken down fall back to
+  spls/<setid>/history.json.
+- Matcher (src/lib/match/): imprint (descriptor stoplist, look-alike folding 0/O 1/I/L 5/S 8/B 2/Z 6/G = "close",
+  side order ignored, one visible side = partial), color (12 FDA colors + off-white/beige, synonyms, close pairs,
+  half of a two-tone = close), shape (synonyms; oval/capsule/oblong/rectangle are close).
+- Verdict engine (src/lib/verdict-engine.ts, pure, no network): AI-reads-code-decides. Thresholds imprint 0.7,
+  color 0.5, shape 0.5. Order: no FDA data → UNSURE; no imprint → UNSURE ("try the other side"); label product
+  imprint matches → MATCH (UNSURE if low confidence or the color/shape is different, with the reason); another
+  maker's version matches → SAME_MEDICINE_DIFFERENT_MAKER (MATCH when the label had no NDC); nothing matches →
+  MISMATCH, and we name the pill ONLY from an exact imprint match in the guessed drug's FDA products. Prefers
+  products still made; says "no longer made" when the only match is discontinued. Size is always "Not measured",
+  never pass/fail. Every reason is plain English and every verdict carries DailyMed + RxNorm evidence links.
+- check-service.ts runCheck (NDC → drug group → decide → guess group on MISMATCH → DailyMed meta) with timings.
+- /api/verify (zod; 400 with a plain message, 502 with friendly FDA message), /api/lookup (ndc or q; garbage NDC →
+  400 "That doesn't look like an NDC…", unknown → 404, ambiguous → 400 "type it with the dashes").
+- ResultView (src/components/result-view.tsx): verdict field with plain instruction → side-by-side "What the FDA
+  says it should look like" vs "What's in your bottle" drawn to the same scale → "Why it looks different" strip
+  (same medicine) or "This imprint belongs to" card (mismatch) → Feature by feature table → Why we said this →
+  Where this comes from (DailyMed badges by role + RxNorm "507 products compared" + checked date).
+- /samples rewritten: each card's verdict, drawings and instruction now come from the real engine run on RECORDED
+  FDA data (no network at build, works if FDA is down during judging). New /samples/[id] shows the full ResultView.
+- /dev/check: typed label + pill readings, 3 prefills (auto-submit), shows the ResultView and "Answered in N ms".
+- CheckingSteps step 4 → "Comparing with FDA records".
+- Fixtures: scripts/record-fda-fixtures.mjs saves trimmed real RxNav JSON (rxcui 310965, 198440, NDC 0113-0517,
+  0573-0160, concept/related lookups, approximateTerm) + DailyMed meta into src/lib/fda/__fixtures__ (~800 KB,
+  recorded Nov 9, 2026; index.json lists every source URL).
+
+FILES CREATED/CHANGED
+New: src/lib/fda/{ndc,http,cache,types,concept,rxnav-parse,rxnav,dailymed-parse,dailymed,recorded}.ts,
+src/lib/fda/__fixtures__/*.json (15), src/lib/match/{imprint,color,shape,reading}.ts, src/lib/{verdict-engine,
+check-service,verify-schema,demo-scenarios,sample-results}.ts, src/app/api/{lookup,verify}/route.ts,
+src/app/dev/check/{page,dev-check-form}.tsx, src/app/samples/[id]/page.tsx, src/components/result-view.tsx,
+scripts/{smoke-fda.ts,record-fda-fixtures.mjs}, docs/screenshots/phase-1/*.png (14).
+Tests: src/lib/fda/{ndc,parse,http-cache,rxnav}.test.ts, src/lib/match/{imprint,color-shape}.test.ts,
+src/lib/{verdict-engine,verify-schema,check-service}.test.ts.
+Changed: src/app/samples/page.tsx, src/components/{checking-steps,feature-table,source-badge}.tsx, src/lib/verdict.ts
+(FeatureResult gains "not_measured"), package.json (+zod, +tsx, `npm run smoke:fda`). docs/ARCHITECTURE.md has the
+planner's "Decisions after phase 0" section (committed as-is, not edited by me).
+
+TESTS RUN
+- vitest: 108/108 PASS, 12 files, no network (77 new). Covers every NDC layout + garbage, imprint (I-2/i 2,
+  stoplist, "12"≈I2, "1484"≈L484, side order, partial, display drops descriptors), color/shape, RxNav parsing
+  (dedupe, packed two-tone, SCORE, active/discontinued), the 3 demo verdicts on recorded data, "12" → MATCH,
+  imprintConfidence 0.4 → UNSURE, color "white" → UNSURE with "color doesn't match" reason, wrong shape → UNSURE,
+  no imprint, label not found, size never pass/fail, discontinued "no longer made", mismatch without guess →
+  identifiedAs null, letters-only never gives a yes (no FDA color / unreadable color → UNSURE), look-alike imprint never names a pill, NDC not found / ambiguous, zod messages, fetch retry /
+  timeout / 404 / bad JSON, cache, and runCheck end-to-end with fetch stubbed to serve the fixtures.
+- tsc PASS, eslint PASS (0 warnings), next build PASS.
+- npm run smoke:fda (LIVE RxNav + DailyMed, memory cache only, so "cold" = real network):
+```
+== cold ==
+PASS match            MATCH                           1794 ms  (label 600, drug 763, guess 0, dailymed 430)  compared 507  → Ibuprofen 200 mg · L. Perrigo Company · NDC 0113-0517
+PASS different-maker  SAME_MEDICINE_DIFFERENT_MAKER    332 ms  (label 161, drug 78, guess 0, dailymed 90)  compared 507  → Ibuprofen 200 mg · L. Perrigo Company · NDC 0113-0517
+     - Your label lists Advil (ibuprofen 200 mg) made by Haleon US Holdings LLC. Your pill matches the FDA record for the version made by L. Perrigo Company: same medicine, same strength.
+PASS mismatch         MISMATCH                        1148 ms  (label 99, drug 0, guess 718, dailymed 327)  compared 507  → Acetaminophen 500 mg · L. Perrigo Company · NDC 0113-0484
+     - No Ibuprofen 200 mg the FDA lists has "L484" on it. We checked 507 products from every maker.
+     - "L484" is on Acetaminophen 500 mg made by L. Perrigo Company (FDA record).
+== warm ==
+PASS match 0 ms · PASS different-maker 5 ms · PASS mismatch 12 ms
+```
+  (cold runs share warm-up: scenario 2 reuses the ibuprofen list scenario 1 fetched.)
+- rxcui 310965 product list (469 generic products): cold from FDA 1165 ms, warm from Redis 217 ms, warm from
+  memory 0 ms — all under 4 s. Redis has 32 keys `sl:fda:*`, 0 un-prefixed `fda:*` keys.
+- Local API: /api/lookup?ndc=0573-0160 → Advil, Haleon, brown oval 15 mm, setId 1a665e64…; ?ndc=garbage → 400
+  friendly; ?ndc=9999-9999 → 404 friendly.
+- Screenshots (docs/screenshots/phase-1/, 375@2x + 1440, all "no horizontal overflow"): dev-check-{match,
+  different-maker,mismatch}, samples, samples-{match,different-maker,mismatch}. I looked at them; layout holds at 375.
+- Codex review: round 1 found 3 real issues, all fixed with tests: (P1) drug lookup forced "oral tablet" for every
+  form → plain tablet/capsule get "oral …", other forms pass through as written; (P1) ambiguous undashed 10-digit
+  NDC silently picked the first real product → now refuses to guess; (P2) descriptor words inside an imprint side
+  were drawn as markings → filtered word by word. Round 2 found 1 more real issue,
+  fixed with tests: (P1) "unknown" color/shape (FDA record has none, or a confident reading we can't parse) counted
+  as agreeing, so letters alone could say MATCH → now UNSURE with a plain reason; readings we skip for LOW
+  confidence are still ignored on purpose. Round 3: "No discrete, actionable bugs". Then committed + pushed.
+
+PROBLEMS / FINDINGS (worth knowing for the deck and later phases)
+- The most common look for ibuprofen 200 mg is NOT the orange oval. Among active products with full data:
+  brown round I2 = 38, brown round "44 291" = 36, brown round G2 = 25, brown oval I2 = 18, orange oval I2 = 16.
+  So a label with no NDC shows "Most common look: brown round I2" (true FDA data). The demo "wrong pill" sample
+  therefore shows a brown round I2 on the label side. If you want the orange oval there, give that bottle an NDC.
+- RxNav quirks: approximateTerm needs "oral tablet" in the term or it returns an ingredient-level concept;
+  a bare 10-digit NDC isn't accepted (we convert); rows repeat per package (we dedupe); two-tone colors arrive
+  packed as "C48325;C48331".
+- The old NLM pill image API (pir.nlm.nih.gov) is dead; DailyMed v1 imprint search is gone. We use RxNav
+  ndcproperties (imprint/color/shape/size come from SPL data) + DailyMed v2 for label metadata.
+- /samples uses recorded generic-only data (469 products), so its RxNorm badge says "469 products compared";
+  live checks include brand SBD products too (507). Both numbers are real; they differ only by brands.
+- Next 16 dev flagged `params` read outside Suspense on /samples/[id]; fixed by moving the read into a Suspense
+  child (the 3 sample pages are still fully prerendered).
+
+DECISIONS I MADE
+- Naming the wrong pill requires an EXACT imprint match in the guessed drug's FDA products; a look-alike ("1484")
+  still says MISMATCH but doesn't claim what the pill is. Safer for a health app.
+- Without an NDC we never say SAME_MEDICINE (nothing to compare the maker against): it's MATCH if any version of
+  the medicine matches.
+- Color/shape readings below their thresholds are ignored, not held against the pill. But a confident reading we
+  can't compare (FDA lists no color/shape, unknown word) blocks a yes → UNSURE. Letters alone never say MATCH.
+- A color or shape "different" with matching letters → UNSURE (not MISMATCH): letters are the strongest evidence.
+- /dev/check is an internal tool: noindex, not linked. Remove or keep hidden before submission (planner's call).
+
+CURRENT STATE OF THE APP
+Production = this commit. /check still uses the fake phase-0 progress (no photo reading yet); /dev/check and
+/samples show real FDA-backed verdicts; Redis caching live with sl: prefix.
+
+NEEDS VEDHANTH
+Nothing.
+
+OPEN QUESTIONS FOR THE PLANNER
+1. Demo "wrong pill" bottle: keep no NDC (label side shows the most common look = brown round I2), or put the
+   orange-oval Perrigo NDC 0113-0517 on that label so both sides of the demo look like the other bottles?
+2. Should /dev/check stay deployed for judges (it's a nice "type it yourself" tool) or be removed before submit?
+
+SUGGESTED NEXT STEP
+Phase 2: AI reading (label photo → LabelReading, pill photo → PillReading with confidences) feeding runCheck,
+wired into /check with the real CheckingSteps timings.
+
+PRODUCTION CHECKLIST (after deploy)
+Run against https://getsecondlook.vercel.app after the auto-deploy of 9ca21d2:
+1. Prefills give the right verdicts (API + the real buttons on /dev/check driven in Chrome at 375 and 1440): PASS
+2. Imprint "12" → still MATCH; imprintConfidence 0.4 → UNSURE: PASS
+3. Color "white" → UNSURE, reason "…but the color doesn't. That can mean a mix-up, or just a hard photo.": PASS
+4. /api/lookup?ndc=0573-0160 → Advil (Haleon); ?ndc=garbage → friendly 400: PASS
+5. Second identical request faster; keys start with "sl:": PASS (q=ibuprofen 200 mg: 278 ms then 98 ms, server 155
+   → 0 ms; Redis has 32 sl:fda:* keys and 0 un-prefixed). /dev/check has robots noindex,nofollow.
+```
+1a match             200 MATCH                          977 ms  
+1b different maker   200 SAME_MEDICINE_DIFFERENT_MAKER  125 ms  
+1c mismatch          200 MISMATCH                       191 ms identifiedAs=Acetaminophen 500 mg (0113-0484) 
+2a imprint 12        200 MATCH                          120 ms  
+2b confidence 0.4    200 UNSURE                         96 ms  | We couldn't read the letters on the pill clearly enough to be sure (we think it says I2).
+3 color white        200 UNSURE                         106 ms  | The letters match Ibuprofen 200 mg, but the color doesn't. That can mean a mix-up, or just a hard photo.
+lookup ndc=0573-0160       200 Advil · Haleon US Holdings LLC · Brown Oval 115 ms
+lookup ndc=garbage         400 That doesn't look like an NDC. It's usually 10 or 11 digits, like 0573-0160-17. 99 ms
+lookup ndc=0573-0160       200 Advil · Haleon US Holdings LLC · Brown Oval 135 ms
+lookup q=ibuprofen 200 mg #1 200 products=507 active=426 278 ms total, server ms=155 {"memoryHits":12,"redisHits":0,"misses":1}
+lookup q=ibuprofen 200 mg #2 200 products=507 active=426 98 ms total, server ms=0 {"memoryHits":13,"redisHits":0,"misses":0}
+dev-check-match-375.png ok | Matches / 
+dev-check-different-maker-375.png ok | Same medicine / 
+dev-check-mismatch-375.png ok | Doesn't match / 
+dev-check-match-1440.png ok | Matches / 
+dev-check-different-maker-1440.png ok | Same medicine / 
+dev-check-mismatch-1440.png ok | Doesn't match /
+```
+
 ## 2026-11-08 11:35 PM PST — Phase 0: skeleton, design system, live deploy — prompts/phase-0.md
 
 HANDOFF — Phase 0 (skeleton, design system, drawn pill, pages, deploy) — Sun Nov 8, 2026, 11:35 PM PST
