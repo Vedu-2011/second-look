@@ -1,11 +1,12 @@
-import { Check, CircleHelp, X } from "lucide-react";
+import { Check, CircleHelp, Minus, X } from "lucide-react";
 import type { FeatureResult, FeatureRow } from "@/lib/verdict";
 import { cn } from "@/lib/utils";
 
 const RESULT = {
-  match: { Icon: Check, label: "Matches", dot: "bg-match" },
-  mismatch: { Icon: X, label: "Doesn't match", dot: "bg-mismatch" },
-  unsure: { Icon: CircleHelp, label: "Can't tell", dot: "bg-unsure" },
+  match: { Icon: Check, label: "Matches", dot: "bg-match text-white" },
+  mismatch: { Icon: X, label: "Doesn't match", dot: "bg-mismatch text-white" },
+  unsure: { Icon: CircleHelp, label: "Can't tell", dot: "bg-unsure text-white" },
+  not_measured: { Icon: Minus, label: "Not measured from a photo", dot: "bg-foil text-ink-soft" },
 } satisfies Record<FeatureResult, unknown>;
 
 // Imprint, color, shape, size: what the FDA record says vs what we saw. The failing row is tinted.
@@ -48,9 +49,18 @@ export function FeatureTable({ rows, className }: { rows: FeatureRow[]; classNam
                 {row.name}
               </th>
               <td className={cn("px-2 py-3.5 text-ink", tint, mono && "font-mono font-semibold")}>{row.expected}</td>
-              <td className={cn("px-2 py-3.5 text-ink", tint, mono && "font-mono font-semibold")}>{row.found}</td>
+              <td
+                className={cn(
+                  "px-2 py-3.5",
+                  tint,
+                  row.result === "not_measured" ? "text-base text-ink-soft" : "text-ink",
+                  mono && row.result !== "not_measured" && "font-mono font-semibold",
+                )}
+              >
+                {row.found}
+              </td>
               <td className={cn("rounded-r-[var(--radius-row)] px-2 py-3.5", tint)}>
-                <span className={cn("ml-auto grid size-8 place-items-center rounded-full text-white", r.dot)}>
+                <span className={cn("ml-auto grid size-8 place-items-center rounded-full", r.dot)}>
                   <r.Icon className="size-[18px]" strokeWidth={3} aria-hidden />
                   <span className="sr-only">{r.label}</span>
                 </span>

@@ -107,3 +107,13 @@ Repo: github.com/Vedu-2011/second-look — PUBLIC (DSH requires a public repo).
 1. MATCH: label "Ibuprofen 200 mg" with the store-brand product's real NDC, store-brand pills inside.
 2. DIFFERENT MAKER, SAME MEDICINE: label with Advil's NDC, store-brand ibuprofen 200 mg inside.
 3. MISMATCH: label "Ibuprofen 200 mg", acetaminophen 500 mg (L484-type) inside.
+
+## Decisions after phase 0 (planner, Nov 9)
+- Redis: sharing the LineLess Upstash DB is fine (free). All Second Look keys use the "sl:" prefix.
+- Advil on demo labels: NDC 0573-0160 (plain pinkish-brown 15 mm oval, imprint "Advil"). Never use discontinued
+  products (e.g. I2 round 0113-0074) for demos.
+- Size can't be measured from one phone photo (no scale), so size is shown as the FDA value only ("not measured"),
+  never as a pass/fail. Checks compare imprint, color and shape. Copy: "Comparing with FDA records".
+- Two-sided pills: show "Other side: …" text under the drawing for now; front+back drawing is a phase 5 extra.
+- FDA "CAPSULE" shape is also used for caplet TABLETS — treat oval / capsule / oblong as close shapes.
+- NIH dataset lives at https://data.lhncbc.nlm.nih.gov/public/Pills/index.html (paper: Yaniv et al. 2016, PMID 29854569).

@@ -27,7 +27,8 @@ export const VERDICT_COPY: Record<Verdict, { word: string; instruction: string; 
   },
 };
 
-export type FeatureResult = "match" | "mismatch" | "unsure";
+/** "not_measured" is for size: one phone photo has no scale, so size is shown from the FDA only, never judged. */
+export type FeatureResult = "match" | "mismatch" | "unsure" | "not_measured";
 
 export type FeatureRow = {
   name: "Imprint" | "Color" | "Shape" | "Size";

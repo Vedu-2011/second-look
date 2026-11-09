@@ -1,0 +1,19 @@
+{
+  "recordedOn": "2026-11-09",
+  "note": "Trimmed real RxNav responses: one row per product code, packagingList removed.",
+  "files": {
+    "ndcproperties-310965": "https://rxnav.nlm.nih.gov/REST/ndcproperties.json?id=310965&ndcstatus=ALL",
+    "ndcproperties-198440": "https://rxnav.nlm.nih.gov/REST/ndcproperties.json?id=198440&ndcstatus=ALL",
+    "ndcproperties-005730160": "https://rxnav.nlm.nih.gov/REST/ndcproperties.json?id=005730160&ndcstatus=ALL",
+    "ndcproperties-001130517": "https://rxnav.nlm.nih.gov/REST/ndcproperties.json?id=001130517&ndcstatus=ALL",
+    "properties-310965": "https://rxnav.nlm.nih.gov/REST/rxcui/310965/properties.json",
+    "properties-153008": "https://rxnav.nlm.nih.gov/REST/rxcui/153008/properties.json",
+    "properties-198440": "https://rxnav.nlm.nih.gov/REST/rxcui/198440/properties.json",
+    "related-153008-SCD": "https://rxnav.nlm.nih.gov/REST/rxcui/153008/related.json?tty=SCD",
+    "related-310965-SBD": "https://rxnav.nlm.nih.gov/REST/rxcui/310965/related.json?tty=SBD",
+    "related-198440-SBD": "https://rxnav.nlm.nih.gov/REST/rxcui/198440/related.json?tty=SBD",
+    "approximate-ibuprofen": "https://rxnav.nlm.nih.gov/REST/approximateTerm.json?term=Ibuprofen%20200%20mg%20oral%20tablet&maxEntries=8",
+    "approximate-acetaminophen": "https://rxnav.nlm.nih.gov/REST/approximateTerm.json?term=acetaminophen%20500%20mg%20oral%20tablet&maxEntries=8",
+    "dailymed-labels": "https://dailymed.nlm.nih.gov/dailymed/services/v2/spls.json?setid=<setid>"
+  }
+}

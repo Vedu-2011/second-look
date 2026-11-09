@@ -7,7 +7,7 @@ export const CHECK_STEPS = [
   "Reading your label",
   "Reading the pill",
   "Looking up FDA records",
-  "Comparing 4 features",
+  "Comparing with FDA records",
 ] as const;
 
 // The one orchestrated motion moment. Each line ticks as its step finishes.
