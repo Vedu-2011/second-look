@@ -71,24 +71,25 @@ export const IBUPROFEN_I2_OVAL: FdaProduct = {
   sourceUrl: rxnav("0113-0517"),
 };
 
+// Note: the 16 mm Advil oval (NDC 0573-0165, same label) is "brown (one side is brown while the other side
+// is yellow)", which a single brown drawing would misrepresent. 0573-0160 is the plain brown Advil oval.
 export const ADVIL_OVAL: FdaProduct = {
   id: "advil-oval",
   drug: "Advil (ibuprofen)",
   strength: "200 mg",
   labeler: "Haleon US Holdings LLC",
-  ndc: "0573-0165",
+  ndc: "0573-0160",
   rxcui: "153008",
   setid: "1a665e64-9f30-be37-4a83-38789f1f1e89",
   publishedDate: "2026-11-06",
   imprintSides: ["Advil"],
   colorCodes: ["C48332"],
-  // The FDA color code is just brown; the label's free text adds the detail.
-  colorText: "brown (one side is brown while the other side is yellow)",
+  colorText: "BROWN(pinkish brown)",
   shapeCode: "C48345",
-  sizeMm: 16,
+  sizeMm: 15,
   score: 1,
   marketingStatus: "ACTIVE",
-  sourceUrl: rxnav("0573-0165"),
+  sourceUrl: rxnav("0573-0160"),
 };
 
 export const ACETAMINOPHEN_L484: FdaProduct = {

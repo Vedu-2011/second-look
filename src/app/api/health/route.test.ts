@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const getRedis = vi.fn();
-vi.mock("@/lib/redis", () => ({ getRedis: () => getRedis() }));
+vi.mock("@/lib/redis", () => ({ getRedis: () => getRedis(), key: (k: string) => `sl:${k}` }));
 vi.mock("next/server", () => ({ connection: async () => {} }));
 
 const { GET } = await import("./route");
@@ -14,6 +14,8 @@ function fakeRedis() {
       return "OK";
     }),
     get: vi.fn(async (k: string) => store.get(k) ?? null),
+    del: vi.fn(async (k: string) => Number(store.delete(k))),
+    store,
   };
 }
 
@@ -28,7 +30,14 @@ describe("GET /api/health", () => {
     expect(res.status).toBe(200);
     expect(body).toMatchObject({ ok: true, redis: true });
     expect(new Date(body.time).toString()).not.toBe("Invalid Date");
-    expect(redis.set).toHaveBeenCalledWith("health:ping", expect.any(String), { ex: 300 });
+    expect(redis.set).toHaveBeenCalledWith(expect.stringMatching(/^sl:health:ping:/), expect.any(String), { ex: 60 });
+    expect(redis.store.size).toBe(0); // cleans up after itself
+  });
+
+  it("doesn't false-fail when two probes overlap", async () => {
+    getRedis.mockReturnValue(fakeRedis());
+    const [a, b] = await Promise.all([GET(), GET()]);
+    expect([a.status, b.status]).toEqual([200, 200]);
   });
 
   it("says Redis isn't set up when there are no credentials", async () => {
@@ -39,7 +48,7 @@ describe("GET /api/health", () => {
   });
 
   it("reports a failure when the value doesn't come back", async () => {
-    getRedis.mockReturnValue({ set: vi.fn(async () => "OK"), get: vi.fn(async () => "something else") });
+    getRedis.mockReturnValue({ set: vi.fn(async () => "OK"), get: vi.fn(async () => "something else"), del: vi.fn() });
     const res = await GET();
     expect(res.status).toBe(503);
     expect(await res.json()).toMatchObject({ ok: false, redis: false });

@@ -30,7 +30,8 @@ describe("pillGeometry", () => {
   it("keeps real pills to scale relative to each other", () => {
     const round = pillGeometry(IBUPROFEN_I2_ROUND.shapeCode, IBUPROFEN_I2_ROUND.sizeMm);
     const advil = pillGeometry(ADVIL_OVAL.shapeCode, ADVIL_OVAL.sizeMm);
-    expect(advil.width / round.width).toBeCloseTo(1.6);
+    expect(advil.width / round.width).toBeCloseTo(ADVIL_OVAL.sizeMm / IBUPROFEN_I2_ROUND.sizeMm);
+    expect(advil.width).toBe(15);
   });
 
   it("draws capsules as a long stadium", () => {

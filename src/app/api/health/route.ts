@@ -1,5 +1,5 @@
 import { connection } from "next/server";
-import { getRedis } from "@/lib/redis";
+import { getRedis, key } from "@/lib/redis";
 
 // Writes a key to Redis and reads it back, so a deploy can prove its database actually works.
 export async function GET() {
@@ -10,9 +10,12 @@ export async function GET() {
     return Response.json({ ok: false, redis: false, time, error: "Redis isn't set up for this deployment." }, { status: 503 });
   }
   try {
-    const value = `${time}:${Math.random().toString(36).slice(2, 10)}`;
-    await redis.set("health:ping", value, { ex: 300 });
-    const back = await redis.get<string>("health:ping");
+    // One key per request, so overlapping probes can't read each other's value.
+    const value = `${time}:${crypto.randomUUID()}`;
+    const probe = key(`health:ping:${value}`);
+    await redis.set(probe, value, { ex: 60 });
+    const back = await redis.get<string>(probe);
+    await redis.del(probe);
     const ok = back === value;
     return Response.json(
       ok ? { ok, redis: true, time } : { ok, redis: false, time, error: "Redis answered, but the value didn't come back." },
