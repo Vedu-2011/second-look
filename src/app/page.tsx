@@ -1,69 +1,134 @@
-import Image from "next/image";
+import { Camera, Pill, ScanSearch } from "lucide-react";
+import { ButtonLink } from "@/components/button";
+import { PillDrawing } from "@/components/pill-drawing";
+import { SourceBadge } from "@/components/source-badge";
+import { colorNames, shapeName } from "@/lib/fda/codes";
+import { IBUPROFEN_I2_OVAL as example } from "@/lib/fda/fixtures";
+
+const FLYNN_URL = "https://pubmed.ncbi.nlm.nih.gov/12688437/";
+const KESSELHEIM_URL = "https://pubmed.ncbi.nlm.nih.gov/25023248/";
+
+const steps = [
+  { Icon: Camera, title: "Photo of your label", body: "The sticker your pharmacy put on the bottle." },
+  { Icon: Pill, title: "Photo of one pill", body: "On a plain surface, letters facing up." },
+  {
+    Icon: ScanSearch,
+    title: "We check it against the FDA",
+    body: "Imprint, color, shape and size, compared with the FDA record for your medicine.",
+  },
+];
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
+    <div className="mx-auto w-full max-w-6xl px-5 sm:px-8">
+      <section className="grid items-center gap-12 pt-10 pb-6 sm:pt-16 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16 lg:pt-20">
+        <div className="max-w-[38rem]">
+          <h1 className="text-4xl font-bold tracking-[-0.025em] text-balance text-ink sm:text-[3.5rem] sm:leading-[1.04]">
+            Is this the right pill?
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
+          <p className="mt-5 text-xl text-pretty text-ink sm:text-2xl sm:leading-snug">
+            US pharmacies fill about 1.7% of prescriptions with an error. That&apos;s around{" "}
+            <strong className="font-bold">51.5 million mistakes a year</strong>.{" "}
             <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+              href={FLYNN_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="text-lg whitespace-nowrap text-ink-soft underline decoration-amber decoration-2 underline-offset-4 hover:text-ink"
             >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+              Flynn et al., 2003
+            </a>
           </p>
+          <p className="mt-4 text-lg text-pretty text-ink-soft">
+            Take a photo of your label and one pill. Second Look tells you if the pill matches the FDA record for
+            your medicine.
+          </p>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <ButtonLink href="/check" size="lg">
+              <Camera aria-hidden />
+              Check a bottle
+            </ButtonLink>
+            <ButtonLink href="/samples" size="lg" variant="secondary">
+              Try a sample bottle
+            </ButtonLink>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
+
+        {/* The product itself: what a real FDA record looks like, drawn to scale. */}
+        <figure className="rounded-[var(--radius-photo)] bg-white p-6 shadow-[var(--shadow-lift)] sm:p-8">
+          <figcaption className="text-base font-semibold text-ink-soft">What the FDA says it should look like</figcaption>
+          <div className="mt-2 grid place-items-center rounded-[var(--radius-card)] bg-foil px-4 py-10">
+            <PillDrawing
+              shapeCode={example.shapeCode}
+              colorCodes={example.colorCodes}
+              sizeMm={example.sizeMm}
+              imprintSides={example.imprintSides}
+              score={example.score}
+              pxPerMm={14}
+              ruler
             />
-            Deploy Now
-          </a>
+          </div>
+          <div className="mt-5 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+            <p className="text-xl font-bold text-ink">
+              {example.drug} <span className="font-mono whitespace-nowrap">{example.strength}</span>
+            </p>
+            <p className="text-base text-ink-soft">{example.labeler}</p>
+          </div>
+          <dl className="mt-4 grid grid-cols-2 gap-2 text-center sm:grid-cols-4">
+            {[
+              ["Imprint", example.imprintSides.join(" / "), true],
+              ["Color", colorNames(example.colorCodes), false],
+              ["Shape", shapeName(example.shapeCode), false],
+              ["Size", `${example.sizeMm} mm`, true],
+            ].map(([k, v, mono]) => (
+              <div key={String(k)} className="rounded-[var(--radius-row)] bg-label px-1 py-2.5">
+                <dt className="text-sm text-ink-soft">{k}</dt>
+                <dd className={mono ? "font-mono text-lg font-bold whitespace-nowrap text-ink" : "text-lg font-bold text-ink"}>{v}</dd>
+              </div>
+            ))}
+          </dl>
+          <SourceBadge setid={example.setid} publishedDate={example.publishedDate} className="mt-5" />
+        </figure>
+      </section>
+
+      <section aria-labelledby="how" className="mt-16 sm:mt-24">
+        <h2 id="how" className="text-2xl font-bold tracking-[-0.01em] text-ink">
+          How a check works
+        </h2>
+        <ol className="mt-6 grid gap-4 md:grid-cols-3">
+          {steps.map(({ Icon, title, body }, i) => (
+            <li key={title} className="flex gap-4 rounded-[var(--radius-card)] bg-foil p-5 sm:p-6 md:flex-col">
+              <span className="grid size-12 shrink-0 place-items-center rounded-full bg-white text-ink shadow-[var(--shadow-soft)]">
+                <Icon className="size-6" aria-hidden />
+              </span>
+              <div>
+                <p className="text-sm font-semibold text-ink-soft">{i + 1}</p>
+                <p className="text-lg font-bold text-ink">{title}</p>
+                <p className="mt-1 text-base text-ink-soft">{body}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      <section className="mt-16 max-w-[44rem] sm:mt-20">
+        <h2 className="text-2xl font-bold tracking-[-0.01em] text-ink">When a refill looks different</h2>
+        <p className="mt-3 text-lg text-pretty text-ink">
+          After a heart attack, people whose pills changed color had 34% higher odds of stopping their medicine. A
+          change in shape: 66%.{" "}
           <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
+            href={KESSELHEIM_URL}
             target="_blank"
-            rel="noopener noreferrer"
+            rel="noreferrer"
+            className="whitespace-nowrap text-ink-soft underline decoration-amber decoration-2 underline-offset-4 hover:text-ink"
           >
-            Documentation
+            Kesselheim et al., 2014
           </a>
-        </div>
-      </main>
+        </p>
+        <p className="mt-3 text-lg text-pretty text-ink-soft">
+          Often it&apos;s the same medicine from a different company. Second Look tells you when that&apos;s the case,
+          so you don&apos;t have to guess.
+        </p>
+      </section>
     </div>
   );
 }
