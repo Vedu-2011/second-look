@@ -60,10 +60,12 @@ FILES CREATED / CHANGED
 - Updated: engine/matcher ONLY as listed above; home/sources/footer/README links; package files (+Recharts/research command); .gitignore. Screenshots in `docs/screenshots/phase-4/`.
 
 TESTS / REVIEW
-- Prior run passed 142 tests / 22 files, lint, TypeScript and production build. Final resumed checks are pending for the reporting-only additions.
+- Final resumed checks: PASS 142 tests / 22 files; lint, TypeScript and production build PASS. Only the two existing non-fatal Atkinson font override warnings. The final chart-margin visual fix is being rebuilt before publication.
 - Original-engine equivalence audit: PASS 800/800 full results; no production drift.
 - Cached reproduction with ANTHROPIC_API_KEY unset: PASS, zero paid calls; cost ledger unchanged.
 - Earlier review findings fixed: incomplete result publication guard; explicit baseline reasoning configuration; conservative token-count/in-flight budget reservations in place of flat $0.10; equivalent-imprint negative exclusion; explicit unfavorable results/abstentions. Latest Codex review asked for artifact regeneration after source changes: fixed by cached regeneration, without new readings. Final source hashes must match committed implementation.
+- Final independent CSV/JSON audit: PASS, all 2,000 rows / five methods, balanced truth, 100 distinct product codes, hard-negative metadata, exact source hashes and cost-ledger totals agree. No downloaded NIH images are tracked.
+- Impeccable visual review found clipped percentage-axis labels; changed only the chart's left margin from -20 to 0. Research/home screenshots are being refreshed at 375 and 1440; no page-width overflow.
 
 HOW TO TEST / CURRENT STATE
 - Final local tests, build, screenshots and production checks are being completed before the final DONE update.

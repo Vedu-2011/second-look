@@ -26,7 +26,7 @@ function Chart({
       <ResponsiveContainer width="100%" height="100%" minWidth={0}>
         <BarChart
           data={data}
-          margin={{ top: 20, right: 4, bottom: 20, left: -20 }}
+          margin={{ top: 20, right: 4, bottom: 20, left: 0 }}
           accessibilityLayer
         >
           <XAxis
