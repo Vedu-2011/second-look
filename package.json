@@ -11,7 +11,8 @@
     "smoke:fda": "tsx scripts/smoke-fda.ts",
     "smoke:ai": "node --env-file-if-exists=.env.local --import tsx scripts/smoke-ai.ts",
     "samples:build": "node --env-file-if-exists=.env.local --import tsx scripts/build-samples.ts",
-    "research": "node --env-file-if-exists=.env.local --import tsx scripts/research.ts"
+    "research": "node --env-file-if-exists=.env.local --import tsx scripts/research-holdout.ts",
+    "research:dev": "node --import tsx scripts/diagnose-dev.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^1.7.0",

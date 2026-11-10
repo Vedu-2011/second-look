@@ -37,7 +37,7 @@ const SHAPES = new Set<string>([
 
 export function normalizeShape(input: string | null | undefined): ShapeWord | null {
   if (!input) return null;
-  const s = input.toLowerCase().trim().replace(/\s*\(.*\)\s*$/, "").replace(/\s+/g, " ");
+  const s = input.toLowerCase().trim().replace(/-shaped\b/g, "").replace(/\s*\(.*\)\s*$/, "").replace(/\s+/g, " ");
   if (SYNONYMS[s]) return SYNONYMS[s];
   if (SHAPES.has(s)) return s as ShapeWord;
   const word = s.split(/[^a-z-]+/).find((w) => SHAPES.has(w) || SYNONYMS[w]);

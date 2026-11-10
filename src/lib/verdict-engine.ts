@@ -7,6 +7,7 @@ import { colorsFromCodes, compareColors, normalizeColor, type ColorMatch } from 
 import { compareImprint, displayImprint, tokenizeImprint, type ImprintComparison } from "@/lib/match/imprint";
 import { compareShapes, normalizeShape, shapeFromCode, type ShapeMatch } from "@/lib/match/shape";
 import type { FeatureRow, Verdict } from "@/lib/verdict";
+import { mergePillViews } from './pill-views';
 
 export const IMPRINT_MIN_CONFIDENCE = 0.7;
 export const COLOR_MIN_CONFIDENCE = 0.5;
@@ -38,6 +39,8 @@ export type PillReading = {
   multiplePills?: boolean;
   photoProblems?: string[];
   scored?: boolean;
+  viewCount?: number;
+  viewConflict?: string;
 };
 
 export type EngineData = {
@@ -193,7 +196,8 @@ function whatUnchecked(s: Scored) {
 const maker = (p: Product) => p.labeler ?? "another company";
 const titleOf = (p: Product | null | undefined, fallback: string | null) => (p?.title ? productName(p) : (fallback ?? "your medicine"));
 
-export function decide(label: LabelReading, pill: PillReading, data: EngineData, fold = true): EngineResult {
+export function decide(label: LabelReading, pillInput: PillReading | readonly PillReading[], data: EngineData, fold = true): EngineResult {
+  const pill: PillReading = Array.isArray(pillInput) ? mergePillViews(pillInput) : pillInput as PillReading;
   const reasons: string[] = [];
   const labelProduct = data.labelProduct ?? null;
   const sameDrug = data.sameDrugProducts;
@@ -247,6 +251,10 @@ export function decide(label: LabelReading, pill: PillReading, data: EngineData,
     };
   };
 
+  if (pill.viewConflict || pill.multiplePills || pill.pillVisible === false) {
+    reasons.push(pill.viewConflict ?? 'We need clear photos of one pill to compare it.');
+    return result('UNSURE');
+  }
   if (!labelProduct && sameDrug.length === 0) {
     reasons.push("We couldn't find the medicine on your label in the FDA's drug list.");
     return result("UNSURE");

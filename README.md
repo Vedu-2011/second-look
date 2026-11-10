@@ -69,6 +69,12 @@ The builder applies orientation, resizes to 1600px, strips EXIF, runs the same l
 
 ## Tests and limits
 
-142 network-free tests cover NDC formats, FDA parsing/cache/retries, imprint confusables, color/shape comparisons, deterministic verdicts, explanation checks, streamed steps, quotas, result expiry, editable labels, typed input, the sample builder, and benchmark sampling/metrics/results validation and budget bounds. Live smoke checks are separate from unit tests.
+186 network-free tests cover NDC formats, FDA parsing/cache/retries, imprint confusables, color/shape comparisons, deterministic verdicts, explanation checks, streamed steps, quotas, result expiry, editable labels, typed input, the sample builder, benchmark sampling/metrics/results validation, two-view conflicts, bounded transcription cleanup, continuation input and budget bounds. Live smoke checks are separate from unit tests.
+
+## Another side, without rereading the first
+
+When imprint text is absent, uncertain or incomplete, `/check` offers “Flip the pill over and take one more photo,” with a one-tap skip. The first reading stays in a short-lived server continuation (10 minutes); only the new photo is read. Both photos appear on your result locally, but neither is stored with a share link. Conflicting appearance remains uncertain. A two-view check is not proof that two photos show the same physical pill.
+
+Phase 4 is now development data. Phase 5 freezes the code before a product-disjoint NIH holdout. `npm run research` only regenerates complete cached results; a new paid run requires an explicit `--run`, a matching frozen implementation and the separate $5 spending guard. The report, freeze hash, individual outcomes, raw readings and cost ledger are public under `research/`. Never tune on the holdout and then call it fresh evidence.
 
 This is a pharmacy double-check, not a diagnosis or a replacement for a pharmacist. It supports tablets/capsules with FDA records; unreadable or unlisted pills may remain unknown. A single photo cannot establish authenticity or measure size. Do not take a mismatched or uncertain pill until your pharmacist confirms it. User uploads are not saved as photos; result JSON expires after seven days. Demo photos are deliberately published. Checks are limited to 30/hour per IP and a configurable daily cap.

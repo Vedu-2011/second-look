@@ -1,6 +1,6 @@
 import { Camera, Pill, ScanSearch } from "lucide-react";
 import Link from "next/link";
-import { RESEARCH_RESULTS, researchHeadline } from "@/lib/research-results";
+import { HOLDOUT_RESULTS as RESEARCH_RESULTS, holdoutHeadline as researchHeadline } from "@/lib/research-holdout-results";
 import { ButtonLink } from "@/components/button";
 import { PillDrawing } from "@/components/pill-drawing";
 import { SourceBadge } from "@/components/source-badge";

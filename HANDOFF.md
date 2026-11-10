@@ -2,6 +2,31 @@
 Claude Code adds a new entry at the top after every task (format in ~/Hackathons/CLAUDE.md).
 The planner reads this file when Vedhanth says "handoffs". Never delete old entries.
 
+## 2026-11-10 — Phase 5: two views and a fresh holdout — prompts/phase-5.md
+
+BUILDER: Codex
+HANDOFF — Phase 5
+STATUS: PARTIAL — active build checkpoint; no holdout model calls yet. Do not treat development outcomes as a fresh result.
+
+WHAT I DID / DEVELOPMENT DIAGNOSIS
+- Branch feat/phase-5. Saved research/out/dev-diagnosis.{md,json}: all 400 original phase-4 pairs, every UNSURE/no-read and ten fixed-order examples. Original 257 UNSURE outcomes include overlapping flags: 244 low imprint confidence, 108 no-imprint outcomes, 42 partial imprints, 69 color disagreements, 25 shape disagreements, 16 reader-error outcomes (8 photos), 137 possible unseen-side cases inferred from FDA multipart text, not proven. There are 54 no-read photos. Discontinued status is context, not an abstention cause.
+- Cached development evidence: 44 exact transcriptions were below 0.7; 17 photos had a multiple-pill signal ignored by the old pure benchmark engine. The camera pipeline already rejected that signal. No new development calls were made.
+- pill-v2 clarifies literal transcription, blank sides, short fields and confidence as character legibility rather than medicine identity. Cleanup bounds long strings, drops blank descriptors, preserves readable text and lowers confidence after lossy trimming. The 0.7 imprint threshold is unchanged. Shape parsing recognizes the literal “-shaped” suffix.
+- Added pure two-view merging: union of nonblank imprint sides; minimum confidence across nonblank text; exact color agreement, compatible shape and trusted appearance across both photos. Conflicts/multiple/absent pills remain UNSURE. Engine accepts one reading or a pair. No extra permissive partial-side rule adopted; the existing matcher already accepts visible subsets.
+- /check offers an optional flip after missing/unclear/partial/multipart text. First readings stay server-owned behind a random 10-minute continuation, only the new side is read, and skipping reuses the first reading. Both photos display locally; photos are not stored in shared results.
+- Current-engine development evaluation reuses pill-v1 caches, explicitly not v2 measurements: one view 66 wrong caught, 0 wrong passed, 2 false alarms, 56 right passed, 122/124 correct decisive, 124/400 coverage; two views 34 caught, 0 wrong passed, 2 false alarms, 32 right passed, 66/68 correct decisive, 68/400 coverage. Strict two-view handling worsens abstention here. Do not hide it or claim the goal is achieved.
+
+HOLDOUT PLAN / HYGIENE
+- 150 photos / 75 product-disjoint NDC codes; seed 20261110. All development product codes, including package aliases, excluded. The first unstratified 75-code metadata-only candidate pool failed the >=80% hard-negative floor. It stopped before any model call. Before freeze, changed selection to first 100 seeded eligible metadata records, 60 codes in mutual hard-negative pairs plus 15 additional seeded codes. This selection bias is disclosed; no outputs were used.
+- Prepared holdout-cohort.json and HOLDOUT-DATA.md: 150 photos, 75 products, zero product overlap, 14 metadata exclusions. Downloaded photos remain ignored. No model readings/outcomes have been inspected or generated. One-view Sonnet is predeclared as the headline, alongside two-view and direct-Sonnet methods. No Haiku or dev-v2 calls planned. New spend currently $0 / $5.
+- scripts/research-holdout.ts has --prepare, --dev, --freeze, explicit --run, per-response atomic caches and a token-count/in-flight $5 guard. Freeze records all tracked src/scripts/package hashes and cohort hash, then refuses modified code. No code changes may be made after holdout outputs without explicit disclosure and preserving both runs.
+- /research separates development and holdout, has safety/coverage tables and charts; holdout publication remains pending. Old phase-4 report archived as PHASE4-REPORT.md. The old runner refuses implicit rereads after the v2 bump.
+
+TESTS / CURRENT STATE
+- 186 unit tests / 25 files, TypeScript and lint PASS during development. Production build, UI screenshots, review and code freeze still pending. Production remains phase 4.
+- Need finish tasks 5–9: review and verify implementation/UI; commit freeze; run holdout once within $5; publish generated report/data/headline; take final screenshots; test/build/review; push main and verify production; mark this handoff DONE with frozen hash, final table and spend.
+- Planner has not been contacted. Real demo-photo folders remain empty.
+
 ## 2026-11-10 — Phase 4: NIH consumer-photo benchmark — prompts/phase-4.md
 
 BUILDER: Codex

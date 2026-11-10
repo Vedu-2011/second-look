@@ -1,0 +1,100 @@
+{
+  "images": 200,
+  "pairs": 400,
+  "readingVersion": "pill-v1",
+  "metrics": {
+    "Sonnet, one view": {
+      "n": 400,
+      "wrong": 200,
+      "right": 200,
+      "caught": 66,
+      "falseAlarms": 2,
+      "passed": 56,
+      "unsure": 276,
+      "wrongUnsure": 134,
+      "catchRate": 0.33,
+      "falseAlarmRate": 0.01,
+      "passRate": 0.28,
+      "unsureRate": 0.69,
+      "easy": {
+        "n": 32,
+        "caught": 9,
+        "unsure": 23,
+        "passed": 0
+      },
+      "hard": {
+        "n": 168,
+        "caught": 57,
+        "unsure": 111,
+        "passed": 0
+      },
+      "wrongPassed": 0,
+      "decisive": 124,
+      "correct": 122,
+      "decisiveAccuracy": 0.9838709677419355,
+      "coverage": 0.31
+    },
+    "Sonnet, two views": {
+      "n": 400,
+      "wrong": 200,
+      "right": 200,
+      "caught": 34,
+      "falseAlarms": 2,
+      "passed": 32,
+      "unsure": 332,
+      "wrongUnsure": 166,
+      "catchRate": 0.17,
+      "falseAlarmRate": 0.01,
+      "passRate": 0.16,
+      "unsureRate": 0.83,
+      "easy": {
+        "n": 32,
+        "caught": 4,
+        "unsure": 28,
+        "passed": 0
+      },
+      "hard": {
+        "n": 168,
+        "caught": 30,
+        "unsure": 138,
+        "passed": 0
+      },
+      "wrongPassed": 0,
+      "decisive": 68,
+      "correct": 66,
+      "decisiveAccuracy": 0.9705882352941176,
+      "coverage": 0.17
+    },
+    "Direct Sonnet": {
+      "n": 400,
+      "wrong": 200,
+      "right": 200,
+      "caught": 91,
+      "falseAlarms": 9,
+      "passed": 49,
+      "unsure": 248,
+      "wrongUnsure": 106,
+      "catchRate": 0.455,
+      "falseAlarmRate": 0.045,
+      "passRate": 0.245,
+      "unsureRate": 0.62,
+      "easy": {
+        "n": 32,
+        "caught": 28,
+        "unsure": 4,
+        "passed": 0
+      },
+      "hard": {
+        "n": 168,
+        "caught": 63,
+        "unsure": 102,
+        "passed": 3
+      },
+      "wrongPassed": 3,
+      "decisive": 152,
+      "correct": 140,
+      "decisiveAccuracy": 0.9210526315789473,
+      "coverage": 0.38
+    }
+  }
+}

@@ -19,7 +19,7 @@ export async function buildSamples(deps: SampleBuildDependencies) {
       if (!pair) { outcomes.push({ id, status: "kept" }); continue; }
       const [label, pill] = await Promise.all([deps.prepare(pair.label), deps.prepare(pair.pill)]);
       const checked = await deps.check(label.image, pill.image);
-      if (!checked.ok) throw new Error(checked.exit.message);
+    if (!checked.ok) throw new Error(checked.exit?.message ?? 'The pill needs another view.');
       await deps.save(id, { result: checked.result, explanation: checked.explanation, recordedAt: new Date().toISOString() }, { label, pill });
       outcomes.push({ id, status: "saved", verdict: checked.result.verdict });
     } catch (error) { outcomes.push({ id, status: "failed", error: error instanceof Error ? error.message : "Could not build this sample." }); }

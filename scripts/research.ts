@@ -229,6 +229,7 @@ const noRead: PillReading = {
   guess: null,
 };
 async function main() {
+  if (String(READ_PILL_PROMPT_VERSION) !== 'pill-v1') throw new Error('Phase 4 is frozen development data. Use npm run research for the phase-5 holdout; do not reread this cohort implicitly.');
   await mkdir(file("research/data/"), { recursive: true });
   await mkdir(file("research/out/"), { recursive: true });
   const manifest = await prepare();
