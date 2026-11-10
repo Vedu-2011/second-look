@@ -59,11 +59,11 @@ export function CheckFlow() {
   const [earlyMessage, setEarlyMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const headingRef = useRef<HTMLDivElement>(null);
-  const movedRef = useRef(false);
+  const previousPhase = useRef<Phase>("label");
   const urlsRef = useRef<string[]>([]);
   useEffect(() => {
-    if (movedRef.current) headingRef.current?.focus();
-    movedRef.current = true;
+    if (previousPhase.current !== phase) headingRef.current?.focus();
+    previousPhase.current = phase;
   }, [phase]);
   useEffect(
     () => () => urlsRef.current.forEach((url) => URL.revokeObjectURL(url)),

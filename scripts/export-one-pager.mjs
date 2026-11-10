@@ -19,12 +19,17 @@ try {
   await page.setViewportSize({width:1200,height:630});
   await page.locator('.social-export').screenshot({path:"public/social-card.png",scale:"css"});
   await copyFile("public/social-card.png",output+"/open-graph-1200x630.png");
-  await page.locator('.social-export').evaluate(el=>{el.style.display="none";});
-  await page.setViewportSize({width:1000,height:1000});
-  await page.emulateMedia({media:"print"});
-  const height=await page.locator('.one-pager').evaluate(el=>el.getBoundingClientRect().height);
+  const printPage = await browser.newPage({viewport:{width:1000,height:1000},reducedMotion:"reduce"});
+  await printPage.emulateMedia({media:"print"});
+  await printPage.goto(base+"/one-pager",{waitUntil:"networkidle"});
+  await printPage.evaluate(async()=>{
+    await document.fonts.ready;
+    await Promise.all([...document.querySelectorAll('.one-pager img')].map(img=>img.decode()));
+  });
+  const height=await printPage.locator('.one-pager').evaluate(el=>el.getBoundingClientRect().height);
   if(height>960) throw Error("Print sheet exceeds 10 inch content height: "+height);
-  await page.pdf({path:"public/second-look-one-pager.pdf",format:"Letter",printBackground:true,preferCSSPageSize:true,displayHeaderFooter:false});
+  await printPage.pdf({path:"public/second-look-one-pager.pdf",format:"Letter",printBackground:true,preferCSSPageSize:true,displayHeaderFooter:false,tagged:true});
+  await printPage.close();
   await copyFile("public/second-look-one-pager.pdf","docs/second-look-one-pager.pdf");
   console.log("Print content height",height,"CSS pixels; PDF exported to public/ and docs/.");
   await page.emulateMedia({media:"screen"});
