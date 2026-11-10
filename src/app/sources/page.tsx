@@ -1,5 +1,6 @@
 import { ArrowUpRight } from "lucide-react";
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Suspense } from "react";
 import { connection } from "next/server";
 import { drugGroup } from "@/lib/fda/rxnav";
@@ -49,6 +50,7 @@ export default function SourcesPage() {
         National Library of Medicine keep for every medicine sold in the US. All of it is free and open.
       </p>
       <Suspense fallback={<p className="mt-7 rounded-[var(--radius-photo)] bg-foil p-5 text-lg">Loading FDA record counts…</p>}><LiveCounts /></Suspense>
+      <Link href="/research" className="mt-5 inline-flex min-h-12 items-center rounded-full text-base font-semibold underline decoration-amber decoration-2 underline-offset-4">See our NIH photo benchmark →</Link>
 
       <ol className="mt-10 flex flex-col gap-5">
         {SOURCES.map((s, i) => (

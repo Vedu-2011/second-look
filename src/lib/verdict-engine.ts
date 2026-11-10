@@ -91,13 +91,13 @@ type Scored = {
   shape: ShapeMatch | "unknown" | "skipped";
 };
 
-function score(product: Product, pill: PillReading): Scored {
+function score(product: Product, pill: PillReading, fold = true): Scored {
   const pillColors = pill.colors.map(normalizeColor).filter((c): c is NonNullable<typeof c> => Boolean(c));
   const colorTrusted = pill.colorConfidence >= COLOR_MIN_CONFIDENCE;
   const shapeTrusted = pill.shapeConfidence >= SHAPE_MIN_CONFIDENCE;
   return {
     product,
-    imprint: compareImprint(product.imprintRaw, pill.imprintSides),
+    imprint: compareImprint(product.imprintRaw, pill.imprintSides, fold),
     color: colorTrusted ? compareColors(colorsFromCodes(product.colorCodes), pillColors) : "skipped",
     shape: shapeTrusted ? compareShapes(shapeFromCode(product.shapeCode), normalizeShape(pill.shape)) : "skipped",
   };
@@ -193,7 +193,7 @@ function whatUnchecked(s: Scored) {
 const maker = (p: Product) => p.labeler ?? "another company";
 const titleOf = (p: Product | null | undefined, fallback: string | null) => (p?.title ? productName(p) : (fallback ?? "your medicine"));
 
-export function decide(label: LabelReading, pill: PillReading, data: EngineData): EngineResult {
+export function decide(label: LabelReading, pill: PillReading, data: EngineData, fold = true): EngineResult {
   const reasons: string[] = [];
   const labelProduct = data.labelProduct ?? null;
   const sameDrug = data.sameDrugProducts;
@@ -224,7 +224,7 @@ export function decide(label: LabelReading, pill: PillReading, data: EngineData)
     verdict: Verdict,
     extra: Partial<Pick<EngineResult, "matchedProduct" | "identifiedAs">> & { ref?: Scored | null } = {},
   ): EngineResult => {
-    const ref = extra.ref ?? (expected ? score(expected, pill) : null);
+    const ref = extra.ref ?? (expected ? score(expected, pill, fold) : null);
     const features = featureRows(ref, pill, lowImprint);
     const failing = features.find((f) => f.result === "mismatch" && f.name !== "Size");
     const matchedProduct = extra.matchedProduct ?? null;
@@ -262,7 +262,7 @@ export function decide(label: LabelReading, pill: PillReading, data: EngineData)
 
   // 1. Is it the exact product on the label?
   if (labelProduct) {
-    const own = score(labelProduct, pill);
+    const own = score(labelProduct, pill, fold);
     if (own.imprint.result !== "none") {
       if (lowImprint) {
         lowConfidenceReason();
@@ -283,7 +283,7 @@ export function decide(label: LabelReading, pill: PillReading, data: EngineData)
   }
 
   // 2. Another maker's version of the same medicine (or, without an NDC, any version)?
-  const others = sameDrug.filter((p) => p.productCode !== labelProduct?.productCode).map((p) => score(p, pill));
+  const others = sameDrug.filter((p) => p.productCode !== labelProduct?.productCode).map((p) => score(p, pill, fold));
   const imprintHits = others.filter((s) => s.imprint.result !== "none");
   const hit = best(imprintHits.filter(usable)) ?? best(imprintHits.filter(appearanceOk)) ?? best(imprintHits);
 
@@ -319,7 +319,7 @@ export function decide(label: LabelReading, pill: PillReading, data: EngineData)
   reasons.push(`No ${labelTitle ?? "version of your medicine"} the FDA lists has "${pillText}" on it. We checked ${sameDrug.length || 1} products from every maker.`);
 
   const guessHits = (data.guessProducts ?? [])
-    .map((p) => score(p, pill))
+    .map((p) => score(p, pill, fold))
     .filter((s) => s.imprint.result === "exact");
   const identified = best(guessHits.filter(usable)) ?? best(guessHits.filter(appearanceOk)) ?? best(guessHits);
   if (identified) {

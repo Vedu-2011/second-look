@@ -10,3 +10,6 @@
 | Thu | 5 | Polish, accessibility pass, demo-proofing, README | — |
 | Fri | — | AI-voiced 2–3 min demo video, 1-page PDF, Devpost text (planner writes; Claude Code builds PDF) | record screen + phone footage |
 | Sat AM | — | Final checks, submit by noon | click Submit |
+
+Status Nov 9, 9:45 PM: phases 0–3 DONE and live (ahead of plan). Phase 4 (research test) written. Waiting on
+Vedhanth's real bottle photos for the samples.

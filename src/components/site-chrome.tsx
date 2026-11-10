@@ -46,7 +46,7 @@ export function SiteFooter() {
           <Link href="/sources" className="font-semibold text-ink underline decoration-amber decoration-2 underline-offset-4">
             Our sources
           </Link>
-          {" · "}<a href="https://github.com/Vedu-2011/second-look" target="_blank" rel="noreferrer" className="inline-flex min-h-12 items-center rounded-full font-semibold text-ink underline decoration-amber decoration-2 underline-offset-4">GitHub</a>
+          {" · "}<Link href="/research" className="inline-flex min-h-12 items-center rounded-full font-semibold text-ink underline decoration-amber decoration-2 underline-offset-4">Research</Link>{" · "}<a href="https://github.com/Vedu-2011/second-look" target="_blank" rel="noreferrer" className="inline-flex min-h-12 items-center rounded-full font-semibold text-ink underline decoration-amber decoration-2 underline-offset-4">GitHub</a>
         </p>
       </div>
     </footer>

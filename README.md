@@ -4,6 +4,10 @@ Photograph a pharmacy label and one pill to check whether the pill matches the F
 
 [Open the app](https://getsecondlook.vercel.app) · [Try a sample](https://getsecondlook.vercel.app/samples) · [Type a check](https://getsecondlook.vercel.app/type)
 
+<!-- research-headline -->
+On 200 NIH consumer photos (400 label–photo pairs), Second Look with Sonnet caught 38.5% of wrong pills with 1% false alarms on right pills. [Method, baseline comparison and limitations](https://getsecondlook.vercel.app/research).
+<!-- /research-headline -->
+
 ![Second Look, showing the pill and FDA evidence](docs/screenshots/phase-3/after/home-1440.png)
 
 ## Why this matters
@@ -65,6 +69,6 @@ The builder applies orientation, resizes to 1600px, strips EXIF, runs the same l
 
 ## Tests and limits
 
-131 network-free tests cover NDC formats, FDA parsing/cache/retries, imprint confusables, color/shape comparisons, deterministic verdicts, explanation checks, streamed steps, quotas, result expiry, editable labels, typed input, and the sample builder. Live smoke checks are separate from unit tests.
+142 network-free tests cover NDC formats, FDA parsing/cache/retries, imprint confusables, color/shape comparisons, deterministic verdicts, explanation checks, streamed steps, quotas, result expiry, editable labels, typed input, the sample builder, and benchmark sampling/metrics/results validation and budget bounds. Live smoke checks are separate from unit tests.
 
 This is a pharmacy double-check, not a diagnosis or a replacement for a pharmacist. It supports tablets/capsules with FDA records; unreadable or unlisted pills may remain unknown. A single photo cannot establish authenticity or measure size. Do not take a mismatched or uncertain pill until your pharmacist confirms it. User uploads are not saved as photos; result JSON expires after seven days. Demo photos are deliberately published. Checks are limited to 30/hour per IP and a configurable daily cap.

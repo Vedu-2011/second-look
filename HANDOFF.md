@@ -2,6 +2,77 @@
 Claude Code adds a new entry at the top after every task (format in ~/Hackathons/CLAUDE.md).
 The planner reads this file when Vedhanth says "handoffs". Never delete old entries.
 
+## 2026-11-10 — Phase 4: NIH consumer-photo benchmark — prompts/phase-4.md
+
+BUILDER: Codex
+HANDOFF — Phase 4
+STATUS: PARTIAL — implementation and cached measurements complete; final tests, screenshots and production deployment are being verified.
+
+WHAT I DID
+- Resumed the uncommitted phase-4 work on `feat/phase-4-codex`. Reused every completed reading in `research/out`; the resumed run made zero paid model calls. Recomputed the report, CSV and source hashes with ANTHROPIC_API_KEY unset. The cost ledger SHA256 was identical before/after: `7967d045fb14c7ee4f421029265d042d0ece1ef64a66e241d7ff3425d0348ba2`.
+- Added a seeded, auditable NIH consumer-photo benchmark: 200 photos, 100 distinct NDC products, 400 balanced pairs (200 right + 200 wrong). Of the wrong pairs, 168 are hard look-alikes and 32 easy negatives. Wrong labels must represent different generic medicines, not another manufacturer of the same drug. Hard pairs share FDA color and shape and have different, non-equivalent imprints.
+- Ground truth uses our RxNav client with ndcstatus=ALL. Exact URLs, image hashes, exclusions, full recorded FDA product groups, model caches, raw baseline replies and token-cost ledger are committed; downloaded images and full index remain ignored.
+- Built /research with three charts, all five method rows, visible abstention counts, the baseline tradeoff, limitations, and links to the report/CSV. Added footer, sources, home and README links/headline. No invented or rounded-up success rate.
+- Preserved the planner's `prompts/phase-4.md` and `docs/TIMELINE.md` edits.
+
+FINAL VERIFICATION METRICS
+N = 200 images / 100 products / 400 pairs. Seed 20261109. Production prompt pill-v1.
+Models: claude-sonnet-5-5 and claude-haiku-5-5. Direct-AI baseline uses Sonnet only.
+
+| Method | Wrong caught / 200 | False alarms / 200 right | Right passed / 200 | Unsure / 400 | Wrong unsure / 200 | Easy caught / 32 | Hard caught / 168 |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| Sonnet pipeline | 77 (38.5%) | 2 (1%) | 64 (32%) | 257 | 123 | 10 | 67 |
+| Sonnet, no folding | 77 (38.5%) | 2 (1%) | 64 (32%) | 257 | 123 | 10 | 67 |
+| Haiku pipeline | 56 (28%) | 6 (3%) | 41 (20.5%) | 297 | 144 | 7 | 49 |
+| Haiku, no folding | 56 (28%) | 6 (3%) | 41 (20.5%) | 297 | 144 | 7 | 49 |
+| Direct Sonnet | 91 (45.5%) | 9 (4.5%) | 49 (24.5%) | 248 | 106 | 28 | 63 |
+
+Every denominator retains UNSURE. The pipeline incorrectly passed zero wrong pairs in this cohort; direct AI incorrectly passed 3 hard wrong pairs. This is not a safety guarantee. The report also lists every easy/hard catch, abstention and incorrect pass.
+
+| Reader (200 photos each) | Exact imprint | Close | Wrong | No read | Color agrees | Shape agrees | Reader errors |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| Sonnet | 119 | 1 | 26 | 54 | 157 | 184 | 8 |
+| Haiku | 94 | 0 | 56 | 50 | 147 | 178 | 15 |
+
+SKIPS, SPEND AND TIME
+- 32 candidate products skipped before model reading: 5 lacked an FDA imprint/product; 27 had no resolvable drug group. All are individually listed in DATA.md. 67 retained products are inactive/discontinued. All retained products have a single part in the NIH index.
+- Total estimated spend = $6.6680584, including the failed initial baseline configuration. Hard cap $8. Sonnet reading averages 2.858 seconds and $0.010800 per new image/check; Haiku 3.809 seconds and $0.000764. Final direct baseline averages 1.436 seconds and $0.004862 per pair. One cached reading serves two benchmark pairs. Times exclude upload, label reading, FDA lookup, explanation and UI.
+- The initial direct baseline used default adaptive thinking with max_tokens=128: 382/400 replies were nonconforming, including 381 empty replies. This was a configuration/output-budget failure, not a detection result. All 400 baseline pairs were rerun, without choosing by correctness, using `thinking.type=between_tools`, `output_config.effort=high`, max_tokens=128. Both versions remain in baseline.json and all spend is included. The final version has one nonconforming reply, counted UNSURE. Different reasoning settings mean this is a comparison of system configurations, not an isolated causal effect of deterministic code.
+
+EXACT ENGINE CHANGES AND NO-TUNING AUDIT — requested explicitly by Vedhanth
+1. `src/lib/match/imprint.ts`: added optional third parameter `fold = true` to compareImprint. Wrapped only the pre-existing confusable-character comparison in `fold && ...`. Exact matching, token normalization, stopwords, side-order handling and the confusable-character map were not changed.
+2. `src/lib/verdict-engine.ts`: added optional fourth parameter `fold = true` to decide; added the same default to its private score helper; forwarded the flag into compareImprint and through scoring for the expected/reference product, exact label product, same-drug alternatives, and guess/identification candidates. No confidence thresholds, rankings, appearance rules, verdict conditions, source handling or reason wording changed.
+3. Why: expose the required folding-off ablation without forking the engine. Every production caller omits the flag, so production remains folding-on.
+4. Independently extracted the original engine and imprint matcher from pre-phase HEAD `ff4ea86`, evaluated original versus current default-on implementations on all 400 pairs for both cached models, and deep-compared the full EngineResult objects: PASS, 800/800 identical, including verdicts, reasons and feature rows. Temporary comparison files were then removed. No model calls were made.
+5. NO engine tuning, threshold tuning, prompt tuning or schema tuning was performed on these photos. The existing production readers/prompts/schemas are unchanged. This cohort was used only for evaluation; no photo was removed because its answer was poor. Baseline configuration repair above is disclosed, not hidden. Pair-rule hardening excludes equivalent imprints; an audit found zero changes to the selected pairs. Reporting-only changes add easy/hard abstentions and incorrect passes.
+6. If any future reader/matcher change is developed using this cohort, treat these photos as development data. Sample a disjoint, never-tuned-on cohort for the final performance numbers; do not reuse these results as a fresh holdout.
+
+PROBLEMS / WHAT THE NUMBERS ACTUALLY SAY
+- The Sonnet pipeline catches only 38.5% of wrong pairs and passes only 32% of right pairs. Its 257/400 abstentions are a serious usability limitation. Direct AI catches more wrong pills (45.5%) but has more false alarms (4.5% versus 1%); do not claim an overall accuracy win for “code decides.”
+- Haiku is cheaper but weaker on this test; its mean observed reading latency is also slower. Folding produced no verification-outcome benefit on this cohort. Do not invent an ablation gain.
+- Production validation rejected some overlong imprint/shape/form strings, even after the normal retry; those failures stay in the denominators as no-read/UNSURE. Single views can hide the imprint. Blank-side photos remain included.
+- Limits: 2016-era public NIH archive; changed/discontinued product records; controlled single-pill backgrounds; no size measurement; known label NDC rather than label OCR; correlated observations (two photos/product, two pairs/photo); possible model-training overlap. This is an engineering benchmark, not independent clinical validation or errors prevented.
+- Suggested improvements, not implemented here: tighter transcription instructions/schema descriptions, crop and lighting guidance, and optional second-side capture. Develop separately and evaluate on a fresh held-out set.
+
+FILES CREATED / CHANGED
+- New: `scripts/research.ts`; `src/lib/research{,-budget,-results}.ts`; `src/lib/research.test.ts`; `src/app/research/page.tsx`; `src/components/research-charts.tsx`.
+- New research artifacts: `research/{DATA,REPORT}.md`, `research/out/{cohort,results,cost,baseline,readings-claude-sonnet-5-5,readings-claude-haiku-5-5}.json`, `research/out/pairs.csv`.
+- Updated: engine/matcher ONLY as listed above; home/sources/footer/README links; package files (+Recharts/research command); .gitignore. Screenshots in `docs/screenshots/phase-4/`.
+
+TESTS / REVIEW
+- Prior run passed 142 tests / 22 files, lint, TypeScript and production build. Final resumed checks are pending for the reporting-only additions.
+- Original-engine equivalence audit: PASS 800/800 full results; no production drift.
+- Cached reproduction with ANTHROPIC_API_KEY unset: PASS, zero paid calls; cost ledger unchanged.
+- Earlier review findings fixed: incomplete result publication guard; explicit baseline reasoning configuration; conservative token-count/in-flight budget reservations in place of flat $0.10; equivalent-imprint negative exclusion; explicit unfavorable results/abstentions. Latest Codex review asked for artifact regeneration after source changes: fixed by cached regeneration, without new readings. Final source hashes must match committed implementation.
+
+HOW TO TEST / CURRENT STATE
+- Final local tests, build, screenshots and production checks are being completed before the final DONE update.
+- Production currently remains phase 3 until the reviewed feature branch is pushed to main, explicitly authorized by prompts/phase-4.md.
+- Planner has NOT been contacted. Real bottle-photo sample folders remain empty; phase 3's recorded examples are unchanged.
+
+OPEN QUESTIONS / SUGGESTED NEXT STEP
+- Phase 5 accessibility/demo polish; present the research as an honest tradeoff and uncertainty result. Any accuracy improvement needs a separate development set plus a fresh final holdout. Vedhanth still needs to supply real bottle photos for samples.
+
 ## 2026-11-09 9:20 PM PST — Phase 3: labels, samples pipeline, public typed checks — prompts/phase-3.md
 
 BUILDER: Codex

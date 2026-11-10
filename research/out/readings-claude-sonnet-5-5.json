@@ -1,0 +1,4519 @@
+{
+  "pill-v1:bea2a1bda392fbc66b2234b28b6ead3b99cfafd786dd90bc196fb16a00daec90": {
+    "reading": {
+      "imprintSides": [
+        "M 15"
+      ],
+      "imprintConfidence": 0.5,
+      "colors": [
+        "white"
+      ],
+      "colorConfidence": 0.9,
+      "shape": "round",
+      "shapeConfidence": 0.9,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 2432
+  },
+  "pill-v1:3b45734915d6c03035b0950cfdb80bdd9a68dc83a2f9c31c86cd861de72b3a62": {
+    "reading": {
+      "imprintSides": [],
+      "imprintConfidence": 0.2,
+      "colors": [
+        "orange"
+      ],
+      "colorConfidence": 0.9,
+      "shape": "oblong",
+      "shapeConfidence": 0.85,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 2434
+  },
+  "pill-v1:7693947bb8bb22f598cb4156827881949702fac37694cb7ce705131ea94bf92f": {
+    "reading": {
+      "imprintSides": [
+        "300"
+      ],
+      "imprintConfidence": 0.9,
+      "colors": [
+        "orange",
+        "brown"
+      ],
+      "colorConfidence": 0.6,
+      "shape": "oval",
+      "shapeConfidence": 0.9,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 2448
+  },
+  "pill-v1:c56386f6423f460f4722f034b4efcec7f0c12d5ce93b1137fbf5903a9059b4f4": {
+    "reading": {
+      "imprintSides": [
+        "15"
+      ],
+      "imprintConfidence": 0.35,
+      "colors": [
+        "white"
+      ],
+      "colorConfidence": 0.6,
+      "shape": "round",
+      "shapeConfidence": 0.9,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far",
+        "blur"
+      ],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 3150
+  },
+  "pill-v1:4c08eccbb3d5dded32b54b40c83d6f921b85f7faca07ded1bc12b18ff0a1f0ef": {
+    "reading": {
+      "imprintSides": [
+        "93 321"
+      ],
+      "imprintConfidence": 0.6,
+      "colors": [
+        "orange",
+        "pink"
+      ],
+      "colorConfidence": 0.6,
+      "shape": "capsule-shaped",
+      "shapeConfidence": 0.9,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": true,
+      "guess": {
+        "drugName": "Metformin hydrochloride"
+      }
+    },
+    "ms": 3469
+  },
+  "pill-v1:7848cdfa07cbfee4a855be3f98eeb40cb420c29f778e1bb5f7e8b6795820efe5": {
+    "reading": {
+      "imprintSides": [
+        "▽△ 4358"
+      ],
+      "imprintConfidence": 0.8,
+      "colors": [
+        "orange",
+        "brown"
+      ],
+      "colorConfidence": 0.6,
+      "shape": "oval",
+      "shapeConfidence": 0.9,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": false,
+      "guess": {
+        "drugName": "Gleevec (imatinib mesylate)"
+      }
+    },
+    "ms": 3541
+  },
+  "pill-v1:6873b8310c13c9065bf782add2bfc9976de798927f1dad635e4d109050c542f0": {
+    "reading": {
+      "imprintSides": [
+        "M"
+      ],
+      "imprintConfidence": 0.3,
+      "colors": [
+        "white"
+      ],
+      "colorConfidence": 0.7,
+      "shape": "oval",
+      "shapeConfidence": 0.85,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 2440
+  },
+  "pill-v1:954af26b682546778e74a9d7fb03594bd7dfdc006be4dd566949a4ff6afd0484": {
+    "reading": {
+      "imprintSides": [
+        "logo G30"
+      ],
+      "imprintConfidence": 0.6,
+      "colors": [
+        "green"
+      ],
+      "colorConfidence": 0.9,
+      "shape": "capsule",
+      "shapeConfidence": 0.95,
+      "form": "capsule",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "guess": null
+    },
+    "ms": 2834
+  },
+  "pill-v1:f5bc5f1eaa1ac91fcd201165b83921994a122408f34b39595e0c6059a2c8a599": {
+    "reading": {
+      "imprintSides": [
+        "E"
+      ],
+      "imprintConfidence": 0.6,
+      "colors": [
+        "white"
+      ],
+      "colorConfidence": 0.6,
+      "shape": "oval",
+      "shapeConfidence": 0.85,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 2914
+  },
+  "pill-v1:be5b96825aa8ccb456c7310f455d568562e54bd8e571bd681bad397d41b49f5c": {
+    "reading": {
+      "imprintSides": [
+        "G302 with logo"
+      ],
+      "imprintConfidence": 0.5,
+      "colors": [
+        "green"
+      ],
+      "colorConfidence": 0.9,
+      "shape": "capsule",
+      "shapeConfidence": 0.95,
+      "form": "capsule",
+      "pillVisible": true,
+      "multiplePills": true,
+      "photoProblems": [],
+      "guess": null
+    },
+    "ms": 2198
+  },
+  "pill-v1:086803ac655eed6994554d2b3b4c6039313d486d2b1e3ab5fcd1ba78c4ff6c94": {
+    "reading": {
+      "imprintSides": [
+        "KU 486",
+        "200 mg"
+      ],
+      "imprintConfidence": 0.95,
+      "colors": [
+        "purple",
+        "pink"
+      ],
+      "colorConfidence": 0.8,
+      "shape": "capsule",
+      "shapeConfidence": 0.97,
+      "form": "capsule",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [],
+      "guess": {
+        "drugName": "Dipyridamole and aspirin"
+      }
+    },
+    "ms": 2932
+  },
+  "pill-v1:939275840a0fed8d5c70e1681cc1fa8657704f8866750d9bbab2a3c717b69e72": {
+    "reading": {
+      "imprintSides": [
+        "KU 486 200 mg"
+      ],
+      "imprintConfidence": 0.8,
+      "colors": [
+        "purple",
+        "pink"
+      ],
+      "colorConfidence": 0.7,
+      "shape": "capsule",
+      "shapeConfidence": 0.97,
+      "form": "capsule",
+      "pillVisible": true,
+      "multiplePills": true,
+      "photoProblems": [],
+      "guess": {
+        "drugName": "Dofetilide"
+      }
+    },
+    "ms": 2910
+  },
+  "pill-v1:f8666fd7d5ff9fa5092a77a83cdfd6fa5ddf175f81b166ddb3aa634fe64c076d": {
+    "reading": {
+      "imprintSides": [],
+      "imprintConfidence": 0.05,
+      "colors": [
+        "beige"
+      ],
+      "colorConfidence": 0.6,
+      "shape": "round",
+      "shapeConfidence": 0.85,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "guess": null
+    },
+    "ms": 2187
+  },
+  "pill-v1:8342f2d5282763c6452a3a6f436613fedab9229cfa5843dd6cb4a42d25cdbb07": {
+    "reading": {
+      "imprintSides": [
+        "4365"
+      ],
+      "imprintConfidence": 0.85,
+      "colors": [
+        "white"
+      ],
+      "colorConfidence": 0.9,
+      "shape": "round",
+      "shapeConfidence": 0.95,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": true,
+      "guess": null
+    },
+    "ms": 2253
+  },
+  "pill-v1:456c3e783b4a9531c61462219b21d60febfc42fffc20c371cc69de3edb5de98c": {
+    "reading": {
+      "imprintSides": [
+        "TEVA",
+        "4365"
+      ],
+      "imprintConfidence": 0.85,
+      "colors": [
+        "white"
+      ],
+      "colorConfidence": 0.95,
+      "shape": "round",
+      "shapeConfidence": 0.95,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": true,
+      "photoProblems": [],
+      "scored": true,
+      "guess": null
+    },
+    "ms": 3175
+  },
+  "pill-v1:6bacf8bb4ad4448d66494ce51831e76643360bbf72cefcc7f9a4f8c89ffe4457": {
+    "reading": {
+      "imprintSides": [
+        "M / S23"
+      ],
+      "imprintConfidence": 0.6,
+      "colors": [
+        "white"
+      ],
+      "colorConfidence": 0.6,
+      "shape": "round",
+      "shapeConfidence": 0.95,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": true,
+      "guess": null
+    },
+    "ms": 2962
+  },
+  "pill-v1:b3bc3cb72755a60a1b5759d07a0de0e96a44c58751d80c924b4f9d52310873c3": {
+    "reading": {
+      "imprintSides": [],
+      "imprintConfidence": 0.05,
+      "colors": [
+        "off-white"
+      ],
+      "colorConfidence": 0.6,
+      "shape": "round",
+      "shapeConfidence": 0.85,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "guess": null
+    },
+    "ms": 2306
+  },
+  "pill-v1:af6e529d373c095c82676bd79ff518368e02bf6815d65428051ab420692d968e": {
+    "reading": {
+      "imprintSides": [
+        "T26",
+        ""
+      ],
+      "imprintConfidence": 0.8,
+      "colors": [
+        "white"
+      ],
+      "colorConfidence": 0.8,
+      "shape": "round",
+      "shapeConfidence": 0.9,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": true,
+      "photoProblems": [],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 2779
+  },
+  "pill-v1:2a48cb9b7021ef7042c35a922fd5e6c3577d7a1c2a1256b59b4a9d8220f1c4f7": {
+    "reading": {
+      "imprintSides": [
+        "A"
+      ],
+      "imprintConfidence": 0.4,
+      "colors": [
+        "pink"
+      ],
+      "colorConfidence": 0.9,
+      "shape": "oblong",
+      "shapeConfidence": 0.85,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 2969
+  },
+  "pill-v1:8b0eca84a04e2dc4c4851ecf571d687bcc175714aee9723c5ba34fe67ac25a3d": {
+    "reading": {
+      "imprintSides": [
+        "L 750"
+      ],
+      "imprintConfidence": 0.8,
+      "colors": [
+        "gray"
+      ],
+      "colorConfidence": 0.6,
+      "shape": "oblong",
+      "shapeConfidence": 0.8,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": true,
+      "guess": {
+        "drugName": "Levetiracetam",
+        "strength": "750 mg"
+      }
+    },
+    "ms": 2478
+  },
+  "pill-v1:881d6e2cb4447b70b1dc23a1e00cb23c97de7ae01fec9f93d7b77dd4f788fa13": {
+    "reading": {
+      "imprintSides": [
+        "L 750"
+      ],
+      "imprintConfidence": 0.9,
+      "colors": [
+        "blue"
+      ],
+      "colorConfidence": 0.6,
+      "shape": "oval",
+      "shapeConfidence": 0.8,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": false,
+      "guess": {
+        "drugName": "Levetiracetam",
+        "strength": "750 mg"
+      }
+    },
+    "ms": 2259
+  },
+  "pill-v1:5c2df2d9f56bc88713eb9f5a2b429735b090d693f71460ce6802257f040a4314": {
+    "reading": {
+      "imprintSides": [
+        "25"
+      ],
+      "imprintConfidence": 0.8,
+      "colors": [
+        "white"
+      ],
+      "colorConfidence": 0.8,
+      "shape": "round",
+      "shapeConfidence": 0.95,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": true,
+      "guess": null
+    },
+    "ms": 2986
+  },
+  "pill-v1:8e9fac69c17385a88105d77449fa19597a353cfed1a1994b2df4fc302ddef803": {
+    "reading": {
+      "imprintSides": [
+        "25"
+      ],
+      "imprintConfidence": 0.8,
+      "colors": [
+        "off-white"
+      ],
+      "colorConfidence": 0.6,
+      "shape": "round",
+      "shapeConfidence": 0.95,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": true,
+      "guess": null
+    },
+    "ms": 3320
+  },
+  "pill-v1:9cb93d8f1c2d40f3692068dbb65c74bcd8143d608a7b6ce258e37442cc9b6d92": {
+    "reading": {
+      "imprintSides": [
+        "LUPIN"
+      ],
+      "imprintConfidence": 0.8,
+      "colors": [
+        "orange"
+      ],
+      "colorConfidence": 0.6,
+      "shape": "oval",
+      "shapeConfidence": 0.85,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 2137
+  },
+  "pill-v1:2470c1489b7cf16675de67cce14781bf77d22b7f9751ac0eb75557cf0dd5fbb4": {
+    "reading": {
+      "imprintSides": [
+        "A (Abbott-style arch logo, debossed)"
+      ],
+      "imprintConfidence": 0.5,
+      "colors": [
+        "pink"
+      ],
+      "colorConfidence": 0.9,
+      "shape": "oval",
+      "shapeConfidence": 0.8,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 5165
+  },
+  "pill-v1:7e482c9dc1f7ac0459f58872cbab97274e652c503e2b235438121722b34f332c": {
+    "reading": {
+      "imprintSides": [
+        "GX CL2",
+        "scored, no imprint"
+      ],
+      "imprintConfidence": 0.6,
+      "colors": [
+        "white"
+      ],
+      "colorConfidence": 0.95,
+      "shape": "oval",
+      "shapeConfidence": 0.85,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": true,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": true,
+      "guess": {
+        "drugName": "Lamotrigine"
+      }
+    },
+    "ms": 2329
+  },
+  "pill-v1:e7fe4f0f7e9e06485fc6bed1e91e67137531690348b775e2d8cdb739dd6699c1": {
+    "reading": {
+      "imprintSides": [
+        "LUPIN"
+      ],
+      "imprintConfidence": 0.8,
+      "colors": [
+        "orange"
+      ],
+      "colorConfidence": 0.5,
+      "shape": "oval",
+      "shapeConfidence": 0.85,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 2651
+  },
+  "pill-v1:ffa0a3f677c2117e5ff31cd3ca6521be64717d0a71a6ef915e60dbf1ec2c50da": {
+    "reading": {
+      "imprintSides": [
+        ""
+      ],
+      "imprintConfidence": 0.1,
+      "colors": [
+        "white"
+      ],
+      "colorConfidence": 0.7,
+      "shape": "oval",
+      "shapeConfidence": 0.6,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": true,
+      "guess": null
+    },
+    "ms": 2262
+  },
+  "pill-v1:60762f808811adad215bbadd32ab20e54491cec3953477e51eae54a0d8cbbc86": {
+    "reading": {
+      "imprintSides": [
+        "C 10"
+      ],
+      "imprintConfidence": 0.8,
+      "colors": [
+        "yellow"
+      ],
+      "colorConfidence": 0.7,
+      "shape": "teardrop",
+      "shapeConfidence": 0.8,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": false,
+      "guess": {
+        "drugName": "Cialis (tadalafil)",
+        "strength": "10 mg"
+      }
+    },
+    "ms": 2971
+  },
+  "pill-v1:f3b29b1c6436350f69da8cc3805b8ca922c5d1af8ca22b9d5171dee629f085bf": {
+    "reading": {
+      "imprintSides": [],
+      "imprintConfidence": 0.05,
+      "colors": [
+        "beige",
+        "yellow"
+      ],
+      "colorConfidence": 0.6,
+      "shape": "teardrop",
+      "shapeConfidence": 0.75,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "guess": null
+    },
+    "ms": 2891
+  },
+  "pill-v1:dcfe7f4f03c033c0ca7ba5cde2389c3044397cefea62d9ce80a0ac11920f4096": {
+    "reading": {
+      "imprintSides": [],
+      "imprintConfidence": 0.3,
+      "colors": [
+        "blue",
+        "white"
+      ],
+      "colorConfidence": 0.95,
+      "shape": "capsule",
+      "shapeConfidence": 0.97,
+      "form": "capsule",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [],
+      "guess": null
+    },
+    "ms": 2879
+  },
+  "pill-v1:30852123ae40ee59003d1aedbc182da211f4ffedf954a157b73a6fa5157ba06c": {
+    "reading": {
+      "imprintSides": [],
+      "imprintConfidence": 0.6,
+      "colors": [
+        "orange",
+        "yellow"
+      ],
+      "colorConfidence": 0.9,
+      "shape": "capsule",
+      "shapeConfidence": 0.95,
+      "form": "capsule",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [],
+      "guess": null
+    },
+    "ms": 2702
+  },
+  "pill-v1:dce61a87eae45b6b3606182bc41b65f4aad74968d8a8000ec669f37e9edac98b": {
+    "reading": {
+      "imprintSides": [],
+      "imprintConfidence": 0.3,
+      "colors": [
+        "red",
+        "yellow"
+      ],
+      "colorConfidence": 0.85,
+      "shape": "capsule",
+      "shapeConfidence": 0.95,
+      "form": "capsule",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "guess": null
+    },
+    "ms": 2222
+  },
+  "pill-v1:bb36cea8ff299334d008f2e651e583559c4eba8196876fb5a4cf5515d8f44234": {
+    "reading": {
+      "imprintSides": [
+        "logo (striped inverted triangle) 40"
+      ],
+      "imprintConfidence": 0.6,
+      "colors": [
+        "blue",
+        "white"
+      ],
+      "colorConfidence": 0.9,
+      "shape": "capsule",
+      "shapeConfidence": 0.95,
+      "form": "capsule",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "guess": {
+        "drugName": "Zyprexa? no — Geodon (ziprasidone)",
+        "strength": "40 mg"
+      }
+    },
+    "ms": 3737
+  },
+  "pill-v1:b757e72b24db06fe3c5e8abf6949929984b7d3457f4b4919445666ccd20bc7e9": {
+    "reading": {
+      "imprintSides": [
+        "WPI 900"
+      ],
+      "imprintConfidence": 0.85,
+      "colors": [
+        "yellow"
+      ],
+      "colorConfidence": 0.9,
+      "shape": "round",
+      "shapeConfidence": 0.9,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 2147
+  },
+  "pill-v1:eaefa5eecf5a7628b4687b14f1b26d3baaadacb1889dc378d2eb0ac39b375aa2": {
+    "reading": {
+      "imprintSides": [
+        "WPI 900"
+      ],
+      "imprintConfidence": 0.9,
+      "colors": [
+        "yellow"
+      ],
+      "colorConfidence": 0.9,
+      "shape": "round",
+      "shapeConfidence": 0.9,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [],
+      "scored": false,
+      "guess": {
+        "drugName": "Bupropion hydrochloride"
+      }
+    },
+    "ms": 2132
+  },
+  "pill-v1:a79ea04d0ac82045bf3a4633423b539d9e1fc92b09b2c66eef3b12299bb49566": {
+    "reading": {
+      "imprintSides": [
+        "135"
+      ],
+      "imprintConfidence": 0.7,
+      "colors": [
+        "off-white"
+      ],
+      "colorConfidence": 0.5,
+      "shape": "oval",
+      "shapeConfidence": 0.85,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 2062
+  },
+  "pill-v1:ee08ba4ab2424a1ceddb5623c2bc37198340691fe84172e2ef49c6b1d3fb2798": {
+    "reading": {
+      "imprintSides": [
+        "barr 24 mg 1022"
+      ],
+      "imprintConfidence": 0.8,
+      "colors": [
+        "gray",
+        "beige"
+      ],
+      "colorConfidence": 0.5,
+      "shape": "capsule",
+      "shapeConfidence": 0.97,
+      "form": "capsule",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "guess": {
+        "drugName": "Galantamine hydrochloride extended-release",
+        "strength": "24 mg"
+      }
+    },
+    "ms": 2312
+  },
+  "pill-v1:5919c424e261d97555440b1756a664ad08d4fe45e3399479d440351ed4b7984b": {
+    "reading": {
+      "imprintSides": [
+        "TV"
+      ],
+      "imprintConfidence": 0.8,
+      "colors": [
+        "white"
+      ],
+      "colorConfidence": 0.9,
+      "shape": "oval",
+      "shapeConfidence": 0.9,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 2809
+  },
+  "pill-v1:31ff898d6d7ebbba5fc4852dfa5bc83acf7d242d6163b5f50758e805fc8bfb66": {
+    "reading": {
+      "imprintSides": [],
+      "imprintConfidence": 0.2,
+      "colors": [
+        "brown",
+        "beige"
+      ],
+      "colorConfidence": 0.5,
+      "shape": "capsule",
+      "shapeConfidence": 0.95,
+      "form": "capsule",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "guess": null
+    },
+    "ms": 2314
+  },
+  "pill-v1:571bb48b777caaaa09924a63c81c3792f7de9d8ee91f5bf9aadb1bb4d9079d89": {
+    "reading": {
+      "imprintSides": [
+        ""
+      ],
+      "imprintConfidence": 0.1,
+      "colors": [
+        "green"
+      ],
+      "colorConfidence": 0.6,
+      "shape": "round",
+      "shapeConfidence": 0.8,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "guess": null
+    },
+    "ms": 2062
+  },
+  "pill-v1:bc89f55e9e2c39d171c1d35d8f07fd83be69d81164b061eec1c88a575e2c4bd6": {
+    "reading": {
+      "imprintSides": [
+        "10"
+      ],
+      "imprintConfidence": 0.3,
+      "colors": [
+        "white"
+      ],
+      "colorConfidence": 0.4,
+      "shape": "round",
+      "shapeConfidence": 0.85,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far",
+        "blur"
+      ],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 2132
+  },
+  "pill-v1:e229f925d3dd1b34135e485274901d2325a5b84a857567fc37bbe52164b14d75": {
+    "reading": {
+      "imprintSides": [
+        "MP 25"
+      ],
+      "imprintConfidence": 0.8,
+      "colors": [
+        "green"
+      ],
+      "colorConfidence": 0.9,
+      "shape": "round",
+      "shapeConfidence": 0.95,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": false,
+      "guess": {
+        "drugName": "Chlorthalidone",
+        "strength": "25 mg"
+      }
+    },
+    "ms": 2356
+  },
+  "pill-v1:31f0ef0f12832f174f97b25785a154b2fcb05bacdeeda64a60f500d56b6b6a47": {
+    "reading": {
+      "imprintSides": [
+        "10"
+      ],
+      "imprintConfidence": 0.6,
+      "colors": [
+        "white"
+      ],
+      "colorConfidence": 0.9,
+      "shape": "round",
+      "shapeConfidence": 0.9,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 2869
+  },
+  "pill-v1:6d45e822c83bcbe213484f3c1e7e96419ba2db6fb71a7771bd2b05147012b07a": {
+    "reading": {
+      "imprintSides": [],
+      "imprintConfidence": 0.3,
+      "colors": [
+        "green"
+      ],
+      "colorConfidence": 0.85,
+      "shape": "capsule",
+      "shapeConfidence": 0.95,
+      "form": "capsule",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "guess": null
+    },
+    "ms": 2846
+  },
+  "pill-v1:3d3f45b8af57cef773b4520aaed7a91594ee7f2e7989bc85864c12b332c6d932": {
+    "reading": {
+      "imprintSides": [
+        "R 2578"
+      ],
+      "imprintConfidence": 0.6,
+      "colors": [
+        "green"
+      ],
+      "colorConfidence": 0.6,
+      "shape": "capsule",
+      "shapeConfidence": 0.95,
+      "form": "capsule",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "guess": null
+    },
+    "ms": 3058
+  },
+  "pill-v1:9a3edf38522ad9270f702c6d65cad78bc69f2c07952354fcd6b0c9b1fb4c6ac3": {
+    "reading": {
+      "imprintSides": [
+        "",
+        ""
+      ],
+      "imprintConfidence": 0.5,
+      "colors": [
+        "orange"
+      ],
+      "colorConfidence": 0.85,
+      "shape": "oval",
+      "shapeConfidence": 0.7,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 2406
+  },
+  "pill-v1:1e8283f3af891819820a15564396de276502dfaa7544bd2985721f7f8a853668": {
+    "reading": {
+      "imprintSides": [
+        "M L"
+      ],
+      "imprintConfidence": 0.6,
+      "colors": [
+        "pink"
+      ],
+      "colorConfidence": 0.85,
+      "shape": "round",
+      "shapeConfidence": 0.9,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 3097
+  },
+  "pill-v1:103ecfbc340228eab91013d1728d3064331f9d74e91ae41f4e97b059ae52885f": {
+    "reading": {
+      "imprintSides": [
+        "GSFC2"
+      ],
+      "imprintConfidence": 0.85,
+      "colors": [
+        "orange"
+      ],
+      "colorConfidence": 0.95,
+      "shape": "oval",
+      "shapeConfidence": 0.85,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [],
+      "scored": false,
+      "guess": {
+        "drugName": "Epzicom (abacavir sulfate and lamivudine)",
+        "strength": "600 mg/300 mg"
+      }
+    },
+    "ms": 3652
+  },
+  "pill-v1:fe4e9f4ef59a964ca74f569c5fa637f1a9b12fe2c6171d1b9b80843a743f656b": {
+    "reading": {
+      "imprintSides": [
+        "93",
+        "7158"
+      ],
+      "imprintConfidence": 0.93,
+      "colors": [
+        "yellow"
+      ],
+      "colorConfidence": 0.92,
+      "shape": "oval",
+      "shapeConfidence": 0.93,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": true,
+      "photoProblems": [],
+      "scored": false,
+      "guess": {
+        "drugName": "Levofloxacin"
+      }
+    },
+    "ms": 2173
+  },
+  "pill-v1:392c305f3a570a4b8b67205d917e4a39420e0377a2f3ab0751942b42ea554aa2": {
+    "reading": {
+      "imprintSides": [
+        "326"
+      ],
+      "imprintConfidence": 0.6,
+      "colors": [
+        "orange",
+        "pink"
+      ],
+      "colorConfidence": 0.6,
+      "shape": "round",
+      "shapeConfidence": 0.95,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 2748
+  },
+  "pill-v1:95f121d565e39553ca8a88e165e951d201c5ce4d803cbc6644343e5a31129e5f": {
+    "reading": {
+      "imprintSides": [
+        "7158"
+      ],
+      "imprintConfidence": 0.8,
+      "colors": [
+        "yellow"
+      ],
+      "colorConfidence": 0.8,
+      "shape": "oval",
+      "shapeConfidence": 0.9,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 2822
+  },
+  "pill-v1:70a74872ee0e8c25a2da29f2853384006b2ac54d00641fb381956a1d8e0d9161": {
+    "reading": {
+      "imprintSides": [],
+      "imprintConfidence": 0.1,
+      "colors": [
+        "red",
+        "white"
+      ],
+      "colorConfidence": 0.9,
+      "shape": "capsule",
+      "shapeConfidence": 0.95,
+      "form": "capsule",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "guess": null
+    },
+    "ms": 2960
+  },
+  "pill-v1:29bd1564bbfdab3800d84a40fd1189b5f33f0e7d2fc4d7c445798bd890718457": {
+    "reading": {
+      "imprintSides": [],
+      "imprintConfidence": 0.5,
+      "colors": [
+        "pink"
+      ],
+      "colorConfidence": 0.9,
+      "shape": "capsule",
+      "shapeConfidence": 0.95,
+      "form": "capsule",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [],
+      "guess": null
+    },
+    "ms": 2679
+  },
+  "pill-v1:9731ce391609a3aaf874edfc3d22e2bd4352249d62cc162ea23ef1e106f64871": {
+    "reading": {
+      "imprintSides": [
+        "74338 5 mg"
+      ],
+      "imprintConfidence": 0.35,
+      "colors": [
+        "red",
+        "white"
+      ],
+      "colorConfidence": 0.85,
+      "shape": "capsule",
+      "shapeConfidence": 0.95,
+      "form": "capsule",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "guess": null
+    },
+    "ms": 3026
+  },
+  "pill-v1:a2900fa0422bb9d320d182b3ac5be2c8d99a7a6abe07c92bc373d8d65eafe4e8": {
+    "reading": {
+      "imprintSides": [
+        ""
+      ],
+      "imprintConfidence": 0.5,
+      "colors": [
+        "orange"
+      ],
+      "colorConfidence": 0.8,
+      "shape": "capsule",
+      "shapeConfidence": 0.95,
+      "form": "capsule",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "guess": null
+    },
+    "ms": 2205
+  },
+  "pill-v1:97b186b6787d039e09eec2de36cbff5a1aef25b316256d50fc9a9c201005b12f": {
+    "reading": {
+      "imprintSides": [
+        "93 7436",
+        "93 7436"
+      ],
+      "imprintConfidence": 0.8,
+      "colors": [
+        "orange"
+      ],
+      "colorConfidence": 0.8,
+      "shape": "capsule",
+      "shapeConfidence": 0.95,
+      "form": "capsule",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "guess": null
+    },
+    "ms": 3037
+  },
+  "pill-v1:7954d19730b8683fdcea129c8c9eafb760a1faf4d4007065f2b35d121b03074c": {
+    "reading": {
+      "imprintSides": [
+        "▽△ 4405"
+      ],
+      "imprintConfidence": 0.6,
+      "colors": [
+        "off-white"
+      ],
+      "colorConfidence": 0.6,
+      "shape": "oval",
+      "shapeConfidence": 0.9,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 2263
+  },
+  "pill-v1:ae53d1e675b8cb3f99e6bdf75d4fc045d699932161a52f42434524c3e1c28271": {
+    "reading": {
+      "imprintSides": [],
+      "imprintConfidence": 0.05,
+      "colors": [
+        "pink"
+      ],
+      "colorConfidence": 0.7,
+      "shape": "capsule",
+      "shapeConfidence": 0.95,
+      "form": "capsule",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far",
+        "blur"
+      ],
+      "guess": null
+    },
+    "ms": 3623
+  },
+  "pill-v1:cb48cd0366c3b3fef136bc0488e3633ffcceb42b53cc41b1ab1f596d0fca5a51": {
+    "reading": {
+      "imprintSides": [],
+      "imprintConfidence": 0.1,
+      "colors": [
+        "yellow",
+        "purple"
+      ],
+      "colorConfidence": 0.75,
+      "shape": "capsule",
+      "shapeConfidence": 0.95,
+      "form": "capsule",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "guess": null
+    },
+    "ms": 2700
+  },
+  "pill-v1:a199b67fe99513371dcc21aedc05c874ca856a497f593bbc403c6d7430780a93": {
+    "reading": {
+      "imprintSides": [
+        "MYLAN 2260 MYLAN 2260"
+      ],
+      "imprintConfidence": 0.85,
+      "colors": [
+        "yellow",
+        "gray"
+      ],
+      "colorConfidence": 0.7,
+      "shape": "capsule",
+      "shapeConfidence": 0.95,
+      "form": "capsule",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "guess": null
+    },
+    "ms": 2749
+  },
+  "pill-v1:9e6f1f36fe98d17f55c1b5e7244ab9b44676f293c13c824688b9d7d2940c44b6": {
+    "reading": {
+      "imprintSides": [
+        "500"
+      ],
+      "imprintConfidence": 0.6,
+      "colors": [
+        "off-white",
+        "yellow"
+      ],
+      "colorConfidence": 0.4,
+      "shape": "round",
+      "shapeConfidence": 0.85,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 3051
+  },
+  "pill-v1:1ad42bd0a231fb7b3728c7c25a5b240808a6700fc384518999b987dd2e74ebc2": {
+    "reading": {
+      "imprintSides": [
+        "500"
+      ],
+      "imprintConfidence": 0.93,
+      "colors": [
+        "white"
+      ],
+      "colorConfidence": 0.95,
+      "shape": "round",
+      "shapeConfidence": 0.93,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 2835
+  },
+  "pill-v1:874ebcffba58805ae962ab5b8cc6eb217557addf41bccbb76b6402656757634b": {
+    "reading": {
+      "imprintSides": [
+        "RX 829",
+        ""
+      ],
+      "imprintConfidence": 0.8,
+      "colors": [
+        "white"
+      ],
+      "colorConfidence": 0.9,
+      "shape": "oval",
+      "shapeConfidence": 0.9,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": true,
+      "photoProblems": [],
+      "scored": false,
+      "guess": {
+        "drugName": "Tramadol hydrochloride and acetaminophen"
+      }
+    },
+    "ms": 2898
+  },
+  "pill-v1:bf84bbb281cf30632f05d735b4c1d18584177b41dbc5798b27d2c0e9b508fd5f": {
+    "reading": {
+      "imprintSides": [
+        "RX 829"
+      ],
+      "imprintConfidence": 0.6,
+      "colors": [
+        "white"
+      ],
+      "colorConfidence": 0.8,
+      "shape": "oval",
+      "shapeConfidence": 0.9,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 2224
+  },
+  "pill-v1:b951d34a9cbe4ac80e9644f9e77a71244b295e0f32350d3ca9cbaa7f8a28ff3d": {
+    "reading": {
+      "imprintSides": [
+        "N",
+        "500"
+      ],
+      "imprintConfidence": 0.85,
+      "colors": [
+        "white"
+      ],
+      "colorConfidence": 0.8,
+      "shape": "oval",
+      "shapeConfidence": 0.8,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": true,
+      "photoProblems": [],
+      "scored": false,
+      "guess": {
+        "drugName": "Naproxen",
+        "strength": "500 mg"
+      }
+    },
+    "ms": 2270
+  },
+  "pill-v1:c7ec52ac6ddd0f5d5cdfc55e947a25b533ac861f400a3939f8faaaec492fb2f3": {
+    "reading": {
+      "imprintSides": [],
+      "imprintConfidence": 0,
+      "colors": [],
+      "colorConfidence": 0,
+      "shape": "",
+      "shapeConfidence": 0,
+      "guess": null
+    },
+    "ms": 5706,
+    "error": "The AI reading was not valid after one retry: [\n  {\n    \"origin\": \"string\",\n    \"code\": \"too_big\",\n    \"maximum\": 40,\n    \"inclusive\": true,\n    \"path\": [\n      \"imprintSides\",\n      0\n    ],\n    \"message\": \"Too big: expected string to have <=40 characters\"\n  }\n]"
+  },
+  "pill-v1:2d1b1e5f8f8e84d62b114d0ff76a4b467152aeeacf999a831a000febd74ebd57": {
+    "reading": {
+      "imprintSides": [
+        "SB"
+      ],
+      "imprintConfidence": 0.45,
+      "colors": [
+        "beige",
+        "brown"
+      ],
+      "colorConfidence": 0.6,
+      "shape": "round",
+      "shapeConfidence": 0.85,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 2379
+  },
+  "pill-v1:25b76f6caaf6756723258b7c07ec3998fecc480a3f425355d3ca82b4c8cf6c60": {
+    "reading": {
+      "imprintSides": [
+        "N"
+      ],
+      "imprintConfidence": 0.6,
+      "colors": [
+        "off-white"
+      ],
+      "colorConfidence": 0.6,
+      "shape": "oval",
+      "shapeConfidence": 0.6,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 2682
+  },
+  "pill-v1:dd9b4f92c3af5fcd4fa1d90ac01206b1cb81c678ece2a5338b3ef45c25a49ccb": {
+    "reading": {
+      "imprintSides": [
+        "S3"
+      ],
+      "imprintConfidence": 0.35,
+      "colors": [
+        "beige",
+        "brown"
+      ],
+      "colorConfidence": 0.6,
+      "shape": "round",
+      "shapeConfidence": 0.8,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 2873
+  },
+  "pill-v1:12f8d25e2618b0d87f635eed97df8e4cfb2b6aa711a8ae725cf54c6ce0805bea": {
+    "reading": {
+      "imprintSides": [
+        "SANKYO",
+        "C15"
+      ],
+      "imprintConfidence": 0.85,
+      "colors": [
+        "white"
+      ],
+      "colorConfidence": 0.92,
+      "shape": "oval",
+      "shapeConfidence": 0.9,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": true,
+      "photoProblems": [],
+      "scored": false,
+      "guess": {
+        "drugName": "Benicar (olmesartan medoxomil)"
+      }
+    },
+    "ms": 2312
+  },
+  "pill-v1:aef92aac41be9c768d5bf33a71ff07362411d55bde3bb13da54924b3ab31dd6d": {
+    "reading": {
+      "imprintSides": [
+        "C15"
+      ],
+      "imprintConfidence": 0.8,
+      "colors": [
+        "off-white"
+      ],
+      "colorConfidence": 0.6,
+      "shape": "oval",
+      "shapeConfidence": 0.85,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 2026
+  },
+  "pill-v1:5812f2640638147d3b1ca186f1e9418d997a555a3566875b9a8fd262c66c2dff": {
+    "reading": {
+      "imprintSides": [
+        "P251",
+        "(blank, scored)"
+      ],
+      "imprintConfidence": 0.85,
+      "colors": [
+        "white"
+      ],
+      "colorConfidence": 0.9,
+      "shape": "oval",
+      "shapeConfidence": 0.85,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": true,
+      "photoProblems": [],
+      "scored": true,
+      "guess": {
+        "drugName": "Acetaminophen and Codeine Phosphate"
+      }
+    },
+    "ms": 2224
+  },
+  "pill-v1:3e2db1bf40949c508d3b0f11dea93605d61bacb955c7357dc44b7dd126101bf5": {
+    "reading": {
+      "imprintSides": [
+        "▽△ 5711",
+        "2.5/500"
+      ],
+      "imprintConfidence": 0.8,
+      "colors": [
+        "orange",
+        "pink"
+      ],
+      "colorConfidence": 0.6,
+      "shape": "oval",
+      "shapeConfidence": 0.9,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": true,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": false,
+      "guess": {
+        "drugName": "Glipizide and Metformin Hydrochloride",
+        "strength": "2.5 mg/500 mg"
+      }
+    },
+    "ms": 2628
+  },
+  "pill-v1:b07456692ffbe85d9d5cd32badd0f26a5aa82ff5dea0763da22148891bc70931": {
+    "reading": {
+      "imprintSides": [
+        "P 20"
+      ],
+      "imprintConfidence": 0.6,
+      "colors": [
+        "turquoise"
+      ],
+      "colorConfidence": 0.6,
+      "shape": "round",
+      "shapeConfidence": 0.9,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": true,
+      "guess": null
+    },
+    "ms": 2355
+  },
+  "pill-v1:942ea60095bff165164b6c23b4146d1276a346c01e888c1dab60f02c0241b9ee": {
+    "reading": {
+      "imprintSides": [
+        "P251"
+      ],
+      "imprintConfidence": 0.8,
+      "colors": [
+        "white"
+      ],
+      "colorConfidence": 0.9,
+      "shape": "oval",
+      "shapeConfidence": 0.85,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": false,
+      "guess": {
+        "drugName": "Pioglitazone"
+      }
+    },
+    "ms": 2981
+  },
+  "pill-v1:60c0bf908846b3aa127b7d7b483dad6f67f918c0895a6c939aa5520e7774411f": {
+    "reading": {
+      "imprintSides": [
+        "",
+        ""
+      ],
+      "imprintConfidence": 0.3,
+      "colors": [
+        "off-white"
+      ],
+      "colorConfidence": 0.4,
+      "shape": "oval",
+      "shapeConfidence": 0.6,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "guess": null
+    },
+    "ms": 2274
+  },
+  "pill-v1:622e7d4b9f0f73e72a5898df27a30b8a89fed479839c3783180c307d907f0012": {
+    "reading": {
+      "imprintSides": [
+        "2.5/500"
+      ],
+      "imprintConfidence": 0.9,
+      "colors": [
+        "orange"
+      ],
+      "colorConfidence": 0.7,
+      "shape": "oval",
+      "shapeConfidence": 0.9,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": false,
+      "guess": {
+        "drugName": "Glipizide and Metformin Hydrochloride",
+        "strength": "2.5 mg/500 mg"
+      }
+    },
+    "ms": 3114
+  },
+  "pill-v1:1be42dd5dbdba8968c8994ec4af249445fe09d589d030958b36548eab0da60fc": {
+    "reading": {
+      "imprintSides": [
+        "P 20"
+      ],
+      "imprintConfidence": 0.8,
+      "colors": [
+        "blue"
+      ],
+      "colorConfidence": 0.85,
+      "shape": "round",
+      "shapeConfidence": 0.95,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": true,
+      "guess": {
+        "drugName": "Paroxetine",
+        "strength": "20 mg"
+      }
+    },
+    "ms": 3050
+  },
+  "pill-v1:5501bd828d75066004298f477e19ca47b1dad89a093b4aa295756adbc9fc8336": {
+    "reading": {
+      "imprintSides": [
+        ""
+      ],
+      "imprintConfidence": 0.3,
+      "colors": [
+        "green"
+      ],
+      "colorConfidence": 0.9,
+      "shape": "round",
+      "shapeConfidence": 0.8,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 2855
+  },
+  "pill-v1:4adca443a4e5ef41eaddde43b7fa71586f1f83b2fa0049c889f3725799817693": {
+    "reading": {
+      "imprintSides": [
+        "SANKYO C01"
+      ],
+      "imprintConfidence": 0.93,
+      "colors": [
+        "white"
+      ],
+      "colorConfidence": 0.8,
+      "shape": "oblong",
+      "shapeConfidence": 0.85,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": false,
+      "guess": {
+        "drugName": "Benicar (olmesartan medoxomil)"
+      }
+    },
+    "ms": 3280
+  },
+  "pill-v1:2ff9b7271971151445ba343c8ef8aee09d949f11db833199e296999f3d4b8147": {
+    "reading": {
+      "imprintSides": [
+        "KU 487 / 300 mg"
+      ],
+      "imprintConfidence": 0.5,
+      "colors": [
+        "purple",
+        "pink"
+      ],
+      "colorConfidence": 0.8,
+      "shape": "capsule",
+      "shapeConfidence": 0.95,
+      "form": "capsule",
+      "pillVisible": true,
+      "multiplePills": true,
+      "photoProblems": [],
+      "guess": {
+        "drugName": "Diltiazem hydrochloride extended-release",
+        "strength": "300 mg"
+      }
+    },
+    "ms": 2614
+  },
+  "pill-v1:b66eaed3fc263664c25376fc10b71b1d96593629b9a2386c8f4c206f30dbebe3": {
+    "reading": {
+      "imprintSides": [
+        "APO 018"
+      ],
+      "imprintConfidence": 0.85,
+      "colors": [
+        "green"
+      ],
+      "colorConfidence": 0.9,
+      "shape": "round",
+      "shapeConfidence": 0.95,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 3391
+  },
+  "pill-v1:b9f483721580bb82f7ae3f1109b40ee27261a797dfe1d6f4fcfe8cac9ac8d4af": {
+    "reading": {
+      "imprintSides": [
+        "5768"
+      ],
+      "imprintConfidence": 0.85,
+      "colors": [
+        "white"
+      ],
+      "colorConfidence": 0.9,
+      "shape": "round",
+      "shapeConfidence": 0.95,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 2789
+  },
+  "pill-v1:92ae0cfc3c5760c86e934103b3b71b1ef7aa6d0188d37cc524abbb54ab23e474": {
+    "reading": {
+      "imprintSides": [
+        "KU 487 300 mg"
+      ],
+      "imprintConfidence": 0.85,
+      "colors": [
+        "purple",
+        "pink"
+      ],
+      "colorConfidence": 0.9,
+      "shape": "capsule",
+      "shapeConfidence": 0.97,
+      "form": "capsule",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [],
+      "guess": {
+        "drugName": "Dextroamphetamine? no — Diltiazem? no"
+      }
+    },
+    "ms": 4434
+  },
+  "pill-v1:627b19cb819c5f4eb3fa32a977e78b182d463d40ea0f9f7e338f78ff3a96f74e": {
+    "reading": {
+      "imprintSides": [
+        "TEVA"
+      ],
+      "imprintConfidence": 0.6,
+      "colors": [
+        "white"
+      ],
+      "colorConfidence": 0.85,
+      "shape": "round",
+      "shapeConfidence": 0.9,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 2196
+  },
+  "pill-v1:6ca513ca720a52f5196b98d0667709bba1494083ee10b881a1e86f6e59aacc4f": {
+    "reading": {
+      "imprintSides": [
+        "TV"
+      ],
+      "imprintConfidence": 0.85,
+      "colors": [
+        "pink"
+      ],
+      "colorConfidence": 0.6,
+      "shape": "oblong",
+      "shapeConfidence": 0.85,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 2175
+  },
+  "pill-v1:d9abf34e1acf0a27f9ff7c1a5cabd3a9f6fc667939e15367e8cc7e1527c3f9e9": {
+    "reading": {
+      "imprintSides": [],
+      "imprintConfidence": 0.3,
+      "colors": [
+        "white"
+      ],
+      "colorConfidence": 0.9,
+      "shape": "oval",
+      "shapeConfidence": 0.85,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 2229
+  },
+  "pill-v1:e5a9865423d4a78aba73fee70494cb4c61abb9e8e3c3ab049700718402269adc": {
+    "reading": {
+      "imprintSides": [
+        "ΛT"
+      ],
+      "imprintConfidence": 0.4,
+      "colors": [
+        "pink"
+      ],
+      "colorConfidence": 0.85,
+      "shape": "oblong",
+      "shapeConfidence": 0.85,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 2341
+  },
+  "pill-v1:9350a085fc343f75427f4492598cb7eb2ca5c67e7ec8b19b76d37cf3605bc77e": {
+    "reading": {
+      "imprintSides": [
+        "W964"
+      ],
+      "imprintConfidence": 0.85,
+      "colors": [
+        "white"
+      ],
+      "colorConfidence": 0.95,
+      "shape": "oval",
+      "shapeConfidence": 0.9,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": false,
+      "guess": {
+        "drugName": "Metformin hydrochloride"
+      }
+    },
+    "ms": 2413
+  },
+  "pill-v1:f763bdd6e369d21d6b87b4c228ba4513230fcd69a26f004b15de5e268ab032f8": {
+    "reading": {
+      "imprintSides": [
+        "4142"
+      ],
+      "imprintConfidence": 0.35,
+      "colors": [
+        "off-white"
+      ],
+      "colorConfidence": 0.6,
+      "shape": "oval",
+      "shapeConfidence": 0.85,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far",
+        "blur"
+      ],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 2232
+  },
+  "pill-v1:ca09538ee287d69fb0a735a67bcca82ef5883cdee3f16f9c276628d9f8b1420c": {
+    "reading": {
+      "imprintSides": [
+        "93"
+      ],
+      "imprintConfidence": 0.6,
+      "colors": [
+        "blue"
+      ],
+      "colorConfidence": 0.93,
+      "shape": "oval",
+      "shapeConfidence": 0.8,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [],
+      "scored": true,
+      "guess": null
+    },
+    "ms": 2497
+  },
+  "pill-v1:db4c90eba206a478dc17297476e2e9a29c0f3a3f3ee75ab46a790e61beccb366": {
+    "reading": {
+      "imprintSides": [
+        "4142 GG"
+      ],
+      "imprintConfidence": 0.35,
+      "colors": [
+        "off-white"
+      ],
+      "colorConfidence": 0.6,
+      "shape": "oval",
+      "shapeConfidence": 0.85,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 2972
+  },
+  "pill-v1:7882df1ec58dc7574c8a1fd5d647bd82a85cb1a6a5fb1d107b9ab4df99ab6234": {
+    "reading": {
+      "imprintSides": [
+        "537"
+      ],
+      "imprintConfidence": 0.93,
+      "colors": [
+        "white"
+      ],
+      "colorConfidence": 0.9,
+      "shape": "oval",
+      "shapeConfidence": 0.93,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 2199
+  },
+  "pill-v1:69beea5fed74a22a5db6805a546db3e340d687e37b12768ec0764bab60e84a38": {
+    "reading": {
+      "imprintSides": [
+        "537"
+      ],
+      "imprintConfidence": 0.93,
+      "colors": [
+        "white"
+      ],
+      "colorConfidence": 0.93,
+      "shape": "oval",
+      "shapeConfidence": 0.92,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 3470
+  },
+  "pill-v1:fd40660fe75d3266ffc8d2838f96040ab9760738d15c52b91991261e8f0fbd3c": {
+    "reading": {
+      "imprintSides": [
+        "129"
+      ],
+      "imprintConfidence": 0.35,
+      "colors": [
+        "orange"
+      ],
+      "colorConfidence": 0.5,
+      "shape": "round",
+      "shapeConfidence": 0.95,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far",
+        "blur"
+      ],
+      "scored": true,
+      "guess": null
+    },
+    "ms": 2318
+  },
+  "pill-v1:80a3c408fb2f78fec80ee0c7e94889c1d9b408528cf857d69a0aa3d470706e82": {
+    "reading": {
+      "imprintSides": [
+        "7167"
+      ],
+      "imprintConfidence": 0.85,
+      "colors": [
+        "white"
+      ],
+      "colorConfidence": 0.95,
+      "shape": "round",
+      "shapeConfidence": 0.95,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 2937
+  },
+  "pill-v1:e3d042213a922daba9a7daa999e21a59fddcb283e373afd82eb1189108e5c422": {
+    "reading": {
+      "imprintSides": [
+        "PLIVA 434"
+      ],
+      "imprintConfidence": 0.6,
+      "colors": [
+        "white"
+      ],
+      "colorConfidence": 0.95,
+      "shape": "round",
+      "shapeConfidence": 0.95,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": false,
+      "guess": {
+        "drugName": "Trazodone hydrochloride"
+      }
+    },
+    "ms": 2347
+  },
+  "pill-v1:b1a0a51b7734cf1fb96c548684923656cb9ed1c0ba6f0ffa37e080dbb6a8a6bd": {
+    "reading": {
+      "imprintSides": [
+        "93"
+      ],
+      "imprintConfidence": 0.6,
+      "colors": [
+        "blue"
+      ],
+      "colorConfidence": 0.9,
+      "shape": "capsule-shaped (oblong)",
+      "shapeConfidence": 0.85,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "guess": null
+    },
+    "ms": 5951
+  },
+  "pill-v1:32cc0b7ec7297f9dfcc9b49c715099e1d39957615e2a06df765320694941c47e": {
+    "reading": {
+      "imprintSides": [
+        "93"
+      ],
+      "imprintConfidence": 0.8,
+      "colors": [
+        "white"
+      ],
+      "colorConfidence": 0.9,
+      "shape": "round",
+      "shapeConfidence": 0.95,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 4102
+  },
+  "pill-v1:c9b41175b9a982d7dafeff0a1faa3052128bc629267c41eb043f566ec8f56197": {
+    "reading": {
+      "imprintSides": [],
+      "imprintConfidence": 0,
+      "colors": [],
+      "colorConfidence": 0,
+      "shape": "",
+      "shapeConfidence": 0,
+      "guess": null
+    },
+    "ms": 5604,
+    "error": "The AI reading was not valid after one retry: [\n  {\n    \"origin\": \"string\",\n    \"code\": \"too_big\",\n    \"maximum\": 40,\n    \"inclusive\": true,\n    \"path\": [\n      \"imprintSides\",\n      0\n    ],\n    \"message\": \"Too big: expected string to have <=40 characters\"\n  }\n]"
+  },
+  "pill-v1:19f44ba204151f17cde66c12d4da1b0c27262723f7951a63e9d4586232b781f2": {
+    "reading": {
+      "imprintSides": [
+        "PLIVA 434"
+      ],
+      "imprintConfidence": 0.93,
+      "colors": [
+        "white"
+      ],
+      "colorConfidence": 0.95,
+      "shape": "round",
+      "shapeConfidence": 0.95,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [],
+      "scored": false,
+      "guess": {
+        "drugName": "Trazodone hydrochloride",
+        "strength": "50 mg"
+      }
+    },
+    "ms": 2940
+  },
+  "pill-v1:0c8b5790262c4669f097c755f1152dd0a1e5809ff47abebbce9f26a263415048": {
+    "reading": {
+      "imprintSides": [
+        "L 25"
+      ],
+      "imprintConfidence": 0.4,
+      "colors": [
+        "yellow"
+      ],
+      "colorConfidence": 0.6,
+      "shape": "round",
+      "shapeConfidence": 0.9,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 2121
+  },
+  "pill-v1:ebc04bd3f0001ee6db5b51f0a3f1026eb666d9e87d93d3b2e7cac7467d5dd818": {
+    "reading": {
+      "imprintSides": [],
+      "imprintConfidence": 0.3,
+      "colors": [
+        "green",
+        "yellow"
+      ],
+      "colorConfidence": 0.6,
+      "shape": "capsule",
+      "shapeConfidence": 0.95,
+      "form": "capsule",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "guess": null
+    },
+    "ms": 2783
+  },
+  "pill-v1:c871b31d6711f237dd00b2b7cab507641c2bd15d8acd8eb8a577a5d975e32532": {
+    "reading": {
+      "imprintSides": [
+        "L 26"
+      ],
+      "imprintConfidence": 0.6,
+      "colors": [
+        "green"
+      ],
+      "colorConfidence": 0.6,
+      "shape": "round",
+      "shapeConfidence": 0.9,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 2849
+  },
+  "pill-v1:9796965031d42657eb29fc1fa854896f63e0324144b05a28e657811eed49e283": {
+    "reading": {
+      "imprintSides": [],
+      "imprintConfidence": 0.3,
+      "colors": [
+        "green",
+        "yellow"
+      ],
+      "colorConfidence": 0.8,
+      "shape": "capsule",
+      "shapeConfidence": 0.95,
+      "form": "capsule",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [],
+      "guess": null
+    },
+    "ms": 2248
+  },
+  "pill-v1:b3c7bd2d04c005851d16d6f06c04298976458d0988848fce1e16268c05fc0f66": {
+    "reading": {
+      "imprintSides": [],
+      "imprintConfidence": 0.3,
+      "colors": [
+        "blue"
+      ],
+      "colorConfidence": 0.9,
+      "shape": "capsule",
+      "shapeConfidence": 0.95,
+      "form": "capsule",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 2135
+  },
+  "pill-v1:cdcff2c9dbd8b13687053d599d331c61c91e84917c2cb033bbafcbb6e11bc698": {
+    "reading": {
+      "imprintSides": [],
+      "imprintConfidence": 0.1,
+      "colors": [
+        "blue"
+      ],
+      "colorConfidence": 0.8,
+      "shape": "capsule",
+      "shapeConfidence": 0.9,
+      "form": "capsule",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "guess": null
+    },
+    "ms": 2362
+  },
+  "pill-v1:e3fd1cff0849d6d8dc846dfad51c790ea2a040a31b3ffe79e2cd80e1f056b084": {
+    "reading": {
+      "imprintSides": [
+        ""
+      ],
+      "imprintConfidence": 0.2,
+      "colors": [
+        "white"
+      ],
+      "colorConfidence": 0.7,
+      "shape": "round",
+      "shapeConfidence": 0.9,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far",
+        "blur"
+      ],
+      "guess": null
+    },
+    "ms": 2928
+  },
+  "pill-v1:8b33bc12c38a44c1daa7d5f8a1d62941ed665059baf9a75665b0ae41f4aedaa1": {
+    "reading": {
+      "imprintSides": [
+        "GG 771"
+      ],
+      "imprintConfidence": 0.8,
+      "colors": [
+        "off-white"
+      ],
+      "colorConfidence": 0.6,
+      "shape": "round",
+      "shapeConfidence": 0.95,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": true,
+      "guess": null
+    },
+    "ms": 3044
+  },
+  "pill-v1:634b52a92b44e2947e4c74ba0f38a9aa4b45c2b5831aad68158187b741ffa277": {
+    "reading": {
+      "imprintSides": [],
+      "imprintConfidence": 0,
+      "colors": [],
+      "colorConfidence": 0,
+      "shape": "",
+      "shapeConfidence": 0,
+      "guess": null
+    },
+    "ms": 4611,
+    "error": "The AI reading was not valid after one retry: [\n  {\n    \"origin\": \"string\",\n    \"code\": \"too_big\",\n    \"maximum\": 40,\n    \"inclusive\": true,\n    \"path\": [\n      \"imprintSides\",\n      0\n    ],\n    \"message\": \"Too big: expected string to have <=40 characters\"\n  }\n]"
+  },
+  "pill-v1:49bc5ec05e0777d8f2fbee59a1d0354e5d7d73c0b65803b8b2ac174cbf221b02": {
+    "reading": {
+      "imprintSides": [
+        ""
+      ],
+      "imprintConfidence": 0.3,
+      "colors": [
+        "yellow"
+      ],
+      "colorConfidence": 0.75,
+      "shape": "oblong",
+      "shapeConfidence": 0.8,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 2873
+  },
+  "pill-v1:f385bdbd8f614cf8576a9aea4c962077725dcb56f36d72ba1126fd7eed304a84": {
+    "reading": {
+      "imprintSides": [],
+      "imprintConfidence": 0,
+      "colors": [],
+      "colorConfidence": 0,
+      "shape": "",
+      "shapeConfidence": 0,
+      "guess": null
+    },
+    "ms": 5869,
+    "error": "The AI reading was not valid after one retry: [\n  {\n    \"origin\": \"string\",\n    \"code\": \"too_big\",\n    \"maximum\": 40,\n    \"inclusive\": true,\n    \"path\": [\n      \"imprintSides\",\n      0\n    ],\n    \"message\": \"Too big: expected string to have <=40 characters\"\n  }\n]"
+  },
+  "pill-v1:694a45f222ab0d1e2cc5f8cc833c7c1e140c8bd44edd2665dd32039dd99658a2": {
+    "reading": {
+      "imprintSides": [],
+      "imprintConfidence": 0.1,
+      "colors": [
+        "yellow"
+      ],
+      "colorConfidence": 0.8,
+      "shape": "oval",
+      "shapeConfidence": 0.8,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 2082
+  },
+  "pill-v1:3941f2d924ef4f6ec19dd5661316c44e6978cfcf588d1db43ee786dd6953d38c": {
+    "reading": {
+      "imprintSides": [
+        "4833M"
+      ],
+      "imprintConfidence": 0.8,
+      "colors": [
+        "white"
+      ],
+      "colorConfidence": 0.95,
+      "shape": "oval",
+      "shapeConfidence": 0.85,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 2279
+  },
+  "pill-v1:440c0acb64e8dbf683dcc33b7b0ae414245cdcebe13df8df628cc4955acd57c7": {
+    "reading": {
+      "imprintSides": [
+        ""
+      ],
+      "imprintConfidence": 0.5,
+      "colors": [
+        "beige"
+      ],
+      "colorConfidence": 0.7,
+      "shape": "round",
+      "shapeConfidence": 0.9,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 2894
+  },
+  "pill-v1:29d6560dc2f097e0599cbfb96f9f4ed830322b4712266e6028c13c6193c816db": {
+    "reading": {
+      "imprintSides": [
+        ""
+      ],
+      "imprintConfidence": 0.3,
+      "colors": [
+        "off-white"
+      ],
+      "colorConfidence": 0.6,
+      "shape": "round",
+      "shapeConfidence": 0.9,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far",
+        "glare"
+      ],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 2899
+  },
+  "pill-v1:f4524b7cf2d4674bce3b30edc26b91a639c1d0d7533cb17ee5efe3431a46723b": {
+    "reading": {
+      "imprintSides": [
+        "15/850"
+      ],
+      "imprintConfidence": 0.5,
+      "colors": [
+        "white"
+      ],
+      "colorConfidence": 0.85,
+      "shape": "oval",
+      "shapeConfidence": 0.8,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [],
+      "scored": false,
+      "guess": {
+        "drugName": "pioglitazone and metformin hydrochloride",
+        "strength": "15 mg/850 mg"
+      }
+    },
+    "ms": 2320
+  },
+  "pill-v1:d858eb219b4c7f818cbd4d6f019572668ad3a6afb7cad5914a4a0b540f110977": {
+    "reading": {
+      "imprintSides": [
+        "cor 150"
+      ],
+      "imprintConfidence": 0.6,
+      "colors": [
+        "white"
+      ],
+      "colorConfidence": 0.95,
+      "shape": "round",
+      "shapeConfidence": 0.95,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": true,
+      "guess": null
+    },
+    "ms": 2080
+  },
+  "pill-v1:27971ea2251f052504426ff45fed6c81defd5d6130a239c79a50b8c0709a8c42": {
+    "reading": {
+      "imprintSides": [
+        "",
+        ""
+      ],
+      "imprintConfidence": 0.1,
+      "colors": [
+        "white"
+      ],
+      "colorConfidence": 0.7,
+      "shape": "round",
+      "shapeConfidence": 0.85,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "guess": null
+    },
+    "ms": 2335
+  },
+  "pill-v1:c60e564c7c886d674d81675c6f88c42da38914a65232893e060ed8e74c3ce138": {
+    "reading": {
+      "imprintSides": [
+        "b"
+      ],
+      "imprintConfidence": 0.4,
+      "colors": [
+        "white"
+      ],
+      "colorConfidence": 0.6,
+      "shape": "oval",
+      "shapeConfidence": 0.85,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far",
+        "glare"
+      ],
+      "guess": null
+    },
+    "ms": 2187
+  },
+  "pill-v1:51ee693f42366f17ed3b0cd6f9e1e4ff97158a13acb508ebcc6cecf65459da61": {
+    "reading": {
+      "imprintSides": [
+        "861 | 150"
+      ],
+      "imprintConfidence": 0.6,
+      "colors": [
+        "white"
+      ],
+      "colorConfidence": 0.85,
+      "shape": "oval",
+      "shapeConfidence": 0.9,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": true,
+      "guess": {
+        "drugName": "Lamotrigine",
+        "strength": "150 mg"
+      }
+    },
+    "ms": 2188
+  },
+  "pill-v1:1675140f5133b5a5071b4b694c9674139aaf3be88582f0c2f77c9a459255f383": {
+    "reading": {
+      "imprintSides": [
+        "3"
+      ],
+      "imprintConfidence": 0.85,
+      "colors": [
+        "white"
+      ],
+      "colorConfidence": 0.85,
+      "shape": "round",
+      "shapeConfidence": 0.9,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 2059
+  },
+  "pill-v1:0576e7e176c59c9c74a70e2c03ca0ec553625996d31ff46976b74be3fcd7cefe": {
+    "reading": {
+      "imprintSides": [
+        "5381"
+      ],
+      "imprintConfidence": 0.9,
+      "colors": [
+        "white"
+      ],
+      "colorConfidence": 0.93,
+      "shape": "round",
+      "shapeConfidence": 0.95,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 2363
+  },
+  "pill-v1:0a93ea25c31e550e67c2307ab3b4eaa625c0030efdf18217f0018d76d834a29b": {
+    "reading": {
+      "imprintSides": [
+        "3"
+      ],
+      "imprintConfidence": 0.6,
+      "colors": [
+        "white"
+      ],
+      "colorConfidence": 0.9,
+      "shape": "round",
+      "shapeConfidence": 0.9,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 2511
+  },
+  "pill-v1:99260cec65bb308bda978978e890ad5752053518fad8d8f44a6c1ae52edcd381": {
+    "reading": {
+      "imprintSides": [
+        "TEVA"
+      ],
+      "imprintConfidence": 0.9,
+      "colors": [
+        "yellow"
+      ],
+      "colorConfidence": 0.75,
+      "shape": "round",
+      "shapeConfidence": 0.95,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 2142
+  },
+  "pill-v1:b3420fbc934ce0a0e5eff006014d8846672dd524534b354a758cb23dc285c5a3": {
+    "reading": {
+      "imprintSides": [
+        "932"
+      ],
+      "imprintConfidence": 0.6,
+      "colors": [
+        "yellow"
+      ],
+      "colorConfidence": 0.8,
+      "shape": "round",
+      "shapeConfidence": 0.95,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": true,
+      "guess": null
+    },
+    "ms": 2800
+  },
+  "pill-v1:8da9060a3758f5c8db4ce2fef9180109b1be0256f86a522004b17a1a384d2c71": {
+    "reading": {
+      "imprintSides": [
+        ""
+      ],
+      "imprintConfidence": 0.5,
+      "colors": [
+        "white"
+      ],
+      "colorConfidence": 0.9,
+      "shape": "round",
+      "shapeConfidence": 0.9,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "imprint side down"
+      ],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 2585
+  },
+  "pill-v1:0d691268c9fc26c23c74ef24c1c04923621ca9ddaa4602b162f2772fa3b159e6": {
+    "reading": {
+      "imprintSides": [
+        "PLIVA 323"
+      ],
+      "imprintConfidence": 0.9,
+      "colors": [
+        "white"
+      ],
+      "colorConfidence": 0.85,
+      "shape": "round",
+      "shapeConfidence": 0.95,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": true,
+      "guess": {
+        "drugName": "Metoclopramide",
+        "strength": "10 mg"
+      }
+    },
+    "ms": 3244
+  },
+  "pill-v1:a65e0480b884685d7d86253de09342d9aade7000e0b63027d393c01a3c741cea": {
+    "reading": {
+      "imprintSides": [
+        "CALAN"
+      ],
+      "imprintConfidence": 0.85,
+      "colors": [
+        "off-white"
+      ],
+      "colorConfidence": 0.6,
+      "shape": "oblong",
+      "shapeConfidence": 0.85,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": false,
+      "guess": {
+        "drugName": "Calan (verapamil hydrochloride)"
+      }
+    },
+    "ms": 3003
+  },
+  "pill-v1:b940d0a56c6a8ed0eea9afd507a6e86130bd7f7183537777d3d96803ae2a5319": {
+    "reading": {
+      "imprintSides": [
+        "SR 240"
+      ],
+      "imprintConfidence": 0.9,
+      "colors": [
+        "green"
+      ],
+      "colorConfidence": 0.6,
+      "shape": "oblong",
+      "shapeConfidence": 0.9,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [],
+      "scored": true,
+      "guess": {
+        "drugName": "Verapamil hydrochloride extended-release",
+        "strength": "240 mg"
+      }
+    },
+    "ms": 2250
+  },
+  "pill-v1:1319ec7daaf11528cfbcd9a5b5886a89f6b1591ad95ef9adee2d2a6963bb7403": {
+    "reading": {
+      "imprintSides": [
+        "no visible imprint"
+      ],
+      "imprintConfidence": 0.5,
+      "colors": [
+        "white"
+      ],
+      "colorConfidence": 0.9,
+      "shape": "round",
+      "shapeConfidence": 0.85,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "imprint side down"
+      ],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 2319
+  },
+  "pill-v1:1fedebaaf39c0d09261113639b948b5cdf634f0a6292438f2675e9d96f9045dd": {
+    "reading": {
+      "imprintSides": [
+        "ZC18",
+        ""
+      ],
+      "imprintConfidence": 0.8,
+      "colors": [
+        "white"
+      ],
+      "colorConfidence": 0.85,
+      "shape": "round",
+      "shapeConfidence": 0.95,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": true,
+      "photoProblems": [],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 2120
+  },
+  "pill-v1:8b5a2bd7eb496bace594ad141aa7cabc081ad3004d76ce68660ce0e5cfd65697": {
+    "reading": {
+      "imprintSides": [],
+      "imprintConfidence": 0,
+      "colors": [],
+      "colorConfidence": 0,
+      "shape": "",
+      "shapeConfidence": 0,
+      "guess": null
+    },
+    "ms": 7679,
+    "error": "The AI reading was not valid after one retry: [\n  {\n    \"origin\": \"string\",\n    \"code\": \"too_big\",\n    \"maximum\": 40,\n    \"inclusive\": true,\n    \"path\": [\n      \"imprintSides\",\n      0\n    ],\n    \"message\": \"Too big: expected string to have <=40 characters\"\n  }\n]"
+  },
+  "pill-v1:8b1c48f67f2504c96d9f99d28cc6311802c8634cd133614f5aea32bef2b07b92": {
+    "reading": {
+      "imprintSides": [
+        "A-OV 30"
+      ],
+      "imprintConfidence": 0.35,
+      "colors": [
+        "orange",
+        "pink"
+      ],
+      "colorConfidence": 0.4,
+      "shape": "round",
+      "shapeConfidence": 0.9,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 2994
+  },
+  "pill-v1:75d087b9cc079c07d94c95101f798d0e24c3ba12b23d518bc75a0fc20c10e0d8": {
+    "reading": {
+      "imprintSides": [
+        "BCI 2 2"
+      ],
+      "imprintConfidence": 0.35,
+      "colors": [
+        "white"
+      ],
+      "colorConfidence": 0.9,
+      "shape": "round",
+      "shapeConfidence": 0.9,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 2216
+  },
+  "pill-v1:1c436f67e1548ed2bcda44fe03b9a079d606cc8a06ae3f01e693d70ac7f012bd": {
+    "reading": {
+      "imprintSides": [],
+      "imprintConfidence": 0.2,
+      "colors": [
+        "white"
+      ],
+      "colorConfidence": 0.85,
+      "shape": "round",
+      "shapeConfidence": 0.9,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": true,
+      "guess": null
+    },
+    "ms": 2121
+  },
+  "pill-v1:d7e3010199c31cff1b24b4c1c30a7f5c1e27398edc053ccba3dd9df4fee047a5": {
+    "reading": {
+      "imprintSides": [
+        ""
+      ],
+      "imprintConfidence": 0.1,
+      "colors": [
+        "orange",
+        "pink"
+      ],
+      "colorConfidence": 0.35,
+      "shape": "round",
+      "shapeConfidence": 0.8,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "guess": null
+    },
+    "ms": 3165
+  },
+  "pill-v1:17bd8999046466172a2d4e398a97f0ac9a2719369397a105141d2e39e869f9b9": {
+    "reading": {
+      "imprintSides": [
+        "0 | 6"
+      ],
+      "imprintConfidence": 0.8,
+      "colors": [
+        "pink",
+        "brown"
+      ],
+      "colorConfidence": 0.6,
+      "shape": "oval",
+      "shapeConfidence": 0.8,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": true,
+      "guess": null
+    },
+    "ms": 2121
+  },
+  "pill-v1:5903f1a2ceee2156409895d450a40916fdeab9bfe998331d7adc72d8fbdaa82f": {
+    "reading": {
+      "imprintSides": [
+        "TL 386"
+      ],
+      "imprintConfidence": 0.75,
+      "colors": [
+        "green"
+      ],
+      "colorConfidence": 0.9,
+      "shape": "capsule",
+      "shapeConfidence": 0.95,
+      "form": "capsule",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "glare"
+      ],
+      "guess": {
+        "drugName": "Fluoxetine"
+      }
+    },
+    "ms": 2834
+  },
+  "pill-v1:e373d0b651a958d8218f0ab43dc2fe83ccfe4127bf9dd64d5a2d2f795b8bf389": {
+    "reading": {
+      "imprintSides": [
+        "TL 386 TL 386",
+        ""
+      ],
+      "imprintConfidence": 0.6,
+      "colors": [
+        "green"
+      ],
+      "colorConfidence": 0.9,
+      "shape": "capsule",
+      "shapeConfidence": 0.95,
+      "form": "capsule",
+      "pillVisible": true,
+      "multiplePills": true,
+      "photoProblems": [
+        "glare"
+      ],
+      "guess": null
+    },
+    "ms": 2839
+  },
+  "pill-v1:4e09ac7de7eb9bed1374ca948aa2eef2a48174a858afc1290168b71246a34f10": {
+    "reading": {
+      "imprintSides": [],
+      "imprintConfidence": 0.05,
+      "colors": [
+        "yellow"
+      ],
+      "colorConfidence": 0.8,
+      "shape": "round",
+      "shapeConfidence": 0.9,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": true,
+      "guess": null
+    },
+    "ms": 2168
+  },
+  "pill-v1:10250fe24928b85552812c648f132983bb04e1550490974b41b75f615ae5dced": {
+    "reading": {
+      "imprintSides": [],
+      "imprintConfidence": 0.05,
+      "colors": [
+        "yellow"
+      ],
+      "colorConfidence": 0.6,
+      "shape": "round",
+      "shapeConfidence": 0.85,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "guess": null
+    },
+    "ms": 3146
+  },
+  "pill-v1:c265a26351c866ce006ef9283ed5fe49138e3aaac25570ac949ac555786bd9fe": {
+    "reading": {
+      "imprintSides": [
+        "WEST-WARD 473"
+      ],
+      "imprintConfidence": 0.85,
+      "colors": [
+        "white"
+      ],
+      "colorConfidence": 0.95,
+      "shape": "round",
+      "shapeConfidence": 0.95,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": false,
+      "guess": {
+        "drugName": "Methotrexate",
+        "strength": "2.5 mg"
+      }
+    },
+    "ms": 3518
+  },
+  "pill-v1:268ce7bf8005bbe55ca3db024495217a651e0a37cbb19f3d4358bf52843cb125": {
+    "reading": {
+      "imprintSides": [],
+      "imprintConfidence": 0,
+      "colors": [],
+      "colorConfidence": 0,
+      "shape": "",
+      "shapeConfidence": 0,
+      "guess": null
+    },
+    "ms": 5793,
+    "error": "The AI reading was not valid after one retry: [\n  {\n    \"origin\": \"string\",\n    \"code\": \"too_big\",\n    \"maximum\": 40,\n    \"inclusive\": true,\n    \"path\": [\n      \"imprintSides\",\n      0\n    ],\n    \"message\": \"Too big: expected string to have <=40 characters\"\n  }\n]"
+  },
+  "pill-v1:dffdcc4024e6c0b79aad245c49950d98a59e32ae9cf49dc864eccef5ebd7e8dd": {
+    "reading": {
+      "imprintSides": [
+        "S5",
+        ""
+      ],
+      "imprintConfidence": 0.6,
+      "colors": [
+        "pink",
+        "orange"
+      ],
+      "colorConfidence": 0.6,
+      "shape": "oval",
+      "shapeConfidence": 0.9,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": true,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 2383
+  },
+  "pill-v1:e0bdc316cbee4ba70a1fb8d4d11c5f9cfdf319ba3d414ac034d29acf1dadf340": {
+    "reading": {
+      "imprintSides": [
+        ""
+      ],
+      "imprintConfidence": 0.2,
+      "colors": [
+        "white"
+      ],
+      "colorConfidence": 0.8,
+      "shape": "round",
+      "shapeConfidence": 0.9,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": true,
+      "guess": null
+    },
+    "ms": 3350
+  },
+  "pill-v1:cfb6d97540815c3356d002adfb05b5cc447c32e8ea7baa8efa879647a968534a": {
+    "reading": {
+      "imprintSides": [
+        "",
+        ""
+      ],
+      "imprintConfidence": 0.05,
+      "colors": [
+        "orange",
+        "pink"
+      ],
+      "colorConfidence": 0.6,
+      "shape": "round",
+      "shapeConfidence": 0.9,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": true,
+      "photoProblems": [
+        "too far",
+        "blur"
+      ],
+      "scored": true,
+      "guess": null
+    },
+    "ms": 2898
+  },
+  "pill-v1:a19c08a51d70ddcac1b64ffdd0084fdabaf5ae5ef365f6dec21b74ded341ccd0": {
+    "reading": {
+      "imprintSides": [
+        ""
+      ],
+      "imprintConfidence": 0.5,
+      "colors": [
+        "pink",
+        "brown"
+      ],
+      "colorConfidence": 0.6,
+      "shape": "oval",
+      "shapeConfidence": 0.85,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 3735
+  },
+  "pill-v1:d8493f1185d6bfcddbe7102a4ed6f83f84795d8819634b0754afb04d77bd120e": {
+    "reading": {
+      "imprintSides": [
+        "30"
+      ],
+      "imprintConfidence": 0.8,
+      "colors": [
+        "pink"
+      ],
+      "colorConfidence": 0.6,
+      "shape": "round",
+      "shapeConfidence": 0.95,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 2290
+  },
+  "pill-v1:4e32906d8a8ef0efbfcb7f1a5658a2b9dd13413fe75e9ba78483180b7ea66388": {
+    "reading": {
+      "imprintSides": [
+        "unreadable"
+      ],
+      "imprintConfidence": 0.1,
+      "colors": [
+        "orange"
+      ],
+      "colorConfidence": 0.6,
+      "shape": "round",
+      "shapeConfidence": 0.85,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far",
+        "blur"
+      ],
+      "guess": null
+    },
+    "ms": 3071
+  },
+  "pill-v1:9cf9440fff606bb447534f19ba9b8d166714f4960f4fd44d518b5eab1a459eac": {
+    "reading": {
+      "imprintSides": [
+        "RC705"
+      ],
+      "imprintConfidence": 0.2,
+      "colors": [
+        "white"
+      ],
+      "colorConfidence": 0.9,
+      "shape": "round",
+      "shapeConfidence": 0.95,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far",
+        "blur"
+      ],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 3043
+  },
+  "pill-v1:df3865d6525e7f377420c2b6ed6d3b40c385156294df4f52a321d45792ee8c9d": {
+    "reading": {
+      "imprintSides": [
+        "4097"
+      ],
+      "imprintConfidence": 0.9,
+      "colors": [
+        "white"
+      ],
+      "colorConfidence": 0.95,
+      "shape": "round",
+      "shapeConfidence": 0.95,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 2202
+  },
+  "pill-v1:2d14b97e4b7218ebaafbf16b1296a47c2eecaec93ae68e0ccdafdad5299ccb32": {
+    "reading": {
+      "imprintSides": [
+        "-20-"
+      ],
+      "imprintConfidence": 0.8,
+      "colors": [
+        "off-white"
+      ],
+      "colorConfidence": 0.6,
+      "shape": "round",
+      "shapeConfidence": 0.95,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [],
+      "scored": false,
+      "guess": {
+        "drugName": "Amphetamine mixed salts (Adderall)",
+        "strength": "20 mg"
+      }
+    },
+    "ms": 2461
+  },
+  "pill-v1:14c8a6a96d709f15fa37a8feb3b28cf8b9a40b1736ba15327c5c2259f08a5122": {
+    "reading": {
+      "imprintSides": [
+        "M"
+      ],
+      "imprintConfidence": 0.8,
+      "colors": [
+        "pink"
+      ],
+      "colorConfidence": 0.6,
+      "shape": "capsule-shaped (oblong)",
+      "shapeConfidence": 0.85,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 3005
+  },
+  "pill-v1:ea86b1f576f628c07d11b477b20c65702a0cb73a3d5864987ec7babb84bfd177": {
+    "reading": {
+      "imprintSides": [
+        "5 | 5 (score line between the two 5s)"
+      ],
+      "imprintConfidence": 0.6,
+      "colors": [
+        "orange",
+        "pink"
+      ],
+      "colorConfidence": 0.6,
+      "shape": "round",
+      "shapeConfidence": 0.9,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": true,
+      "guess": {
+        "drugName": "Buspirone hydrochloride",
+        "strength": "5 mg"
+      }
+    },
+    "ms": 2586
+  },
+  "pill-v1:cc4410c052e66b5afb64548f0ae4312d9263bd309b94c9ec321bdebf4ab2e516": {
+    "reading": {
+      "imprintSides": [
+        "M"
+      ],
+      "imprintConfidence": 0.6,
+      "colors": [
+        "pink"
+      ],
+      "colorConfidence": 0.5,
+      "shape": "capsule-shaped (oblong)",
+      "shapeConfidence": 0.85,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "glare"
+      ],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 3053
+  },
+  "pill-v1:771c205633b20ded4ad1009eb1b8554867e99818a7cbdc4769472132686e370d": {
+    "reading": {
+      "imprintSides": [],
+      "imprintConfidence": 0.05,
+      "colors": [
+        "yellow"
+      ],
+      "colorConfidence": 0.9,
+      "shape": "round",
+      "shapeConfidence": 0.9,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": true,
+      "guess": null
+    },
+    "ms": 2941
+  },
+  "pill-v1:812b65ac44fba3faeca719d4bc9df32afc81395a3ecd1c3820ac8d97d43c8c1e": {
+    "reading": {
+      "imprintSides": [
+        "3759"
+      ],
+      "imprintConfidence": 0.7,
+      "colors": [
+        "white"
+      ],
+      "colorConfidence": 0.9,
+      "shape": "triangular (rounded)",
+      "shapeConfidence": 0.8,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 2201
+  },
+  "pill-v1:50c091f4de8c6b17e7a168c1d7cce9f7e1db84f5da57f57034a59dc239d041f4": {
+    "reading": {
+      "imprintSides": [
+        "UL"
+      ],
+      "imprintConfidence": 0.6,
+      "colors": [
+        "orange"
+      ],
+      "colorConfidence": 0.6,
+      "shape": "round",
+      "shapeConfidence": 0.9,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 3769
+  },
+  "pill-v1:718cd2bf4441abea196931a874e9fe3a75260c6cc907723ee0e9433c271fb9b5": {
+    "reading": {
+      "imprintSides": [
+        "I"
+      ],
+      "imprintConfidence": 0.2,
+      "colors": [
+        "beige"
+      ],
+      "colorConfidence": 0.5,
+      "shape": "triangle",
+      "shapeConfidence": 0.7,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 2363
+  },
+  "pill-v1:296d1805e2e070939c1237cdcd68e5b219602c3c331b6640f0cb7aac41322549": {
+    "reading": {
+      "imprintSides": [],
+      "imprintConfidence": 0,
+      "colors": [],
+      "colorConfidence": 0,
+      "shape": "",
+      "shapeConfidence": 0,
+      "guess": null
+    },
+    "ms": 4500,
+    "error": "The AI reading was not valid after one retry: [\n  {\n    \"origin\": \"string\",\n    \"code\": \"too_big\",\n    \"maximum\": 40,\n    \"inclusive\": true,\n    \"path\": [\n      \"imprintSides\",\n      0\n    ],\n    \"message\": \"Too big: expected string to have <=40 characters\"\n  }\n]"
+  },
+  "pill-v1:f2131a28012c1de9ff080ac791b0c34ec57e774c11faf9f7bebf2b6a32d57d2d": {
+    "reading": {
+      "imprintSides": [
+        "R 1"
+      ],
+      "imprintConfidence": 0.3,
+      "colors": [
+        "white"
+      ],
+      "colorConfidence": 0.8,
+      "shape": "oblong",
+      "shapeConfidence": 0.85,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 2878
+  },
+  "pill-v1:84d064d1861d93a432f2b6efe32a6ab1b5ecd8198ebfac5628844c17cbe174e3": {
+    "reading": {
+      "imprintSides": [],
+      "imprintConfidence": 0.2,
+      "colors": [
+        "red",
+        "off-white"
+      ],
+      "colorConfidence": 0.8,
+      "shape": "capsule",
+      "shapeConfidence": 0.95,
+      "form": "capsule",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "guess": null
+    },
+    "ms": 2203
+  },
+  "pill-v1:dce4ca46faa90324b7ffe6aee7f66a987d475d68ea4165e96cf05c4afdcc4833": {
+    "reading": {
+      "imprintSides": [
+        "4366"
+      ],
+      "imprintConfidence": 0.75,
+      "colors": [
+        "green"
+      ],
+      "colorConfidence": 0.93,
+      "shape": "round",
+      "shapeConfidence": 0.95,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 2187
+  },
+  "pill-v1:73b04f56aa590cebec254b797b4406bd775592a64ba0f212ed48781fe60d2e9b": {
+    "reading": {
+      "imprintSides": [
+        "JANSSEN"
+      ],
+      "imprintConfidence": 0.6,
+      "colors": [
+        "white"
+      ],
+      "colorConfidence": 0.7,
+      "shape": "oblong",
+      "shapeConfidence": 0.8,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 2977
+  },
+  "pill-v1:c482fc9f4c0d90524e6c7226c6cfbbda64d7ed61081306a9ba63e44de5cae80f": {
+    "reading": {
+      "imprintSides": [
+        "93 3129"
+      ],
+      "imprintConfidence": 0.6,
+      "colors": [
+        "red",
+        "off-white"
+      ],
+      "colorConfidence": 0.85,
+      "shape": "capsule",
+      "shapeConfidence": 0.95,
+      "form": "capsule",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "guess": null
+    },
+    "ms": 3068
+  },
+  "pill-v1:2b7d34795aaf922e72dd1412dfadcf313a75fa5cceac62bb007270763dacb6a3": {
+    "reading": {
+      "imprintSides": [
+        "4366"
+      ],
+      "imprintConfidence": 0.6,
+      "colors": [
+        "green"
+      ],
+      "colorConfidence": 0.9,
+      "shape": "round",
+      "shapeConfidence": 0.9,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 2832
+  },
+  "pill-v1:70b0bc3d023f97470f85d9826c397c672b45196a8ca0b46f6945fb3189de8fe3": {
+    "reading": {
+      "imprintSides": [
+        "268"
+      ],
+      "imprintConfidence": 0.85,
+      "colors": [
+        "pink"
+      ],
+      "colorConfidence": 0.75,
+      "shape": "oval",
+      "shapeConfidence": 0.9,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 2986
+  },
+  "pill-v1:3be9359f24f1af9c900570df3e562a4c697fa7b59127f33ca7278562242295ff": {
+    "reading": {
+      "imprintSides": [
+        "268"
+      ],
+      "imprintConfidence": 0.9,
+      "colors": [
+        "orange",
+        "brown"
+      ],
+      "colorConfidence": 0.5,
+      "shape": "oval",
+      "shapeConfidence": 0.9,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 2791
+  },
+  "pill-v1:8b8cff189c0aa279a411bff83b82d5f65d257fe084c27bc263f20b2c2771d5aa": {
+    "reading": {
+      "imprintSides": [
+        "2355"
+      ],
+      "imprintConfidence": 0.9,
+      "colors": [
+        "white"
+      ],
+      "colorConfidence": 0.85,
+      "shape": "round",
+      "shapeConfidence": 0.95,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 2613
+  },
+  "pill-v1:9096412cb8050ec61e30b2dfc8d0fde0447c6efc2b7dab67368d4a2ca87eb353": {
+    "reading": {
+      "imprintSides": [],
+      "imprintConfidence": 0.05,
+      "colors": [
+        "yellow",
+        "off-white"
+      ],
+      "colorConfidence": 0.3,
+      "shape": "round",
+      "shapeConfidence": 0.6,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far",
+        "glare"
+      ],
+      "guess": null
+    },
+    "ms": 2885
+  },
+  "pill-v1:b61c0284abdde080e0c302f50a963e5bd1b869a341d2410e1e0d84aa5e3ca82f": {
+    "reading": {
+      "imprintSides": [
+        "2203"
+      ],
+      "imprintConfidence": 0.85,
+      "colors": [
+        "white"
+      ],
+      "colorConfidence": 0.9,
+      "shape": "round",
+      "shapeConfidence": 0.95,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": true,
+      "guess": null
+    },
+    "ms": 2785
+  },
+  "pill-v1:561c38dd29445be2b5d9948ca6c9a9263ef3bd4d08dd8e17b63b5f655c2ec9a1": {
+    "reading": {
+      "imprintSides": [
+        "I G"
+      ],
+      "imprintConfidence": 0.85,
+      "colors": [
+        "white"
+      ],
+      "colorConfidence": 0.95,
+      "shape": "oblong",
+      "shapeConfidence": 0.9,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [],
+      "scored": true,
+      "guess": null
+    },
+    "ms": 2227
+  },
+  "pill-v1:cdc4f7cab6b52dd302608b0e96d8cf85edf270db0e91b1d13f8795c219a41031": {
+    "reading": {
+      "imprintSides": [
+        "TEVA"
+      ],
+      "imprintConfidence": 0.8,
+      "colors": [
+        "white"
+      ],
+      "colorConfidence": 0.95,
+      "shape": "round",
+      "shapeConfidence": 0.95,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 2941
+  },
+  "pill-v1:6da3af6f5c51f0c38a91b27fb941df7b9870625e668c40be569e8d3b0fa75b9a": {
+    "reading": {
+      "imprintSides": [
+        "225"
+      ],
+      "imprintConfidence": 0.9,
+      "colors": [
+        "white"
+      ],
+      "colorConfidence": 0.9,
+      "shape": "oval",
+      "shapeConfidence": 0.8,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 2238
+  },
+  "pill-v1:56d15b8f5228d4e498a19edc43b3f2f68a4f2ab3ca558f02b0c5e581a4c81535": {
+    "reading": {
+      "imprintSides": [
+        "[hourglass-like triangles logo] 150"
+      ],
+      "imprintConfidence": 0.6,
+      "colors": [
+        "pink"
+      ],
+      "colorConfidence": 0.9,
+      "shape": "oval",
+      "shapeConfidence": 0.85,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": false,
+      "guess": {
+        "drugName": "Ranitidine",
+        "strength": "150 mg"
+      }
+    },
+    "ms": 2290
+  },
+  "pill-v1:960b61fe67df76033fa8f2177af760c852647bde544393bf4bc556437d3ef9c0": {
+    "reading": {
+      "imprintSides": [
+        "Δ150"
+      ],
+      "imprintConfidence": 0.4,
+      "colors": [
+        "pink",
+        "orange"
+      ],
+      "colorConfidence": 0.5,
+      "shape": "oval",
+      "shapeConfidence": 0.75,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 2287
+  },
+  "pill-v1:5f79caa4a38f4498ee030d985101224a3f1c5ea22f19e1d4e14bbf0abd0afb9c": {
+    "reading": {
+      "imprintSides": [
+        "MP9"
+      ],
+      "imprintConfidence": 0.85,
+      "colors": [
+        "yellow"
+      ],
+      "colorConfidence": 0.6,
+      "shape": "oval",
+      "shapeConfidence": 0.9,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 2800
+  },
+  "pill-v1:dae274aa5d84dd04e0ab97806533a90448355e21fc7a311f789b9bdbda4c1ba2": {
+    "reading": {
+      "imprintSides": [
+        "M P9"
+      ],
+      "imprintConfidence": 0.8,
+      "colors": [
+        "yellow"
+      ],
+      "colorConfidence": 0.6,
+      "shape": "oval",
+      "shapeConfidence": 0.85,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 2972
+  },
+  "pill-v1:37591be6454ffa38cb4a3f5a15d3c6962c63a94f3abc547c6bac1ba9baf6b39f": {
+    "reading": {
+      "imprintSides": [
+        "5240 mg"
+      ],
+      "imprintConfidence": 0.5,
+      "colors": [
+        "white"
+      ],
+      "colorConfidence": 0.85,
+      "shape": "capsule",
+      "shapeConfidence": 0.95,
+      "form": "capsule",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "guess": null
+    },
+    "ms": 2857
+  },
+  "pill-v1:dda6b127cf0903abc8866119c9cbd0c10a6bef952705ac73f640078ce0f268be": {
+    "reading": {
+      "imprintSides": [
+        "DISTA 3105 PROZAC 20 mg",
+        ""
+      ],
+      "imprintConfidence": 0.9,
+      "colors": [
+        "green",
+        "off-white"
+      ],
+      "colorConfidence": 0.9,
+      "shape": "capsule",
+      "shapeConfidence": 0.95,
+      "form": "capsule",
+      "pillVisible": true,
+      "multiplePills": true,
+      "photoProblems": [],
+      "scored": false,
+      "guess": {
+        "drugName": "Prozac (fluoxetine)",
+        "strength": "20 mg"
+      }
+    },
+    "ms": 2450
+  },
+  "pill-v1:d431c71ecdabbb37260e98f88070784210b5c75fcd28b59bdf37bbaaaac06604": {
+    "reading": {
+      "imprintSides": [],
+      "imprintConfidence": 0.05,
+      "colors": [
+        "green",
+        "white"
+      ],
+      "colorConfidence": 0.9,
+      "shape": "capsule",
+      "shapeConfidence": 0.95,
+      "form": "capsule",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "guess": null
+    },
+    "ms": 2946
+  },
+  "pill-v1:d035c20b3104de7bf57c704a8769671b900fb20b9b589052927862b26bea4aaf": {
+    "reading": {
+      "imprintSides": [
+        "5360"
+      ],
+      "imprintConfidence": 0.5,
+      "colors": [
+        "white"
+      ],
+      "colorConfidence": 0.85,
+      "shape": "oval",
+      "shapeConfidence": 0.85,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 2958
+  },
+  "pill-v1:c5ddf0818d0f334e74ddba18b6bf59d9d821fe58d4b190584769f2b361aff882": {
+    "reading": {
+      "imprintSides": [
+        "⧗ 52_ / 1 mg"
+      ],
+      "imprintConfidence": 0.5,
+      "colors": [
+        "white"
+      ],
+      "colorConfidence": 0.85,
+      "shape": "capsule",
+      "shapeConfidence": 0.95,
+      "form": "capsule",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "guess": {
+        "drugName": "Tacrolimus",
+        "strength": "1 mg"
+      }
+    },
+    "ms": 4909
+  },
+  "pill-v1:e31b2680c99c0beee9ed25a53993c184d7ad4586b4f5ee7b71808c9d791fb7f8": {
+    "reading": {
+      "imprintSides": [],
+      "imprintConfidence": 0.3,
+      "colors": [
+        "yellow"
+      ],
+      "colorConfidence": 0.8,
+      "shape": "oblong",
+      "shapeConfidence": 0.9,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "imprint side down"
+      ],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 2572
+  },
+  "pill-v1:db6d5e2404c15f6c91e1253a6e1cda647b7ebf0467a8745cab8a4a14bff72eec": {
+    "reading": {
+      "imprintSides": [
+        "XR 200"
+      ],
+      "imprintConfidence": 0.9,
+      "colors": [
+        "yellow"
+      ],
+      "colorConfidence": 0.7,
+      "shape": "oval",
+      "shapeConfidence": 0.6,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [],
+      "scored": false,
+      "guess": {
+        "drugName": "Quetiapine fumarate extended-release",
+        "strength": "200 mg"
+      }
+    },
+    "ms": 3284
+  },
+  "pill-v1:08dd599a3b63455fe9812f95e740a1b6478bac31ab435f3a915e85b737a8cacf": {
+    "reading": {
+      "imprintSides": [
+        "5960"
+      ],
+      "imprintConfidence": 0.2,
+      "colors": [
+        "white"
+      ],
+      "colorConfidence": 0.85,
+      "shape": "oval",
+      "shapeConfidence": 0.9,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far",
+        "blur"
+      ],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 4714
+  },
+  "pill-v1:328dec61cb8e43e48eb3418d9b3ce291866916914f077bc30c7fa9f27d7b3f29": {
+    "reading": {
+      "imprintSides": [
+        "MB-111"
+      ],
+      "imprintConfidence": 0.9,
+      "colors": [
+        "blue"
+      ],
+      "colorConfidence": 0.9,
+      "shape": "oval",
+      "shapeConfidence": 0.85,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 2182
+  },
+  "pill-v1:23553cc4cf36431606f2f9dc9ece52c55b4ed414db4a190733720a313cdbf06f": {
+    "reading": {
+      "imprintSides": [
+        "LANOXIN / X3A"
+      ],
+      "imprintConfidence": 0.6,
+      "colors": [
+        "white"
+      ],
+      "colorConfidence": 0.9,
+      "shape": "round",
+      "shapeConfidence": 0.95,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": true,
+      "guess": {
+        "drugName": "Lanoxin (digoxin)",
+        "strength": "0.125 mg"
+      }
+    },
+    "ms": 2996
+  },
+  "pill-v1:06f0836a8f2a73e4036a0839dde0dc744dafb0d4707204c58f155b1082472f04": {
+    "reading": {
+      "imprintSides": [
+        ""
+      ],
+      "imprintConfidence": 0.6,
+      "colors": [
+        "blue"
+      ],
+      "colorConfidence": 0.85,
+      "shape": "capsule-shaped (oblong)",
+      "shapeConfidence": 0.85,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 3012
+  },
+  "pill-v1:aef567dd97af47b8a6cb7b8825f3a2b1e514009167f9d1bb1916c7d71257fc37": {
+    "reading": {
+      "imprintSides": [
+        "Pfizer"
+      ],
+      "imprintConfidence": 0.6,
+      "colors": [
+        "blue"
+      ],
+      "colorConfidence": 0.9,
+      "shape": "diamond",
+      "shapeConfidence": 0.8,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far",
+        "blur"
+      ],
+      "scored": false,
+      "guess": {
+        "drugName": "Viagra (sildenafil citrate)"
+      }
+    },
+    "ms": 2618
+  },
+  "pill-v1:26157709e6cdd61db946a66c0b6c20406f263a0428ecba82d07d90e2dfb41df2": {
+    "reading": {
+      "imprintSides": [
+        "VGR100"
+      ],
+      "imprintConfidence": 0.8,
+      "colors": [
+        "blue"
+      ],
+      "colorConfidence": 0.93,
+      "shape": "diamond",
+      "shapeConfidence": 0.8,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [],
+      "scored": false,
+      "guess": {
+        "drugName": "sildenafil citrate",
+        "strength": "100 mg"
+      }
+    },
+    "ms": 3091
+  },
+  "pill-v1:8edf79427a90dc8a35917b48f822d9e423b0ae1c6e3659a87875a013e6235366": {
+    "reading": {
+      "imprintSides": [
+        ""
+      ],
+      "imprintConfidence": 0.2,
+      "colors": [
+        "blue"
+      ],
+      "colorConfidence": 0.85,
+      "shape": "oval",
+      "shapeConfidence": 0.85,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": true,
+      "guess": null
+    },
+    "ms": 2773
+  },
+  "pill-v1:e590f16d6623fb64b0320047e8cddd2bd8552288823588bd3b1b0a42b1f34762": {
+    "reading": {
+      "imprintSides": [],
+      "imprintConfidence": 0,
+      "colors": [],
+      "colorConfidence": 0,
+      "shape": "",
+      "shapeConfidence": 0,
+      "guess": null
+    },
+    "ms": 7070,
+    "error": "The AI reading was not valid after one retry: [\n  {\n    \"origin\": \"string\",\n    \"code\": \"too_big\",\n    \"maximum\": 40,\n    \"inclusive\": true,\n    \"path\": [\n      \"imprintSides\",\n      0\n    ],\n    \"message\": \"Too big: expected string to have <=40 characters\"\n  }\n]"
+  },
+  "pill-v1:2133d384b706b6246a72a2bffb2b0ab32112deccd33e703847e95d7e4eeb9e68": {
+    "reading": {
+      "imprintSides": [
+        "N"
+      ],
+      "imprintConfidence": 0.3,
+      "colors": [
+        "white"
+      ],
+      "colorConfidence": 0.6,
+      "shape": "oval",
+      "shapeConfidence": 0.6,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 2266
+  },
+  "pill-v1:39c03c4562564a43a1470da91bbe7a6777391fb2c3219b40c09c66d7678986df": {
+    "reading": {
+      "imprintSides": [],
+      "imprintConfidence": 0.05,
+      "colors": [
+        "blue",
+        "gray"
+      ],
+      "colorConfidence": 0.5,
+      "shape": "oval",
+      "shapeConfidence": 0.8,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": true,
+      "guess": null
+    },
+    "ms": 3156
+  },
+  "pill-v1:a57bb70fdb3d348a6e78de6b9a6dde8c3836fec59ff81558b23ae7d5a463ea64": {
+    "reading": {
+      "imprintSides": [
+        "10"
+      ],
+      "imprintConfidence": 0.9,
+      "colors": [
+        "yellow",
+        "off-white"
+      ],
+      "colorConfidence": 0.6,
+      "shape": "round",
+      "shapeConfidence": 0.95,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 2903
+  },
+  "pill-v1:0252cf13b5f238d5a7ff638e6b153b03d82146de1494101c1a305931fe462003": {
+    "reading": {
+      "imprintSides": [
+        "10"
+      ],
+      "imprintConfidence": 0.6,
+      "colors": [
+        "off-white"
+      ],
+      "colorConfidence": 0.55,
+      "shape": "round",
+      "shapeConfidence": 0.9,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 3006
+  },
+  "pill-v1:410be8c410cd46e9f01b62ecbc43912d3d4af5579452c545eee4f2ad9ce56de8": {
+    "reading": {
+      "imprintSides": [
+        "Z"
+      ],
+      "imprintConfidence": 0.6,
+      "colors": [
+        "gray"
+      ],
+      "colorConfidence": 0.5,
+      "shape": "oval",
+      "shapeConfidence": 0.7,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": false,
+      "guess": null
+    },
+    "ms": 2192
+  }
+}

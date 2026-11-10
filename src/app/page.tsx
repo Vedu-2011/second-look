@@ -1,5 +1,6 @@
 import { Camera, Pill, ScanSearch } from "lucide-react";
 import Link from "next/link";
+import { RESEARCH_RESULTS, researchHeadline } from "@/lib/research-results";
 import { ButtonLink } from "@/components/button";
 import { PillDrawing } from "@/components/pill-drawing";
 import { SourceBadge } from "@/components/source-badge";
@@ -94,6 +95,8 @@ export default function Home() {
           <Link href="/samples" className="mt-3 flex min-h-12 items-center justify-center rounded-full text-base font-semibold text-ink-soft underline underline-offset-4">See all three bottles</Link>
         </figure>
       </section>
+
+      {RESEARCH_RESULTS && <p className="mt-10 max-w-3xl text-base text-ink-soft"><Link href="/research" className="rounded-md underline decoration-amber decoration-2 underline-offset-4">{researchHeadline(RESEARCH_RESULTS)} Read the test.</Link></p>}
 
       <section aria-labelledby="how" className="mt-16 sm:mt-24">
         <h2 id="how" className="text-2xl font-bold tracking-[-0.01em] text-ink">

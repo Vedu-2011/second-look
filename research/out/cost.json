@@ -1,0 +1,8668 @@
+[
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 336,
+    "usd": 0.01054,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 335,
+    "usd": 0.01053,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 337,
+    "usd": 0.01055,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 337,
+    "usd": 0.01055,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 370,
+    "usd": 0.01088,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 374,
+    "usd": 0.01092,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 335,
+    "usd": 0.01053,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 339,
+    "usd": 0.01057,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 335,
+    "usd": 0.01053,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 338,
+    "usd": 0.01056,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 372,
+    "usd": 0.0109,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3010,
+    "output": 365,
+    "usd": 0.00967,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 333,
+    "usd": 0.01051,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 335,
+    "usd": 0.01053,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3010,
+    "output": 338,
+    "usd": 0.0094,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 337,
+    "usd": 0.01055,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 334,
+    "usd": 0.01052,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3010,
+    "output": 334,
+    "usd": 0.00936,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 356,
+    "usd": 0.01074,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 334,
+    "usd": 0.01052,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 363,
+    "usd": 0.01081,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 363,
+    "usd": 0.01081,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 334,
+    "usd": 0.01052,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 336,
+    "usd": 0.01054,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 340,
+    "usd": 0.01058,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 349,
+    "usd": 0.01067,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3010,
+    "output": 368,
+    "usd": 0.0097,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 340,
+    "usd": 0.01058,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 334,
+    "usd": 0.01052,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 369,
+    "usd": 0.01087,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 341,
+    "usd": 0.01059,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 335,
+    "usd": 0.01053,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 337,
+    "usd": 0.01055,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 339,
+    "usd": 0.01057,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 392,
+    "usd": 0.0111,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 340,
+    "usd": 0.01058,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 1362,
+    "output": 361,
+    "usd": 0.006334,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 337,
+    "usd": 0.01055,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 383,
+    "usd": 0.01101,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 336,
+    "usd": 0.01054,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 339,
+    "usd": 0.01057,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 333,
+    "usd": 0.01051,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 337,
+    "usd": 0.01055,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 362,
+    "usd": 0.0108,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 334,
+    "usd": 0.01052,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 334,
+    "usd": 0.01052,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 339,
+    "usd": 0.01057,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 334,
+    "usd": 0.01052,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 336,
+    "usd": 0.01054,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 380,
+    "usd": 0.01098,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3010,
+    "output": 358,
+    "usd": 0.0096,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 339,
+    "usd": 0.01057,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 338,
+    "usd": 0.01056,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 337,
+    "usd": 0.01055,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 1362,
+    "output": 332,
+    "usd": 0.006044,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 345,
+    "usd": 0.01063,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 336,
+    "usd": 0.01054,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 346,
+    "usd": 0.01064,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 343,
+    "usd": 0.01061,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 338,
+    "usd": 0.01056,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 357,
+    "usd": 0.01075,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 340,
+    "usd": 0.01058,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 358,
+    "usd": 0.01076,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 341,
+    "usd": 0.01059,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 331,
+    "usd": 0.01049,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3010,
+    "output": 368,
+    "usd": 0.0097,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 338,
+    "usd": 0.01056,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3010,
+    "output": 358,
+    "usd": 0.0096,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 358,
+    "usd": 0.01076,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 340,
+    "usd": 0.01058,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 334,
+    "usd": 0.01052,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 340,
+    "usd": 0.01058,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3010,
+    "output": 369,
+    "usd": 0.00971,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 338,
+    "usd": 0.01056,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3010,
+    "output": 371,
+    "usd": 0.00973,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 395,
+    "usd": 0.01113,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 339,
+    "usd": 0.01057,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 356,
+    "usd": 0.01074,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 338,
+    "usd": 0.01056,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 381,
+    "usd": 0.01099,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 360,
+    "usd": 0.01078,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 333,
+    "usd": 0.01051,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 370,
+    "usd": 0.01088,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3010,
+    "output": 382,
+    "usd": 0.00984,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 337,
+    "usd": 0.01055,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 335,
+    "usd": 0.01053,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 378,
+    "usd": 0.01096,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 337,
+    "usd": 0.01055,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 338,
+    "usd": 0.01056,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 333,
+    "usd": 0.01051,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 338,
+    "usd": 0.01056,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 359,
+    "usd": 0.01077,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 341,
+    "usd": 0.01059,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 333,
+    "usd": 0.01051,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 341,
+    "usd": 0.01059,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 332,
+    "usd": 0.0105,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 348,
+    "usd": 0.01066,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 335,
+    "usd": 0.01053,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 1362,
+    "output": 353,
+    "usd": 0.006254,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 338,
+    "usd": 0.01056,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 335,
+    "usd": 0.01053,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 364,
+    "usd": 0.01082,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 346,
+    "usd": 0.01064,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 334,
+    "usd": 0.01052,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 1362,
+    "output": 352,
+    "usd": 0.006244,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 365,
+    "usd": 0.01083,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 338,
+    "usd": 0.01056,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 339,
+    "usd": 0.01057,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 336,
+    "usd": 0.01054,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 336,
+    "usd": 0.01054,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2132,
+    "output": 355,
+    "usd": 0.007814,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 335,
+    "usd": 0.01053,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2132,
+    "output": 359,
+    "usd": 0.007854,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 335,
+    "usd": 0.01053,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 336,
+    "usd": 0.01054,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 339,
+    "usd": 0.01057,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2132,
+    "output": 355,
+    "usd": 0.007814,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 337,
+    "usd": 0.01055,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2132,
+    "output": 362,
+    "usd": 0.007884,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 335,
+    "usd": 0.01053,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 334,
+    "usd": 0.01052,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 334,
+    "usd": 0.01052,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 338,
+    "usd": 0.01056,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 373,
+    "usd": 0.01091,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 337,
+    "usd": 0.01055,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 335,
+    "usd": 0.01053,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 338,
+    "usd": 0.01056,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 363,
+    "usd": 0.01081,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 1362,
+    "output": 331,
+    "usd": 0.006034,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 1362,
+    "output": 332,
+    "usd": 0.006044,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 334,
+    "usd": 0.01052,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 374,
+    "usd": 0.01092,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 339,
+    "usd": 0.01057,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 336,
+    "usd": 0.01054,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 336,
+    "usd": 0.01054,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 365,
+    "usd": 0.01083,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 369,
+    "usd": 0.01087,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 1362,
+    "output": 368,
+    "usd": 0.006404,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 342,
+    "usd": 0.0106,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3010,
+    "output": 336,
+    "usd": 0.00938,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 378,
+    "usd": 0.01096,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 344,
+    "usd": 0.01062,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 340,
+    "usd": 0.01058,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 332,
+    "usd": 0.0105,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 338,
+    "usd": 0.01056,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 344,
+    "usd": 0.01062,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 367,
+    "usd": 0.01085,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 1362,
+    "output": 359,
+    "usd": 0.006314,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3010,
+    "output": 346,
+    "usd": 0.00948,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 334,
+    "usd": 0.01052,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 334,
+    "usd": 0.01052,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 368,
+    "usd": 0.01086,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 374,
+    "usd": 0.01092,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3010,
+    "output": 343,
+    "usd": 0.00945,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 333,
+    "usd": 0.01051,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 344,
+    "usd": 0.01062,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 339,
+    "usd": 0.01057,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 335,
+    "usd": 0.01053,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 341,
+    "usd": 0.01059,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 339,
+    "usd": 0.01057,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 332,
+    "usd": 0.0105,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 370,
+    "usd": 0.01088,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 343,
+    "usd": 0.01061,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 383,
+    "usd": 0.01101,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 346,
+    "usd": 0.01064,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 348,
+    "usd": 0.01066,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 334,
+    "usd": 0.01052,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 342,
+    "usd": 0.0106,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 336,
+    "usd": 0.01054,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 337,
+    "usd": 0.01055,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 348,
+    "usd": 0.01066,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 338,
+    "usd": 0.01056,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 339,
+    "usd": 0.01057,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 335,
+    "usd": 0.01053,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 341,
+    "usd": 0.01059,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 344,
+    "usd": 0.01062,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 335,
+    "usd": 0.01053,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 336,
+    "usd": 0.01054,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 340,
+    "usd": 0.01058,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 1362,
+    "output": 332,
+    "usd": 0.006044,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 343,
+    "usd": 0.01061,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 335,
+    "usd": 0.01053,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 334,
+    "usd": 0.01052,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 337,
+    "usd": 0.01055,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 332,
+    "usd": 0.0105,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 373,
+    "usd": 0.01091,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 343,
+    "usd": 0.01061,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 339,
+    "usd": 0.01057,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 339,
+    "usd": 0.01057,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 340,
+    "usd": 0.01058,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 384,
+    "usd": 0.01102,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3010,
+    "output": 387,
+    "usd": 0.00989,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 337,
+    "usd": 0.01055,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 336,
+    "usd": 0.01054,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 373,
+    "usd": 0.01091,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 1362,
+    "output": 339,
+    "usd": 0.006114,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 368,
+    "usd": 0.01086,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 339,
+    "usd": 0.01057,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 336,
+    "usd": 0.01054,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 1362,
+    "output": 358,
+    "usd": 0.006304,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 374,
+    "usd": 0.01092,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 342,
+    "usd": 0.0106,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 370,
+    "usd": 0.01088,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 363,
+    "usd": 0.01081,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 335,
+    "usd": 0.01053,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 1362,
+    "output": 359,
+    "usd": 0.006314,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 335,
+    "usd": 0.01053,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 338,
+    "usd": 0.01056,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 341,
+    "usd": 0.01059,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 3590,
+    "output": 336,
+    "usd": 0.01054,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 1362,
+    "output": 337,
+    "usd": 0.006094,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 502,
+    "usd": 0.00061,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 512,
+    "usd": 0.000615,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 631,
+    "usd": 0.0006745,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 601,
+    "usd": 0.0006595,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 681,
+    "usd": 0.0006995,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 741,
+    "usd": 0.0007295,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 519,
+    "usd": 0.0006185,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 511,
+    "usd": 0.0006145,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 694,
+    "usd": 0.000706,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 697,
+    "usd": 0.0007075,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 732,
+    "usd": 0.000725,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 820,
+    "usd": 0.000769,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 700,
+    "usd": 0.000709,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3010,
+    "output": 705,
+    "usd": 0.0006535,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 1003,
+    "usd": 0.0008605,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 607,
+    "usd": 0.0006625,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 518,
+    "usd": 0.000618,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3010,
+    "output": 1063,
+    "usd": 0.0008325,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 531,
+    "usd": 0.0006245,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 876,
+    "usd": 0.000797,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 759,
+    "usd": 0.0007385,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3010,
+    "output": 767,
+    "usd": 0.0006845,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 807,
+    "usd": 0.0007625,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 799,
+    "usd": 0.0007585,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 334,
+    "usd": 0.000526,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 687,
+    "usd": 0.0007025,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 679,
+    "usd": 0.0006985,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 757,
+    "usd": 0.0007375,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 587,
+    "usd": 0.0006525,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 703,
+    "usd": 0.0007105,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 619,
+    "usd": 0.0006685,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 683,
+    "usd": 0.0007005,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 676,
+    "usd": 0.000697,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 342,
+    "usd": 0.00053,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 774,
+    "usd": 0.000746,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 580,
+    "usd": 0.000649,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 720,
+    "usd": 0.000719,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3010,
+    "output": 987,
+    "usd": 0.0007945,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 591,
+    "usd": 0.0006545,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 586,
+    "usd": 0.000652,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 508,
+    "usd": 0.000613,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 1362,
+    "output": 661,
+    "usd": 0.00046670000000000007,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 665,
+    "usd": 0.0006915,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 845,
+    "usd": 0.0007815,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 606,
+    "usd": 0.000662,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 516,
+    "usd": 0.000617,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 842,
+    "usd": 0.00078,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 640,
+    "usd": 0.000679,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 654,
+    "usd": 0.000686,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 351,
+    "usd": 0.0005345,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 883,
+    "usd": 0.0008005,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 599,
+    "usd": 0.0006585,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 348,
+    "usd": 0.000533,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 802,
+    "usd": 0.00076,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 683,
+    "usd": 0.0007005,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 643,
+    "usd": 0.0006805,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 685,
+    "usd": 0.0007015,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 1028,
+    "usd": 0.000873,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 581,
+    "usd": 0.0006495,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 636,
+    "usd": 0.000677,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3010,
+    "output": 622,
+    "usd": 0.000612,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 1362,
+    "output": 520,
+    "usd": 0.00039620000000000004,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 495,
+    "usd": 0.0006065,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 802,
+    "usd": 0.00076,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 583,
+    "usd": 0.0006505,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 609,
+    "usd": 0.0006635,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 678,
+    "usd": 0.000698,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 614,
+    "usd": 0.000666,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 1023,
+    "usd": 0.0008705,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 776,
+    "usd": 0.000747,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 687,
+    "usd": 0.0007025,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 543,
+    "usd": 0.0006305,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3010,
+    "output": 789,
+    "usd": 0.0006955,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 726,
+    "usd": 0.000722,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 546,
+    "usd": 0.000632,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 654,
+    "usd": 0.000686,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3010,
+    "output": 822,
+    "usd": 0.000712,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 716,
+    "usd": 0.000717,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 594,
+    "usd": 0.000656,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3010,
+    "output": 791,
+    "usd": 0.0006965,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 672,
+    "usd": 0.000695,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 681,
+    "usd": 0.0006995,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3010,
+    "output": 978,
+    "usd": 0.00079,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 874,
+    "usd": 0.000796,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 704,
+    "usd": 0.000711,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 699,
+    "usd": 0.0007085,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 620,
+    "usd": 0.000669,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 650,
+    "usd": 0.000684,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 638,
+    "usd": 0.000678,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 654,
+    "usd": 0.000686,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 762,
+    "usd": 0.00074,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 538,
+    "usd": 0.000628,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3010,
+    "output": 785,
+    "usd": 0.0006935,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 666,
+    "usd": 0.000692,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 578,
+    "usd": 0.000648,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 718,
+    "usd": 0.000718,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 630,
+    "usd": 0.000674,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 639,
+    "usd": 0.0006785,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 603,
+    "usd": 0.0006605,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 335,
+    "usd": 0.0005265,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 709,
+    "usd": 0.0007135,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 787,
+    "usd": 0.0007525,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 547,
+    "usd": 0.0006325,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 861,
+    "usd": 0.0007895,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 1362,
+    "output": 589,
+    "usd": 0.00043070000000000006,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 581,
+    "usd": 0.0006495,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 510,
+    "usd": 0.000614,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 710,
+    "usd": 0.000714,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 619,
+    "usd": 0.0006685,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 865,
+    "usd": 0.0007915,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 647,
+    "usd": 0.0006825,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 735,
+    "usd": 0.0007265,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 357,
+    "usd": 0.0005375,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 587,
+    "usd": 0.0006525,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 590,
+    "usd": 0.000654,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 639,
+    "usd": 0.0006785,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 2132,
+    "output": 588,
+    "usd": 0.0005072000000000001,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 2132,
+    "output": 619,
+    "usd": 0.0005227000000000001,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 614,
+    "usd": 0.000666,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 698,
+    "usd": 0.000708,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 824,
+    "usd": 0.000771,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 2132,
+    "output": 541,
+    "usd": 0.00048370000000000005,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 734,
+    "usd": 0.000726,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 858,
+    "usd": 0.000788,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 729,
+    "usd": 0.0007235,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 618,
+    "usd": 0.000668,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 656,
+    "usd": 0.000687,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 694,
+    "usd": 0.000706,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 586,
+    "usd": 0.000652,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 787,
+    "usd": 0.0007525,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 576,
+    "usd": 0.000647,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 498,
+    "usd": 0.000608,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 1362,
+    "output": 332,
+    "usd": 0.00030220000000000003,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 713,
+    "usd": 0.0007155,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 920,
+    "usd": 0.000819,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 697,
+    "usd": 0.0007075,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 752,
+    "usd": 0.000735,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 334,
+    "usd": 0.000526,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 1362,
+    "output": 545,
+    "usd": 0.00040870000000000007,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 627,
+    "usd": 0.0006725,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 664,
+    "usd": 0.000691,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 582,
+    "usd": 0.00065,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 699,
+    "usd": 0.0007085,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 666,
+    "usd": 0.000692,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 845,
+    "usd": 0.0007815,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 1362,
+    "output": 672,
+    "usd": 0.00047220000000000004,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 633,
+    "usd": 0.0006755,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3010,
+    "output": 717,
+    "usd": 0.0006595,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 698,
+    "usd": 0.000708,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 827,
+    "usd": 0.0007725,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 552,
+    "usd": 0.000635,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 698,
+    "usd": 0.000708,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 1362,
+    "output": 951,
+    "usd": 0.0006117000000000001,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 797,
+    "usd": 0.0007575,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 727,
+    "usd": 0.0007225,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3010,
+    "output": 911,
+    "usd": 0.0007565,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 633,
+    "usd": 0.0006755,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 669,
+    "usd": 0.0006935,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 1362,
+    "output": 980,
+    "usd": 0.0006262,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 824,
+    "usd": 0.000771,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 587,
+    "usd": 0.0006525,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 783,
+    "usd": 0.0007505,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 610,
+    "usd": 0.000664,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 543,
+    "usd": 0.0006305,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 508,
+    "usd": 0.000613,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3010,
+    "output": 763,
+    "usd": 0.0006825,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 1362,
+    "output": 918,
+    "usd": 0.0005952,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 604,
+    "usd": 0.000661,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 561,
+    "usd": 0.0006395,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 802,
+    "usd": 0.00076,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 336,
+    "usd": 0.000527,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 625,
+    "usd": 0.0006715,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 658,
+    "usd": 0.000688,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 675,
+    "usd": 0.0006965,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 591,
+    "usd": 0.0006545,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 890,
+    "usd": 0.000804,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 610,
+    "usd": 0.000664,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 570,
+    "usd": 0.000644,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 337,
+    "usd": 0.0005275,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 560,
+    "usd": 0.000639,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 769,
+    "usd": 0.0007435,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 613,
+    "usd": 0.0006655,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 611,
+    "usd": 0.0006645,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 679,
+    "usd": 0.0006985,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 648,
+    "usd": 0.000683,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 862,
+    "usd": 0.00079,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 709,
+    "usd": 0.0007135,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 515,
+    "usd": 0.0006165,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 332,
+    "usd": 0.000525,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 524,
+    "usd": 0.000621,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 741,
+    "usd": 0.0007295,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 336,
+    "usd": 0.000527,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 562,
+    "usd": 0.00064,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 610,
+    "usd": 0.000664,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 1362,
+    "output": 525,
+    "usd": 0.00039870000000000004,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 613,
+    "usd": 0.0006655,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 701,
+    "usd": 0.0007095,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 332,
+    "usd": 0.000525,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 552,
+    "usd": 0.000635,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 668,
+    "usd": 0.000693,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 668,
+    "usd": 0.000693,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 339,
+    "usd": 0.0005285,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 625,
+    "usd": 0.0006715,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 711,
+    "usd": 0.0007145,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 892,
+    "usd": 0.000805,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 644,
+    "usd": 0.000681,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 858,
+    "usd": 0.000788,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 661,
+    "usd": 0.0006895,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3010,
+    "output": 1100,
+    "usd": 0.000851,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 637,
+    "usd": 0.0006775,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 691,
+    "usd": 0.0007045,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 1362,
+    "output": 663,
+    "usd": 0.00046770000000000004,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 1362,
+    "output": 647,
+    "usd": 0.00045970000000000006,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 939,
+    "usd": 0.0008285,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3010,
+    "output": 966,
+    "usd": 0.000784,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 1362,
+    "output": 591,
+    "usd": 0.00043170000000000003,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 755,
+    "usd": 0.0007365,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 634,
+    "usd": 0.000676,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 904,
+    "usd": 0.000811,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 573,
+    "usd": 0.0006455,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 606,
+    "usd": 0.000662,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 683,
+    "usd": 0.0007005,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 685,
+    "usd": 0.0007015,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 754,
+    "usd": 0.000736,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 571,
+    "usd": 0.0006445,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 3590,
+    "output": 642,
+    "usd": 0.00068,
+    "phase": "read"
+  },
+  {
+    "model": "claude-haiku-5-5",
+    "input": 1362,
+    "output": 699,
+    "usd": 0.00048570000000000004,
+    "phase": "read"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2577,
+    "output": 128,
+    "usd": 0.006434,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2596,
+    "output": 128,
+    "usd": 0.006472,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2577,
+    "output": 128,
+    "usd": 0.006434,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2596,
+    "output": 128,
+    "usd": 0.006472,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2573,
+    "output": 128,
+    "usd": 0.006426,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2573,
+    "output": 128,
+    "usd": 0.006426,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2580,
+    "output": 128,
+    "usd": 0.00644,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2000,
+    "output": 128,
+    "usd": 0.00528,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2580,
+    "output": 128,
+    "usd": 0.00644,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 1996,
+    "output": 128,
+    "usd": 0.005272,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2000,
+    "output": 128,
+    "usd": 0.00528,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 1990,
+    "output": 128,
+    "usd": 0.00526,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2585,
+    "output": 128,
+    "usd": 0.00645,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2576,
+    "output": 128,
+    "usd": 0.006432,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2576,
+    "output": 128,
+    "usd": 0.006432,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2578,
+    "output": 128,
+    "usd": 0.006436,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2585,
+    "output": 128,
+    "usd": 0.00645,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2578,
+    "output": 128,
+    "usd": 0.006436,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 1996,
+    "output": 128,
+    "usd": 0.005272,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 1990,
+    "output": 128,
+    "usd": 0.00526,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2572,
+    "output": 128,
+    "usd": 0.006424,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2572,
+    "output": 128,
+    "usd": 0.006424,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2572,
+    "output": 128,
+    "usd": 0.006424,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2573,
+    "output": 128,
+    "usd": 0.006426,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2572,
+    "output": 128,
+    "usd": 0.006424,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2573,
+    "output": 128,
+    "usd": 0.006426,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2573,
+    "output": 128,
+    "usd": 0.006426,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2573,
+    "output": 128,
+    "usd": 0.006426,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2581,
+    "output": 128,
+    "usd": 0.006442,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 1992,
+    "output": 128,
+    "usd": 0.005264,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 1990,
+    "output": 128,
+    "usd": 0.00526,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2581,
+    "output": 128,
+    "usd": 0.006442,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2572,
+    "output": 8,
+    "usd": 0.005224,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2572,
+    "output": 128,
+    "usd": 0.006424,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2587,
+    "output": 128,
+    "usd": 0.006454,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2572,
+    "output": 128,
+    "usd": 0.006424,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2587,
+    "output": 128,
+    "usd": 0.006454,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2577,
+    "output": 128,
+    "usd": 0.006434,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2577,
+    "output": 128,
+    "usd": 0.006434,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2585,
+    "output": 128,
+    "usd": 0.00645,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 348,
+    "output": 128,
+    "usd": 0.001976,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2576,
+    "output": 128,
+    "usd": 0.006432,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2573,
+    "output": 128,
+    "usd": 0.006426,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 357,
+    "output": 128,
+    "usd": 0.001994,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2573,
+    "output": 128,
+    "usd": 0.006426,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 109,
+    "usd": 0.006232,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2580,
+    "output": 128,
+    "usd": 0.00644,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2580,
+    "output": 128,
+    "usd": 0.00644,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2578,
+    "output": 128,
+    "usd": 0.006436,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2578,
+    "output": 128,
+    "usd": 0.006436,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2576,
+    "output": 128,
+    "usd": 0.006432,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2581,
+    "output": 7,
+    "usd": 0.005232,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2576,
+    "output": 128,
+    "usd": 0.006432,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2581,
+    "output": 128,
+    "usd": 0.006442,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2581,
+    "output": 128,
+    "usd": 0.006442,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2581,
+    "output": 128,
+    "usd": 0.006442,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2576,
+    "output": 128,
+    "usd": 0.006432,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2576,
+    "output": 128,
+    "usd": 0.006432,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2596,
+    "output": 128,
+    "usd": 0.006472,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2596,
+    "output": 128,
+    "usd": 0.006472,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2572,
+    "output": 128,
+    "usd": 0.006424,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 1992,
+    "output": 128,
+    "usd": 0.005264,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 1991,
+    "output": 128,
+    "usd": 0.005262,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 342,
+    "output": 128,
+    "usd": 0.001964,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 344,
+    "output": 128,
+    "usd": 0.001968,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2572,
+    "output": 128,
+    "usd": 0.006424,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2572,
+    "output": 128,
+    "usd": 0.006424,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2572,
+    "output": 128,
+    "usd": 0.006424,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 8,
+    "usd": 0.00522,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2575,
+    "output": 128,
+    "usd": 0.00643,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2575,
+    "output": 128,
+    "usd": 0.00643,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 1990,
+    "output": 128,
+    "usd": 0.00526,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 1992,
+    "output": 128,
+    "usd": 0.005264,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2572,
+    "output": 128,
+    "usd": 0.006424,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2575,
+    "output": 6,
+    "usd": 0.00521,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2574,
+    "output": 128,
+    "usd": 0.006428,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 1994,
+    "output": 128,
+    "usd": 0.005268,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 1991,
+    "output": 128,
+    "usd": 0.005262,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 1996,
+    "output": 128,
+    "usd": 0.005272,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 1990,
+    "output": 128,
+    "usd": 0.00526,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2576,
+    "output": 128,
+    "usd": 0.006432,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2575,
+    "output": 128,
+    "usd": 0.00643,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2583,
+    "output": 128,
+    "usd": 0.006446,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 1990,
+    "output": 128,
+    "usd": 0.00526,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2587,
+    "output": 128,
+    "usd": 0.006454,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2003,
+    "output": 128,
+    "usd": 0.005286,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 8,
+    "usd": 0.005222,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2587,
+    "output": 128,
+    "usd": 0.006454,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2576,
+    "output": 128,
+    "usd": 0.006432,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2576,
+    "output": 128,
+    "usd": 0.006432,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2577,
+    "output": 128,
+    "usd": 0.006434,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2577,
+    "output": 128,
+    "usd": 0.006434,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2580,
+    "output": 128,
+    "usd": 0.00644,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2000,
+    "output": 128,
+    "usd": 0.00528,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2580,
+    "output": 128,
+    "usd": 0.00644,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2000,
+    "output": 128,
+    "usd": 0.00528,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2572,
+    "output": 128,
+    "usd": 0.006424,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2572,
+    "output": 128,
+    "usd": 0.006424,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2573,
+    "output": 128,
+    "usd": 0.006426,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2581,
+    "output": 128,
+    "usd": 0.006442,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2573,
+    "output": 128,
+    "usd": 0.006426,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2581,
+    "output": 128,
+    "usd": 0.006442,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2573,
+    "output": 128,
+    "usd": 0.006426,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2573,
+    "output": 128,
+    "usd": 0.006426,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 357,
+    "output": 128,
+    "usd": 0.001994,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 350,
+    "output": 128,
+    "usd": 0.00198,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2578,
+    "output": 128,
+    "usd": 0.006436,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2585,
+    "output": 128,
+    "usd": 0.00645,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2576,
+    "output": 128,
+    "usd": 0.006432,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2576,
+    "output": 128,
+    "usd": 0.006432,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2576,
+    "output": 128,
+    "usd": 0.006432,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2581,
+    "output": 128,
+    "usd": 0.006442,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2576,
+    "output": 128,
+    "usd": 0.006432,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2581,
+    "output": 128,
+    "usd": 0.006442,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 1115,
+    "output": 128,
+    "usd": 0.00351,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 1112,
+    "output": 128,
+    "usd": 0.003504,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 1112,
+    "output": 128,
+    "usd": 0.003504,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 1115,
+    "output": 128,
+    "usd": 0.00351,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2572,
+    "output": 128,
+    "usd": 0.006424,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2572,
+    "output": 128,
+    "usd": 0.006424,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 7,
+    "usd": 0.005212,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2572,
+    "output": 128,
+    "usd": 0.006424,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2572,
+    "output": 128,
+    "usd": 0.006424,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2572,
+    "output": 128,
+    "usd": 0.006424,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2585,
+    "output": 128,
+    "usd": 0.00645,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2572,
+    "output": 128,
+    "usd": 0.006424,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2587,
+    "output": 128,
+    "usd": 0.006454,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2585,
+    "output": 128,
+    "usd": 0.00645,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2579,
+    "output": 128,
+    "usd": 0.006438,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2587,
+    "output": 128,
+    "usd": 0.006454,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2579,
+    "output": 128,
+    "usd": 0.006438,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2573,
+    "output": 128,
+    "usd": 0.006426,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2573,
+    "output": 128,
+    "usd": 0.006426,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 344,
+    "output": 128,
+    "usd": 0.001968,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2572,
+    "output": 128,
+    "usd": 0.006424,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 342,
+    "output": 128,
+    "usd": 0.001964,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 357,
+    "output": 128,
+    "usd": 0.001994,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 342,
+    "output": 128,
+    "usd": 0.001964,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2573,
+    "output": 128,
+    "usd": 0.006426,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2585,
+    "output": 128,
+    "usd": 0.00645,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2574,
+    "output": 128,
+    "usd": 0.006428,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2574,
+    "output": 128,
+    "usd": 0.006428,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2573,
+    "output": 128,
+    "usd": 0.006426,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2577,
+    "output": 7,
+    "usd": 0.005224,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2576,
+    "output": 128,
+    "usd": 0.006432,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 348,
+    "output": 128,
+    "usd": 0.001976,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 343,
+    "output": 128,
+    "usd": 0.001966,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 1997,
+    "output": 128,
+    "usd": 0.005274,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 1990,
+    "output": 128,
+    "usd": 0.00526,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2572,
+    "output": 128,
+    "usd": 0.006424,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2596,
+    "output": 128,
+    "usd": 0.006472,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2572,
+    "output": 128,
+    "usd": 0.006424,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2596,
+    "output": 7,
+    "usd": 0.005262,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2574,
+    "output": 128,
+    "usd": 0.006428,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2574,
+    "output": 128,
+    "usd": 0.006428,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 342,
+    "output": 128,
+    "usd": 0.001964,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 1990,
+    "output": 128,
+    "usd": 0.00526,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 1991,
+    "output": 128,
+    "usd": 0.005262,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 343,
+    "output": 128,
+    "usd": 0.001966,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2572,
+    "output": 128,
+    "usd": 0.006424,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2572,
+    "output": 128,
+    "usd": 0.006424,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2573,
+    "output": 128,
+    "usd": 0.006426,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2573,
+    "output": 128,
+    "usd": 0.006426,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 1991,
+    "output": 128,
+    "usd": 0.005262,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2585,
+    "output": 128,
+    "usd": 0.00645,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 1991,
+    "output": 128,
+    "usd": 0.005262,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2585,
+    "output": 128,
+    "usd": 0.00645,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2572,
+    "output": 128,
+    "usd": 0.006424,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2572,
+    "output": 128,
+    "usd": 0.006424,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2592,
+    "output": 128,
+    "usd": 0.006464,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2592,
+    "output": 128,
+    "usd": 0.006464,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2576,
+    "output": 128,
+    "usd": 0.006432,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2596,
+    "output": 128,
+    "usd": 0.006472,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2576,
+    "output": 128,
+    "usd": 0.006432,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2596,
+    "output": 128,
+    "usd": 0.006472,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2573,
+    "output": 128,
+    "usd": 0.006426,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2573,
+    "output": 128,
+    "usd": 0.006426,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2573,
+    "output": 128,
+    "usd": 0.006426,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2573,
+    "output": 128,
+    "usd": 0.006426,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2572,
+    "output": 128,
+    "usd": 0.006424,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2572,
+    "output": 128,
+    "usd": 0.006424,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2576,
+    "output": 128,
+    "usd": 0.006432,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2576,
+    "output": 128,
+    "usd": 0.006432,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2592,
+    "output": 7,
+    "usd": 0.005254,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 7,
+    "usd": 0.00521,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 364,
+    "output": 128,
+    "usd": 0.002008,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 342,
+    "output": 128,
+    "usd": 0.001964,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2572,
+    "output": 128,
+    "usd": 0.006424,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2573,
+    "output": 128,
+    "usd": 0.006426,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2572,
+    "output": 128,
+    "usd": 0.006424,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2573,
+    "output": 128,
+    "usd": 0.006426,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2572,
+    "output": 128,
+    "usd": 0.006424,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2572,
+    "output": 128,
+    "usd": 0.006424,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2574,
+    "output": 128,
+    "usd": 0.006428,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2574,
+    "output": 128,
+    "usd": 0.006428,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2572,
+    "output": 128,
+    "usd": 0.006424,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 1991,
+    "output": 8,
+    "usd": 0.004062,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 7,
+    "usd": 0.005212,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 1992,
+    "output": 128,
+    "usd": 0.005264,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2575,
+    "output": 6,
+    "usd": 0.00521,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 347,
+    "output": 128,
+    "usd": 0.001974,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 342,
+    "output": 128,
+    "usd": 0.001964,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 343,
+    "output": 128,
+    "usd": 0.001966,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 344,
+    "output": 128,
+    "usd": 0.001968,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 128,
+    "usd": 0.00642,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2572,
+    "output": 128,
+    "usd": 0.006424,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2572,
+    "output": 128,
+    "usd": 0.006424,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 8,
+    "usd": 0.005222,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2572,
+    "output": 128,
+    "usd": 0.006424,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2573,
+    "output": 128,
+    "usd": 0.006426,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2573,
+    "output": 128,
+    "usd": 0.006426,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 8,
+    "usd": 0.005222,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2581,
+    "output": 128,
+    "usd": 0.006442,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2581,
+    "output": 128,
+    "usd": 0.006442,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2573,
+    "output": 128,
+    "usd": 0.006426,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2573,
+    "output": 128,
+    "usd": 0.006426,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2573,
+    "output": 128,
+    "usd": 0.006426,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2573,
+    "output": 128,
+    "usd": 0.006426,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 344,
+    "output": 128,
+    "usd": 0.001968,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 128,
+    "usd": 0.006422,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2572,
+    "output": 128,
+    "usd": 0.006424,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 343,
+    "output": 128,
+    "usd": 0.001966,
+    "phase": "baseline-pilot"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2575,
+    "output": 7,
+    "usd": 0.00522,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2594,
+    "output": 7,
+    "usd": 0.005258,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 8,
+    "usd": 0.005216,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2575,
+    "output": 7,
+    "usd": 0.00522,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 6,
+    "usd": 0.005198,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2594,
+    "output": 7,
+    "usd": 0.005258,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 8,
+    "usd": 0.005218,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 6,
+    "usd": 0.005198,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 7,
+    "usd": 0.005212,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 7,
+    "usd": 0.005212,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2578,
+    "output": 6,
+    "usd": 0.005216,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 1998,
+    "output": 8,
+    "usd": 0.004076,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 1998,
+    "output": 6,
+    "usd": 0.004056,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2578,
+    "output": 8,
+    "usd": 0.005236,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 1994,
+    "output": 7,
+    "usd": 0.004058,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 1988,
+    "output": 7,
+    "usd": 0.004046,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2574,
+    "output": 6,
+    "usd": 0.005208,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2583,
+    "output": 7,
+    "usd": 0.005236,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2576,
+    "output": 7,
+    "usd": 0.005222,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2574,
+    "output": 7,
+    "usd": 0.005218,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2576,
+    "output": 8,
+    "usd": 0.005232,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2583,
+    "output": 7,
+    "usd": 0.005236,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 1988,
+    "output": 7,
+    "usd": 0.004046,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 7,
+    "usd": 0.00521,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 1994,
+    "output": 7,
+    "usd": 0.004058,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 7,
+    "usd": 0.00521,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 6,
+    "usd": 0.0052,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 8,
+    "usd": 0.005222,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 7,
+    "usd": 0.00521,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 8,
+    "usd": 0.005222,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 8,
+    "usd": 0.005222,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 8,
+    "usd": 0.005222,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 1988,
+    "output": 8,
+    "usd": 0.004056,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 1990,
+    "output": 7,
+    "usd": 0.00405,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2579,
+    "output": 7,
+    "usd": 0.005228,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 6,
+    "usd": 0.005198,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 7,
+    "usd": 0.00521,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 6,
+    "usd": 0.005198,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2579,
+    "output": 7,
+    "usd": 0.005228,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 8,
+    "usd": 0.00522,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 8,
+    "usd": 0.005218,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2585,
+    "output": 7,
+    "usd": 0.00524,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 7,
+    "usd": 0.00521,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2585,
+    "output": 7,
+    "usd": 0.00524,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 8,
+    "usd": 0.005218,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2575,
+    "output": 7,
+    "usd": 0.00522,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 8,
+    "usd": 0.005218,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 8,
+    "usd": 0.005218,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2575,
+    "output": 7,
+    "usd": 0.00522,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2574,
+    "output": 8,
+    "usd": 0.005228,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 346,
+    "output": 7,
+    "usd": 0.000762,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2583,
+    "output": 7,
+    "usd": 0.005236,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 355,
+    "output": 7,
+    "usd": 0.00078,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 7,
+    "usd": 0.005212,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2578,
+    "output": 6,
+    "usd": 0.005216,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2578,
+    "output": 7,
+    "usd": 0.005226,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 7,
+    "usd": 0.005212,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 8,
+    "usd": 0.005218,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2576,
+    "output": 7,
+    "usd": 0.005222,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 8,
+    "usd": 0.005218,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 8,
+    "usd": 0.005218,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 8,
+    "usd": 0.005218,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2576,
+    "output": 7,
+    "usd": 0.005222,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2574,
+    "output": 7,
+    "usd": 0.005218,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 8,
+    "usd": 0.005216,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2579,
+    "output": 7,
+    "usd": 0.005228,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2574,
+    "output": 7,
+    "usd": 0.005218,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2579,
+    "output": 7,
+    "usd": 0.005228,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2579,
+    "output": 7,
+    "usd": 0.005228,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 8,
+    "usd": 0.005218,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2579,
+    "output": 7,
+    "usd": 0.005228,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2594,
+    "output": 7,
+    "usd": 0.005258,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2574,
+    "output": 7,
+    "usd": 0.005218,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2594,
+    "output": 7,
+    "usd": 0.005258,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 6,
+    "usd": 0.0052,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2574,
+    "output": 7,
+    "usd": 0.005218,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 1990,
+    "output": 6,
+    "usd": 0.00404,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 8,
+    "usd": 0.005218,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 1989,
+    "output": 8,
+    "usd": 0.004058,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 342,
+    "output": 8,
+    "usd": 0.000764,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 8,
+    "usd": 0.005218,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 7,
+    "usd": 0.00521,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 340,
+    "output": 7,
+    "usd": 0.00075,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 7,
+    "usd": 0.00521,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 8,
+    "usd": 0.005218,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 7,
+    "usd": 0.00521,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 8,
+    "usd": 0.005218,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 8,
+    "usd": 0.005218,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2573,
+    "output": 7,
+    "usd": 0.005216,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 8,
+    "usd": 0.005218,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2573,
+    "output": 7,
+    "usd": 0.005216,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 8,
+    "usd": 0.005216,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 8,
+    "usd": 0.005216,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 1992,
+    "output": 7,
+    "usd": 0.004054,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 1990,
+    "output": 7,
+    "usd": 0.00405,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 1989,
+    "output": 8,
+    "usd": 0.004058,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 1988,
+    "output": 8,
+    "usd": 0.004056,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 7,
+    "usd": 0.00521,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 8,
+    "usd": 0.005218,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 8,
+    "usd": 0.005216,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2572,
+    "output": 7,
+    "usd": 0.005214,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2573,
+    "output": 6,
+    "usd": 0.005206,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2573,
+    "output": 6,
+    "usd": 0.005206,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 8,
+    "usd": 0.005218,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 1994,
+    "output": 6,
+    "usd": 0.004048,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2574,
+    "output": 7,
+    "usd": 0.005218,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2001,
+    "output": 8,
+    "usd": 0.004082,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 8,
+    "usd": 0.005216,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 1988,
+    "output": 8,
+    "usd": 0.004056,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2581,
+    "output": 8,
+    "usd": 0.005242,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2585,
+    "output": 6,
+    "usd": 0.00523,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 8,
+    "usd": 0.005216,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 8,
+    "usd": 0.005218,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 1988,
+    "output": 8,
+    "usd": 0.004056,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2585,
+    "output": 6,
+    "usd": 0.00523,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2574,
+    "output": 7,
+    "usd": 0.005218,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 8,
+    "usd": 0.005218,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 8,
+    "usd": 0.005218,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2574,
+    "output": 6,
+    "usd": 0.005208,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 8,
+    "usd": 0.005218,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2575,
+    "output": 7,
+    "usd": 0.00522,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2575,
+    "output": 6,
+    "usd": 0.00521,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 8,
+    "usd": 0.005216,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 8,
+    "usd": 0.005218,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 1998,
+    "output": 7,
+    "usd": 0.004066,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 1998,
+    "output": 8,
+    "usd": 0.004076,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2578,
+    "output": 8,
+    "usd": 0.005236,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2578,
+    "output": 6,
+    "usd": 0.005216,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 8,
+    "usd": 0.005216,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 7,
+    "usd": 0.00521,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 6,
+    "usd": 0.0052,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 8,
+    "usd": 0.005218,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 8,
+    "usd": 0.005216,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 6,
+    "usd": 0.005198,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 6,
+    "usd": 0.005198,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 6,
+    "usd": 0.005202,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2579,
+    "output": 8,
+    "usd": 0.005238,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 8,
+    "usd": 0.005222,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 8,
+    "usd": 0.005216,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 6,
+    "usd": 0.005202,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 348,
+    "output": 7,
+    "usd": 0.000766,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 7,
+    "usd": 0.005212,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 8,
+    "usd": 0.005216,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 355,
+    "output": 7,
+    "usd": 0.00078,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2583,
+    "output": 7,
+    "usd": 0.005236,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2579,
+    "output": 7,
+    "usd": 0.005228,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2576,
+    "output": 7,
+    "usd": 0.005222,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2574,
+    "output": 6,
+    "usd": 0.005208,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 8,
+    "usd": 0.005218,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2574,
+    "output": 7,
+    "usd": 0.005218,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2574,
+    "output": 6,
+    "usd": 0.005208,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2574,
+    "output": 7,
+    "usd": 0.005218,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2579,
+    "output": 7,
+    "usd": 0.005228,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 8,
+    "usd": 0.005218,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2579,
+    "output": 7,
+    "usd": 0.005228,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 8,
+    "usd": 0.005218,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 1110,
+    "output": 6,
+    "usd": 0.00228,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 1113,
+    "output": 7,
+    "usd": 0.002296,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 1113,
+    "output": 7,
+    "usd": 0.002296,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 1110,
+    "output": 7,
+    "usd": 0.00229,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 7,
+    "usd": 0.00521,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 7,
+    "usd": 0.00521,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 8,
+    "usd": 0.005218,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 8,
+    "usd": 0.005218,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 8,
+    "usd": 0.005216,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 7,
+    "usd": 0.00521,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 8,
+    "usd": 0.005218,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 7,
+    "usd": 0.00521,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2583,
+    "output": 7,
+    "usd": 0.005236,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 7,
+    "usd": 0.00521,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 7,
+    "usd": 0.00521,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 8,
+    "usd": 0.005216,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2585,
+    "output": 7,
+    "usd": 0.00524,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2583,
+    "output": 7,
+    "usd": 0.005236,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2585,
+    "output": 6,
+    "usd": 0.00523,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 8,
+    "usd": 0.005216,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2577,
+    "output": 8,
+    "usd": 0.005234,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 8,
+    "usd": 0.005216,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2577,
+    "output": 7,
+    "usd": 0.005224,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 7,
+    "usd": 0.005212,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 8,
+    "usd": 0.005216,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 6,
+    "usd": 0.005202,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 7,
+    "usd": 0.00521,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 342,
+    "output": 6,
+    "usd": 0.000744,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 340,
+    "output": 7,
+    "usd": 0.00075,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 340,
+    "output": 7,
+    "usd": 0.00075,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 355,
+    "output": 6,
+    "usd": 0.00077,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2583,
+    "output": 7,
+    "usd": 0.005236,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 8,
+    "usd": 0.005222,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 6,
+    "usd": 0.005202,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2572,
+    "output": 7,
+    "usd": 0.005214,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2572,
+    "output": 6,
+    "usd": 0.005204,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 6,
+    "usd": 0.005196,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 346,
+    "output": 6,
+    "usd": 0.000752,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 341,
+    "output": 8,
+    "usd": 0.000762,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 8,
+    "usd": 0.005218,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2574,
+    "output": 6,
+    "usd": 0.005208,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2575,
+    "output": 7,
+    "usd": 0.00522,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 1988,
+    "output": 7,
+    "usd": 0.004046,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 1995,
+    "output": 7,
+    "usd": 0.00406,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 6,
+    "usd": 0.0052,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 7,
+    "usd": 0.00521,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2594,
+    "output": 7,
+    "usd": 0.005258,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2594,
+    "output": 7,
+    "usd": 0.005258,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2572,
+    "output": 7,
+    "usd": 0.005214,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2572,
+    "output": 7,
+    "usd": 0.005214,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 340,
+    "output": 7,
+    "usd": 0.00075,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 1988,
+    "output": 7,
+    "usd": 0.004046,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 341,
+    "output": 128,
+    "usd": 0.001962,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 1989,
+    "output": 8,
+    "usd": 0.004058,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 7,
+    "usd": 0.00521,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 7,
+    "usd": 0.005212,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 7,
+    "usd": 0.00521,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 7,
+    "usd": 0.005212,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 8,
+    "usd": 0.005216,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 6,
+    "usd": 0.005196,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 1989,
+    "output": 7,
+    "usd": 0.004048,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 1989,
+    "output": 8,
+    "usd": 0.004058,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2583,
+    "output": 7,
+    "usd": 0.005236,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2583,
+    "output": 7,
+    "usd": 0.005236,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 7,
+    "usd": 0.00521,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 7,
+    "usd": 0.00521,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 8,
+    "usd": 0.005216,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2590,
+    "output": 7,
+    "usd": 0.00525,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2590,
+    "output": 7,
+    "usd": 0.00525,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2574,
+    "output": 7,
+    "usd": 0.005218,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2594,
+    "output": 7,
+    "usd": 0.005258,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2574,
+    "output": 7,
+    "usd": 0.005218,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 7,
+    "usd": 0.005212,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 6,
+    "usd": 0.005202,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2594,
+    "output": 7,
+    "usd": 0.005258,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 7,
+    "usd": 0.005212,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 6,
+    "usd": 0.005202,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 8,
+    "usd": 0.005218,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 7,
+    "usd": 0.00521,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 8,
+    "usd": 0.00522,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 8,
+    "usd": 0.005218,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 6,
+    "usd": 0.005198,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 8,
+    "usd": 0.005218,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2574,
+    "output": 7,
+    "usd": 0.005218,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2574,
+    "output": 6,
+    "usd": 0.005208,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 8,
+    "usd": 0.005218,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 8,
+    "usd": 0.005218,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2590,
+    "output": 7,
+    "usd": 0.00525,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 340,
+    "output": 8,
+    "usd": 0.00076,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 362,
+    "output": 7,
+    "usd": 0.000794,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 6,
+    "usd": 0.0052,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 7,
+    "usd": 0.005212,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 7,
+    "usd": 0.00521,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 7,
+    "usd": 0.005212,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 6,
+    "usd": 0.005198,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 8,
+    "usd": 0.005216,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 6,
+    "usd": 0.0052,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 8,
+    "usd": 0.005218,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 8,
+    "usd": 0.005218,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 8,
+    "usd": 0.005218,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 8,
+    "usd": 0.00522,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 8,
+    "usd": 0.005218,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2572,
+    "output": 7,
+    "usd": 0.005214,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 6,
+    "usd": 0.005198,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2572,
+    "output": 8,
+    "usd": 0.005224,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 8,
+    "usd": 0.005218,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 7,
+    "usd": 0.00521,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 1990,
+    "output": 6,
+    "usd": 0.00404,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 1989,
+    "output": 8,
+    "usd": 0.004058,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2573,
+    "output": 6,
+    "usd": 0.005206,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 8,
+    "usd": 0.005218,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 345,
+    "output": 7,
+    "usd": 0.00076,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 342,
+    "output": 7,
+    "usd": 0.000754,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 341,
+    "output": 7,
+    "usd": 0.000752,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 340,
+    "output": 7,
+    "usd": 0.00075,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 7,
+    "usd": 0.005212,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 6,
+    "usd": 0.0052,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 8,
+    "usd": 0.005216,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 6,
+    "usd": 0.0052,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 7,
+    "usd": 0.00521,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 6,
+    "usd": 0.005198,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 7,
+    "usd": 0.005212,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 8,
+    "usd": 0.005218,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2579,
+    "output": 7,
+    "usd": 0.005228,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 8,
+    "usd": 0.005218,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 8,
+    "usd": 0.005222,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2579,
+    "output": 7,
+    "usd": 0.005228,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 7,
+    "usd": 0.005212,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 6,
+    "usd": 0.005198,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 8,
+    "usd": 0.005222,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2571,
+    "output": 8,
+    "usd": 0.005222,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 342,
+    "output": 7,
+    "usd": 0.000754,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 341,
+    "output": 7,
+    "usd": 0.000752,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2570,
+    "output": 7,
+    "usd": 0.00521,
+    "phase": "baseline"
+  },
+  {
+    "model": "claude-sonnet-5-5",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206,
+    "phase": "baseline"
+  }
+]

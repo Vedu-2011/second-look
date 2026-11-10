@@ -101,6 +101,7 @@ export type ImprintComparison = {
 export function compareImprint(
   fdaRaw: string | readonly string[] | null | undefined,
   pillRaw: string | readonly string[] | null | undefined,
+  fold = true,
 ): ImprintComparison {
   const fda = tokenizeImprint(fdaRaw);
   const pill = tokenizeImprint(pillRaw);
@@ -108,7 +109,7 @@ export function compareImprint(
 
   const partial = pill.join("").length < fda.join("").length;
   if (tokensMatch(fda, pill)) return { result: "exact", partial };
-  if (tokensMatch(fda.map(foldConfusables), pill.map(foldConfusables))) return { result: "close", partial };
+  if (fold && tokensMatch(fda.map(foldConfusables), pill.map(foldConfusables))) return { result: "close", partial };
   return { result: "none", partial: false };
 }
 

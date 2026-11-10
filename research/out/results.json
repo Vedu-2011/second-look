@@ -1,0 +1,312 @@
+{
+  "version": 1,
+  "seed": 20261109,
+  "date": "2026-11-10T18:35:49.333Z",
+  "promptVersion": "pill-v1",
+  "hashes": {
+    "scripts/research.ts": "0ddfa572f90cbdf12476087542eda8e36a283bf9aba4158f315eff87108461c5",
+    "src/lib/research.ts": "01b4a4c088d9f9ca068801c495cfe0dc57f46c32202ef61d314c96d2da342a46",
+    "src/lib/verdict-engine.ts": "82eddc5d66717c067eb63ddec3c20013f99ba8c5320f438e329bab48cc38a242",
+    "src/lib/match/imprint.ts": "5d1d4ffb831acc0c0b0f14a38d946bbbfd6e0ad5a55e92733ed1b1b55030f6e8",
+    "src/lib/ai/prompts/read-pill.ts": "b6e851a1a04fb6305cec9ce1139bc853c66c560f8ef195ecdad1ee0a80ec832b"
+  },
+  "models": [
+    "claude-sonnet-5-5",
+    "claude-haiku-5-5"
+  ],
+  "images": 200,
+  "products": 100,
+  "pairs": 400,
+  "skipped": [
+    {
+      "ndc": "23635010820",
+      "reason": "No drug group"
+    },
+    {
+      "ndc": "00555903458",
+      "reason": "No drug group"
+    },
+    {
+      "ndc": "00527134710",
+      "reason": "No drug group"
+    },
+    {
+      "ndc": "00173075960",
+      "reason": "No FDA imprint/product found"
+    },
+    {
+      "ndc": "55111019301",
+      "reason": "No drug group"
+    },
+    {
+      "ndc": "00074706990",
+      "reason": "No drug group"
+    },
+    {
+      "ndc": "60793085901",
+      "reason": "No drug group"
+    },
+    {
+      "ndc": "00007488213",
+      "reason": "No drug group"
+    },
+    {
+      "ndc": "00143336701",
+      "reason": "No FDA imprint/product found"
+    },
+    {
+      "ndc": "00074707090",
+      "reason": "No drug group"
+    },
+    {
+      "ndc": "42865010002",
+      "reason": "No drug group"
+    },
+    {
+      "ndc": "00378141101",
+      "reason": "No drug group"
+    },
+    {
+      "ndc": "00173079220",
+      "reason": "No drug group"
+    },
+    {
+      "ndc": "00677007010",
+      "reason": "No FDA imprint/product found"
+    },
+    {
+      "ndc": "51991045801",
+      "reason": "No FDA imprint/product found"
+    },
+    {
+      "ndc": "65162066910",
+      "reason": "No drug group"
+    },
+    {
+      "ndc": "51285042410",
+      "reason": "No drug group"
+    },
+    {
+      "ndc": "00093736956",
+      "reason": "No drug group"
+    },
+    {
+      "ndc": "68462019890",
+      "reason": "No drug group"
+    },
+    {
+      "ndc": "00781518201",
+      "reason": "No drug group"
+    },
+    {
+      "ndc": "00527134410",
+      "reason": "No drug group"
+    },
+    {
+      "ndc": "00781140701",
+      "reason": "No drug group"
+    },
+    {
+      "ndc": "60258019701",
+      "reason": "No FDA imprint/product found"
+    },
+    {
+      "ndc": "00574022001",
+      "reason": "No drug group"
+    },
+    {
+      "ndc": "63459040401",
+      "reason": "No drug group"
+    },
+    {
+      "ndc": "00007489520",
+      "reason": "No drug group"
+    },
+    {
+      "ndc": "00088109547",
+      "reason": "No drug group"
+    },
+    {
+      "ndc": "51285069702",
+      "reason": "No drug group"
+    },
+    {
+      "ndc": "00007314813",
+      "reason": "No drug group"
+    },
+    {
+      "ndc": "00378180701",
+      "reason": "No drug group"
+    },
+    {
+      "ndc": "00555032402",
+      "reason": "No drug group"
+    },
+    {
+      "ndc": "60793085301",
+      "reason": "No drug group"
+    }
+  ],
+  "totalUsd": 6.6680584,
+  "metrics": {
+    "claude-sonnet-5-5": {
+      "n": 400,
+      "wrong": 200,
+      "right": 200,
+      "caught": 77,
+      "falseAlarms": 2,
+      "passed": 64,
+      "unsure": 257,
+      "wrongUnsure": 123,
+      "catchRate": 0.385,
+      "falseAlarmRate": 0.01,
+      "passRate": 0.32,
+      "unsureRate": 0.6425,
+      "easy": {
+        "n": 32,
+        "caught": 10,
+        "unsure": 22,
+        "passed": 0
+      },
+      "hard": {
+        "n": 168,
+        "caught": 67,
+        "unsure": 101,
+        "passed": 0
+      }
+    },
+    "claude-sonnet-5-5-no-fold": {
+      "n": 400,
+      "wrong": 200,
+      "right": 200,
+      "caught": 77,
+      "falseAlarms": 2,
+      "passed": 64,
+      "unsure": 257,
+      "wrongUnsure": 123,
+      "catchRate": 0.385,
+      "falseAlarmRate": 0.01,
+      "passRate": 0.32,
+      "unsureRate": 0.6425,
+      "easy": {
+        "n": 32,
+        "caught": 10,
+        "unsure": 22,
+        "passed": 0
+      },
+      "hard": {
+        "n": 168,
+        "caught": 67,
+        "unsure": 101,
+        "passed": 0
+      }
+    },
+    "claude-haiku-5-5": {
+      "n": 400,
+      "wrong": 200,
+      "right": 200,
+      "caught": 56,
+      "falseAlarms": 6,
+      "passed": 41,
+      "unsure": 297,
+      "wrongUnsure": 144,
+      "catchRate": 0.28,
+      "falseAlarmRate": 0.03,
+      "passRate": 0.205,
+      "unsureRate": 0.7425,
+      "easy": {
+        "n": 32,
+        "caught": 7,
+        "unsure": 25,
+        "passed": 0
+      },
+      "hard": {
+        "n": 168,
+        "caught": 49,
+        "unsure": 119,
+        "passed": 0
+      }
+    },
+    "claude-haiku-5-5-no-fold": {
+      "n": 400,
+      "wrong": 200,
+      "right": 200,
+      "caught": 56,
+      "falseAlarms": 6,
+      "passed": 41,
+      "unsure": 297,
+      "wrongUnsure": 144,
+      "catchRate": 0.28,
+      "falseAlarmRate": 0.03,
+      "passRate": 0.205,
+      "unsureRate": 0.7425,
+      "easy": {
+        "n": 32,
+        "caught": 7,
+        "unsure": 25,
+        "passed": 0
+      },
+      "hard": {
+        "n": 168,
+        "caught": 49,
+        "unsure": 119,
+        "passed": 0
+      }
+    },
+    "baseline": {
+      "n": 400,
+      "wrong": 200,
+      "right": 200,
+      "caught": 91,
+      "falseAlarms": 9,
+      "passed": 49,
+      "unsure": 248,
+      "wrongUnsure": 106,
+      "catchRate": 0.455,
+      "falseAlarmRate": 0.045,
+      "passRate": 0.245,
+      "unsureRate": 0.62,
+      "easy": {
+        "n": 32,
+        "caught": 28,
+        "unsure": 4,
+        "passed": 0
+      },
+      "hard": {
+        "n": 168,
+        "caught": 63,
+        "unsure": 102,
+        "passed": 3
+      }
+    }
+  },
+  "reading": {
+    "claude-sonnet-5-5": {
+      "exact": 119,
+      "close": 1,
+      "wrong": 26,
+      "noRead": 54,
+      "colorAgree": 157,
+      "shapeAgree": 184,
+      "errors": 8
+    },
+    "claude-haiku-5-5": {
+      "exact": 94,
+      "close": 0,
+      "wrong": 56,
+      "noRead": 50,
+      "colorAgree": 147,
+      "shapeAgree": 178,
+      "errors": 15
+    }
+  },
+  "timing": {
+    "claude-sonnet-5-5": {
+      "meanReadMs": 2857.86
+    },
+    "claude-haiku-5-5": {
+      "meanReadMs": 3808.75
+    }
+  },
+  "baselineMeanMs": 1435.7825
+}
