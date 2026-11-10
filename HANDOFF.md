@@ -6,7 +6,7 @@ The planner reads this file when Vedhanth says "handoffs". Never delete old entr
 
 BUILDER: Codex
 HANDOFF — Phase 4
-STATUS: PARTIAL — implementation, audit, tests and screenshots complete; production publication/verification pending.
+STATUS: DONE — implemented, reviewed, committed, pushed to main, and verified on production. Cached readings reused; no engine tuning.
 
 WHAT I DID
 - Resumed the uncommitted phase-4 work on `feat/phase-4-codex`. Reused every completed reading in `research/out`; the resumed run made zero paid model calls. Recomputed the report, CSV and source hashes with ANTHROPIC_API_KEY unset. The cost ledger SHA256 was identical before/after: `7967d045fb14c7ee4f421029265d042d0ece1ef64a66e241d7ff3425d0348ba2`.
@@ -69,8 +69,10 @@ TESTS / REVIEW
 - Separate final Codex self-review of the full phase diff and reporting/axis follow-ups: no remaining blocking findings. The source-hash review finding is verified fixed, not merely documented. GitHub destination verified as public Vedu-2011/second-look, default branch main. Composio discovery returned 401, so existing authenticated GitHub/Vercel tools are used instead.
 
 HOW TO TEST / CURRENT STATE
-- Local checklist completed: /research shows the 200-image / 400-pair headline, all five methods, the direct-AI tradeoff, three charts, abstentions, report/CSV links and limitations; home/footer/sources link to research. The complete run reproduces without an API key and without changing cost.json. Production checks remain pending before the final DONE update.
-- Production currently remains phase 3 until the reviewed feature branch is pushed to main, explicitly authorized by prompts/phase-4.md.
+- PASS — https://getsecondlook.vercel.app/research at 375 and 1440: HTTP 200; 200-image / 400-pair headline, three charts, direct-AI tradeoff, wrong-pill abstentions, no runtime errors, no clipped axes or horizontal overflow. All five methods, report/CSV links and limitations are visible.
+- PASS — production home, /sources, /check, /type and /samples return HTTP 200 and include the research link. GitHub REPORT.md, out/pairs.csv and out/results.json return HTTP 200; public results match the verified local run (200 photos, Sonnet 77 catches, total $6.6680584).
+- PASS — cached reproduction with ANTHROPIC_API_KEY unset; unchanged cost.json. Run `npm test`, `npm run lint`, `npx tsc --noEmit`, `npm run build` for code checks; `env -u ANTHROPIC_API_KEY node --import tsx scripts/research.ts` for the already-cached local reproduction without loading .env.local. A fresh clone restores the fixed image cohort from NIH, verifies image hashes, and reuses the committed readings.
+- Feature branch feat/phase-4-codex and main pushed through implementation commit e1a8ed4 (earlier phase commits 963c029 and 7edb5e4). Main push is explicitly authorized by prompts/phase-4.md. Vercel production deployment `second-look-hu04q5ptk-vedhanth.vercel.app` / `dpl_7ryJ6yKLheYqPgQaoybbYa3fJAaq` is Ready and aliased to getsecondlook.vercel.app. This final handoff update is documentation-only; production code was verified at e1a8ed4.
 - Planner has NOT been contacted. Real bottle-photo sample folders remain empty; phase 3's recorded examples are unchanged.
 
 OPEN QUESTIONS / SUGGESTED NEXT STEP
