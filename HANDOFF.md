@@ -2,6 +2,25 @@
 Claude Code adds a new entry at the top after every task (format in ~/Hackathons/CLAUDE.md).
 The planner reads this file when Vedhanth says "handoffs". Never delete old entries.
 
+## 2026-11-09 9:05 PM PST — Merge phase 2 to production — chat
+
+BUILDER: Codex
+HANDOFF — Merge authorized by Vedhanth's “merge”
+STATUS: DONE — merge and production deployment verified. Exact three-pill demo photo coverage remains a phase-2 limitation described below.
+
+WHAT I DID / FILES
+- Fast-forwarded main from c48711e to the reviewed phase-2 branch at f698d9f and pushed main. Preserved all uncommitted planner files, including prompts/phase-3.md. This entry is the only new file change for the merge task.
+- Production deployment https://second-look-a9vcygzhe-vedhanth.vercel.app reached Ready and is aliased to https://getsecondlook.vercel.app.
+
+TESTS / REVIEW
+- Existing phase-2 tests, lint, types, build, live preview checks, and independent Codex review passed before merge; no executable code changed during the merge.
+- On production: /check HTTP 200; real fictional ibuprofen label + NIH Strattera photo through /api/check HTTP 200, all four streamed steps completed, MISMATCH in 7,762 ms; the saved result page returned HTTP 200.
+- Reviewed this handoff-only diff separately before pushing; no findings.
+
+CURRENT STATE / NEXT STEP
+- Phase 2 is deployed to production. The merge task is complete. Exact I2/L484/Advil uploaded-photo scenarios still need the corresponding photos; their verification is not claimed here.
+- Planner was not contacted. Continue with the next phase only when requested.
+
 ## 2026-11-09 8:54 PM PST — Phase 2 live follow-up — prompts/phase-2.md
 
 BUILDER: Codex
