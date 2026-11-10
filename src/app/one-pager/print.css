@@ -8,17 +8,27 @@
 .sheet-heading > svg { width: 40px; height: 46px; }
 .sheet-heading p { margin-top: 5px; font-weight: 650; font-size: 12pt; }
 .sheet-pitch { margin-top: 16px; font-size: 13pt; line-height: 1.25; }
+.sheet-story { display: grid; grid-template-columns: .92fr 1.08fr; align-items: start; gap: 18px; margin-top: 16px; }
+.one-pager .sheet-story section { margin: 0; }
 .sheet-problem { background: var(--foil); padding: 12px 14px; border-radius: 12px; }
+.sheet-problem ul { list-style: disc; padding-inline-start: 1.15em; }
+.sheet-problem li + li { margin-top: 4px; }
 .sheet-how ol { display: flex; justify-content: space-between; gap: 5px; margin: 9px 0; padding: 0; list-style: none; }
-.sheet-how li { display: flex; align-items: center; gap: 8px; font-size: 10.5pt; font-weight: 700; }
-.sheet-how li span { background: var(--foil); padding: 7px 9px; border-radius: 8px; white-space: nowrap; }
+.sheet-how li { display: flex; align-items: center; gap: 4px; font-size: 9.5pt; font-weight: 700; }
+.sheet-how li span { background: var(--foil); padding: 5px 6px; border-radius: 8px; text-align: center; }
 .sheet-how li b { color: var(--amber-deep); }
-.sheet-images { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-.sheet-images figure { min-width: 0; }
-.sheet-images img { width: 100%; height: 112px; object-fit: contain; background: var(--foil); border-radius: 12px; }
-.sheet-images figcaption { font-size: 9pt; margin-top: 4px; color: var(--ink-soft); }
+.sheet-result { margin-top: 15px; }
+.sheet-result img { display: block; width: 100%; height: auto; border-radius: 12px; }
+.sheet-result figcaption { font-size: 9.5pt; margin-top: 4px; text-align: center; color: var(--ink-soft); }
+.sheet-data { margin-top: 12px; }
 .sheet-research { background: var(--foil); border-radius: 12px; padding: 12px 14px; }
 .sheet-research p + p { margin-top: 7px; }
+.sheet-research table { width: 100%; margin: 6px 0; border-collapse: separate; border-spacing: 0 3px; font-size: .94em; }
+.sheet-research table th, .sheet-research table td { padding: 3px 8px; text-align: left; }
+.sheet-research table tbody tr { background: var(--label); }
+.sheet-research table tbody th { border-radius: 6px 0 0 6px; font-weight: 650; }
+.sheet-research table tbody td:last-child { border-radius: 0 6px 6px 0; }
+.sheet-research table :is(th, td):not(:first-child) { text-align: center; width: 23%; }
 .one-pager a { text-decoration: underline; text-underline-offset: 2px; }
 .sheet-bottom { display: flex; align-items: center; gap: 18px; margin-top: 13px; }
 .sheet-bottom > div { flex: 1; }
@@ -39,23 +49,30 @@
  .one-pager { width: auto; margin: 16px; padding: 20px; font-size: 18px; }
  .one-pager h2 { font-size: 22px; }
  .one-pager section { margin-top: 24px; }
+ .sheet-story { grid-template-columns: 1fr; }
  .sheet-how ol { flex-direction: column; gap: 8px; }
  .sheet-how li { font-size: 18px; }
  .sheet-how li b { transform: rotate(90deg); }
- .sheet-images { grid-template-columns: 1fr; }
- .sheet-images img { height: 150px; }
+ .sheet-result figcaption { text-align: left; }
+ .sheet-research table { font-size: 15px; }
+ .sheet-research table th, .sheet-research table td { padding-inline: 4px; }
  .sheet-bottom { flex-direction: column; align-items: flex-start; }
  .sheet-citations { font-size: 14px; }
 }
-@page { size: letter; margin: .5in; }
+@page { size: letter; margin: .4in; }
 @media print {
  html, body { height: auto !important; min-height: 0 !important; background: var(--label) !important; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
  body > header, body > footer, body > a, .one-pager-tools, .social-export { display: none !important; }
  main { flex: none !important; }
- .one-pager { width: 7.5in; margin: 0; padding: 0; box-shadow: none; break-inside: avoid; font-size: 10.5pt; line-height: 1.24; }
- .one-pager section { margin-top: 11px; break-inside: avoid; }
- .sheet-pitch { margin-top: 12px; }
+ .one-pager { width: auto; margin: 0; padding: 0; box-shadow: none; break-inside: avoid; font-size: 10pt; line-height: 1.23; }
+ .one-pager h1 { font-size: 28pt; }
+ .one-pager section { margin-top: 9px; break-inside: avoid; }
+ .sheet-pitch { margin-top: 9px; font-size: 12pt; }
+ .sheet-story { gap: 14px; margin-top: 11px; }
  .sheet-problem, .sheet-research { padding: 10px 13px; }
- .sheet-images img { height: 96px; }
+ .sheet-result { margin-top: 9px; break-inside: avoid; }
+ .sheet-result img { width: min(100%, 455px); margin-inline: auto; }
+ .sheet-result figcaption { font-size: 9pt; }
+ .sheet-data { margin-top: 8px; }
  .sheet-bottom { margin-top: 9px; }
 }
