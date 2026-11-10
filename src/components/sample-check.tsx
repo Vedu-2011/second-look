@@ -29,7 +29,7 @@ export function SampleCheck({ saved, explanation, photos, autoRun = false }: { s
         return new Promise<string>((resolve, reject) => { const reader = new FileReader(); reader.onload = () => resolve(String(reader.result)); reader.onerror = reject; reader.readAsDataURL(blob); });
       };
       const [label, pill] = await Promise.all([dataUrl(photos.label), dataUrl(photos.pill)]);
-      const response = await fetch("/api/check", { method: "POST", signal: controller.signal, headers: { "content-type": "application/json" }, body: JSON.stringify({ labelImage: { dataUrl: label }, pillImage: { dataUrl: pill } }) });
+      const response = await fetch("/api/check", { method: "POST", signal: controller.signal, headers: { "content-type": "application/json" }, body: JSON.stringify({ labelImage: { dataUrl: label }, pillImage: { dataUrl: pill },allowFlip:false }) });
       if (!response.ok || !response.body) throw new Error("Live check unavailable");
       const reader = response.body.getReader(); const decoder = new TextDecoder(); let pending = ""; let finished = false;
       const receive = (line: string) => {

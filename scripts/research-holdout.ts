@@ -344,6 +344,14 @@ async function main() {
   const forbidden = new Set(dev.images.map((i) => i.product.productCode));
   if (cohort.images.some((i) => forbidden.has(i.product.productCode)))
     throw Error("Development/holdout product leakage");
+  const previousHashes = new Set(dev.images.map((i) => i.sha256)),
+    previousURLs = new Set(dev.images.map((i) => i.url));
+  if (
+    cohort.images.some(
+      (i) => previousHashes.has(i.sha256) || previousURLs.has(i.url),
+    )
+  )
+    throw Error("Development/holdout photo leakage");
   const ledger = await read<
     { phase: string; input: number; output: number; usd: number }[]
   >("research/out/holdout-cost.json", []);

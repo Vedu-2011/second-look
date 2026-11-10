@@ -23,7 +23,8 @@ HOLDOUT PLAN / HYGIENE
 - /research separates development and holdout, has safety/coverage tables and charts; holdout publication remains pending. Old phase-4 report archived as PHASE4-REPORT.md. The old runner refuses implicit rereads after the v2 bump.
 
 TESTS / CURRENT STATE
-- 186 unit tests / 25 files, TypeScript and lint PASS during development. Production build, UI screenshots, review and code freeze still pending. Production remains phase 4.
+- 190 unit tests / 26 files, TypeScript, lint and production build PASS before freeze (only the two existing Atkinson font override warnings). Browser checks at 375 and 1440 PASS: research charts/tables, flip step, skip, continuation-only second-side upload, both result photos, no overflow/runtime errors. AI responses were mocked for browser flow tests; no paid app call was made. Screenshots in docs/screenshots/phase-5/.
+- Codex pre-freeze review found no code blockers; it correctly blocks release until the currently null holdout result and missing pair CSV are generated. These placeholders will not be deployed. Added explicit photo URL/hash disjointness guards and continuation expiry/skip tests. Fixed sample replays to opt out of the interactive flip so saved demos retain their previous behavior.
 - Need finish tasks 5–9: review and verify implementation/UI; commit freeze; run holdout once within $5; publish generated report/data/headline; take final screenshots; test/build/review; push main and verify production; mark this handoff DONE with frozen hash, final table and spend.
 - Planner has not been contacted. Real demo-photo folders remain empty.
 

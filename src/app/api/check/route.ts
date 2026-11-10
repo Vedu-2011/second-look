@@ -106,7 +106,14 @@ export async function POST(request: Request) {
         try {
           const checked = previous
             ? await finishPhotoCheck(previous, otherImage, send)
-            : await runPhotoCheck(labelImage!, pillImage!, send, true);
+            : await runPhotoCheck(
+                labelImage!,
+                pillImage!,
+                send,
+                "labelImage" in parsed.data
+                  ? parsed.data.allowFlip !== false
+                  : true,
+              );
           if (!checked.ok) {
             if ("flip" in checked && checked.flip)
               send({

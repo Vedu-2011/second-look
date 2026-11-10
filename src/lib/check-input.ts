@@ -9,6 +9,7 @@ export const checkRequestSchema = z.union([
   z.object({
     labelImage: imagePayloadSchema,
     pillImage: imagePayloadSchema,
+    allowFlip: z.boolean().optional(),
   }),
   z
     .object({

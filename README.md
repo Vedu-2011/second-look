@@ -69,7 +69,7 @@ The builder applies orientation, resizes to 1600px, strips EXIF, runs the same l
 
 ## Tests and limits
 
-186 network-free tests cover NDC formats, FDA parsing/cache/retries, imprint confusables, color/shape comparisons, deterministic verdicts, explanation checks, streamed steps, quotas, result expiry, editable labels, typed input, the sample builder, benchmark sampling/metrics/results validation, two-view conflicts, bounded transcription cleanup, continuation input and budget bounds. Live smoke checks are separate from unit tests.
+190 network-free tests cover NDC formats, FDA parsing/cache/retries, imprint confusables, color/shape comparisons, deterministic verdicts, explanation checks, streamed steps, quotas, result expiry, editable labels, typed input, the sample builder, benchmark sampling/metrics/results validation, two-view conflicts, bounded transcription cleanup, continuation input/expiry and budget bounds. Live smoke checks are separate from unit tests.
 
 ## Another side, without rereading the first
 
