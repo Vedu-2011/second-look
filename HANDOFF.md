@@ -2,6 +2,49 @@
 Claude Code adds a new entry at the top after every task (format in ~/Hackathons/CLAUDE.md).
 The planner reads this file when Vedhanth says "handoffs". Never delete old entries.
 
+## 2026-11-10 2:43 PM PST — Phase 6: safety follow-up, demo checks and one-page PDF — prompts/phase-6.md
+
+BUILDER: Codex
+HANDOFF — Phase 6
+STATUS: DONE — released to main and verified on production. FEATURE FREEZE: bug fixes only.
+
+WHAT I DID / RELEASE
+- Vedhanth explicitly accepted phase 5 as an honest result, not as a coverage success. Fast-forwarded main to `3e1c6aa` first and confirmed its production deployment (`dpl_7nTQ9LYqZMjxK16RQ6FnBcMYz2Aw`). Then worked on `feat/phase-6`, preserving the interrupted work and planner prompt. Phase 6 implementation and assets shipped through `b000127` on main; production `dpl_CRhsFqSwvD4ZR3Q7tbtEofRonDNM` reached Ready and the public alias caught up shortly after. No manual alias change was needed.
+- /research leads with the frozen one-view result: **150 photos / 300 pairs, 1/150 wrong passed, 83/88 correct when answered, 212/300 (70.6%) uncertain**. Direct AI: 83/94 correct when answered, 9 vs 4 false alarms, 2 vs 1 wrong passes, 206/300 uncertain. The coverage goal was not met. Added three plain-language takeaways, an explicit post-hoc section, and main-branch audit links. Original freeze, pair CSV, caches, frozen results and cost ledgers are unchanged.
+- Noindex `/one-pager`, tagged one-page US Letter PDF (612 × 792 pt), identical copies at `public/second-look-one-pager.pdf` and `docs/second-look-one-pager.pdf`. Includes primary-source citations, QR/live URL, pipeline diagram and two real UI screenshots from the recorded FDA sample. Poppler page-size and visual render checks PASS. Published PDF SHA-256: `f58b3bbfcc18e0da6b54ce3668e6cf4dd6de8c36bba9d5ab2a8041233448bd0a`.
+- Amber bottle SVG/ICO, site-wide title/description and social metadata, 1200×630 Open Graph PNG using the recorded FDA pill dimensions, friendly HTTP 404. Research/one-pager at 375 and 1440 and the social card are in `docs/screenshots/phase-6/`. Captured from an optimized build so no development indicator is in the screenshots. Production PDF and PNG bytes match local files.
+
+EXACT SAFETY CHANGES AND WHY
+- `src/lib/match/imprint.ts`: exact matching, normalization, stopwords and confusable map unchanged. A folded partial match, or full folded match requiring changes to the multiset of 1–2 character tokens, is marked `requiresExact`. Counting repeats matters (`S;S;5` vs `S;5;5`). The explicit complete `I2`/`12` exception remains; `I2;44`/`12` does not qualify. Full long `L484`/`1484` and exact visible subsets retain their previous behavior.
+- `src/lib/verdict-engine.ts`: `requiresExact` cannot yield MATCH or SAME_MEDICINE_DIFFERENT_MAKER. If it is the only usable imprint evidence, return UNSURE with a plain explanation; do not turn an ambiguous look-alike into MISMATCH. Rank eligible other-maker hits ahead of the ambiguous ones. Mark the actual imprint row uncertain, not green. The original cached lisinopril `5` vs ropinirole alternative `598;S` wrong pass now returns UNSURE. No confidence threshold, FDA grouping, AI prompt or mismatch identification rule changed.
+- `src/lib/pill-views.ts`: accepts known colors that are exact or close under the existing matcher, like the shape rule. Known different appearance stays a conflict. Unknown/low-confidence appearance stays uncertain with a distinct reason; no confidence threshold lowered. Both changes were authorized after the frozen test; no additional tuning or readings.
+
+AFTER TWO FIXES (POST-HOC — THIS HOLDOUT IS NO LONGER UNTOUCHED)
+
+| Cached set | Wrong caught | Wrong passed | False alarms | Right passed | Correct / answered | Unsure |
+|---|---:|---:|---:|---:|---:|---:|
+| Development, one view | 66/200 | 0/200 | 2/200 | 56/200 | 122/124 | 276/400 |
+| Development, two views | 45/200 | 0/200 | 4/200 | 37/200 | 82/86 | 314/400 |
+| Former holdout, one view | 46/150 | 0/150 | 4/150 | 37/150 | 83/87 | 213/300 |
+| Former holdout, two views | 33/150 | 0/150 | 7/150 | 24/150 | 57/64 | 236/300 |
+
+The one-view fix removed one observed wrong pass by abstaining. Two views answered more often but made more false alarms (holdout 4→7; development 2→4). Zero observed wrong passes is not proof of safety. No fresh-test claim. `env -u ANTHROPIC_API_KEY node --import tsx scripts/rescore-post-fix.ts` used $0, zero model calls, and writes only `research/out/post-fix-{development,holdout}.json`. Independently reconciled all 300 post-hoc holdout pair identities to the frozen CSV and verified input/source hashes. Frozen report and data remain the headline in the app, PDF and README.
+
+TESTS / ACCESSIBILITY / REVIEW
+- PASS: 209 network-free tests in 27 files; lint, TypeScript and production build. Two existing non-fatal Atkinson fallback-font warnings. Separate self-review before push caught repeated short tokens, an uncertain imprint displayed as a green row, initial focus stealing the skip link during Strict Mode replay, and a dev overlay on the exported social card. Fixed and verified each. No remaining release-blocking findings. Composio returned 401; used existing Git and Vercel auth.
+- Lighthouse 13.6.0 accessibility (mobile, public production alias after promotion): **100 home, 100 /check, 100 /type, 100 /samples, 100 /research**. No failing automated checks. Browser verified skip link first, then brand link; capture heading focus moves only on phase change. CheckingSteps has a named polite live region; verdict names, input labels, keyboard focus, and mobile widths checked. Impeccable audit and visual inspection kept the established pharmacy materials and readable layout. Automated scores are not a full accessibility certification.
+- Chrome print export was too tall initially. Scoped compact print styles, used a fresh print page with fonts and both screenshot images loaded, then checked exactly one tagged Letter page. Reproduction: start an optimized local build, `node scripts/export-one-pager.mjs http://localhost:3213`. Do not use a dev server for release screenshots.
+
+PRODUCTION HOW TO TEST / SPEND
+- PASS home → “Run the sample check” → recorded FDA MATCH in **824 ms**. No `/api/check` request. All three `test-images/real` directories have README only, so did not run `samples:build` or fabricate photos. Photo-backed sample replay remains untested until those photos exist.
+- PASS `/type` with `0113-0517`, I2/orange/oval → MATCH in **559 ms** (FDA 92 ms); L484/white/oval → MISMATCH with acetaminophen 500 mg in **208 ms** (FDA 55 ms).
+- PASS `/check` at 375 px: uploaded the existing fictional ibuprofen label and the real NIH `test-images/pills/strattera-10mg-1.jpg`; one POST, HTTP 200, “Lilly 3227 10 mg” read, all eight progress events, MISMATCH in **6,377 ms** (server pipeline 5,305 ms, FDA 83 ms), shared result HTTP 200. No second view request or retry was sent by the smoke script. These were deliberately different medicines. Exact real demo bottles were not tested.
+- Live-app estimated usage **$0.0181763 / $1** at published Anthropic rates, from three responses logged for that one production check: Sonnet 1778 in / 297 out and 3805 in / 375 out; Haiku 403 in / 500 out. No cache tokens. Logs record only model and token counts, never photos/transcriptions. Paid research spend this phase **$0**.
+- `node scripts/smoke-phase6.mjs https://getsecondlook.vercel.app` is the free smoke. `--live-photo` explicitly opts into at most one paid app check; do not add it just to verify the handoff. Production `/research`, `/one-pager`, PDF/social assets, amber favicon, and friendly 404 passed.
+
+CURRENT STATE / NEXT STEP
+- Production: https://getsecondlook.vercel.app. Submission PDF: https://getsecondlook.vercel.app/second-look-one-pager.pdf. Feature freeze: keep the frozen evidence and post-hoc caveat in the demo/Devpost, record the demo and submit. Real bottle photos remain an optional content update using the existing flow. No new benchmark spend. Planner was not contacted; tell the planner `handoffs` when ready.
+
 ## 2026-11-10 — Phase 5: two views and a fresh holdout — prompts/phase-5.md
 
 BUILDER: Codex
