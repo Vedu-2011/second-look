@@ -272,6 +272,10 @@ export function decide(label: LabelReading, pillInput: PillReading | readonly Pi
   if (labelProduct) {
     const own = score(labelProduct, pill, fold);
     if (own.imprint.result !== "none") {
+      if (own.imprint.requiresExact) {
+        reasons.push("These short or partial letters only look alike. We need an exact imprint to confirm this pill. Ask your pharmacist.");
+        return result("UNSURE", { ref: own });
+      }
       if (lowImprint) {
         lowConfidenceReason();
         return result("UNSURE", { ref: own });
@@ -293,9 +297,14 @@ export function decide(label: LabelReading, pillInput: PillReading | readonly Pi
   // 2. Another maker's version of the same medicine (or, without an NDC, any version)?
   const others = sameDrug.filter((p) => p.productCode !== labelProduct?.productCode).map((p) => score(p, pill, fold));
   const imprintHits = others.filter((s) => s.imprint.result !== "none");
-  const hit = best(imprintHits.filter(usable)) ?? best(imprintHits.filter(appearanceOk)) ?? best(imprintHits);
+  const safeHits = imprintHits.filter((s) => !s.imprint.requiresExact);
+  const hit = best(safeHits.filter(usable)) ?? best(safeHits.filter(appearanceOk)) ?? best(safeHits) ?? best(imprintHits);
 
   if (hit) {
+    if (hit.imprint.requiresExact) {
+      reasons.push("These short or partial letters only look alike. We need an exact imprint to confirm this pill. Ask your pharmacist.");
+      return result("UNSURE", { ref: hit });
+    }
     if (lowImprint) {
       lowConfidenceReason();
       return result("UNSURE", { ref: hit });

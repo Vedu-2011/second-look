@@ -15,13 +15,12 @@ export function mergePillViews(views: readonly PillReading[]): PillReading {
     v.colors.map(normalizeColor).filter((c): c is NonNullable<typeof c> => !!c),
   );
   const shapes = views.map((v) => normalizeShape(v.shape));
-  const colorAgrees =
-    views.every((v) => v.colorConfidence >= 0.5) &&
-    compareColors(colors[0], colors[1]) === "exact";
+  const colorMatch = compareColors(colors[0], colors[1]);
+  const colorTrusted = views.every((v) => v.colorConfidence >= 0.5) && colorMatch !== "unknown";
+  const colorAgrees = colorMatch !== "different";
   const shapeMatch = compareShapes(shapes[0], shapes[1]);
-  const shapeAgrees =
-    views.every((v) => v.shapeConfidence >= 0.5) &&
-    ["exact", "close"].includes(shapeMatch);
+  const shapeTrusted = views.every((v) => v.shapeConfidence >= 0.5) && shapeMatch !== "unknown";
+  const shapeAgrees = shapeMatch !== "different";
   const visible = views.every(
     (v) => v.pillVisible !== false && !v.multiplePills,
   );
@@ -48,6 +47,8 @@ export function mergePillViews(views: readonly PillReading[]): PillReading {
     viewCount: 2,
     viewConflict: !visible
       ? "Both photos must show one pill."
+      : !colorTrusted || !shapeTrusted
+        ? "We could not clearly read the appearance in both photos."
       : !colorAgrees
         ? "The color does not agree across the two photos."
         : !shapeAgrees

@@ -95,6 +95,8 @@ export type ImprintComparison = {
   result: ImprintMatch;
   /** The pill showed only some of the FDA sides (normal: a photo shows one side). */
   partial: boolean;
+  /** A possible look-alike, not enough evidence for a pass. */
+  requiresExact?: true;
 };
 
 /** Compare what we read on the pill with an FDA imprint. Side order and separators don't matter. */
@@ -109,7 +111,14 @@ export function compareImprint(
 
   const partial = pill.join("").length < fda.join("").length;
   if (tokensMatch(fda, pill)) return { result: "exact", partial };
-  if (fold && tokensMatch(fda.map(foldConfusables), pill.map(foldConfusables))) return { result: "close", partial };
+  if (fold && tokensMatch(fda.map(foldConfusables), pill.map(foldConfusables))) {
+    // Phase 6 explicitly retains the complete I2/12 legacy case. It is NOT
+    // permission to fold a short side of a longer imprint (e.g. 598;S vs 5).
+    const fullI2 = !partial && [fda.join(""), pill.join("")].sort().join("|") === "12|I2";
+    const shortFold = [...fda, ...pill].some((t) => t.length <= 2 && fda.includes(t) !== pill.includes(t));
+    if (partial || (!fullI2 && shortFold)) return { result: "close", partial, requiresExact: true };
+    return { result: "close", partial };
+  }
   return { result: "none", partial: false };
 }
 
