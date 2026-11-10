@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { QRCodeSVG } from "qrcode.react";
 import { BrandMark } from "@/components/site-chrome";
 import { PillDrawing } from "@/components/pill-drawing";
+import { IBUPROFEN_I2_OVAL as example } from "@/lib/fda/fixtures";
 import "./print.css";
 
 export const metadata: Metadata = { title:"One-page project description", description:"Second Look: the problem, FDA-backed checker, frozen NIH results and limits on one printable page.", robots:{index:false,follow:false} };
@@ -21,6 +22,6 @@ export default function OnePager() {
       <footer className="sheet-bottom"><div><p className="sheet-safety">Not medical advice. Does not establish authenticity or replace your pharmacist. For a mismatch or uncertainty, don’t take the pill until you check with your pharmacist.</p><p className="sheet-links"><a href={app}>getsecondlook.vercel.app</a><br/><a href="https://github.com/Vedu-2011/second-look">github.com/Vedu-2011/second-look</a></p></div><figure><QRCodeSVG value={app} size={90} marginSize={4} level="M" fgColor="#17202B" bgColor="#FAFBFC" title="Open Second Look"/><figcaption>Try the app</figcaption></figure></footer>
       <div className="sheet-citations"><p>[1] Flynn EA et al. J Am Pharm Assoc. 2003;43:191–200. Historical estimate, not a current count. <a href="https://pubmed.ncbi.nlm.nih.gov/12688437/">PMID 12688437</a>.</p><p>[2] Kesselheim AS et al. Ann Intern Med. 2014;161:96–103. Association, not causation. <a href="https://pubmed.ncbi.nlm.nih.gov/25023248/">PMID 25023248</a>. Dataset: Yaniv et al., <a href="https://pubmed.ncbi.nlm.nih.gov/29854569/">PMID 29854569</a>.</p></div>
     </article>
-    <aside className="social-export" aria-hidden="true"><div className="social-copy"><div className="social-brand"><BrandMark/>Second Look</div><p>Is this the<br/>right pill?</p><span>AI reads. FDA records. Code decides.</span><small>getsecondlook.vercel.app</small></div><div className="social-pill"><PillDrawing shapeCode="C48345" colorCodes={["C48331"]} sizeMm={14} imprintSides={["I2"]} pxPerMm={22}/><span>FDA record → drawn pill</span></div></aside>
+    <aside className="social-export" aria-hidden="true"><div className="social-copy"><div className="social-brand"><BrandMark/>Second Look</div><p>Is this the<br/>right pill?</p><span>AI reads. FDA records. Code decides.</span><small>getsecondlook.vercel.app</small></div><div className="social-pill"><PillDrawing shapeCode={example.shapeCode} colorCodes={example.colorCodes} sizeMm={example.sizeMm} imprintSides={example.imprintSides} score={example.score} pxPerMm={22}/><span>FDA record → drawn pill</span></div></aside>
   </>;
 }
