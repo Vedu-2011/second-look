@@ -23,7 +23,8 @@ export default function OnePager() {
       <header className="sheet-heading"><BrandMark/><div><h1>Second Look</h1><p>Is the pill in your bottle the medicine on your label?</p></div></header>
       <p className="sheet-pitch">Take a photo of the pharmacy label and one pill. Second Look reads both, checks the pill against every FDA record for that medicine, and shows you the proof in about 10 seconds.</p>
 
-      <div className="sheet-story">
+      <div className="sheet-evidence">
+       <div className="sheet-story">
         <section className="sheet-problem">
           <h2>Why it matters</h2>
           <ul>
@@ -39,14 +40,17 @@ export default function OnePager() {
           ))}</ol>
           <p>Claude reads the label and the letters stamped on the pill. Then plain code, not the AI, compares the imprint, color and shape with every maker&apos;s FDA record for that medicine and picks the answer: Matches, Same medicine from another maker, Doesn&apos;t match, or Can&apos;t tell. Every answer links to the FDA record it used.</p>
         </section>
+       </div>
+
+       <div className="sheet-example">
+        <figure className="sheet-result">
+          <img src="/one-pager-result.png" alt="Doesn't match: the FDA's orange I2 ibuprofen drawing next to the white L484 pill drawing." />
+          <figcaption>The wrong pill, caught: the FDA&apos;s picture of what should be in the bottle, next to what is.</figcaption>
+        </figure>
+
+        <p className="sheet-data"><strong>Real records:</strong> FDA DailyMed · NLM RxNorm ({ibuprofenVersions} versions of ibuprofen 200 mg, from every maker) · NIH Pill Image dataset. Demo patient labels are made up; the pills and the records are real.</p>
+       </div>
       </div>
-
-      <figure className="sheet-result">
-        <img src="/one-pager-result.png" alt="Doesn't match: the FDA's orange I2 ibuprofen drawing next to the white L484 pill drawing." />
-        <figcaption>The wrong pill, caught: the FDA&apos;s picture of what should be in the bottle, next to what is.</figcaption>
-      </figure>
-
-      <p className="sheet-data"><strong>Real records:</strong> FDA DailyMed · NLM RxNorm ({ibuprofenVersions} versions of ibuprofen 200 mg, from every maker) · NIH Pill Image dataset. Demo patient labels are made up; the pills and the records are real.</p>
 
       <section className="sheet-research">
         <h2>Tested on photos it had never seen</h2>
