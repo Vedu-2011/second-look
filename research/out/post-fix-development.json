@@ -1,0 +1,6498 @@
+{
+  "label": "After two fixes (post-hoc — this holdout is no longer untouched)",
+  "cohort": "development",
+  "images": 200,
+  "pairs": 400,
+  "readingVersion": "pill-v1",
+  "modelCalls": 0,
+  "totalUsd": 0,
+  "commit": "c10d32ca749ae5abb5db0cc6f87e67889cb9ed15",
+  "sourceHashes": {
+    "src/lib/match/imprint.ts": "5f9b548c8bdba958dcbcd3569438623e6b1ddf10458d19a653e3d1e498c473c0",
+    "src/lib/verdict-engine.ts": "c4fc69f2404f9efeefb1755113f14d21727dc94557a94c9fe0dcf9c0ca9930ff",
+    "src/lib/pill-views.ts": "21c49fc15ea2d215f657c1b927d60f8058ea432eb5af9a79fac957907cf8037b",
+    "scripts/rescore-post-fix.ts": "7effd52fb433592e589f4898c8434f488557e83d98b91fd08a2f90e1682d9e55"
+  },
+  "inputHashes": {
+    "cohort.json": "c328350897305f4d0737eaaf4d9fe897dd2137b86d5d46764603e721d269f4f2",
+    "holdout-cohort.json": "067e89ff5914b7513dc5bd33afb41513911c34c4ff041e36edae2a3cebde2789",
+    "readings-claude-sonnet-5-5.json": "a11df69e388f10b25fae34199972ab3ae3817deb9850ac078846b8e03593bf10",
+    "holdout-readings.json": "b9f3ed55a23621cf5170bbdc3830fd1ecd194077c9937d9d7b7c20bb092a9569",
+    "cost.json": "7967d045fb14c7ee4f421029265d042d0ece1ef64a66e241d7ff3425d0348ba2",
+    "holdout-cost.json": "ad53f4adc0fd6ec9b275242e231d97119113c08fa93d13edbd2502e894bc03d9",
+    "development-results.json": "03269b0761055f100eb17caf6dac0b54578689666e7772d6291b8df5d961d7ba",
+    "holdout-results.json": "8e36efe24737f430f7d01391f5def94ff239de3f91502523c78f642284f95892",
+    "holdout-pairs.csv": "0e7d97f82baa4f85f282efa0b9a146f4ac506138f6ff77974c83c797f8c1a584",
+    "holdout-freeze.json": "2ee71ac1904640a130f6f959ffe4095f7375bb445d950d07d97a53851109668e"
+  },
+  "metrics": {
+    "Sonnet, one view": {
+      "n": 400,
+      "wrong": 200,
+      "right": 200,
+      "caught": 66,
+      "falseAlarms": 2,
+      "passed": 56,
+      "unsure": 276,
+      "wrongUnsure": 134,
+      "catchRate": 0.33,
+      "falseAlarmRate": 0.01,
+      "passRate": 0.28,
+      "unsureRate": 0.69,
+      "easy": {
+        "n": 32,
+        "caught": 9,
+        "unsure": 23,
+        "passed": 0
+      },
+      "hard": {
+        "n": 168,
+        "caught": 57,
+        "unsure": 111,
+        "passed": 0
+      },
+      "wrongPassed": 0,
+      "decisive": 124,
+      "correct": 122,
+      "decisiveAccuracy": 0.9838709677419355,
+      "coverage": 0.31
+    },
+    "Sonnet, two views": {
+      "n": 400,
+      "wrong": 200,
+      "right": 200,
+      "caught": 45,
+      "falseAlarms": 4,
+      "passed": 37,
+      "unsure": 314,
+      "wrongUnsure": 155,
+      "catchRate": 0.225,
+      "falseAlarmRate": 0.02,
+      "passRate": 0.185,
+      "unsureRate": 0.785,
+      "easy": {
+        "n": 32,
+        "caught": 4,
+        "unsure": 28,
+        "passed": 0
+      },
+      "hard": {
+        "n": 168,
+        "caught": 41,
+        "unsure": 127,
+        "passed": 0
+      },
+      "wrongPassed": 0,
+      "decisive": 86,
+      "correct": 82,
+      "decisiveAccuracy": 0.9534883720930233,
+      "coverage": 0.215
+    }
+  },
+  "rows": {
+    "Sonnet, one view": [
+      {
+        "image": "research/data/00093032101-0.jpg",
+        "ownNdc": "00093032101",
+        "labelNdc": "00093032101",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093032101-0.jpg",
+        "ownNdc": "00093032101",
+        "labelNdc": "68180040301",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093032101-1.jpg",
+        "ownNdc": "00093032101",
+        "labelNdc": "00093032101",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093032101-1.jpg",
+        "ownNdc": "00093032101",
+        "labelNdc": "68180040301",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00378041510-0.jpg",
+        "ownNdc": "00378041510",
+        "labelNdc": "00378041510",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00378041510-0.jpg",
+        "ownNdc": "00378041510",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00378041510-1.jpg",
+        "ownNdc": "00378041510",
+        "labelNdc": "00378041510",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00378041510-1.jpg",
+        "ownNdc": "00378041510",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00172435846-0.jpg",
+        "ownNdc": "00172435846",
+        "labelNdc": "00172435846",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/00172435846-0.jpg",
+        "ownNdc": "00172435846",
+        "labelNdc": "55111026830",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00172435846-1.jpg",
+        "ownNdc": "00172435846",
+        "labelNdc": "00172435846",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/00172435846-1.jpg",
+        "ownNdc": "00172435846",
+        "labelNdc": "55111026830",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/65862014301-0.jpg",
+        "ownNdc": "65862014301",
+        "labelNdc": "65862014301",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/65862014301-0.jpg",
+        "ownNdc": "65862014301",
+        "labelNdc": "50458030006",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/65862014301-1.jpg",
+        "ownNdc": "65862014301",
+        "labelNdc": "65862014301",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/65862014301-1.jpg",
+        "ownNdc": "65862014301",
+        "labelNdc": "50458030006",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/68462030205-0.jpg",
+        "ownNdc": "68462030205",
+        "labelNdc": "68462030205",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/68462030205-0.jpg",
+        "ownNdc": "68462030205",
+        "labelNdc": "59746038606",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/68462030205-1.jpg",
+        "ownNdc": "68462030205",
+        "labelNdc": "68462030205",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/68462030205-1.jpg",
+        "ownNdc": "68462030205",
+        "labelNdc": "59746038606",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/62175048637-0.jpg",
+        "ownNdc": "62175048637",
+        "labelNdc": "62175048637",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/62175048637-0.jpg",
+        "ownNdc": "62175048637",
+        "labelNdc": "62175048737",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/62175048637-1.jpg",
+        "ownNdc": "62175048637",
+        "labelNdc": "62175048637",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/62175048637-1.jpg",
+        "ownNdc": "62175048637",
+        "labelNdc": "62175048737",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00172436560-0.jpg",
+        "ownNdc": "00172436560",
+        "labelNdc": "00172436560",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00172436560-0.jpg",
+        "ownNdc": "00172436560",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00172436560-1.jpg",
+        "ownNdc": "00172436560",
+        "labelNdc": "00172436560",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/00172436560-1.jpg",
+        "ownNdc": "00172436560",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00378512301-0.jpg",
+        "ownNdc": "00378512301",
+        "labelNdc": "00378512301",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00378512301-0.jpg",
+        "ownNdc": "00378512301",
+        "labelNdc": "00228212910",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00378512301-1.jpg",
+        "ownNdc": "00378512301",
+        "labelNdc": "00378512301",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00378512301-1.jpg",
+        "ownNdc": "00378512301",
+        "labelNdc": "00228212910",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/51672412401-0.jpg",
+        "ownNdc": "51672412401",
+        "labelNdc": "51672412401",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/51672412401-0.jpg",
+        "ownNdc": "51672412401",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/51672412401-1.jpg",
+        "ownNdc": "51672412401",
+        "labelNdc": "51672412401",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/51672412401-1.jpg",
+        "ownNdc": "51672412401",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/59762105002-0.jpg",
+        "ownNdc": "59762105002",
+        "labelNdc": "59762105002",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/59762105002-0.jpg",
+        "ownNdc": "59762105002",
+        "labelNdc": "00781205301",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/59762105002-1.jpg",
+        "ownNdc": "59762105002",
+        "labelNdc": "59762105002",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/59762105002-1.jpg",
+        "ownNdc": "59762105002",
+        "labelNdc": "00781205301",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/42043019205-0.jpg",
+        "ownNdc": "42043019205",
+        "labelNdc": "42043019205",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/42043019205-0.jpg",
+        "ownNdc": "42043019205",
+        "labelNdc": "00093725956",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/42043019205-1.jpg",
+        "ownNdc": "42043019205",
+        "labelNdc": "42043019205",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/42043019205-1.jpg",
+        "ownNdc": "42043019205",
+        "labelNdc": "00093725956",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00093435901-0.jpg",
+        "ownNdc": "00093435901",
+        "labelNdc": "00093435901",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093435901-0.jpg",
+        "ownNdc": "00093435901",
+        "labelNdc": "00093083210",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00093435901-1.jpg",
+        "ownNdc": "00093435901",
+        "labelNdc": "00093435901",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093435901-1.jpg",
+        "ownNdc": "00093435901",
+        "labelNdc": "00093083210",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/68180040301-0.jpg",
+        "ownNdc": "68180040301",
+        "labelNdc": "68180040301",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/68180040301-0.jpg",
+        "ownNdc": "68180040301",
+        "labelNdc": "49702020613",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/68180040301-1.jpg",
+        "ownNdc": "68180040301",
+        "labelNdc": "68180040301",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/68180040301-1.jpg",
+        "ownNdc": "68180040301",
+        "labelNdc": "49702020613",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00173052600-0.jpg",
+        "ownNdc": "00173052600",
+        "labelNdc": "00173052600",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00173052600-0.jpg",
+        "ownNdc": "00173052600",
+        "labelNdc": "50458030006",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00173052600-1.jpg",
+        "ownNdc": "00173052600",
+        "labelNdc": "00173052600",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00173052600-1.jpg",
+        "ownNdc": "00173052600",
+        "labelNdc": "50458030006",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00002446330-0.jpg",
+        "ownNdc": "00002446330",
+        "labelNdc": "00002446330",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00002446330-0.jpg",
+        "ownNdc": "00002446330",
+        "labelNdc": "42043019004",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00002446330-1.jpg",
+        "ownNdc": "00002446330",
+        "labelNdc": "00002446330",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00002446330-1.jpg",
+        "ownNdc": "00002446330",
+        "labelNdc": "42043019004",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/68012010430-0.jpg",
+        "ownNdc": "68012010430",
+        "labelNdc": "68012010430",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/68012010430-0.jpg",
+        "ownNdc": "68012010430",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/68012010430-1.jpg",
+        "ownNdc": "68012010430",
+        "labelNdc": "68012010430",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/68012010430-1.jpg",
+        "ownNdc": "68012010430",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00172241680-0.jpg",
+        "ownNdc": "00172241680",
+        "labelNdc": "00172241680",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00172241680-0.jpg",
+        "ownNdc": "00172241680",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00172241680-1.jpg",
+        "ownNdc": "00172241680",
+        "labelNdc": "00172241680",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00172241680-1.jpg",
+        "ownNdc": "00172241680",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00591090030-0.jpg",
+        "ownNdc": "00591090030",
+        "labelNdc": "00591090030",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/00591090030-0.jpg",
+        "ownNdc": "00591090030",
+        "labelNdc": "00378512301",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00591090030-1.jpg",
+        "ownNdc": "00591090030",
+        "labelNdc": "00591090030",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/00591090030-1.jpg",
+        "ownNdc": "00591090030",
+        "labelNdc": "00378512301",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00093013501-0.jpg",
+        "ownNdc": "00093013501",
+        "labelNdc": "00093013501",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/00093013501-0.jpg",
+        "ownNdc": "00093013501",
+        "labelNdc": "50458030006",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00093013501-1.jpg",
+        "ownNdc": "00093013501",
+        "labelNdc": "00093013501",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/00093013501-1.jpg",
+        "ownNdc": "00093013501",
+        "labelNdc": "50458030006",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00555102201-0.jpg",
+        "ownNdc": "00555102201",
+        "labelNdc": "00555102201",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00555102201-0.jpg",
+        "ownNdc": "00555102201",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00555102201-1.jpg",
+        "ownNdc": "00555102201",
+        "labelNdc": "00555102201",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00555102201-1.jpg",
+        "ownNdc": "00555102201",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/53489010501-0.jpg",
+        "ownNdc": "53489010501",
+        "labelNdc": "53489010501",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/53489010501-0.jpg",
+        "ownNdc": "53489010501",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/53489010501-1.jpg",
+        "ownNdc": "53489010501",
+        "labelNdc": "53489010501",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/53489010501-1.jpg",
+        "ownNdc": "53489010501",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/29300012713-0.jpg",
+        "ownNdc": "29300012713",
+        "labelNdc": "29300012713",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/29300012713-0.jpg",
+        "ownNdc": "29300012713",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/29300012713-1.jpg",
+        "ownNdc": "29300012713",
+        "labelNdc": "29300012713",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/29300012713-1.jpg",
+        "ownNdc": "29300012713",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/62584097601-0.jpg",
+        "ownNdc": "62584097601",
+        "labelNdc": "62584097601",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/62584097601-0.jpg",
+        "ownNdc": "62584097601",
+        "labelNdc": "59746038606",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/62584097601-1.jpg",
+        "ownNdc": "62584097601",
+        "labelNdc": "62584097601",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/62584097601-1.jpg",
+        "ownNdc": "62584097601",
+        "labelNdc": "59746038606",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/49702020613-0.jpg",
+        "ownNdc": "49702020613",
+        "labelNdc": "49702020613",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/49702020613-0.jpg",
+        "ownNdc": "49702020613",
+        "labelNdc": "68180040301",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/49702020613-1.jpg",
+        "ownNdc": "49702020613",
+        "labelNdc": "49702020613",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/49702020613-1.jpg",
+        "ownNdc": "49702020613",
+        "labelNdc": "68180040301",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/68308032610-0.jpg",
+        "ownNdc": "68308032610",
+        "labelNdc": "68308032610",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/68308032610-0.jpg",
+        "ownNdc": "68308032610",
+        "labelNdc": "29300012601",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/68308032610-1.jpg",
+        "ownNdc": "68308032610",
+        "labelNdc": "68308032610",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/68308032610-1.jpg",
+        "ownNdc": "68308032610",
+        "labelNdc": "29300012601",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093715806-0.jpg",
+        "ownNdc": "00093715806",
+        "labelNdc": "00093715806",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/00093715806-0.jpg",
+        "ownNdc": "00093715806",
+        "labelNdc": "00002446330",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00093715806-1.jpg",
+        "ownNdc": "00093715806",
+        "labelNdc": "00093715806",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093715806-1.jpg",
+        "ownNdc": "00093715806",
+        "labelNdc": "00002446330",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093433801-0.jpg",
+        "ownNdc": "00093433801",
+        "labelNdc": "00093433801",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093433801-0.jpg",
+        "ownNdc": "00093433801",
+        "labelNdc": "00172524060",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093433801-1.jpg",
+        "ownNdc": "00093433801",
+        "labelNdc": "00093433801",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093433801-1.jpg",
+        "ownNdc": "00093433801",
+        "labelNdc": "00172524060",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00781205301-0.jpg",
+        "ownNdc": "00781205301",
+        "labelNdc": "00781205301",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00781205301-0.jpg",
+        "ownNdc": "00781205301",
+        "labelNdc": "59762105002",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00781205301-1.jpg",
+        "ownNdc": "00781205301",
+        "labelNdc": "00781205301",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00781205301-1.jpg",
+        "ownNdc": "00781205301",
+        "labelNdc": "59762105002",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093743601-0.jpg",
+        "ownNdc": "00093743601",
+        "labelNdc": "00093743601",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/00093743601-0.jpg",
+        "ownNdc": "00093743601",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00093743601-1.jpg",
+        "ownNdc": "00093743601",
+        "labelNdc": "00093743601",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093743601-1.jpg",
+        "ownNdc": "00093743601",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093440501-0.jpg",
+        "ownNdc": "00093440501",
+        "labelNdc": "00093440501",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093440501-0.jpg",
+        "ownNdc": "00093440501",
+        "labelNdc": "00002446330",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093440501-1.jpg",
+        "ownNdc": "00093440501",
+        "labelNdc": "00093440501",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093440501-1.jpg",
+        "ownNdc": "00093440501",
+        "labelNdc": "00002446330",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/51079093620-0.jpg",
+        "ownNdc": "51079093620",
+        "labelNdc": "51079093620",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/51079093620-0.jpg",
+        "ownNdc": "51079093620",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/51079093620-1.jpg",
+        "ownNdc": "51079093620",
+        "labelNdc": "51079093620",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/51079093620-1.jpg",
+        "ownNdc": "51079093620",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/62037067410-0.jpg",
+        "ownNdc": "62037067410",
+        "labelNdc": "62037067410",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/62037067410-0.jpg",
+        "ownNdc": "62037067410",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/62037067410-1.jpg",
+        "ownNdc": "62037067410",
+        "labelNdc": "62037067410",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/62037067410-1.jpg",
+        "ownNdc": "62037067410",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/63304082990-0.jpg",
+        "ownNdc": "63304082990",
+        "labelNdc": "63304082990",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/63304082990-0.jpg",
+        "ownNdc": "63304082990",
+        "labelNdc": "50458030006",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/63304082990-1.jpg",
+        "ownNdc": "63304082990",
+        "labelNdc": "63304082990",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/63304082990-1.jpg",
+        "ownNdc": "63304082990",
+        "labelNdc": "50458030006",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/68453085075-0.jpg",
+        "ownNdc": "68453085075",
+        "labelNdc": "68453085075",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/68453085075-0.jpg",
+        "ownNdc": "68453085075",
+        "labelNdc": "00172524060",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/68453085075-1.jpg",
+        "ownNdc": "68453085075",
+        "labelNdc": "68453085075",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/68453085075-1.jpg",
+        "ownNdc": "68453085075",
+        "labelNdc": "00172524060",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/49348026210-0.jpg",
+        "ownNdc": "49348026210",
+        "labelNdc": "49348026210",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/49348026210-0.jpg",
+        "ownNdc": "49348026210",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/49348026210-1.jpg",
+        "ownNdc": "49348026210",
+        "labelNdc": "49348026210",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/49348026210-1.jpg",
+        "ownNdc": "49348026210",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/65597010490-0.jpg",
+        "ownNdc": "65597010490",
+        "labelNdc": "65597010490",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/65597010490-0.jpg",
+        "ownNdc": "65597010490",
+        "labelNdc": "50458030006",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/65597010490-1.jpg",
+        "ownNdc": "65597010490",
+        "labelNdc": "65597010490",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/65597010490-1.jpg",
+        "ownNdc": "65597010490",
+        "labelNdc": "50458030006",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00574025101-0.jpg",
+        "ownNdc": "00574025101",
+        "labelNdc": "00574025101",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00574025101-0.jpg",
+        "ownNdc": "00574025101",
+        "labelNdc": "50458030006",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00574025101-1.jpg",
+        "ownNdc": "00574025101",
+        "labelNdc": "00574025101",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/00574025101-1.jpg",
+        "ownNdc": "00574025101",
+        "labelNdc": "50458030006",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00093571105-0.jpg",
+        "ownNdc": "00093571105",
+        "labelNdc": "00093571105",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093571105-0.jpg",
+        "ownNdc": "00093571105",
+        "labelNdc": "68180040301",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093571105-1.jpg",
+        "ownNdc": "00093571105",
+        "labelNdc": "00093571105",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00093571105-1.jpg",
+        "ownNdc": "00093571105",
+        "labelNdc": "68180040301",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/23155011101-0.jpg",
+        "ownNdc": "23155011101",
+        "labelNdc": "23155011101",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/23155011101-0.jpg",
+        "ownNdc": "23155011101",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/23155011101-1.jpg",
+        "ownNdc": "23155011101",
+        "labelNdc": "23155011101",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/23155011101-1.jpg",
+        "ownNdc": "23155011101",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/65597070118-0.jpg",
+        "ownNdc": "65597070118",
+        "labelNdc": "65597070118",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/65597070118-0.jpg",
+        "ownNdc": "65597070118",
+        "labelNdc": "50458030006",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/65597070118-1.jpg",
+        "ownNdc": "65597070118",
+        "labelNdc": "65597070118",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/65597070118-1.jpg",
+        "ownNdc": "65597070118",
+        "labelNdc": "50458030006",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/60505001806-0.jpg",
+        "ownNdc": "60505001806",
+        "labelNdc": "60505001806",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/60505001806-0.jpg",
+        "ownNdc": "60505001806",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/60505001806-1.jpg",
+        "ownNdc": "60505001806",
+        "labelNdc": "60505001806",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/60505001806-1.jpg",
+        "ownNdc": "60505001806",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/62175048737-0.jpg",
+        "ownNdc": "62175048737",
+        "labelNdc": "62175048737",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/62175048737-0.jpg",
+        "ownNdc": "62175048737",
+        "labelNdc": "62175048637",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/62175048737-1.jpg",
+        "ownNdc": "62175048737",
+        "labelNdc": "62175048737",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/62175048737-1.jpg",
+        "ownNdc": "62175048737",
+        "labelNdc": "62175048637",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093576856-0.jpg",
+        "ownNdc": "00093576856",
+        "labelNdc": "00093576856",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/00093576856-0.jpg",
+        "ownNdc": "00093576856",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00093576856-1.jpg",
+        "ownNdc": "00093576856",
+        "labelNdc": "00093576856",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093576856-1.jpg",
+        "ownNdc": "00093576856",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093731456-0.jpg",
+        "ownNdc": "00093731456",
+        "labelNdc": "00093731456",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/00093731456-0.jpg",
+        "ownNdc": "00093731456",
+        "labelNdc": "00172541279",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00093731456-1.jpg",
+        "ownNdc": "00093731456",
+        "labelNdc": "00093731456",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093731456-1.jpg",
+        "ownNdc": "00093731456",
+        "labelNdc": "00172541279",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/64679096405-0.jpg",
+        "ownNdc": "64679096405",
+        "labelNdc": "64679096405",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/64679096405-0.jpg",
+        "ownNdc": "64679096405",
+        "labelNdc": "50458030006",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/64679096405-1.jpg",
+        "ownNdc": "64679096405",
+        "labelNdc": "64679096405",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/64679096405-1.jpg",
+        "ownNdc": "64679096405",
+        "labelNdc": "50458030006",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00007414220-0.jpg",
+        "ownNdc": "00007414220",
+        "labelNdc": "00007414220",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00007414220-0.jpg",
+        "ownNdc": "00007414220",
+        "labelNdc": "50458030006",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00007414220-1.jpg",
+        "ownNdc": "00007414220",
+        "labelNdc": "00007414220",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00007414220-1.jpg",
+        "ownNdc": "00007414220",
+        "labelNdc": "50458030006",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093725956-0.jpg",
+        "ownNdc": "00093725956",
+        "labelNdc": "00093725956",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093725956-0.jpg",
+        "ownNdc": "00093725956",
+        "labelNdc": "62756051788",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093725956-1.jpg",
+        "ownNdc": "00093725956",
+        "labelNdc": "00093725956",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093725956-1.jpg",
+        "ownNdc": "00093725956",
+        "labelNdc": "62756051788",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093053701-0.jpg",
+        "ownNdc": "00093053701",
+        "labelNdc": "00093053701",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/00093053701-0.jpg",
+        "ownNdc": "00093053701",
+        "labelNdc": "50458030006",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00093053701-1.jpg",
+        "ownNdc": "00093053701",
+        "labelNdc": "00093053701",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/00093053701-1.jpg",
+        "ownNdc": "00093053701",
+        "labelNdc": "50458030006",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00228212910-0.jpg",
+        "ownNdc": "00228212910",
+        "labelNdc": "00228212910",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00228212910-0.jpg",
+        "ownNdc": "00228212910",
+        "labelNdc": "00378512301",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00228212910-1.jpg",
+        "ownNdc": "00228212910",
+        "labelNdc": "00228212910",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00228212910-1.jpg",
+        "ownNdc": "00228212910",
+        "labelNdc": "00378512301",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093716798-0.jpg",
+        "ownNdc": "00093716798",
+        "labelNdc": "00093716798",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/00093716798-0.jpg",
+        "ownNdc": "00093716798",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00093716798-1.jpg",
+        "ownNdc": "00093716798",
+        "labelNdc": "00093716798",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/00093716798-1.jpg",
+        "ownNdc": "00093716798",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/50111043401-0.jpg",
+        "ownNdc": "50111043401",
+        "labelNdc": "50111043401",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/50111043401-0.jpg",
+        "ownNdc": "50111043401",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/50111043401-1.jpg",
+        "ownNdc": "50111043401",
+        "labelNdc": "50111043401",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/50111043401-1.jpg",
+        "ownNdc": "50111043401",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00378207601-0.jpg",
+        "ownNdc": "00378207601",
+        "labelNdc": "00378207601",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00378207601-0.jpg",
+        "ownNdc": "00378207601",
+        "labelNdc": "00172436660",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00378207601-1.jpg",
+        "ownNdc": "00378207601",
+        "labelNdc": "00378207601",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00378207601-1.jpg",
+        "ownNdc": "00378207601",
+        "labelNdc": "00172436660",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093511998-0.jpg",
+        "ownNdc": "00093511998",
+        "labelNdc": "00093511998",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093511998-0.jpg",
+        "ownNdc": "00093511998",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093511998-1.jpg",
+        "ownNdc": "00093511998",
+        "labelNdc": "00093511998",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093511998-1.jpg",
+        "ownNdc": "00093511998",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00603390021-0.jpg",
+        "ownNdc": "00603390021",
+        "labelNdc": "00603390021",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00603390021-0.jpg",
+        "ownNdc": "00603390021",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00603390021-1.jpg",
+        "ownNdc": "00603390021",
+        "labelNdc": "00603390021",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00603390021-1.jpg",
+        "ownNdc": "00603390021",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00002322930-0.jpg",
+        "ownNdc": "00002322930",
+        "labelNdc": "00002322930",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00002322930-0.jpg",
+        "ownNdc": "00002322930",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00002322930-1.jpg",
+        "ownNdc": "00002322930",
+        "labelNdc": "00002322930",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00002322930-1.jpg",
+        "ownNdc": "00002322930",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00781145201-0.jpg",
+        "ownNdc": "00781145201",
+        "labelNdc": "00781145201",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/00781145201-0.jpg",
+        "ownNdc": "00781145201",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00781145201-1.jpg",
+        "ownNdc": "00781145201",
+        "labelNdc": "00781145201",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00781145201-1.jpg",
+        "ownNdc": "00781145201",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/42043019004-0.jpg",
+        "ownNdc": "42043019004",
+        "labelNdc": "42043019004",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/42043019004-0.jpg",
+        "ownNdc": "42043019004",
+        "labelNdc": "00002446330",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/42043019004-1.jpg",
+        "ownNdc": "42043019004",
+        "labelNdc": "42043019004",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/42043019004-1.jpg",
+        "ownNdc": "42043019004",
+        "labelNdc": "00002446330",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/68382002001-0.jpg",
+        "ownNdc": "68382002001",
+        "labelNdc": "68382002001",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/68382002001-0.jpg",
+        "ownNdc": "68382002001",
+        "labelNdc": "00378512301",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/68382002001-1.jpg",
+        "ownNdc": "68382002001",
+        "labelNdc": "68382002001",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/68382002001-1.jpg",
+        "ownNdc": "68382002001",
+        "labelNdc": "00378512301",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093505006-0.jpg",
+        "ownNdc": "00093505006",
+        "labelNdc": "00093505006",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/00093505006-0.jpg",
+        "ownNdc": "00093505006",
+        "labelNdc": "50458030006",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00093505006-1.jpg",
+        "ownNdc": "00093505006",
+        "labelNdc": "00093505006",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093505006-1.jpg",
+        "ownNdc": "00093505006",
+        "labelNdc": "50458030006",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/64980012301-0.jpg",
+        "ownNdc": "64980012301",
+        "labelNdc": "64980012301",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/64980012301-0.jpg",
+        "ownNdc": "64980012301",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/64980012301-1.jpg",
+        "ownNdc": "64980012301",
+        "labelNdc": "64980012301",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/64980012301-1.jpg",
+        "ownNdc": "64980012301",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00555086102-0.jpg",
+        "ownNdc": "00555086102",
+        "labelNdc": "00555086102",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00555086102-0.jpg",
+        "ownNdc": "00555086102",
+        "labelNdc": "50458030006",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00555086102-1.jpg",
+        "ownNdc": "00555086102",
+        "labelNdc": "00555086102",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00555086102-1.jpg",
+        "ownNdc": "00555086102",
+        "labelNdc": "50458030006",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00591538105-0.jpg",
+        "ownNdc": "00591538105",
+        "labelNdc": "00591538105",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00591538105-0.jpg",
+        "ownNdc": "00591538105",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00591538105-1.jpg",
+        "ownNdc": "00591538105",
+        "labelNdc": "00591538105",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/00591538105-1.jpg",
+        "ownNdc": "00591538105",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00603233832-0.jpg",
+        "ownNdc": "00603233832",
+        "labelNdc": "00603233832",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/00603233832-0.jpg",
+        "ownNdc": "00603233832",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00603233832-1.jpg",
+        "ownNdc": "00603233832",
+        "labelNdc": "00603233832",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00603233832-1.jpg",
+        "ownNdc": "00603233832",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093083210-0.jpg",
+        "ownNdc": "00093083210",
+        "labelNdc": "00093083210",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093083210-0.jpg",
+        "ownNdc": "00093083210",
+        "labelNdc": "00093435901",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093083210-1.jpg",
+        "ownNdc": "00093083210",
+        "labelNdc": "00093083210",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/00093083210-1.jpg",
+        "ownNdc": "00093083210",
+        "labelNdc": "00093435901",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/50111032301-0.jpg",
+        "ownNdc": "50111032301",
+        "labelNdc": "50111032301",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/50111032301-0.jpg",
+        "ownNdc": "50111032301",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/50111032301-1.jpg",
+        "ownNdc": "50111032301",
+        "labelNdc": "50111032301",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/50111032301-1.jpg",
+        "ownNdc": "50111032301",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00025189151-0.jpg",
+        "ownNdc": "00025189151",
+        "labelNdc": "00025189151",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00025189151-0.jpg",
+        "ownNdc": "00025189151",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00025189151-1.jpg",
+        "ownNdc": "00025189151",
+        "labelNdc": "00025189151",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/00025189151-1.jpg",
+        "ownNdc": "00025189151",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/68382000116-0.jpg",
+        "ownNdc": "68382000116",
+        "labelNdc": "68382000116",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/68382000116-0.jpg",
+        "ownNdc": "68382000116",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/68382000116-1.jpg",
+        "ownNdc": "68382000116",
+        "labelNdc": "68382000116",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/68382000116-1.jpg",
+        "ownNdc": "68382000116",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/59148001113-0.jpg",
+        "ownNdc": "59148001113",
+        "labelNdc": "59148001113",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/59148001113-0.jpg",
+        "ownNdc": "59148001113",
+        "labelNdc": "68308032610",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/59148001113-1.jpg",
+        "ownNdc": "59148001113",
+        "labelNdc": "59148001113",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/59148001113-1.jpg",
+        "ownNdc": "59148001113",
+        "labelNdc": "68308032610",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00781532501-0.jpg",
+        "ownNdc": "00781532501",
+        "labelNdc": "00781532501",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00781532501-0.jpg",
+        "ownNdc": "00781532501",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00781532501-1.jpg",
+        "ownNdc": "00781532501",
+        "labelNdc": "00781532501",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00781532501-1.jpg",
+        "ownNdc": "00781532501",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/13107000605-0.jpg",
+        "ownNdc": "13107000605",
+        "labelNdc": "13107000605",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/13107000605-0.jpg",
+        "ownNdc": "13107000605",
+        "labelNdc": "00781205301",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/13107000605-1.jpg",
+        "ownNdc": "13107000605",
+        "labelNdc": "13107000605",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/13107000605-1.jpg",
+        "ownNdc": "13107000605",
+        "labelNdc": "00781205301",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/59746038606-0.jpg",
+        "ownNdc": "59746038606",
+        "labelNdc": "59746038606",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/59746038606-0.jpg",
+        "ownNdc": "59746038606",
+        "labelNdc": "68462030205",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/59746038606-1.jpg",
+        "ownNdc": "59746038606",
+        "labelNdc": "59746038606",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/59746038606-1.jpg",
+        "ownNdc": "59746038606",
+        "labelNdc": "68462030205",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00527132410-0.jpg",
+        "ownNdc": "00527132410",
+        "labelNdc": "00527132410",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00527132410-0.jpg",
+        "ownNdc": "00527132410",
+        "labelNdc": "00093083210",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00527132410-1.jpg",
+        "ownNdc": "00527132410",
+        "labelNdc": "00527132410",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00527132410-1.jpg",
+        "ownNdc": "00527132410",
+        "labelNdc": "00093083210",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00143147301-0.jpg",
+        "ownNdc": "00143147301",
+        "labelNdc": "00143147301",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/00143147301-0.jpg",
+        "ownNdc": "00143147301",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00143147301-1.jpg",
+        "ownNdc": "00143147301",
+        "labelNdc": "00143147301",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00143147301-1.jpg",
+        "ownNdc": "00143147301",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/16729000517-0.jpg",
+        "ownNdc": "16729000517",
+        "labelNdc": "16729000517",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/16729000517-0.jpg",
+        "ownNdc": "16729000517",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/16729000517-1.jpg",
+        "ownNdc": "16729000517",
+        "labelNdc": "16729000517",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/16729000517-1.jpg",
+        "ownNdc": "16729000517",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00378025710-0.jpg",
+        "ownNdc": "00378025710",
+        "labelNdc": "00378025710",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00378025710-0.jpg",
+        "ownNdc": "00378025710",
+        "labelNdc": "00378512301",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00378025710-1.jpg",
+        "ownNdc": "00378025710",
+        "labelNdc": "00378025710",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00378025710-1.jpg",
+        "ownNdc": "00378025710",
+        "labelNdc": "00378512301",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093204756-0.jpg",
+        "ownNdc": "00093204756",
+        "labelNdc": "00093204756",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093204756-0.jpg",
+        "ownNdc": "00093204756",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00093204756-1.jpg",
+        "ownNdc": "00093204756",
+        "labelNdc": "00093204756",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093204756-1.jpg",
+        "ownNdc": "00093204756",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00172409760-0.jpg",
+        "ownNdc": "00172409760",
+        "labelNdc": "00172409760",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/00172409760-0.jpg",
+        "ownNdc": "00172409760",
+        "labelNdc": "00603254421",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00172409760-1.jpg",
+        "ownNdc": "00172409760",
+        "labelNdc": "00172409760",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "SAME_MEDICINE_DIFFERENT_MAKER"
+      },
+      {
+        "image": "research/data/00172409760-1.jpg",
+        "ownNdc": "00172409760",
+        "labelNdc": "00603254421",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/64720032110-0.jpg",
+        "ownNdc": "64720032110",
+        "labelNdc": "64720032110",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/64720032110-0.jpg",
+        "ownNdc": "64720032110",
+        "labelNdc": "00172541279",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/64720032110-1.jpg",
+        "ownNdc": "64720032110",
+        "labelNdc": "64720032110",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/64720032110-1.jpg",
+        "ownNdc": "64720032110",
+        "labelNdc": "00172541279",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/29300012601-0.jpg",
+        "ownNdc": "29300012601",
+        "labelNdc": "29300012601",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/29300012601-0.jpg",
+        "ownNdc": "29300012601",
+        "labelNdc": "68308032610",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/29300012601-1.jpg",
+        "ownNdc": "29300012601",
+        "labelNdc": "29300012601",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/29300012601-1.jpg",
+        "ownNdc": "29300012601",
+        "labelNdc": "68308032610",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/67253032010-0.jpg",
+        "ownNdc": "67253032010",
+        "labelNdc": "67253032010",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/67253032010-0.jpg",
+        "ownNdc": "67253032010",
+        "labelNdc": "00093083210",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/67253032010-1.jpg",
+        "ownNdc": "67253032010",
+        "labelNdc": "67253032010",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/67253032010-1.jpg",
+        "ownNdc": "67253032010",
+        "labelNdc": "00093083210",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00172375960-0.jpg",
+        "ownNdc": "00172375960",
+        "labelNdc": "00172375960",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00172375960-0.jpg",
+        "ownNdc": "00172375960",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00172375960-1.jpg",
+        "ownNdc": "00172375960",
+        "labelNdc": "00172375960",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00172375960-1.jpg",
+        "ownNdc": "00172375960",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/50458030006-0.jpg",
+        "ownNdc": "50458030006",
+        "labelNdc": "50458030006",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/50458030006-0.jpg",
+        "ownNdc": "50458030006",
+        "labelNdc": "63304082990",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/50458030006-1.jpg",
+        "ownNdc": "50458030006",
+        "labelNdc": "50458030006",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/50458030006-1.jpg",
+        "ownNdc": "50458030006",
+        "labelNdc": "63304082990",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093312901-0.jpg",
+        "ownNdc": "00093312901",
+        "labelNdc": "00093312901",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093312901-0.jpg",
+        "ownNdc": "00093312901",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093312901-1.jpg",
+        "ownNdc": "00093312901",
+        "labelNdc": "00093312901",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093312901-1.jpg",
+        "ownNdc": "00093312901",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00172436660-0.jpg",
+        "ownNdc": "00172436660",
+        "labelNdc": "00172436660",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/00172436660-0.jpg",
+        "ownNdc": "00172436660",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00172436660-1.jpg",
+        "ownNdc": "00172436660",
+        "labelNdc": "00172436660",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00172436660-1.jpg",
+        "ownNdc": "00172436660",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/55111026830-0.jpg",
+        "ownNdc": "55111026830",
+        "labelNdc": "55111026830",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/55111026830-0.jpg",
+        "ownNdc": "55111026830",
+        "labelNdc": "00172435846",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/55111026830-1.jpg",
+        "ownNdc": "55111026830",
+        "labelNdc": "55111026830",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/55111026830-1.jpg",
+        "ownNdc": "55111026830",
+        "labelNdc": "00172435846",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00603254421-0.jpg",
+        "ownNdc": "00603254421",
+        "labelNdc": "00603254421",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00603254421-0.jpg",
+        "ownNdc": "00603254421",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00603254421-1.jpg",
+        "ownNdc": "00603254421",
+        "labelNdc": "00603254421",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/00603254421-1.jpg",
+        "ownNdc": "00603254421",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00093220301-0.jpg",
+        "ownNdc": "00093220301",
+        "labelNdc": "00093220301",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/00093220301-0.jpg",
+        "ownNdc": "00093220301",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00093220301-1.jpg",
+        "ownNdc": "00093220301",
+        "labelNdc": "00093220301",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/00093220301-1.jpg",
+        "ownNdc": "00093220301",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00143913005-0.jpg",
+        "ownNdc": "00143913005",
+        "labelNdc": "00143913005",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/00143913005-0.jpg",
+        "ownNdc": "00143913005",
+        "labelNdc": "50458030006",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00143913005-1.jpg",
+        "ownNdc": "00143913005",
+        "labelNdc": "00143913005",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/00143913005-1.jpg",
+        "ownNdc": "00143913005",
+        "labelNdc": "50458030006",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00172541279-0.jpg",
+        "ownNdc": "00172541279",
+        "labelNdc": "00172541279",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00172541279-0.jpg",
+        "ownNdc": "00172541279",
+        "labelNdc": "64720032110",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00172541279-1.jpg",
+        "ownNdc": "00172541279",
+        "labelNdc": "00172541279",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00172541279-1.jpg",
+        "ownNdc": "00172541279",
+        "labelNdc": "64720032110",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00378668977-0.jpg",
+        "ownNdc": "00378668977",
+        "labelNdc": "00378668977",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/00378668977-0.jpg",
+        "ownNdc": "00378668977",
+        "labelNdc": "00002446330",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00378668977-1.jpg",
+        "ownNdc": "00378668977",
+        "labelNdc": "00378668977",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/00378668977-1.jpg",
+        "ownNdc": "00378668977",
+        "labelNdc": "00002446330",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00172524060-0.jpg",
+        "ownNdc": "00172524060",
+        "labelNdc": "00172524060",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00172524060-0.jpg",
+        "ownNdc": "00172524060",
+        "labelNdc": "68453085075",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00172524060-1.jpg",
+        "ownNdc": "00172524060",
+        "labelNdc": "00172524060",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00172524060-1.jpg",
+        "ownNdc": "00172524060",
+        "labelNdc": "68453085075",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00777310502-0.jpg",
+        "ownNdc": "00777310502",
+        "labelNdc": "00777310502",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00777310502-0.jpg",
+        "ownNdc": "00777310502",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00777310502-1.jpg",
+        "ownNdc": "00777310502",
+        "labelNdc": "00777310502",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00777310502-1.jpg",
+        "ownNdc": "00777310502",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093536001-0.jpg",
+        "ownNdc": "00093536001",
+        "labelNdc": "00093536001",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093536001-0.jpg",
+        "ownNdc": "00093536001",
+        "labelNdc": "50458030006",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093536001-1.jpg",
+        "ownNdc": "00093536001",
+        "labelNdc": "00093536001",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093536001-1.jpg",
+        "ownNdc": "00093536001",
+        "labelNdc": "50458030006",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00310028260-0.jpg",
+        "ownNdc": "00310028260",
+        "labelNdc": "00310028260",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/00310028260-0.jpg",
+        "ownNdc": "00310028260",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00310028260-1.jpg",
+        "ownNdc": "00310028260",
+        "labelNdc": "00310028260",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00310028260-1.jpg",
+        "ownNdc": "00310028260",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00173024955-0.jpg",
+        "ownNdc": "00173024955",
+        "labelNdc": "00173024955",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00173024955-0.jpg",
+        "ownNdc": "00173024955",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00173024955-1.jpg",
+        "ownNdc": "00173024955",
+        "labelNdc": "00173024955",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00173024955-1.jpg",
+        "ownNdc": "00173024955",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/68453014203-0.jpg",
+        "ownNdc": "68453014203",
+        "labelNdc": "68453014203",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/68453014203-0.jpg",
+        "ownNdc": "68453014203",
+        "labelNdc": "00093725956",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/68453014203-1.jpg",
+        "ownNdc": "68453014203",
+        "labelNdc": "68453014203",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/68453014203-1.jpg",
+        "ownNdc": "68453014203",
+        "labelNdc": "00093725956",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00069422030-0.jpg",
+        "ownNdc": "00069422030",
+        "labelNdc": "00069422030",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/00069422030-0.jpg",
+        "ownNdc": "00069422030",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00069422030-1.jpg",
+        "ownNdc": "00069422030",
+        "labelNdc": "00069422030",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00069422030-1.jpg",
+        "ownNdc": "00069422030",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/62756051788-0.jpg",
+        "ownNdc": "62756051788",
+        "labelNdc": "62756051788",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/62756051788-0.jpg",
+        "ownNdc": "62756051788",
+        "labelNdc": "00093725956",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/62756051788-1.jpg",
+        "ownNdc": "62756051788",
+        "labelNdc": "62756051788",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/62756051788-1.jpg",
+        "ownNdc": "62756051788",
+        "labelNdc": "00093725956",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/13668008830-0.jpg",
+        "ownNdc": "13668008830",
+        "labelNdc": "13668008830",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/13668008830-0.jpg",
+        "ownNdc": "13668008830",
+        "labelNdc": "00093083210",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/13668008830-1.jpg",
+        "ownNdc": "13668008830",
+        "labelNdc": "13668008830",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/13668008830-1.jpg",
+        "ownNdc": "13668008830",
+        "labelNdc": "00093083210",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/68382013516-0.jpg",
+        "ownNdc": "68382013516",
+        "labelNdc": "68382013516",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/68382013516-0.jpg",
+        "ownNdc": "68382013516",
+        "labelNdc": "00172524060",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/68382013516-1.jpg",
+        "ownNdc": "68382013516",
+        "labelNdc": "68382013516",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/68382013516-1.jpg",
+        "ownNdc": "68382013516",
+        "labelNdc": "00172524060",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      }
+    ],
+    "Sonnet, two views": [
+      {
+        "image": "research/data/00093032101-0.jpg",
+        "ownNdc": "00093032101",
+        "labelNdc": "00093032101",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093032101-0.jpg",
+        "ownNdc": "00093032101",
+        "labelNdc": "68180040301",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093032101-1.jpg",
+        "ownNdc": "00093032101",
+        "labelNdc": "00093032101",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093032101-1.jpg",
+        "ownNdc": "00093032101",
+        "labelNdc": "68180040301",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00378041510-0.jpg",
+        "ownNdc": "00378041510",
+        "labelNdc": "00378041510",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00378041510-0.jpg",
+        "ownNdc": "00378041510",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00378041510-1.jpg",
+        "ownNdc": "00378041510",
+        "labelNdc": "00378041510",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00378041510-1.jpg",
+        "ownNdc": "00378041510",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00172435846-0.jpg",
+        "ownNdc": "00172435846",
+        "labelNdc": "00172435846",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/00172435846-0.jpg",
+        "ownNdc": "00172435846",
+        "labelNdc": "55111026830",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00172435846-1.jpg",
+        "ownNdc": "00172435846",
+        "labelNdc": "00172435846",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/00172435846-1.jpg",
+        "ownNdc": "00172435846",
+        "labelNdc": "55111026830",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/65862014301-0.jpg",
+        "ownNdc": "65862014301",
+        "labelNdc": "65862014301",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/65862014301-0.jpg",
+        "ownNdc": "65862014301",
+        "labelNdc": "50458030006",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/65862014301-1.jpg",
+        "ownNdc": "65862014301",
+        "labelNdc": "65862014301",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/65862014301-1.jpg",
+        "ownNdc": "65862014301",
+        "labelNdc": "50458030006",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/68462030205-0.jpg",
+        "ownNdc": "68462030205",
+        "labelNdc": "68462030205",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/68462030205-0.jpg",
+        "ownNdc": "68462030205",
+        "labelNdc": "59746038606",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/68462030205-1.jpg",
+        "ownNdc": "68462030205",
+        "labelNdc": "68462030205",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/68462030205-1.jpg",
+        "ownNdc": "68462030205",
+        "labelNdc": "59746038606",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/62175048637-0.jpg",
+        "ownNdc": "62175048637",
+        "labelNdc": "62175048637",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/62175048637-0.jpg",
+        "ownNdc": "62175048637",
+        "labelNdc": "62175048737",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/62175048637-1.jpg",
+        "ownNdc": "62175048637",
+        "labelNdc": "62175048637",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/62175048637-1.jpg",
+        "ownNdc": "62175048637",
+        "labelNdc": "62175048737",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00172436560-0.jpg",
+        "ownNdc": "00172436560",
+        "labelNdc": "00172436560",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00172436560-0.jpg",
+        "ownNdc": "00172436560",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00172436560-1.jpg",
+        "ownNdc": "00172436560",
+        "labelNdc": "00172436560",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00172436560-1.jpg",
+        "ownNdc": "00172436560",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00378512301-0.jpg",
+        "ownNdc": "00378512301",
+        "labelNdc": "00378512301",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00378512301-0.jpg",
+        "ownNdc": "00378512301",
+        "labelNdc": "00228212910",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00378512301-1.jpg",
+        "ownNdc": "00378512301",
+        "labelNdc": "00378512301",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00378512301-1.jpg",
+        "ownNdc": "00378512301",
+        "labelNdc": "00228212910",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/51672412401-0.jpg",
+        "ownNdc": "51672412401",
+        "labelNdc": "51672412401",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/51672412401-0.jpg",
+        "ownNdc": "51672412401",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/51672412401-1.jpg",
+        "ownNdc": "51672412401",
+        "labelNdc": "51672412401",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/51672412401-1.jpg",
+        "ownNdc": "51672412401",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/59762105002-0.jpg",
+        "ownNdc": "59762105002",
+        "labelNdc": "59762105002",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/59762105002-0.jpg",
+        "ownNdc": "59762105002",
+        "labelNdc": "00781205301",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/59762105002-1.jpg",
+        "ownNdc": "59762105002",
+        "labelNdc": "59762105002",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/59762105002-1.jpg",
+        "ownNdc": "59762105002",
+        "labelNdc": "00781205301",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/42043019205-0.jpg",
+        "ownNdc": "42043019205",
+        "labelNdc": "42043019205",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/42043019205-0.jpg",
+        "ownNdc": "42043019205",
+        "labelNdc": "00093725956",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/42043019205-1.jpg",
+        "ownNdc": "42043019205",
+        "labelNdc": "42043019205",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/42043019205-1.jpg",
+        "ownNdc": "42043019205",
+        "labelNdc": "00093725956",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093435901-0.jpg",
+        "ownNdc": "00093435901",
+        "labelNdc": "00093435901",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093435901-0.jpg",
+        "ownNdc": "00093435901",
+        "labelNdc": "00093083210",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00093435901-1.jpg",
+        "ownNdc": "00093435901",
+        "labelNdc": "00093435901",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093435901-1.jpg",
+        "ownNdc": "00093435901",
+        "labelNdc": "00093083210",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/68180040301-0.jpg",
+        "ownNdc": "68180040301",
+        "labelNdc": "68180040301",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/68180040301-0.jpg",
+        "ownNdc": "68180040301",
+        "labelNdc": "49702020613",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/68180040301-1.jpg",
+        "ownNdc": "68180040301",
+        "labelNdc": "68180040301",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/68180040301-1.jpg",
+        "ownNdc": "68180040301",
+        "labelNdc": "49702020613",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00173052600-0.jpg",
+        "ownNdc": "00173052600",
+        "labelNdc": "00173052600",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00173052600-0.jpg",
+        "ownNdc": "00173052600",
+        "labelNdc": "50458030006",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00173052600-1.jpg",
+        "ownNdc": "00173052600",
+        "labelNdc": "00173052600",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00173052600-1.jpg",
+        "ownNdc": "00173052600",
+        "labelNdc": "50458030006",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00002446330-0.jpg",
+        "ownNdc": "00002446330",
+        "labelNdc": "00002446330",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00002446330-0.jpg",
+        "ownNdc": "00002446330",
+        "labelNdc": "42043019004",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00002446330-1.jpg",
+        "ownNdc": "00002446330",
+        "labelNdc": "00002446330",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00002446330-1.jpg",
+        "ownNdc": "00002446330",
+        "labelNdc": "42043019004",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/68012010430-0.jpg",
+        "ownNdc": "68012010430",
+        "labelNdc": "68012010430",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/68012010430-0.jpg",
+        "ownNdc": "68012010430",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/68012010430-1.jpg",
+        "ownNdc": "68012010430",
+        "labelNdc": "68012010430",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/68012010430-1.jpg",
+        "ownNdc": "68012010430",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00172241680-0.jpg",
+        "ownNdc": "00172241680",
+        "labelNdc": "00172241680",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00172241680-0.jpg",
+        "ownNdc": "00172241680",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00172241680-1.jpg",
+        "ownNdc": "00172241680",
+        "labelNdc": "00172241680",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00172241680-1.jpg",
+        "ownNdc": "00172241680",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00591090030-0.jpg",
+        "ownNdc": "00591090030",
+        "labelNdc": "00591090030",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/00591090030-0.jpg",
+        "ownNdc": "00591090030",
+        "labelNdc": "00378512301",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00591090030-1.jpg",
+        "ownNdc": "00591090030",
+        "labelNdc": "00591090030",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/00591090030-1.jpg",
+        "ownNdc": "00591090030",
+        "labelNdc": "00378512301",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00093013501-0.jpg",
+        "ownNdc": "00093013501",
+        "labelNdc": "00093013501",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/00093013501-0.jpg",
+        "ownNdc": "00093013501",
+        "labelNdc": "50458030006",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00093013501-1.jpg",
+        "ownNdc": "00093013501",
+        "labelNdc": "00093013501",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/00093013501-1.jpg",
+        "ownNdc": "00093013501",
+        "labelNdc": "50458030006",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00555102201-0.jpg",
+        "ownNdc": "00555102201",
+        "labelNdc": "00555102201",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00555102201-0.jpg",
+        "ownNdc": "00555102201",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00555102201-1.jpg",
+        "ownNdc": "00555102201",
+        "labelNdc": "00555102201",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00555102201-1.jpg",
+        "ownNdc": "00555102201",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/53489010501-0.jpg",
+        "ownNdc": "53489010501",
+        "labelNdc": "53489010501",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/53489010501-0.jpg",
+        "ownNdc": "53489010501",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/53489010501-1.jpg",
+        "ownNdc": "53489010501",
+        "labelNdc": "53489010501",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/53489010501-1.jpg",
+        "ownNdc": "53489010501",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/29300012713-0.jpg",
+        "ownNdc": "29300012713",
+        "labelNdc": "29300012713",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/29300012713-0.jpg",
+        "ownNdc": "29300012713",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/29300012713-1.jpg",
+        "ownNdc": "29300012713",
+        "labelNdc": "29300012713",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/29300012713-1.jpg",
+        "ownNdc": "29300012713",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/62584097601-0.jpg",
+        "ownNdc": "62584097601",
+        "labelNdc": "62584097601",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/62584097601-0.jpg",
+        "ownNdc": "62584097601",
+        "labelNdc": "59746038606",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/62584097601-1.jpg",
+        "ownNdc": "62584097601",
+        "labelNdc": "62584097601",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/62584097601-1.jpg",
+        "ownNdc": "62584097601",
+        "labelNdc": "59746038606",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/49702020613-0.jpg",
+        "ownNdc": "49702020613",
+        "labelNdc": "49702020613",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/49702020613-0.jpg",
+        "ownNdc": "49702020613",
+        "labelNdc": "68180040301",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/49702020613-1.jpg",
+        "ownNdc": "49702020613",
+        "labelNdc": "49702020613",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/49702020613-1.jpg",
+        "ownNdc": "49702020613",
+        "labelNdc": "68180040301",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/68308032610-0.jpg",
+        "ownNdc": "68308032610",
+        "labelNdc": "68308032610",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/68308032610-0.jpg",
+        "ownNdc": "68308032610",
+        "labelNdc": "29300012601",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/68308032610-1.jpg",
+        "ownNdc": "68308032610",
+        "labelNdc": "68308032610",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/68308032610-1.jpg",
+        "ownNdc": "68308032610",
+        "labelNdc": "29300012601",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093715806-0.jpg",
+        "ownNdc": "00093715806",
+        "labelNdc": "00093715806",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093715806-0.jpg",
+        "ownNdc": "00093715806",
+        "labelNdc": "00002446330",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093715806-1.jpg",
+        "ownNdc": "00093715806",
+        "labelNdc": "00093715806",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093715806-1.jpg",
+        "ownNdc": "00093715806",
+        "labelNdc": "00002446330",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093433801-0.jpg",
+        "ownNdc": "00093433801",
+        "labelNdc": "00093433801",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093433801-0.jpg",
+        "ownNdc": "00093433801",
+        "labelNdc": "00172524060",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093433801-1.jpg",
+        "ownNdc": "00093433801",
+        "labelNdc": "00093433801",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093433801-1.jpg",
+        "ownNdc": "00093433801",
+        "labelNdc": "00172524060",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00781205301-0.jpg",
+        "ownNdc": "00781205301",
+        "labelNdc": "00781205301",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00781205301-0.jpg",
+        "ownNdc": "00781205301",
+        "labelNdc": "59762105002",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00781205301-1.jpg",
+        "ownNdc": "00781205301",
+        "labelNdc": "00781205301",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00781205301-1.jpg",
+        "ownNdc": "00781205301",
+        "labelNdc": "59762105002",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093743601-0.jpg",
+        "ownNdc": "00093743601",
+        "labelNdc": "00093743601",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/00093743601-0.jpg",
+        "ownNdc": "00093743601",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00093743601-1.jpg",
+        "ownNdc": "00093743601",
+        "labelNdc": "00093743601",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/00093743601-1.jpg",
+        "ownNdc": "00093743601",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00093440501-0.jpg",
+        "ownNdc": "00093440501",
+        "labelNdc": "00093440501",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093440501-0.jpg",
+        "ownNdc": "00093440501",
+        "labelNdc": "00002446330",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093440501-1.jpg",
+        "ownNdc": "00093440501",
+        "labelNdc": "00093440501",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093440501-1.jpg",
+        "ownNdc": "00093440501",
+        "labelNdc": "00002446330",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/51079093620-0.jpg",
+        "ownNdc": "51079093620",
+        "labelNdc": "51079093620",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/51079093620-0.jpg",
+        "ownNdc": "51079093620",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/51079093620-1.jpg",
+        "ownNdc": "51079093620",
+        "labelNdc": "51079093620",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/51079093620-1.jpg",
+        "ownNdc": "51079093620",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/62037067410-0.jpg",
+        "ownNdc": "62037067410",
+        "labelNdc": "62037067410",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/62037067410-0.jpg",
+        "ownNdc": "62037067410",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/62037067410-1.jpg",
+        "ownNdc": "62037067410",
+        "labelNdc": "62037067410",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/62037067410-1.jpg",
+        "ownNdc": "62037067410",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/63304082990-0.jpg",
+        "ownNdc": "63304082990",
+        "labelNdc": "63304082990",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/63304082990-0.jpg",
+        "ownNdc": "63304082990",
+        "labelNdc": "50458030006",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/63304082990-1.jpg",
+        "ownNdc": "63304082990",
+        "labelNdc": "63304082990",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/63304082990-1.jpg",
+        "ownNdc": "63304082990",
+        "labelNdc": "50458030006",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/68453085075-0.jpg",
+        "ownNdc": "68453085075",
+        "labelNdc": "68453085075",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/68453085075-0.jpg",
+        "ownNdc": "68453085075",
+        "labelNdc": "00172524060",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/68453085075-1.jpg",
+        "ownNdc": "68453085075",
+        "labelNdc": "68453085075",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/68453085075-1.jpg",
+        "ownNdc": "68453085075",
+        "labelNdc": "00172524060",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/49348026210-0.jpg",
+        "ownNdc": "49348026210",
+        "labelNdc": "49348026210",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/49348026210-0.jpg",
+        "ownNdc": "49348026210",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/49348026210-1.jpg",
+        "ownNdc": "49348026210",
+        "labelNdc": "49348026210",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/49348026210-1.jpg",
+        "ownNdc": "49348026210",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/65597010490-0.jpg",
+        "ownNdc": "65597010490",
+        "labelNdc": "65597010490",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/65597010490-0.jpg",
+        "ownNdc": "65597010490",
+        "labelNdc": "50458030006",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/65597010490-1.jpg",
+        "ownNdc": "65597010490",
+        "labelNdc": "65597010490",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/65597010490-1.jpg",
+        "ownNdc": "65597010490",
+        "labelNdc": "50458030006",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00574025101-0.jpg",
+        "ownNdc": "00574025101",
+        "labelNdc": "00574025101",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00574025101-0.jpg",
+        "ownNdc": "00574025101",
+        "labelNdc": "50458030006",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00574025101-1.jpg",
+        "ownNdc": "00574025101",
+        "labelNdc": "00574025101",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00574025101-1.jpg",
+        "ownNdc": "00574025101",
+        "labelNdc": "50458030006",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093571105-0.jpg",
+        "ownNdc": "00093571105",
+        "labelNdc": "00093571105",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093571105-0.jpg",
+        "ownNdc": "00093571105",
+        "labelNdc": "68180040301",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093571105-1.jpg",
+        "ownNdc": "00093571105",
+        "labelNdc": "00093571105",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093571105-1.jpg",
+        "ownNdc": "00093571105",
+        "labelNdc": "68180040301",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/23155011101-0.jpg",
+        "ownNdc": "23155011101",
+        "labelNdc": "23155011101",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/23155011101-0.jpg",
+        "ownNdc": "23155011101",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/23155011101-1.jpg",
+        "ownNdc": "23155011101",
+        "labelNdc": "23155011101",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/23155011101-1.jpg",
+        "ownNdc": "23155011101",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/65597070118-0.jpg",
+        "ownNdc": "65597070118",
+        "labelNdc": "65597070118",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/65597070118-0.jpg",
+        "ownNdc": "65597070118",
+        "labelNdc": "50458030006",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/65597070118-1.jpg",
+        "ownNdc": "65597070118",
+        "labelNdc": "65597070118",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/65597070118-1.jpg",
+        "ownNdc": "65597070118",
+        "labelNdc": "50458030006",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/60505001806-0.jpg",
+        "ownNdc": "60505001806",
+        "labelNdc": "60505001806",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/60505001806-0.jpg",
+        "ownNdc": "60505001806",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/60505001806-1.jpg",
+        "ownNdc": "60505001806",
+        "labelNdc": "60505001806",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/60505001806-1.jpg",
+        "ownNdc": "60505001806",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/62175048737-0.jpg",
+        "ownNdc": "62175048737",
+        "labelNdc": "62175048737",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/62175048737-0.jpg",
+        "ownNdc": "62175048737",
+        "labelNdc": "62175048637",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/62175048737-1.jpg",
+        "ownNdc": "62175048737",
+        "labelNdc": "62175048737",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/62175048737-1.jpg",
+        "ownNdc": "62175048737",
+        "labelNdc": "62175048637",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093576856-0.jpg",
+        "ownNdc": "00093576856",
+        "labelNdc": "00093576856",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093576856-0.jpg",
+        "ownNdc": "00093576856",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093576856-1.jpg",
+        "ownNdc": "00093576856",
+        "labelNdc": "00093576856",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093576856-1.jpg",
+        "ownNdc": "00093576856",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093731456-0.jpg",
+        "ownNdc": "00093731456",
+        "labelNdc": "00093731456",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093731456-0.jpg",
+        "ownNdc": "00093731456",
+        "labelNdc": "00172541279",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093731456-1.jpg",
+        "ownNdc": "00093731456",
+        "labelNdc": "00093731456",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093731456-1.jpg",
+        "ownNdc": "00093731456",
+        "labelNdc": "00172541279",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/64679096405-0.jpg",
+        "ownNdc": "64679096405",
+        "labelNdc": "64679096405",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/64679096405-0.jpg",
+        "ownNdc": "64679096405",
+        "labelNdc": "50458030006",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/64679096405-1.jpg",
+        "ownNdc": "64679096405",
+        "labelNdc": "64679096405",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/64679096405-1.jpg",
+        "ownNdc": "64679096405",
+        "labelNdc": "50458030006",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00007414220-0.jpg",
+        "ownNdc": "00007414220",
+        "labelNdc": "00007414220",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00007414220-0.jpg",
+        "ownNdc": "00007414220",
+        "labelNdc": "50458030006",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00007414220-1.jpg",
+        "ownNdc": "00007414220",
+        "labelNdc": "00007414220",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00007414220-1.jpg",
+        "ownNdc": "00007414220",
+        "labelNdc": "50458030006",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093725956-0.jpg",
+        "ownNdc": "00093725956",
+        "labelNdc": "00093725956",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093725956-0.jpg",
+        "ownNdc": "00093725956",
+        "labelNdc": "62756051788",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093725956-1.jpg",
+        "ownNdc": "00093725956",
+        "labelNdc": "00093725956",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093725956-1.jpg",
+        "ownNdc": "00093725956",
+        "labelNdc": "62756051788",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093053701-0.jpg",
+        "ownNdc": "00093053701",
+        "labelNdc": "00093053701",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/00093053701-0.jpg",
+        "ownNdc": "00093053701",
+        "labelNdc": "50458030006",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00093053701-1.jpg",
+        "ownNdc": "00093053701",
+        "labelNdc": "00093053701",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/00093053701-1.jpg",
+        "ownNdc": "00093053701",
+        "labelNdc": "50458030006",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00228212910-0.jpg",
+        "ownNdc": "00228212910",
+        "labelNdc": "00228212910",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00228212910-0.jpg",
+        "ownNdc": "00228212910",
+        "labelNdc": "00378512301",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00228212910-1.jpg",
+        "ownNdc": "00228212910",
+        "labelNdc": "00228212910",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00228212910-1.jpg",
+        "ownNdc": "00228212910",
+        "labelNdc": "00378512301",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093716798-0.jpg",
+        "ownNdc": "00093716798",
+        "labelNdc": "00093716798",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/00093716798-0.jpg",
+        "ownNdc": "00093716798",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00093716798-1.jpg",
+        "ownNdc": "00093716798",
+        "labelNdc": "00093716798",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/00093716798-1.jpg",
+        "ownNdc": "00093716798",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/50111043401-0.jpg",
+        "ownNdc": "50111043401",
+        "labelNdc": "50111043401",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/50111043401-0.jpg",
+        "ownNdc": "50111043401",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/50111043401-1.jpg",
+        "ownNdc": "50111043401",
+        "labelNdc": "50111043401",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/50111043401-1.jpg",
+        "ownNdc": "50111043401",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00378207601-0.jpg",
+        "ownNdc": "00378207601",
+        "labelNdc": "00378207601",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00378207601-0.jpg",
+        "ownNdc": "00378207601",
+        "labelNdc": "00172436660",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00378207601-1.jpg",
+        "ownNdc": "00378207601",
+        "labelNdc": "00378207601",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00378207601-1.jpg",
+        "ownNdc": "00378207601",
+        "labelNdc": "00172436660",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093511998-0.jpg",
+        "ownNdc": "00093511998",
+        "labelNdc": "00093511998",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093511998-0.jpg",
+        "ownNdc": "00093511998",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093511998-1.jpg",
+        "ownNdc": "00093511998",
+        "labelNdc": "00093511998",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093511998-1.jpg",
+        "ownNdc": "00093511998",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00603390021-0.jpg",
+        "ownNdc": "00603390021",
+        "labelNdc": "00603390021",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00603390021-0.jpg",
+        "ownNdc": "00603390021",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00603390021-1.jpg",
+        "ownNdc": "00603390021",
+        "labelNdc": "00603390021",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00603390021-1.jpg",
+        "ownNdc": "00603390021",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00002322930-0.jpg",
+        "ownNdc": "00002322930",
+        "labelNdc": "00002322930",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00002322930-0.jpg",
+        "ownNdc": "00002322930",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00002322930-1.jpg",
+        "ownNdc": "00002322930",
+        "labelNdc": "00002322930",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00002322930-1.jpg",
+        "ownNdc": "00002322930",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00781145201-0.jpg",
+        "ownNdc": "00781145201",
+        "labelNdc": "00781145201",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/00781145201-0.jpg",
+        "ownNdc": "00781145201",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00781145201-1.jpg",
+        "ownNdc": "00781145201",
+        "labelNdc": "00781145201",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/00781145201-1.jpg",
+        "ownNdc": "00781145201",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/42043019004-0.jpg",
+        "ownNdc": "42043019004",
+        "labelNdc": "42043019004",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/42043019004-0.jpg",
+        "ownNdc": "42043019004",
+        "labelNdc": "00002446330",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/42043019004-1.jpg",
+        "ownNdc": "42043019004",
+        "labelNdc": "42043019004",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/42043019004-1.jpg",
+        "ownNdc": "42043019004",
+        "labelNdc": "00002446330",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/68382002001-0.jpg",
+        "ownNdc": "68382002001",
+        "labelNdc": "68382002001",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/68382002001-0.jpg",
+        "ownNdc": "68382002001",
+        "labelNdc": "00378512301",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/68382002001-1.jpg",
+        "ownNdc": "68382002001",
+        "labelNdc": "68382002001",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/68382002001-1.jpg",
+        "ownNdc": "68382002001",
+        "labelNdc": "00378512301",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093505006-0.jpg",
+        "ownNdc": "00093505006",
+        "labelNdc": "00093505006",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093505006-0.jpg",
+        "ownNdc": "00093505006",
+        "labelNdc": "50458030006",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093505006-1.jpg",
+        "ownNdc": "00093505006",
+        "labelNdc": "00093505006",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093505006-1.jpg",
+        "ownNdc": "00093505006",
+        "labelNdc": "50458030006",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/64980012301-0.jpg",
+        "ownNdc": "64980012301",
+        "labelNdc": "64980012301",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/64980012301-0.jpg",
+        "ownNdc": "64980012301",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/64980012301-1.jpg",
+        "ownNdc": "64980012301",
+        "labelNdc": "64980012301",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/64980012301-1.jpg",
+        "ownNdc": "64980012301",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00555086102-0.jpg",
+        "ownNdc": "00555086102",
+        "labelNdc": "00555086102",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00555086102-0.jpg",
+        "ownNdc": "00555086102",
+        "labelNdc": "50458030006",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00555086102-1.jpg",
+        "ownNdc": "00555086102",
+        "labelNdc": "00555086102",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00555086102-1.jpg",
+        "ownNdc": "00555086102",
+        "labelNdc": "50458030006",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00591538105-0.jpg",
+        "ownNdc": "00591538105",
+        "labelNdc": "00591538105",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00591538105-0.jpg",
+        "ownNdc": "00591538105",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00591538105-1.jpg",
+        "ownNdc": "00591538105",
+        "labelNdc": "00591538105",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00591538105-1.jpg",
+        "ownNdc": "00591538105",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00603233832-0.jpg",
+        "ownNdc": "00603233832",
+        "labelNdc": "00603233832",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00603233832-0.jpg",
+        "ownNdc": "00603233832",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00603233832-1.jpg",
+        "ownNdc": "00603233832",
+        "labelNdc": "00603233832",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00603233832-1.jpg",
+        "ownNdc": "00603233832",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093083210-0.jpg",
+        "ownNdc": "00093083210",
+        "labelNdc": "00093083210",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093083210-0.jpg",
+        "ownNdc": "00093083210",
+        "labelNdc": "00093435901",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093083210-1.jpg",
+        "ownNdc": "00093083210",
+        "labelNdc": "00093083210",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093083210-1.jpg",
+        "ownNdc": "00093083210",
+        "labelNdc": "00093435901",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/50111032301-0.jpg",
+        "ownNdc": "50111032301",
+        "labelNdc": "50111032301",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/50111032301-0.jpg",
+        "ownNdc": "50111032301",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/50111032301-1.jpg",
+        "ownNdc": "50111032301",
+        "labelNdc": "50111032301",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/50111032301-1.jpg",
+        "ownNdc": "50111032301",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00025189151-0.jpg",
+        "ownNdc": "00025189151",
+        "labelNdc": "00025189151",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00025189151-0.jpg",
+        "ownNdc": "00025189151",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00025189151-1.jpg",
+        "ownNdc": "00025189151",
+        "labelNdc": "00025189151",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00025189151-1.jpg",
+        "ownNdc": "00025189151",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/68382000116-0.jpg",
+        "ownNdc": "68382000116",
+        "labelNdc": "68382000116",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/68382000116-0.jpg",
+        "ownNdc": "68382000116",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/68382000116-1.jpg",
+        "ownNdc": "68382000116",
+        "labelNdc": "68382000116",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/68382000116-1.jpg",
+        "ownNdc": "68382000116",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/59148001113-0.jpg",
+        "ownNdc": "59148001113",
+        "labelNdc": "59148001113",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/59148001113-0.jpg",
+        "ownNdc": "59148001113",
+        "labelNdc": "68308032610",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/59148001113-1.jpg",
+        "ownNdc": "59148001113",
+        "labelNdc": "59148001113",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/59148001113-1.jpg",
+        "ownNdc": "59148001113",
+        "labelNdc": "68308032610",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00781532501-0.jpg",
+        "ownNdc": "00781532501",
+        "labelNdc": "00781532501",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00781532501-0.jpg",
+        "ownNdc": "00781532501",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00781532501-1.jpg",
+        "ownNdc": "00781532501",
+        "labelNdc": "00781532501",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00781532501-1.jpg",
+        "ownNdc": "00781532501",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/13107000605-0.jpg",
+        "ownNdc": "13107000605",
+        "labelNdc": "13107000605",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/13107000605-0.jpg",
+        "ownNdc": "13107000605",
+        "labelNdc": "00781205301",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/13107000605-1.jpg",
+        "ownNdc": "13107000605",
+        "labelNdc": "13107000605",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/13107000605-1.jpg",
+        "ownNdc": "13107000605",
+        "labelNdc": "00781205301",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/59746038606-0.jpg",
+        "ownNdc": "59746038606",
+        "labelNdc": "59746038606",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/59746038606-0.jpg",
+        "ownNdc": "59746038606",
+        "labelNdc": "68462030205",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/59746038606-1.jpg",
+        "ownNdc": "59746038606",
+        "labelNdc": "59746038606",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/59746038606-1.jpg",
+        "ownNdc": "59746038606",
+        "labelNdc": "68462030205",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00527132410-0.jpg",
+        "ownNdc": "00527132410",
+        "labelNdc": "00527132410",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00527132410-0.jpg",
+        "ownNdc": "00527132410",
+        "labelNdc": "00093083210",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00527132410-1.jpg",
+        "ownNdc": "00527132410",
+        "labelNdc": "00527132410",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00527132410-1.jpg",
+        "ownNdc": "00527132410",
+        "labelNdc": "00093083210",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00143147301-0.jpg",
+        "ownNdc": "00143147301",
+        "labelNdc": "00143147301",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/00143147301-0.jpg",
+        "ownNdc": "00143147301",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00143147301-1.jpg",
+        "ownNdc": "00143147301",
+        "labelNdc": "00143147301",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/00143147301-1.jpg",
+        "ownNdc": "00143147301",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/16729000517-0.jpg",
+        "ownNdc": "16729000517",
+        "labelNdc": "16729000517",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/16729000517-0.jpg",
+        "ownNdc": "16729000517",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/16729000517-1.jpg",
+        "ownNdc": "16729000517",
+        "labelNdc": "16729000517",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/16729000517-1.jpg",
+        "ownNdc": "16729000517",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00378025710-0.jpg",
+        "ownNdc": "00378025710",
+        "labelNdc": "00378025710",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00378025710-0.jpg",
+        "ownNdc": "00378025710",
+        "labelNdc": "00378512301",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00378025710-1.jpg",
+        "ownNdc": "00378025710",
+        "labelNdc": "00378025710",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00378025710-1.jpg",
+        "ownNdc": "00378025710",
+        "labelNdc": "00378512301",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093204756-0.jpg",
+        "ownNdc": "00093204756",
+        "labelNdc": "00093204756",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093204756-0.jpg",
+        "ownNdc": "00093204756",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093204756-1.jpg",
+        "ownNdc": "00093204756",
+        "labelNdc": "00093204756",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093204756-1.jpg",
+        "ownNdc": "00093204756",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00172409760-0.jpg",
+        "ownNdc": "00172409760",
+        "labelNdc": "00172409760",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00172409760-0.jpg",
+        "ownNdc": "00172409760",
+        "labelNdc": "00603254421",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00172409760-1.jpg",
+        "ownNdc": "00172409760",
+        "labelNdc": "00172409760",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00172409760-1.jpg",
+        "ownNdc": "00172409760",
+        "labelNdc": "00603254421",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/64720032110-0.jpg",
+        "ownNdc": "64720032110",
+        "labelNdc": "64720032110",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/64720032110-0.jpg",
+        "ownNdc": "64720032110",
+        "labelNdc": "00172541279",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/64720032110-1.jpg",
+        "ownNdc": "64720032110",
+        "labelNdc": "64720032110",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/64720032110-1.jpg",
+        "ownNdc": "64720032110",
+        "labelNdc": "00172541279",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/29300012601-0.jpg",
+        "ownNdc": "29300012601",
+        "labelNdc": "29300012601",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/29300012601-0.jpg",
+        "ownNdc": "29300012601",
+        "labelNdc": "68308032610",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/29300012601-1.jpg",
+        "ownNdc": "29300012601",
+        "labelNdc": "29300012601",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/29300012601-1.jpg",
+        "ownNdc": "29300012601",
+        "labelNdc": "68308032610",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/67253032010-0.jpg",
+        "ownNdc": "67253032010",
+        "labelNdc": "67253032010",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/67253032010-0.jpg",
+        "ownNdc": "67253032010",
+        "labelNdc": "00093083210",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/67253032010-1.jpg",
+        "ownNdc": "67253032010",
+        "labelNdc": "67253032010",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/67253032010-1.jpg",
+        "ownNdc": "67253032010",
+        "labelNdc": "00093083210",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00172375960-0.jpg",
+        "ownNdc": "00172375960",
+        "labelNdc": "00172375960",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00172375960-0.jpg",
+        "ownNdc": "00172375960",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00172375960-1.jpg",
+        "ownNdc": "00172375960",
+        "labelNdc": "00172375960",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00172375960-1.jpg",
+        "ownNdc": "00172375960",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/50458030006-0.jpg",
+        "ownNdc": "50458030006",
+        "labelNdc": "50458030006",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/50458030006-0.jpg",
+        "ownNdc": "50458030006",
+        "labelNdc": "63304082990",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/50458030006-1.jpg",
+        "ownNdc": "50458030006",
+        "labelNdc": "50458030006",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/50458030006-1.jpg",
+        "ownNdc": "50458030006",
+        "labelNdc": "63304082990",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093312901-0.jpg",
+        "ownNdc": "00093312901",
+        "labelNdc": "00093312901",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093312901-0.jpg",
+        "ownNdc": "00093312901",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093312901-1.jpg",
+        "ownNdc": "00093312901",
+        "labelNdc": "00093312901",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093312901-1.jpg",
+        "ownNdc": "00093312901",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00172436660-0.jpg",
+        "ownNdc": "00172436660",
+        "labelNdc": "00172436660",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00172436660-0.jpg",
+        "ownNdc": "00172436660",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00172436660-1.jpg",
+        "ownNdc": "00172436660",
+        "labelNdc": "00172436660",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00172436660-1.jpg",
+        "ownNdc": "00172436660",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/55111026830-0.jpg",
+        "ownNdc": "55111026830",
+        "labelNdc": "55111026830",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/55111026830-0.jpg",
+        "ownNdc": "55111026830",
+        "labelNdc": "00172435846",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/55111026830-1.jpg",
+        "ownNdc": "55111026830",
+        "labelNdc": "55111026830",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/55111026830-1.jpg",
+        "ownNdc": "55111026830",
+        "labelNdc": "00172435846",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00603254421-0.jpg",
+        "ownNdc": "00603254421",
+        "labelNdc": "00603254421",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00603254421-0.jpg",
+        "ownNdc": "00603254421",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00603254421-1.jpg",
+        "ownNdc": "00603254421",
+        "labelNdc": "00603254421",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00603254421-1.jpg",
+        "ownNdc": "00603254421",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093220301-0.jpg",
+        "ownNdc": "00093220301",
+        "labelNdc": "00093220301",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/00093220301-0.jpg",
+        "ownNdc": "00093220301",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00093220301-1.jpg",
+        "ownNdc": "00093220301",
+        "labelNdc": "00093220301",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/00093220301-1.jpg",
+        "ownNdc": "00093220301",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00143913005-0.jpg",
+        "ownNdc": "00143913005",
+        "labelNdc": "00143913005",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/00143913005-0.jpg",
+        "ownNdc": "00143913005",
+        "labelNdc": "50458030006",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00143913005-1.jpg",
+        "ownNdc": "00143913005",
+        "labelNdc": "00143913005",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "SAME_MEDICINE_DIFFERENT_MAKER"
+      },
+      {
+        "image": "research/data/00143913005-1.jpg",
+        "ownNdc": "00143913005",
+        "labelNdc": "50458030006",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00172541279-0.jpg",
+        "ownNdc": "00172541279",
+        "labelNdc": "00172541279",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00172541279-0.jpg",
+        "ownNdc": "00172541279",
+        "labelNdc": "64720032110",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00172541279-1.jpg",
+        "ownNdc": "00172541279",
+        "labelNdc": "00172541279",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00172541279-1.jpg",
+        "ownNdc": "00172541279",
+        "labelNdc": "64720032110",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00378668977-0.jpg",
+        "ownNdc": "00378668977",
+        "labelNdc": "00378668977",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00378668977-0.jpg",
+        "ownNdc": "00378668977",
+        "labelNdc": "00002446330",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00378668977-1.jpg",
+        "ownNdc": "00378668977",
+        "labelNdc": "00378668977",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00378668977-1.jpg",
+        "ownNdc": "00378668977",
+        "labelNdc": "00002446330",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00172524060-0.jpg",
+        "ownNdc": "00172524060",
+        "labelNdc": "00172524060",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00172524060-0.jpg",
+        "ownNdc": "00172524060",
+        "labelNdc": "68453085075",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00172524060-1.jpg",
+        "ownNdc": "00172524060",
+        "labelNdc": "00172524060",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00172524060-1.jpg",
+        "ownNdc": "00172524060",
+        "labelNdc": "68453085075",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00777310502-0.jpg",
+        "ownNdc": "00777310502",
+        "labelNdc": "00777310502",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00777310502-0.jpg",
+        "ownNdc": "00777310502",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00777310502-1.jpg",
+        "ownNdc": "00777310502",
+        "labelNdc": "00777310502",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00777310502-1.jpg",
+        "ownNdc": "00777310502",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093536001-0.jpg",
+        "ownNdc": "00093536001",
+        "labelNdc": "00093536001",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093536001-0.jpg",
+        "ownNdc": "00093536001",
+        "labelNdc": "50458030006",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093536001-1.jpg",
+        "ownNdc": "00093536001",
+        "labelNdc": "00093536001",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00093536001-1.jpg",
+        "ownNdc": "00093536001",
+        "labelNdc": "50458030006",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00310028260-0.jpg",
+        "ownNdc": "00310028260",
+        "labelNdc": "00310028260",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/00310028260-0.jpg",
+        "ownNdc": "00310028260",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00310028260-1.jpg",
+        "ownNdc": "00310028260",
+        "labelNdc": "00310028260",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/00310028260-1.jpg",
+        "ownNdc": "00310028260",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00173024955-0.jpg",
+        "ownNdc": "00173024955",
+        "labelNdc": "00173024955",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00173024955-0.jpg",
+        "ownNdc": "00173024955",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00173024955-1.jpg",
+        "ownNdc": "00173024955",
+        "labelNdc": "00173024955",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00173024955-1.jpg",
+        "ownNdc": "00173024955",
+        "labelNdc": "00172409760",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/68453014203-0.jpg",
+        "ownNdc": "68453014203",
+        "labelNdc": "68453014203",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/68453014203-0.jpg",
+        "ownNdc": "68453014203",
+        "labelNdc": "00093725956",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/68453014203-1.jpg",
+        "ownNdc": "68453014203",
+        "labelNdc": "68453014203",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/68453014203-1.jpg",
+        "ownNdc": "68453014203",
+        "labelNdc": "00093725956",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/00069422030-0.jpg",
+        "ownNdc": "00069422030",
+        "labelNdc": "00069422030",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00069422030-0.jpg",
+        "ownNdc": "00069422030",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00069422030-1.jpg",
+        "ownNdc": "00069422030",
+        "labelNdc": "00069422030",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/00069422030-1.jpg",
+        "ownNdc": "00069422030",
+        "labelNdc": "00378207601",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/62756051788-0.jpg",
+        "ownNdc": "62756051788",
+        "labelNdc": "62756051788",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/62756051788-0.jpg",
+        "ownNdc": "62756051788",
+        "labelNdc": "00093725956",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/62756051788-1.jpg",
+        "ownNdc": "62756051788",
+        "labelNdc": "62756051788",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/62756051788-1.jpg",
+        "ownNdc": "62756051788",
+        "labelNdc": "00093725956",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/13668008830-0.jpg",
+        "ownNdc": "13668008830",
+        "labelNdc": "13668008830",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/13668008830-0.jpg",
+        "ownNdc": "13668008830",
+        "labelNdc": "00093083210",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/13668008830-1.jpg",
+        "ownNdc": "13668008830",
+        "labelNdc": "13668008830",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/13668008830-1.jpg",
+        "ownNdc": "13668008830",
+        "labelNdc": "00093083210",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/68382013516-0.jpg",
+        "ownNdc": "68382013516",
+        "labelNdc": "68382013516",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/68382013516-0.jpg",
+        "ownNdc": "68382013516",
+        "labelNdc": "00172524060",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/68382013516-1.jpg",
+        "ownNdc": "68382013516",
+        "labelNdc": "68382013516",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/68382013516-1.jpg",
+        "ownNdc": "68382013516",
+        "labelNdc": "00172524060",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      }
+    ]
+  }
+}

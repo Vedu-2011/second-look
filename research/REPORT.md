@@ -1,6 +1,6 @@
 # Second Look: development and fresh holdout
 
-**Release goal not met:** the one-view pipeline abstained on 212/300 pairs and called one wrong pill fine; two views abstained on 250/300. Main remains unchanged. See [the post-run interpretation and concrete wrong-pass audit](INTERPRETATION.md). This section is documentation-only; the frozen implementation was not changed.
+**Release goal not met:** the one-view pipeline abstained on 212/300 pairs and called one wrong pill fine; two views abstained on 250/300. Vedhanth accepted this honest result and authorized its merge on November 10. The frozen measurements below remain unchanged. Phase 6 changes are separately labelled post-hoc. See [the post-run interpretation and concrete wrong-pass audit](INTERPRETATION.md).
 
 Holdout run 2026-11-10T21:46:49.656Z. Frozen implementation commit **7cb343a9bf00668b77a20465edc2a884160f60ec**. Seed 20261110, model claude-sonnet-5-5, prompt pill-v2. 150 photos / 75 new NDC products / 300 pairs; 126/150 wrong pairs are hard look-alikes. Zero development product-code overlap, including package aliases. No implementation changes are allowed after viewing holdout outcomes; hashes are enforced by the runner. Headline method was predeclared as one-view Sonnet, not selected by results.
 
@@ -45,3 +45,21 @@ Run npm run research (fully cached report regeneration, no --run). A new paid ru
 Shape cleanup recognizes literal “-shaped” suffixes. Single-view engine checks now honor multiple/absent-pill signals, consistent with the camera pipeline; this adds abstentions versus phase 4, whose pure benchmark engine ignored those flags. The thresholds were not lowered. Strict two-view compatibility costs coverage on development; no outcome was discarded to hide this. The initial unstratified metadata-only holdout candidate pool failed the hard-negative floor. No model call had occurred; the stratification described above was fixed before freezing.
 
 Mean model cost per new single-view check $0.010721; direct classification $0.004848. Two-view model-reading cost would be approximately twice a single read, excluding label/explanation. Development reread spend: $0.
+
+## After two fixes (post-hoc — this holdout is no longer untouched)
+
+Phase 6 was explicitly authorized after reviewing the frozen results. No new readings, photos, pair rules, confidence thresholds or model prompts were used. The former holdout informed a fix and is no longer untouched. These cached rescores are not fresh performance claims. The frozen table above stays the headline.
+
+1. Folded partial imprints, and folded 1–2 character tokens, can no longer establish a pass. They remain possible look-alikes and return UNSURE instead of a false MISMATCH. The prompt explicitly preserves the complete `I2` / `12` legacy exception; `I2;44` / `12` is NOT exempt. Long complete `L484` / `1484` folding and exact short sides are unchanged. A trustworthy exact alternative is preferred over an unsafe folded candidate. The actual `5` vs `598;S` case now returns UNSURE.
+2. Two-view colors use the existing exact/close/different matcher, accepting close colors as single-view checks already do. Only genuinely different known colors/shapes are called conflicts. Unknown or low-confidence appearance still produces uncertainty, not invented agreement. No threshold was lowered.
+
+| Cached cohort / method | Wrong caught | Wrong called fine | False alarms | Right passed | Correct / answered | Coverage | Unsure |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| Development, one view | 66/200 | 0/200 | 2/200 | 56/200 | 122/124 | 124/400 | 276/400 |
+| Development, two views | 45/200 | 0/200 | 4/200 | 37/200 | 82/86 | 86/400 | 314/400 |
+| Former holdout, one view | 46/150 | 0/150 | 4/150 | 37/150 | 83/87 | 87/300 | 213/300 |
+| Former holdout, two views | 33/150 | 0/150 | 7/150 | 24/150 | 57/64 | 64/300 | 236/300 |
+
+One view removed the observed wrong pass by abstaining on one more pair. Two views answered more often (50→64 holdout, 68→86 development), but also made more false alarms (4→7 holdout, 2→4 development). This tradeoff is not hidden. Zero observed wrong passes is not proof of safety. The direct baseline was not changed or re-read.
+
+Reproduce with `env -u ANTHROPIC_API_KEY node --import tsx scripts/rescore-post-fix.ts`. The script imports no AI client and reads only committed caches; missing readings fail. Estimated spend: $0, zero model calls. Input/source hashes, full pair outcomes and metrics: [development](out/post-fix-development.json), [former holdout](out/post-fix-holdout.json). Original readings, frozen results, freeze file and both cost ledgers are unchanged. Use the frozen commit to reproduce the historical run, not the current source with the original freeze-enforcing runner.

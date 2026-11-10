@@ -26,6 +26,10 @@ Estimated new model spend: **$3.062534 / $5** (150 readings + 300 direct classif
 
 ## Release decision and next evidence
 
-Main remains unchanged because the phase's coverage goal was not met. The feature branch and preview retain every result. Do not present this as an accuracy improvement or a clinically safe release.
+At the phase-5 handoff, main remained unchanged because the coverage goal was not met. Vedhanth subsequently accepted the honest result and authorized merge on November 10. Do not present that acceptance as an accuracy improvement or a clinically safe release.
 
 Any next investigation should use development data to study missing/low-confidence text, appearance disagreement and insufficiently specific single-character matches. If this holdout informs a change, it becomes development data. A further release claim requires another disjoint, untouched holdout and a newly agreed budget; no additional model calls are authorized by this report.
+
+## Phase 6 follow-up
+
+The user authorized two specific fixes and a $0 cached rescore, not another paid research run. The concrete short folded-subset bug above is now guarded. Close colors can agree across views. This holdout is therefore no longer untouched; the frozen numbers remain the headline, and the separate post-hoc table in REPORT.md discloses both the removed wrong pass and increased two-view false alarms. No fresh accuracy or safety claim is made.

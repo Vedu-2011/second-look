@@ -1,0 +1,4898 @@
+{
+  "label": "After two fixes (post-hoc — this holdout is no longer untouched)",
+  "cohort": "holdout",
+  "images": 150,
+  "pairs": 300,
+  "readingVersion": "pill-v2",
+  "modelCalls": 0,
+  "totalUsd": 0,
+  "commit": "c10d32ca749ae5abb5db0cc6f87e67889cb9ed15",
+  "sourceHashes": {
+    "src/lib/match/imprint.ts": "5f9b548c8bdba958dcbcd3569438623e6b1ddf10458d19a653e3d1e498c473c0",
+    "src/lib/verdict-engine.ts": "c4fc69f2404f9efeefb1755113f14d21727dc94557a94c9fe0dcf9c0ca9930ff",
+    "src/lib/pill-views.ts": "21c49fc15ea2d215f657c1b927d60f8058ea432eb5af9a79fac957907cf8037b",
+    "scripts/rescore-post-fix.ts": "7effd52fb433592e589f4898c8434f488557e83d98b91fd08a2f90e1682d9e55"
+  },
+  "inputHashes": {
+    "cohort.json": "c328350897305f4d0737eaaf4d9fe897dd2137b86d5d46764603e721d269f4f2",
+    "holdout-cohort.json": "067e89ff5914b7513dc5bd33afb41513911c34c4ff041e36edae2a3cebde2789",
+    "readings-claude-sonnet-5-5.json": "a11df69e388f10b25fae34199972ab3ae3817deb9850ac078846b8e03593bf10",
+    "holdout-readings.json": "b9f3ed55a23621cf5170bbdc3830fd1ecd194077c9937d9d7b7c20bb092a9569",
+    "cost.json": "7967d045fb14c7ee4f421029265d042d0ece1ef64a66e241d7ff3425d0348ba2",
+    "holdout-cost.json": "ad53f4adc0fd6ec9b275242e231d97119113c08fa93d13edbd2502e894bc03d9",
+    "development-results.json": "03269b0761055f100eb17caf6dac0b54578689666e7772d6291b8df5d961d7ba",
+    "holdout-results.json": "8e36efe24737f430f7d01391f5def94ff239de3f91502523c78f642284f95892",
+    "holdout-pairs.csv": "0e7d97f82baa4f85f282efa0b9a146f4ac506138f6ff77974c83c797f8c1a584",
+    "holdout-freeze.json": "2ee71ac1904640a130f6f959ffe4095f7375bb445d950d07d97a53851109668e"
+  },
+  "metrics": {
+    "Sonnet, one view": {
+      "n": 300,
+      "wrong": 150,
+      "right": 150,
+      "caught": 46,
+      "falseAlarms": 4,
+      "passed": 37,
+      "unsure": 213,
+      "wrongUnsure": 104,
+      "catchRate": 0.30666666666666664,
+      "falseAlarmRate": 0.02666666666666667,
+      "passRate": 0.24666666666666667,
+      "unsureRate": 0.71,
+      "easy": {
+        "n": 24,
+        "caught": 6,
+        "unsure": 18,
+        "passed": 0
+      },
+      "hard": {
+        "n": 126,
+        "caught": 40,
+        "unsure": 86,
+        "passed": 0
+      },
+      "wrongPassed": 0,
+      "decisive": 87,
+      "correct": 83,
+      "decisiveAccuracy": 0.9540229885057471,
+      "coverage": 0.29
+    },
+    "Sonnet, two views": {
+      "n": 300,
+      "wrong": 150,
+      "right": 150,
+      "caught": 33,
+      "falseAlarms": 7,
+      "passed": 24,
+      "unsure": 236,
+      "wrongUnsure": 117,
+      "catchRate": 0.22,
+      "falseAlarmRate": 0.04666666666666667,
+      "passRate": 0.16,
+      "unsureRate": 0.7866666666666666,
+      "easy": {
+        "n": 24,
+        "caught": 4,
+        "unsure": 20,
+        "passed": 0
+      },
+      "hard": {
+        "n": 126,
+        "caught": 29,
+        "unsure": 97,
+        "passed": 0
+      },
+      "wrongPassed": 0,
+      "decisive": 64,
+      "correct": 57,
+      "decisiveAccuracy": 0.890625,
+      "coverage": 0.21333333333333335
+    }
+  },
+  "rows": {
+    "Sonnet, one view": [
+      {
+        "image": "research/data/holdout-51672405104-0.jpg",
+        "ownNdc": "51672405104",
+        "labelNdc": "51672405104",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-51672405104-0.jpg",
+        "ownNdc": "51672405104",
+        "labelNdc": "68180051303",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-51672405104-1.jpg",
+        "ownNdc": "51672405104",
+        "labelNdc": "51672405104",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-51672405104-1.jpg",
+        "ownNdc": "51672405104",
+        "labelNdc": "68180051303",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-23155012401-0.jpg",
+        "ownNdc": "23155012401",
+        "labelNdc": "23155012401",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-23155012401-0.jpg",
+        "ownNdc": "23155012401",
+        "labelNdc": "68180051303",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-23155012401-1.jpg",
+        "ownNdc": "23155012401",
+        "labelNdc": "23155012401",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-23155012401-1.jpg",
+        "ownNdc": "23155012401",
+        "labelNdc": "68180051303",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00245007111-0.jpg",
+        "ownNdc": "00245007111",
+        "labelNdc": "00245007111",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00245007111-0.jpg",
+        "ownNdc": "00245007111",
+        "labelNdc": "00093001298",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00245007111-1.jpg",
+        "ownNdc": "00245007111",
+        "labelNdc": "00245007111",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/holdout-00245007111-1.jpg",
+        "ownNdc": "00245007111",
+        "labelNdc": "00093001298",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-00093001298-0.jpg",
+        "ownNdc": "00093001298",
+        "labelNdc": "00093001298",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00093001298-0.jpg",
+        "ownNdc": "00093001298",
+        "labelNdc": "00245007111",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00093001298-1.jpg",
+        "ownNdc": "00093001298",
+        "labelNdc": "00093001298",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/holdout-00093001298-1.jpg",
+        "ownNdc": "00093001298",
+        "labelNdc": "00245007111",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-68382002401-0.jpg",
+        "ownNdc": "68382002401",
+        "labelNdc": "68382002401",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-68382002401-0.jpg",
+        "ownNdc": "68382002401",
+        "labelNdc": "00143120201",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-68382002401-1.jpg",
+        "ownNdc": "68382002401",
+        "labelNdc": "68382002401",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-68382002401-1.jpg",
+        "ownNdc": "68382002401",
+        "labelNdc": "00143120201",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00093423601-0.jpg",
+        "ownNdc": "00093423601",
+        "labelNdc": "00093423601",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/holdout-00093423601-0.jpg",
+        "ownNdc": "00093423601",
+        "labelNdc": "68382002401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-00093423601-1.jpg",
+        "ownNdc": "00093423601",
+        "labelNdc": "00093423601",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/holdout-00093423601-1.jpg",
+        "ownNdc": "00093423601",
+        "labelNdc": "68382002401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-61442011201-0.jpg",
+        "ownNdc": "61442011201",
+        "labelNdc": "61442011201",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-61442011201-0.jpg",
+        "ownNdc": "61442011201",
+        "labelNdc": "00093474201",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-61442011201-1.jpg",
+        "ownNdc": "61442011201",
+        "labelNdc": "61442011201",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-61442011201-1.jpg",
+        "ownNdc": "61442011201",
+        "labelNdc": "00093474201",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00093117201-0.jpg",
+        "ownNdc": "00093117201",
+        "labelNdc": "00093117201",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/holdout-00093117201-0.jpg",
+        "ownNdc": "00093117201",
+        "labelNdc": "61442011201",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-00093117201-1.jpg",
+        "ownNdc": "00093117201",
+        "labelNdc": "00093117201",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/holdout-00093117201-1.jpg",
+        "ownNdc": "00093117201",
+        "labelNdc": "61442011201",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-49884040501-0.jpg",
+        "ownNdc": "49884040501",
+        "labelNdc": "49884040501",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/holdout-49884040501-0.jpg",
+        "ownNdc": "49884040501",
+        "labelNdc": "68382002401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-49884040501-1.jpg",
+        "ownNdc": "49884040501",
+        "labelNdc": "49884040501",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/holdout-49884040501-1.jpg",
+        "ownNdc": "49884040501",
+        "labelNdc": "68382002401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-57664050658-0.jpg",
+        "ownNdc": "57664050658",
+        "labelNdc": "57664050658",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-57664050658-0.jpg",
+        "ownNdc": "57664050658",
+        "labelNdc": "68382002401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-57664050658-1.jpg",
+        "ownNdc": "57664050658",
+        "labelNdc": "57664050658",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-57664050658-1.jpg",
+        "ownNdc": "57664050658",
+        "labelNdc": "68382002401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-57664043558-0.jpg",
+        "ownNdc": "57664043558",
+        "labelNdc": "57664043558",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-57664043558-0.jpg",
+        "ownNdc": "57664043558",
+        "labelNdc": "68382002401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-57664043558-1.jpg",
+        "ownNdc": "57664043558",
+        "labelNdc": "57664043558",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-57664043558-1.jpg",
+        "ownNdc": "57664043558",
+        "labelNdc": "68382002401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00143120201-0.jpg",
+        "ownNdc": "00143120201",
+        "labelNdc": "00143120201",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00143120201-0.jpg",
+        "ownNdc": "00143120201",
+        "labelNdc": "68382002401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00143120201-1.jpg",
+        "ownNdc": "00143120201",
+        "labelNdc": "00143120201",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00143120201-1.jpg",
+        "ownNdc": "00143120201",
+        "labelNdc": "68382002401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00093310905-0.jpg",
+        "ownNdc": "00093310905",
+        "labelNdc": "00093310905",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00093310905-0.jpg",
+        "ownNdc": "00093310905",
+        "labelNdc": "59762141703",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00093310905-1.jpg",
+        "ownNdc": "00093310905",
+        "labelNdc": "00093310905",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-00093310905-1.jpg",
+        "ownNdc": "00093310905",
+        "labelNdc": "59762141703",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-59762141703-0.jpg",
+        "ownNdc": "59762141703",
+        "labelNdc": "59762141703",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-59762141703-0.jpg",
+        "ownNdc": "59762141703",
+        "labelNdc": "00093310905",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-59762141703-1.jpg",
+        "ownNdc": "59762141703",
+        "labelNdc": "59762141703",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-59762141703-1.jpg",
+        "ownNdc": "59762141703",
+        "labelNdc": "00093310905",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00074632013-0.jpg",
+        "ownNdc": "00074632013",
+        "labelNdc": "00074632013",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00074632013-0.jpg",
+        "ownNdc": "00074632013",
+        "labelNdc": "61442011201",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00074632013-1.jpg",
+        "ownNdc": "00074632013",
+        "labelNdc": "00074632013",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00074632013-1.jpg",
+        "ownNdc": "00074632013",
+        "labelNdc": "61442011201",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00006074554-0.jpg",
+        "ownNdc": "00006074554",
+        "labelNdc": "00006074554",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00006074554-0.jpg",
+        "ownNdc": "00006074554",
+        "labelNdc": "61442011201",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00006074554-1.jpg",
+        "ownNdc": "00006074554",
+        "labelNdc": "00006074554",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00006074554-1.jpg",
+        "ownNdc": "00006074554",
+        "labelNdc": "61442011201",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00591555601-0.jpg",
+        "ownNdc": "00591555601",
+        "labelNdc": "00591555601",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/holdout-00591555601-0.jpg",
+        "ownNdc": "00591555601",
+        "labelNdc": "00143177201",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-00591555601-1.jpg",
+        "ownNdc": "00591555601",
+        "labelNdc": "00591555601",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/holdout-00591555601-1.jpg",
+        "ownNdc": "00591555601",
+        "labelNdc": "00143177201",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-00143177201-0.jpg",
+        "ownNdc": "00143177201",
+        "labelNdc": "00143177201",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/holdout-00143177201-0.jpg",
+        "ownNdc": "00143177201",
+        "labelNdc": "00591555601",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-00143177201-1.jpg",
+        "ownNdc": "00143177201",
+        "labelNdc": "00143177201",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00143177201-1.jpg",
+        "ownNdc": "00143177201",
+        "labelNdc": "00591555601",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00007337161-0.jpg",
+        "ownNdc": "00007337161",
+        "labelNdc": "00007337161",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00007337161-0.jpg",
+        "ownNdc": "00007337161",
+        "labelNdc": "00591315301",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00007337161-1.jpg",
+        "ownNdc": "00007337161",
+        "labelNdc": "00007337161",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00007337161-1.jpg",
+        "ownNdc": "00007337161",
+        "labelNdc": "00591315301",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00591315301-0.jpg",
+        "ownNdc": "00591315301",
+        "labelNdc": "00591315301",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00591315301-0.jpg",
+        "ownNdc": "00591315301",
+        "labelNdc": "00007337161",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00591315301-1.jpg",
+        "ownNdc": "00591315301",
+        "labelNdc": "00591315301",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00591315301-1.jpg",
+        "ownNdc": "00591315301",
+        "labelNdc": "00007337161",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-68462022401-0.jpg",
+        "ownNdc": "68462022401",
+        "labelNdc": "68462022401",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-68462022401-0.jpg",
+        "ownNdc": "68462022401",
+        "labelNdc": "00143126310",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-68462022401-1.jpg",
+        "ownNdc": "68462022401",
+        "labelNdc": "68462022401",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-68462022401-1.jpg",
+        "ownNdc": "68462022401",
+        "labelNdc": "00143126310",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00143126310-0.jpg",
+        "ownNdc": "00143126310",
+        "labelNdc": "00143126310",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/holdout-00143126310-0.jpg",
+        "ownNdc": "00143126310",
+        "labelNdc": "68462022401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-00143126310-1.jpg",
+        "ownNdc": "00143126310",
+        "labelNdc": "00143126310",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00143126310-1.jpg",
+        "ownNdc": "00143126310",
+        "labelNdc": "68462022401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-59762024504-0.jpg",
+        "ownNdc": "59762024504",
+        "labelNdc": "59762024504",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-59762024504-0.jpg",
+        "ownNdc": "59762024504",
+        "labelNdc": "68382002401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-59762024504-1.jpg",
+        "ownNdc": "59762024504",
+        "labelNdc": "59762024504",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/holdout-59762024504-1.jpg",
+        "ownNdc": "59762024504",
+        "labelNdc": "68382002401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-00555077902-0.jpg",
+        "ownNdc": "00555077902",
+        "labelNdc": "00555077902",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00555077902-0.jpg",
+        "ownNdc": "00555077902",
+        "labelNdc": "68382002401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00555077902-1.jpg",
+        "ownNdc": "00555077902",
+        "labelNdc": "00555077902",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00555077902-1.jpg",
+        "ownNdc": "00555077902",
+        "labelNdc": "68382002401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00071101768-0.jpg",
+        "ownNdc": "00071101768",
+        "labelNdc": "00071101768",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/holdout-00071101768-0.jpg",
+        "ownNdc": "00071101768",
+        "labelNdc": "00093550456",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-00071101768-1.jpg",
+        "ownNdc": "00071101768",
+        "labelNdc": "00071101768",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/holdout-00071101768-1.jpg",
+        "ownNdc": "00071101768",
+        "labelNdc": "00093550456",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-00093550456-0.jpg",
+        "ownNdc": "00093550456",
+        "labelNdc": "00093550456",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00093550456-0.jpg",
+        "ownNdc": "00093550456",
+        "labelNdc": "00071101768",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00093550456-1.jpg",
+        "ownNdc": "00093550456",
+        "labelNdc": "00093550456",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00093550456-1.jpg",
+        "ownNdc": "00093550456",
+        "labelNdc": "00071101768",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00228249710-0.jpg",
+        "ownNdc": "00228249710",
+        "labelNdc": "00228249710",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00228249710-0.jpg",
+        "ownNdc": "00228249710",
+        "labelNdc": "59762141603",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00228249710-1.jpg",
+        "ownNdc": "00228249710",
+        "labelNdc": "00228249710",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/holdout-00228249710-1.jpg",
+        "ownNdc": "00228249710",
+        "labelNdc": "59762141603",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-00781205205-0.jpg",
+        "ownNdc": "00781205205",
+        "labelNdc": "00781205205",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-00781205205-0.jpg",
+        "ownNdc": "00781205205",
+        "labelNdc": "59762141603",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-00781205205-1.jpg",
+        "ownNdc": "00781205205",
+        "labelNdc": "00781205205",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00781205205-1.jpg",
+        "ownNdc": "00781205205",
+        "labelNdc": "59762141603",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-53746007701-0.jpg",
+        "ownNdc": "53746007701",
+        "labelNdc": "53746007701",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-53746007701-0.jpg",
+        "ownNdc": "53746007701",
+        "labelNdc": "00093767001",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-53746007701-1.jpg",
+        "ownNdc": "53746007701",
+        "labelNdc": "53746007701",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/holdout-53746007701-1.jpg",
+        "ownNdc": "53746007701",
+        "labelNdc": "00093767001",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-00093767001-0.jpg",
+        "ownNdc": "00093767001",
+        "labelNdc": "00093767001",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00093767001-0.jpg",
+        "ownNdc": "00093767001",
+        "labelNdc": "53746007701",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00093767001-1.jpg",
+        "ownNdc": "00093767001",
+        "labelNdc": "00093767001",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00093767001-1.jpg",
+        "ownNdc": "00093767001",
+        "labelNdc": "53746007701",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-59762502101-0.jpg",
+        "ownNdc": "59762502101",
+        "labelNdc": "59762502101",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/holdout-59762502101-0.jpg",
+        "ownNdc": "59762502101",
+        "labelNdc": "68180031301",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-59762502101-1.jpg",
+        "ownNdc": "59762502101",
+        "labelNdc": "59762502101",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/holdout-59762502101-1.jpg",
+        "ownNdc": "59762502101",
+        "labelNdc": "68180031301",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-68180031301-0.jpg",
+        "ownNdc": "68180031301",
+        "labelNdc": "68180031301",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-68180031301-0.jpg",
+        "ownNdc": "68180031301",
+        "labelNdc": "59762502101",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-68180031301-1.jpg",
+        "ownNdc": "68180031301",
+        "labelNdc": "68180031301",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-68180031301-1.jpg",
+        "ownNdc": "68180031301",
+        "labelNdc": "59762502101",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00603243321-0.jpg",
+        "ownNdc": "00603243321",
+        "labelNdc": "00603243321",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00603243321-0.jpg",
+        "ownNdc": "00603243321",
+        "labelNdc": "68382002401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00603243321-1.jpg",
+        "ownNdc": "00603243321",
+        "labelNdc": "00603243321",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00603243321-1.jpg",
+        "ownNdc": "00603243321",
+        "labelNdc": "68382002401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00228280311-0.jpg",
+        "ownNdc": "00228280311",
+        "labelNdc": "00228280311",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/holdout-00228280311-0.jpg",
+        "ownNdc": "00228280311",
+        "labelNdc": "68382002401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-00228280311-1.jpg",
+        "ownNdc": "00228280311",
+        "labelNdc": "00228280311",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00228280311-1.jpg",
+        "ownNdc": "00228280311",
+        "labelNdc": "68382002401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-64980014206-0.jpg",
+        "ownNdc": "64980014206",
+        "labelNdc": "64980014206",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/holdout-64980014206-0.jpg",
+        "ownNdc": "64980014206",
+        "labelNdc": "51079014720",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-64980014206-1.jpg",
+        "ownNdc": "64980014206",
+        "labelNdc": "64980014206",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-64980014206-1.jpg",
+        "ownNdc": "64980014206",
+        "labelNdc": "51079014720",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-51079014720-0.jpg",
+        "ownNdc": "51079014720",
+        "labelNdc": "51079014720",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/holdout-51079014720-0.jpg",
+        "ownNdc": "51079014720",
+        "labelNdc": "64980014206",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-51079014720-1.jpg",
+        "ownNdc": "51079014720",
+        "labelNdc": "51079014720",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-51079014720-1.jpg",
+        "ownNdc": "51079014720",
+        "labelNdc": "64980014206",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00228255006-0.jpg",
+        "ownNdc": "00228255006",
+        "labelNdc": "00228255006",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/holdout-00228255006-0.jpg",
+        "ownNdc": "00228255006",
+        "labelNdc": "68382002401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-00228255006-1.jpg",
+        "ownNdc": "00228255006",
+        "labelNdc": "00228255006",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00228255006-1.jpg",
+        "ownNdc": "00228255006",
+        "labelNdc": "68382002401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00093729401-0.jpg",
+        "ownNdc": "00093729401",
+        "labelNdc": "00093729401",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/holdout-00093729401-0.jpg",
+        "ownNdc": "00093729401",
+        "labelNdc": "68382002401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-00093729401-1.jpg",
+        "ownNdc": "00093729401",
+        "labelNdc": "00093729401",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/holdout-00093729401-1.jpg",
+        "ownNdc": "00093729401",
+        "labelNdc": "68382002401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-00378425001-0.jpg",
+        "ownNdc": "00378425001",
+        "labelNdc": "00378425001",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00378425001-0.jpg",
+        "ownNdc": "00378425001",
+        "labelNdc": "00591401201",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00378425001-1.jpg",
+        "ownNdc": "00378425001",
+        "labelNdc": "00378425001",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-00378425001-1.jpg",
+        "ownNdc": "00378425001",
+        "labelNdc": "00591401201",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-00591401201-0.jpg",
+        "ownNdc": "00591401201",
+        "labelNdc": "00591401201",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00591401201-0.jpg",
+        "ownNdc": "00591401201",
+        "labelNdc": "00378425001",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00591401201-1.jpg",
+        "ownNdc": "00591401201",
+        "labelNdc": "00591401201",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00591401201-1.jpg",
+        "ownNdc": "00591401201",
+        "labelNdc": "00378425001",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-68462013701-0.jpg",
+        "ownNdc": "68462013701",
+        "labelNdc": "68462013701",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-68462013701-0.jpg",
+        "ownNdc": "68462013701",
+        "labelNdc": "00093001298",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-68462013701-1.jpg",
+        "ownNdc": "68462013701",
+        "labelNdc": "68462013701",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-68462013701-1.jpg",
+        "ownNdc": "68462013701",
+        "labelNdc": "00093001298",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00074780413-0.jpg",
+        "ownNdc": "00074780413",
+        "labelNdc": "00074780413",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00074780413-0.jpg",
+        "ownNdc": "00074780413",
+        "labelNdc": "00093001298",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00074780413-1.jpg",
+        "ownNdc": "00074780413",
+        "labelNdc": "00074780413",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00074780413-1.jpg",
+        "ownNdc": "00074780413",
+        "labelNdc": "00093001298",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00143126801-0.jpg",
+        "ownNdc": "00143126801",
+        "labelNdc": "00143126801",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00143126801-0.jpg",
+        "ownNdc": "00143126801",
+        "labelNdc": "00093715598",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00143126801-1.jpg",
+        "ownNdc": "00143126801",
+        "labelNdc": "00143126801",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00143126801-1.jpg",
+        "ownNdc": "00143126801",
+        "labelNdc": "00093715598",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00093715598-0.jpg",
+        "ownNdc": "00093715598",
+        "labelNdc": "00093715598",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/holdout-00093715598-0.jpg",
+        "ownNdc": "00093715598",
+        "labelNdc": "00143126801",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-00093715598-1.jpg",
+        "ownNdc": "00093715598",
+        "labelNdc": "00093715598",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00093715598-1.jpg",
+        "ownNdc": "00093715598",
+        "labelNdc": "00143126801",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00591377719-0.jpg",
+        "ownNdc": "00591377719",
+        "labelNdc": "00591377719",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/holdout-00591377719-0.jpg",
+        "ownNdc": "00591377719",
+        "labelNdc": "61442011201",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-00591377719-1.jpg",
+        "ownNdc": "00591377719",
+        "labelNdc": "00591377719",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/holdout-00591377719-1.jpg",
+        "ownNdc": "00591377719",
+        "labelNdc": "61442011201",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-50419011506-0.jpg",
+        "ownNdc": "50419011506",
+        "labelNdc": "50419011506",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-50419011506-0.jpg",
+        "ownNdc": "50419011506",
+        "labelNdc": "61442011201",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-50419011506-1.jpg",
+        "ownNdc": "50419011506",
+        "labelNdc": "50419011506",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-50419011506-1.jpg",
+        "ownNdc": "50419011506",
+        "labelNdc": "61442011201",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-68180011416-0.jpg",
+        "ownNdc": "68180011416",
+        "labelNdc": "68180011416",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/holdout-68180011416-0.jpg",
+        "ownNdc": "68180011416",
+        "labelNdc": "00093711306",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-68180011416-1.jpg",
+        "ownNdc": "68180011416",
+        "labelNdc": "68180011416",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/holdout-68180011416-1.jpg",
+        "ownNdc": "68180011416",
+        "labelNdc": "00093711306",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-00093711306-0.jpg",
+        "ownNdc": "00093711306",
+        "labelNdc": "00093711306",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/holdout-00093711306-0.jpg",
+        "ownNdc": "00093711306",
+        "labelNdc": "68180011416",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-00093711306-1.jpg",
+        "ownNdc": "00093711306",
+        "labelNdc": "00093711306",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00093711306-1.jpg",
+        "ownNdc": "00093711306",
+        "labelNdc": "68180011416",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00781196260-0.jpg",
+        "ownNdc": "00781196260",
+        "labelNdc": "00781196260",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00781196260-0.jpg",
+        "ownNdc": "00781196260",
+        "labelNdc": "61442011201",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00781196260-1.jpg",
+        "ownNdc": "00781196260",
+        "labelNdc": "00781196260",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00781196260-1.jpg",
+        "ownNdc": "00781196260",
+        "labelNdc": "61442011201",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-49884073411-0.jpg",
+        "ownNdc": "49884073411",
+        "labelNdc": "49884073411",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-49884073411-0.jpg",
+        "ownNdc": "49884073411",
+        "labelNdc": "61442011201",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-49884073411-1.jpg",
+        "ownNdc": "49884073411",
+        "labelNdc": "49884073411",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-49884073411-1.jpg",
+        "ownNdc": "49884073411",
+        "labelNdc": "61442011201",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-53489059101-0.jpg",
+        "ownNdc": "53489059101",
+        "labelNdc": "53489059101",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-53489059101-0.jpg",
+        "ownNdc": "53489059101",
+        "labelNdc": "68382002401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-53489059101-1.jpg",
+        "ownNdc": "53489059101",
+        "labelNdc": "53489059101",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-53489059101-1.jpg",
+        "ownNdc": "53489059101",
+        "labelNdc": "68382002401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-23155004610-0.jpg",
+        "ownNdc": "23155004610",
+        "labelNdc": "23155004610",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-23155004610-0.jpg",
+        "ownNdc": "23155004610",
+        "labelNdc": "68382002401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-23155004610-1.jpg",
+        "ownNdc": "23155004610",
+        "labelNdc": "23155004610",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-23155004610-1.jpg",
+        "ownNdc": "23155004610",
+        "labelNdc": "68382002401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-63304062310-0.jpg",
+        "ownNdc": "63304062310",
+        "labelNdc": "63304062310",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-63304062310-0.jpg",
+        "ownNdc": "63304062310",
+        "labelNdc": "00143120201",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-63304062310-1.jpg",
+        "ownNdc": "63304062310",
+        "labelNdc": "63304062310",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/holdout-63304062310-1.jpg",
+        "ownNdc": "63304062310",
+        "labelNdc": "00143120201",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-00591046105-0.jpg",
+        "ownNdc": "00591046105",
+        "labelNdc": "00591046105",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00591046105-0.jpg",
+        "ownNdc": "00591046105",
+        "labelNdc": "68382002401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00591046105-1.jpg",
+        "ownNdc": "00591046105",
+        "labelNdc": "00591046105",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00591046105-1.jpg",
+        "ownNdc": "00591046105",
+        "labelNdc": "68382002401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00781168301-0.jpg",
+        "ownNdc": "00781168301",
+        "labelNdc": "00781168301",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00781168301-0.jpg",
+        "ownNdc": "00781168301",
+        "labelNdc": "68382002401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00781168301-1.jpg",
+        "ownNdc": "00781168301",
+        "labelNdc": "00781168301",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/holdout-00781168301-1.jpg",
+        "ownNdc": "00781168301",
+        "labelNdc": "68382002401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-00115104101-0.jpg",
+        "ownNdc": "00115104101",
+        "labelNdc": "00115104101",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00115104101-0.jpg",
+        "ownNdc": "00115104101",
+        "labelNdc": "68382002401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00115104101-1.jpg",
+        "ownNdc": "00115104101",
+        "labelNdc": "00115104101",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00115104101-1.jpg",
+        "ownNdc": "00115104101",
+        "labelNdc": "68382002401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00093405953-0.jpg",
+        "ownNdc": "00093405953",
+        "labelNdc": "00093405953",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00093405953-0.jpg",
+        "ownNdc": "00093405953",
+        "labelNdc": "61442011201",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00093405953-1.jpg",
+        "ownNdc": "00093405953",
+        "labelNdc": "00093405953",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00093405953-1.jpg",
+        "ownNdc": "00093405953",
+        "labelNdc": "61442011201",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-00093474201-0.jpg",
+        "ownNdc": "00093474201",
+        "labelNdc": "00093474201",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-00093474201-0.jpg",
+        "ownNdc": "00093474201",
+        "labelNdc": "61442011201",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-00093474201-1.jpg",
+        "ownNdc": "00093474201",
+        "labelNdc": "00093474201",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00093474201-1.jpg",
+        "ownNdc": "00093474201",
+        "labelNdc": "61442011201",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00185440023-0.jpg",
+        "ownNdc": "00185440023",
+        "labelNdc": "00185440023",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00185440023-0.jpg",
+        "ownNdc": "00185440023",
+        "labelNdc": "68382002401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00185440023-1.jpg",
+        "ownNdc": "00185440023",
+        "labelNdc": "00185440023",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00185440023-1.jpg",
+        "ownNdc": "00185440023",
+        "labelNdc": "68382002401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00536454410-0.jpg",
+        "ownNdc": "00536454410",
+        "labelNdc": "00536454410",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00536454410-0.jpg",
+        "ownNdc": "00536454410",
+        "labelNdc": "68382002401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00536454410-1.jpg",
+        "ownNdc": "00536454410",
+        "labelNdc": "00536454410",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00536454410-1.jpg",
+        "ownNdc": "00536454410",
+        "labelNdc": "68382002401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00378042401-0.jpg",
+        "ownNdc": "00378042401",
+        "labelNdc": "00378042401",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00378042401-0.jpg",
+        "ownNdc": "00378042401",
+        "labelNdc": "00093310905",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00378042401-1.jpg",
+        "ownNdc": "00378042401",
+        "labelNdc": "00378042401",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00378042401-1.jpg",
+        "ownNdc": "00378042401",
+        "labelNdc": "00093310905",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-59148000813-0.jpg",
+        "ownNdc": "59148000813",
+        "labelNdc": "59148000813",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-59148000813-0.jpg",
+        "ownNdc": "59148000813",
+        "labelNdc": "00093310905",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-59148000813-1.jpg",
+        "ownNdc": "59148000813",
+        "labelNdc": "59148000813",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-59148000813-1.jpg",
+        "ownNdc": "59148000813",
+        "labelNdc": "00093310905",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00173063310-0.jpg",
+        "ownNdc": "00173063310",
+        "labelNdc": "00173063310",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00173063310-0.jpg",
+        "ownNdc": "00173063310",
+        "labelNdc": "00093310905",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00173063310-1.jpg",
+        "ownNdc": "00173063310",
+        "labelNdc": "00173063310",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00173063310-1.jpg",
+        "ownNdc": "00173063310",
+        "labelNdc": "00093310905",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-13668001101-0.jpg",
+        "ownNdc": "13668001101",
+        "labelNdc": "13668001101",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-13668001101-0.jpg",
+        "ownNdc": "13668001101",
+        "labelNdc": "00093310905",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-13668001101-1.jpg",
+        "ownNdc": "13668001101",
+        "labelNdc": "13668001101",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-13668001101-1.jpg",
+        "ownNdc": "13668001101",
+        "labelNdc": "00093310905",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-68382026101-0.jpg",
+        "ownNdc": "68382026101",
+        "labelNdc": "68382026101",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/holdout-68382026101-0.jpg",
+        "ownNdc": "68382026101",
+        "labelNdc": "00093310905",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-68382026101-1.jpg",
+        "ownNdc": "68382026101",
+        "labelNdc": "68382026101",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-68382026101-1.jpg",
+        "ownNdc": "68382026101",
+        "labelNdc": "00093310905",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00603509121-0.jpg",
+        "ownNdc": "00603509121",
+        "labelNdc": "00603509121",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00603509121-0.jpg",
+        "ownNdc": "00603509121",
+        "labelNdc": "00093310905",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00603509121-1.jpg",
+        "ownNdc": "00603509121",
+        "labelNdc": "00603509121",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00603509121-1.jpg",
+        "ownNdc": "00603509121",
+        "labelNdc": "00093310905",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-60505018500-0.jpg",
+        "ownNdc": "60505018500",
+        "labelNdc": "60505018500",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-60505018500-0.jpg",
+        "ownNdc": "60505018500",
+        "labelNdc": "00093310905",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-60505018500-1.jpg",
+        "ownNdc": "60505018500",
+        "labelNdc": "60505018500",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-60505018500-1.jpg",
+        "ownNdc": "60505018500",
+        "labelNdc": "00093310905",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-68180051303-0.jpg",
+        "ownNdc": "68180051303",
+        "labelNdc": "68180051303",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-68180051303-0.jpg",
+        "ownNdc": "68180051303",
+        "labelNdc": "23155012401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-68180051303-1.jpg",
+        "ownNdc": "68180051303",
+        "labelNdc": "68180051303",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/holdout-68180051303-1.jpg",
+        "ownNdc": "68180051303",
+        "labelNdc": "23155012401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-67253018110-0.jpg",
+        "ownNdc": "67253018110",
+        "labelNdc": "67253018110",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-67253018110-0.jpg",
+        "ownNdc": "67253018110",
+        "labelNdc": "00093310905",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-67253018110-1.jpg",
+        "ownNdc": "67253018110",
+        "labelNdc": "67253018110",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-67253018110-1.jpg",
+        "ownNdc": "67253018110",
+        "labelNdc": "00093310905",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-00093046301-0.jpg",
+        "ownNdc": "00093046301",
+        "labelNdc": "00093046301",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00093046301-0.jpg",
+        "ownNdc": "00093046301",
+        "labelNdc": "00093310905",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00093046301-1.jpg",
+        "ownNdc": "00093046301",
+        "labelNdc": "00093046301",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/holdout-00093046301-1.jpg",
+        "ownNdc": "00093046301",
+        "labelNdc": "00093310905",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-55111017290-0.jpg",
+        "ownNdc": "55111017290",
+        "labelNdc": "55111017290",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-55111017290-0.jpg",
+        "ownNdc": "55111017290",
+        "labelNdc": "00093310905",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-55111017290-1.jpg",
+        "ownNdc": "55111017290",
+        "labelNdc": "55111017290",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-55111017290-1.jpg",
+        "ownNdc": "55111017290",
+        "labelNdc": "00093310905",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-62037064030-0.jpg",
+        "ownNdc": "62037064030",
+        "labelNdc": "62037064030",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-62037064030-0.jpg",
+        "ownNdc": "62037064030",
+        "labelNdc": "00093310905",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-62037064030-1.jpg",
+        "ownNdc": "62037064030",
+        "labelNdc": "62037064030",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-62037064030-1.jpg",
+        "ownNdc": "62037064030",
+        "labelNdc": "00093310905",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00378110101-0.jpg",
+        "ownNdc": "00378110101",
+        "labelNdc": "00378110101",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00378110101-0.jpg",
+        "ownNdc": "00378110101",
+        "labelNdc": "00093310905",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00378110101-1.jpg",
+        "ownNdc": "00378110101",
+        "labelNdc": "00378110101",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00378110101-1.jpg",
+        "ownNdc": "00378110101",
+        "labelNdc": "00093310905",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00591079605-0.jpg",
+        "ownNdc": "00591079605",
+        "labelNdc": "00591079605",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/holdout-00591079605-0.jpg",
+        "ownNdc": "00591079605",
+        "labelNdc": "68462022401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-00591079605-1.jpg",
+        "ownNdc": "00591079605",
+        "labelNdc": "00591079605",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00591079605-1.jpg",
+        "ownNdc": "00591079605",
+        "labelNdc": "68462022401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-59762141603-0.jpg",
+        "ownNdc": "59762141603",
+        "labelNdc": "59762141603",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-59762141603-0.jpg",
+        "ownNdc": "59762141603",
+        "labelNdc": "00228249710",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-59762141603-1.jpg",
+        "ownNdc": "59762141603",
+        "labelNdc": "59762141603",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-59762141603-1.jpg",
+        "ownNdc": "59762141603",
+        "labelNdc": "00228249710",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      }
+    ],
+    "Sonnet, two views": [
+      {
+        "image": "research/data/holdout-51672405104-0.jpg",
+        "ownNdc": "51672405104",
+        "labelNdc": "51672405104",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-51672405104-0.jpg",
+        "ownNdc": "51672405104",
+        "labelNdc": "68180051303",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-51672405104-1.jpg",
+        "ownNdc": "51672405104",
+        "labelNdc": "51672405104",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-51672405104-1.jpg",
+        "ownNdc": "51672405104",
+        "labelNdc": "68180051303",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-23155012401-0.jpg",
+        "ownNdc": "23155012401",
+        "labelNdc": "23155012401",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-23155012401-0.jpg",
+        "ownNdc": "23155012401",
+        "labelNdc": "68180051303",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-23155012401-1.jpg",
+        "ownNdc": "23155012401",
+        "labelNdc": "23155012401",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-23155012401-1.jpg",
+        "ownNdc": "23155012401",
+        "labelNdc": "68180051303",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00245007111-0.jpg",
+        "ownNdc": "00245007111",
+        "labelNdc": "00245007111",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00245007111-0.jpg",
+        "ownNdc": "00245007111",
+        "labelNdc": "00093001298",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00245007111-1.jpg",
+        "ownNdc": "00245007111",
+        "labelNdc": "00245007111",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00245007111-1.jpg",
+        "ownNdc": "00245007111",
+        "labelNdc": "00093001298",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00093001298-0.jpg",
+        "ownNdc": "00093001298",
+        "labelNdc": "00093001298",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/holdout-00093001298-0.jpg",
+        "ownNdc": "00093001298",
+        "labelNdc": "00245007111",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-00093001298-1.jpg",
+        "ownNdc": "00093001298",
+        "labelNdc": "00093001298",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/holdout-00093001298-1.jpg",
+        "ownNdc": "00093001298",
+        "labelNdc": "00245007111",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-68382002401-0.jpg",
+        "ownNdc": "68382002401",
+        "labelNdc": "68382002401",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-68382002401-0.jpg",
+        "ownNdc": "68382002401",
+        "labelNdc": "00143120201",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-68382002401-1.jpg",
+        "ownNdc": "68382002401",
+        "labelNdc": "68382002401",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-68382002401-1.jpg",
+        "ownNdc": "68382002401",
+        "labelNdc": "00143120201",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00093423601-0.jpg",
+        "ownNdc": "00093423601",
+        "labelNdc": "00093423601",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/holdout-00093423601-0.jpg",
+        "ownNdc": "00093423601",
+        "labelNdc": "68382002401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-00093423601-1.jpg",
+        "ownNdc": "00093423601",
+        "labelNdc": "00093423601",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/holdout-00093423601-1.jpg",
+        "ownNdc": "00093423601",
+        "labelNdc": "68382002401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-61442011201-0.jpg",
+        "ownNdc": "61442011201",
+        "labelNdc": "61442011201",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-61442011201-0.jpg",
+        "ownNdc": "61442011201",
+        "labelNdc": "00093474201",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-61442011201-1.jpg",
+        "ownNdc": "61442011201",
+        "labelNdc": "61442011201",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-61442011201-1.jpg",
+        "ownNdc": "61442011201",
+        "labelNdc": "00093474201",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00093117201-0.jpg",
+        "ownNdc": "00093117201",
+        "labelNdc": "00093117201",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/holdout-00093117201-0.jpg",
+        "ownNdc": "00093117201",
+        "labelNdc": "61442011201",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-00093117201-1.jpg",
+        "ownNdc": "00093117201",
+        "labelNdc": "00093117201",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/holdout-00093117201-1.jpg",
+        "ownNdc": "00093117201",
+        "labelNdc": "61442011201",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-49884040501-0.jpg",
+        "ownNdc": "49884040501",
+        "labelNdc": "49884040501",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/holdout-49884040501-0.jpg",
+        "ownNdc": "49884040501",
+        "labelNdc": "68382002401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-49884040501-1.jpg",
+        "ownNdc": "49884040501",
+        "labelNdc": "49884040501",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/holdout-49884040501-1.jpg",
+        "ownNdc": "49884040501",
+        "labelNdc": "68382002401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-57664050658-0.jpg",
+        "ownNdc": "57664050658",
+        "labelNdc": "57664050658",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-57664050658-0.jpg",
+        "ownNdc": "57664050658",
+        "labelNdc": "68382002401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-57664050658-1.jpg",
+        "ownNdc": "57664050658",
+        "labelNdc": "57664050658",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-57664050658-1.jpg",
+        "ownNdc": "57664050658",
+        "labelNdc": "68382002401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-57664043558-0.jpg",
+        "ownNdc": "57664043558",
+        "labelNdc": "57664043558",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-57664043558-0.jpg",
+        "ownNdc": "57664043558",
+        "labelNdc": "68382002401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-57664043558-1.jpg",
+        "ownNdc": "57664043558",
+        "labelNdc": "57664043558",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-57664043558-1.jpg",
+        "ownNdc": "57664043558",
+        "labelNdc": "68382002401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00143120201-0.jpg",
+        "ownNdc": "00143120201",
+        "labelNdc": "00143120201",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00143120201-0.jpg",
+        "ownNdc": "00143120201",
+        "labelNdc": "68382002401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00143120201-1.jpg",
+        "ownNdc": "00143120201",
+        "labelNdc": "00143120201",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00143120201-1.jpg",
+        "ownNdc": "00143120201",
+        "labelNdc": "68382002401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00093310905-0.jpg",
+        "ownNdc": "00093310905",
+        "labelNdc": "00093310905",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-00093310905-0.jpg",
+        "ownNdc": "00093310905",
+        "labelNdc": "59762141703",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-00093310905-1.jpg",
+        "ownNdc": "00093310905",
+        "labelNdc": "00093310905",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00093310905-1.jpg",
+        "ownNdc": "00093310905",
+        "labelNdc": "59762141703",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-59762141703-0.jpg",
+        "ownNdc": "59762141703",
+        "labelNdc": "59762141703",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-59762141703-0.jpg",
+        "ownNdc": "59762141703",
+        "labelNdc": "00093310905",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-59762141703-1.jpg",
+        "ownNdc": "59762141703",
+        "labelNdc": "59762141703",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-59762141703-1.jpg",
+        "ownNdc": "59762141703",
+        "labelNdc": "00093310905",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00074632013-0.jpg",
+        "ownNdc": "00074632013",
+        "labelNdc": "00074632013",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00074632013-0.jpg",
+        "ownNdc": "00074632013",
+        "labelNdc": "61442011201",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00074632013-1.jpg",
+        "ownNdc": "00074632013",
+        "labelNdc": "00074632013",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00074632013-1.jpg",
+        "ownNdc": "00074632013",
+        "labelNdc": "61442011201",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00006074554-0.jpg",
+        "ownNdc": "00006074554",
+        "labelNdc": "00006074554",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00006074554-0.jpg",
+        "ownNdc": "00006074554",
+        "labelNdc": "61442011201",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00006074554-1.jpg",
+        "ownNdc": "00006074554",
+        "labelNdc": "00006074554",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00006074554-1.jpg",
+        "ownNdc": "00006074554",
+        "labelNdc": "61442011201",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00591555601-0.jpg",
+        "ownNdc": "00591555601",
+        "labelNdc": "00591555601",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/holdout-00591555601-0.jpg",
+        "ownNdc": "00591555601",
+        "labelNdc": "00143177201",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-00591555601-1.jpg",
+        "ownNdc": "00591555601",
+        "labelNdc": "00591555601",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/holdout-00591555601-1.jpg",
+        "ownNdc": "00591555601",
+        "labelNdc": "00143177201",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-00143177201-0.jpg",
+        "ownNdc": "00143177201",
+        "labelNdc": "00143177201",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00143177201-0.jpg",
+        "ownNdc": "00143177201",
+        "labelNdc": "00591555601",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00143177201-1.jpg",
+        "ownNdc": "00143177201",
+        "labelNdc": "00143177201",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00143177201-1.jpg",
+        "ownNdc": "00143177201",
+        "labelNdc": "00591555601",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00007337161-0.jpg",
+        "ownNdc": "00007337161",
+        "labelNdc": "00007337161",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00007337161-0.jpg",
+        "ownNdc": "00007337161",
+        "labelNdc": "00591315301",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00007337161-1.jpg",
+        "ownNdc": "00007337161",
+        "labelNdc": "00007337161",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00007337161-1.jpg",
+        "ownNdc": "00007337161",
+        "labelNdc": "00591315301",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00591315301-0.jpg",
+        "ownNdc": "00591315301",
+        "labelNdc": "00591315301",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00591315301-0.jpg",
+        "ownNdc": "00591315301",
+        "labelNdc": "00007337161",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00591315301-1.jpg",
+        "ownNdc": "00591315301",
+        "labelNdc": "00591315301",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00591315301-1.jpg",
+        "ownNdc": "00591315301",
+        "labelNdc": "00007337161",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-68462022401-0.jpg",
+        "ownNdc": "68462022401",
+        "labelNdc": "68462022401",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-68462022401-0.jpg",
+        "ownNdc": "68462022401",
+        "labelNdc": "00143126310",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-68462022401-1.jpg",
+        "ownNdc": "68462022401",
+        "labelNdc": "68462022401",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-68462022401-1.jpg",
+        "ownNdc": "68462022401",
+        "labelNdc": "00143126310",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00143126310-0.jpg",
+        "ownNdc": "00143126310",
+        "labelNdc": "00143126310",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00143126310-0.jpg",
+        "ownNdc": "00143126310",
+        "labelNdc": "68462022401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00143126310-1.jpg",
+        "ownNdc": "00143126310",
+        "labelNdc": "00143126310",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00143126310-1.jpg",
+        "ownNdc": "00143126310",
+        "labelNdc": "68462022401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-59762024504-0.jpg",
+        "ownNdc": "59762024504",
+        "labelNdc": "59762024504",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-59762024504-0.jpg",
+        "ownNdc": "59762024504",
+        "labelNdc": "68382002401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-59762024504-1.jpg",
+        "ownNdc": "59762024504",
+        "labelNdc": "59762024504",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-59762024504-1.jpg",
+        "ownNdc": "59762024504",
+        "labelNdc": "68382002401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00555077902-0.jpg",
+        "ownNdc": "00555077902",
+        "labelNdc": "00555077902",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00555077902-0.jpg",
+        "ownNdc": "00555077902",
+        "labelNdc": "68382002401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00555077902-1.jpg",
+        "ownNdc": "00555077902",
+        "labelNdc": "00555077902",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00555077902-1.jpg",
+        "ownNdc": "00555077902",
+        "labelNdc": "68382002401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00071101768-0.jpg",
+        "ownNdc": "00071101768",
+        "labelNdc": "00071101768",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-00071101768-0.jpg",
+        "ownNdc": "00071101768",
+        "labelNdc": "00093550456",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-00071101768-1.jpg",
+        "ownNdc": "00071101768",
+        "labelNdc": "00071101768",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-00071101768-1.jpg",
+        "ownNdc": "00071101768",
+        "labelNdc": "00093550456",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-00093550456-0.jpg",
+        "ownNdc": "00093550456",
+        "labelNdc": "00093550456",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00093550456-0.jpg",
+        "ownNdc": "00093550456",
+        "labelNdc": "00071101768",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00093550456-1.jpg",
+        "ownNdc": "00093550456",
+        "labelNdc": "00093550456",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00093550456-1.jpg",
+        "ownNdc": "00093550456",
+        "labelNdc": "00071101768",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00228249710-0.jpg",
+        "ownNdc": "00228249710",
+        "labelNdc": "00228249710",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/holdout-00228249710-0.jpg",
+        "ownNdc": "00228249710",
+        "labelNdc": "59762141603",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-00228249710-1.jpg",
+        "ownNdc": "00228249710",
+        "labelNdc": "00228249710",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/holdout-00228249710-1.jpg",
+        "ownNdc": "00228249710",
+        "labelNdc": "59762141603",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-00781205205-0.jpg",
+        "ownNdc": "00781205205",
+        "labelNdc": "00781205205",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00781205205-0.jpg",
+        "ownNdc": "00781205205",
+        "labelNdc": "59762141603",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00781205205-1.jpg",
+        "ownNdc": "00781205205",
+        "labelNdc": "00781205205",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00781205205-1.jpg",
+        "ownNdc": "00781205205",
+        "labelNdc": "59762141603",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-53746007701-0.jpg",
+        "ownNdc": "53746007701",
+        "labelNdc": "53746007701",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-53746007701-0.jpg",
+        "ownNdc": "53746007701",
+        "labelNdc": "00093767001",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-53746007701-1.jpg",
+        "ownNdc": "53746007701",
+        "labelNdc": "53746007701",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-53746007701-1.jpg",
+        "ownNdc": "53746007701",
+        "labelNdc": "00093767001",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00093767001-0.jpg",
+        "ownNdc": "00093767001",
+        "labelNdc": "00093767001",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00093767001-0.jpg",
+        "ownNdc": "00093767001",
+        "labelNdc": "53746007701",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00093767001-1.jpg",
+        "ownNdc": "00093767001",
+        "labelNdc": "00093767001",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00093767001-1.jpg",
+        "ownNdc": "00093767001",
+        "labelNdc": "53746007701",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-59762502101-0.jpg",
+        "ownNdc": "59762502101",
+        "labelNdc": "59762502101",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/holdout-59762502101-0.jpg",
+        "ownNdc": "59762502101",
+        "labelNdc": "68180031301",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-59762502101-1.jpg",
+        "ownNdc": "59762502101",
+        "labelNdc": "59762502101",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/holdout-59762502101-1.jpg",
+        "ownNdc": "59762502101",
+        "labelNdc": "68180031301",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-68180031301-0.jpg",
+        "ownNdc": "68180031301",
+        "labelNdc": "68180031301",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-68180031301-0.jpg",
+        "ownNdc": "68180031301",
+        "labelNdc": "59762502101",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-68180031301-1.jpg",
+        "ownNdc": "68180031301",
+        "labelNdc": "68180031301",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-68180031301-1.jpg",
+        "ownNdc": "68180031301",
+        "labelNdc": "59762502101",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00603243321-0.jpg",
+        "ownNdc": "00603243321",
+        "labelNdc": "00603243321",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00603243321-0.jpg",
+        "ownNdc": "00603243321",
+        "labelNdc": "68382002401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00603243321-1.jpg",
+        "ownNdc": "00603243321",
+        "labelNdc": "00603243321",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00603243321-1.jpg",
+        "ownNdc": "00603243321",
+        "labelNdc": "68382002401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00228280311-0.jpg",
+        "ownNdc": "00228280311",
+        "labelNdc": "00228280311",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00228280311-0.jpg",
+        "ownNdc": "00228280311",
+        "labelNdc": "68382002401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00228280311-1.jpg",
+        "ownNdc": "00228280311",
+        "labelNdc": "00228280311",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00228280311-1.jpg",
+        "ownNdc": "00228280311",
+        "labelNdc": "68382002401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-64980014206-0.jpg",
+        "ownNdc": "64980014206",
+        "labelNdc": "64980014206",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/holdout-64980014206-0.jpg",
+        "ownNdc": "64980014206",
+        "labelNdc": "51079014720",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-64980014206-1.jpg",
+        "ownNdc": "64980014206",
+        "labelNdc": "64980014206",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/holdout-64980014206-1.jpg",
+        "ownNdc": "64980014206",
+        "labelNdc": "51079014720",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-51079014720-0.jpg",
+        "ownNdc": "51079014720",
+        "labelNdc": "51079014720",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-51079014720-0.jpg",
+        "ownNdc": "51079014720",
+        "labelNdc": "64980014206",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-51079014720-1.jpg",
+        "ownNdc": "51079014720",
+        "labelNdc": "51079014720",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-51079014720-1.jpg",
+        "ownNdc": "51079014720",
+        "labelNdc": "64980014206",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00228255006-0.jpg",
+        "ownNdc": "00228255006",
+        "labelNdc": "00228255006",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00228255006-0.jpg",
+        "ownNdc": "00228255006",
+        "labelNdc": "68382002401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00228255006-1.jpg",
+        "ownNdc": "00228255006",
+        "labelNdc": "00228255006",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00228255006-1.jpg",
+        "ownNdc": "00228255006",
+        "labelNdc": "68382002401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00093729401-0.jpg",
+        "ownNdc": "00093729401",
+        "labelNdc": "00093729401",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/holdout-00093729401-0.jpg",
+        "ownNdc": "00093729401",
+        "labelNdc": "68382002401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-00093729401-1.jpg",
+        "ownNdc": "00093729401",
+        "labelNdc": "00093729401",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/holdout-00093729401-1.jpg",
+        "ownNdc": "00093729401",
+        "labelNdc": "68382002401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-00378425001-0.jpg",
+        "ownNdc": "00378425001",
+        "labelNdc": "00378425001",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-00378425001-0.jpg",
+        "ownNdc": "00378425001",
+        "labelNdc": "00591401201",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-00378425001-1.jpg",
+        "ownNdc": "00378425001",
+        "labelNdc": "00378425001",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-00378425001-1.jpg",
+        "ownNdc": "00378425001",
+        "labelNdc": "00591401201",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-00591401201-0.jpg",
+        "ownNdc": "00591401201",
+        "labelNdc": "00591401201",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00591401201-0.jpg",
+        "ownNdc": "00591401201",
+        "labelNdc": "00378425001",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00591401201-1.jpg",
+        "ownNdc": "00591401201",
+        "labelNdc": "00591401201",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00591401201-1.jpg",
+        "ownNdc": "00591401201",
+        "labelNdc": "00378425001",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-68462013701-0.jpg",
+        "ownNdc": "68462013701",
+        "labelNdc": "68462013701",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-68462013701-0.jpg",
+        "ownNdc": "68462013701",
+        "labelNdc": "00093001298",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-68462013701-1.jpg",
+        "ownNdc": "68462013701",
+        "labelNdc": "68462013701",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-68462013701-1.jpg",
+        "ownNdc": "68462013701",
+        "labelNdc": "00093001298",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00074780413-0.jpg",
+        "ownNdc": "00074780413",
+        "labelNdc": "00074780413",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00074780413-0.jpg",
+        "ownNdc": "00074780413",
+        "labelNdc": "00093001298",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00074780413-1.jpg",
+        "ownNdc": "00074780413",
+        "labelNdc": "00074780413",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00074780413-1.jpg",
+        "ownNdc": "00074780413",
+        "labelNdc": "00093001298",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00143126801-0.jpg",
+        "ownNdc": "00143126801",
+        "labelNdc": "00143126801",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00143126801-0.jpg",
+        "ownNdc": "00143126801",
+        "labelNdc": "00093715598",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00143126801-1.jpg",
+        "ownNdc": "00143126801",
+        "labelNdc": "00143126801",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00143126801-1.jpg",
+        "ownNdc": "00143126801",
+        "labelNdc": "00093715598",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00093715598-0.jpg",
+        "ownNdc": "00093715598",
+        "labelNdc": "00093715598",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00093715598-0.jpg",
+        "ownNdc": "00093715598",
+        "labelNdc": "00143126801",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00093715598-1.jpg",
+        "ownNdc": "00093715598",
+        "labelNdc": "00093715598",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00093715598-1.jpg",
+        "ownNdc": "00093715598",
+        "labelNdc": "00143126801",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00591377719-0.jpg",
+        "ownNdc": "00591377719",
+        "labelNdc": "00591377719",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/holdout-00591377719-0.jpg",
+        "ownNdc": "00591377719",
+        "labelNdc": "61442011201",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-00591377719-1.jpg",
+        "ownNdc": "00591377719",
+        "labelNdc": "00591377719",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/holdout-00591377719-1.jpg",
+        "ownNdc": "00591377719",
+        "labelNdc": "61442011201",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-50419011506-0.jpg",
+        "ownNdc": "50419011506",
+        "labelNdc": "50419011506",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-50419011506-0.jpg",
+        "ownNdc": "50419011506",
+        "labelNdc": "61442011201",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-50419011506-1.jpg",
+        "ownNdc": "50419011506",
+        "labelNdc": "50419011506",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-50419011506-1.jpg",
+        "ownNdc": "50419011506",
+        "labelNdc": "61442011201",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-68180011416-0.jpg",
+        "ownNdc": "68180011416",
+        "labelNdc": "68180011416",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/holdout-68180011416-0.jpg",
+        "ownNdc": "68180011416",
+        "labelNdc": "00093711306",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-68180011416-1.jpg",
+        "ownNdc": "68180011416",
+        "labelNdc": "68180011416",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/holdout-68180011416-1.jpg",
+        "ownNdc": "68180011416",
+        "labelNdc": "00093711306",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-00093711306-0.jpg",
+        "ownNdc": "00093711306",
+        "labelNdc": "00093711306",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00093711306-0.jpg",
+        "ownNdc": "00093711306",
+        "labelNdc": "68180011416",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00093711306-1.jpg",
+        "ownNdc": "00093711306",
+        "labelNdc": "00093711306",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00093711306-1.jpg",
+        "ownNdc": "00093711306",
+        "labelNdc": "68180011416",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00781196260-0.jpg",
+        "ownNdc": "00781196260",
+        "labelNdc": "00781196260",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00781196260-0.jpg",
+        "ownNdc": "00781196260",
+        "labelNdc": "61442011201",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00781196260-1.jpg",
+        "ownNdc": "00781196260",
+        "labelNdc": "00781196260",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00781196260-1.jpg",
+        "ownNdc": "00781196260",
+        "labelNdc": "61442011201",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-49884073411-0.jpg",
+        "ownNdc": "49884073411",
+        "labelNdc": "49884073411",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-49884073411-0.jpg",
+        "ownNdc": "49884073411",
+        "labelNdc": "61442011201",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-49884073411-1.jpg",
+        "ownNdc": "49884073411",
+        "labelNdc": "49884073411",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-49884073411-1.jpg",
+        "ownNdc": "49884073411",
+        "labelNdc": "61442011201",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-53489059101-0.jpg",
+        "ownNdc": "53489059101",
+        "labelNdc": "53489059101",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-53489059101-0.jpg",
+        "ownNdc": "53489059101",
+        "labelNdc": "68382002401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-53489059101-1.jpg",
+        "ownNdc": "53489059101",
+        "labelNdc": "53489059101",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-53489059101-1.jpg",
+        "ownNdc": "53489059101",
+        "labelNdc": "68382002401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-23155004610-0.jpg",
+        "ownNdc": "23155004610",
+        "labelNdc": "23155004610",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-23155004610-0.jpg",
+        "ownNdc": "23155004610",
+        "labelNdc": "68382002401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-23155004610-1.jpg",
+        "ownNdc": "23155004610",
+        "labelNdc": "23155004610",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-23155004610-1.jpg",
+        "ownNdc": "23155004610",
+        "labelNdc": "68382002401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-63304062310-0.jpg",
+        "ownNdc": "63304062310",
+        "labelNdc": "63304062310",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-63304062310-0.jpg",
+        "ownNdc": "63304062310",
+        "labelNdc": "00143120201",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-63304062310-1.jpg",
+        "ownNdc": "63304062310",
+        "labelNdc": "63304062310",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-63304062310-1.jpg",
+        "ownNdc": "63304062310",
+        "labelNdc": "00143120201",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00591046105-0.jpg",
+        "ownNdc": "00591046105",
+        "labelNdc": "00591046105",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00591046105-0.jpg",
+        "ownNdc": "00591046105",
+        "labelNdc": "68382002401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00591046105-1.jpg",
+        "ownNdc": "00591046105",
+        "labelNdc": "00591046105",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00591046105-1.jpg",
+        "ownNdc": "00591046105",
+        "labelNdc": "68382002401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00781168301-0.jpg",
+        "ownNdc": "00781168301",
+        "labelNdc": "00781168301",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00781168301-0.jpg",
+        "ownNdc": "00781168301",
+        "labelNdc": "68382002401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00781168301-1.jpg",
+        "ownNdc": "00781168301",
+        "labelNdc": "00781168301",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00781168301-1.jpg",
+        "ownNdc": "00781168301",
+        "labelNdc": "68382002401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00115104101-0.jpg",
+        "ownNdc": "00115104101",
+        "labelNdc": "00115104101",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00115104101-0.jpg",
+        "ownNdc": "00115104101",
+        "labelNdc": "68382002401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00115104101-1.jpg",
+        "ownNdc": "00115104101",
+        "labelNdc": "00115104101",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00115104101-1.jpg",
+        "ownNdc": "00115104101",
+        "labelNdc": "68382002401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00093405953-0.jpg",
+        "ownNdc": "00093405953",
+        "labelNdc": "00093405953",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00093405953-0.jpg",
+        "ownNdc": "00093405953",
+        "labelNdc": "61442011201",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00093405953-1.jpg",
+        "ownNdc": "00093405953",
+        "labelNdc": "00093405953",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00093405953-1.jpg",
+        "ownNdc": "00093405953",
+        "labelNdc": "61442011201",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00093474201-0.jpg",
+        "ownNdc": "00093474201",
+        "labelNdc": "00093474201",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-00093474201-0.jpg",
+        "ownNdc": "00093474201",
+        "labelNdc": "61442011201",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-00093474201-1.jpg",
+        "ownNdc": "00093474201",
+        "labelNdc": "00093474201",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-00093474201-1.jpg",
+        "ownNdc": "00093474201",
+        "labelNdc": "61442011201",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-00185440023-0.jpg",
+        "ownNdc": "00185440023",
+        "labelNdc": "00185440023",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00185440023-0.jpg",
+        "ownNdc": "00185440023",
+        "labelNdc": "68382002401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00185440023-1.jpg",
+        "ownNdc": "00185440023",
+        "labelNdc": "00185440023",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00185440023-1.jpg",
+        "ownNdc": "00185440023",
+        "labelNdc": "68382002401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00536454410-0.jpg",
+        "ownNdc": "00536454410",
+        "labelNdc": "00536454410",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00536454410-0.jpg",
+        "ownNdc": "00536454410",
+        "labelNdc": "68382002401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00536454410-1.jpg",
+        "ownNdc": "00536454410",
+        "labelNdc": "00536454410",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00536454410-1.jpg",
+        "ownNdc": "00536454410",
+        "labelNdc": "68382002401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00378042401-0.jpg",
+        "ownNdc": "00378042401",
+        "labelNdc": "00378042401",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00378042401-0.jpg",
+        "ownNdc": "00378042401",
+        "labelNdc": "00093310905",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00378042401-1.jpg",
+        "ownNdc": "00378042401",
+        "labelNdc": "00378042401",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00378042401-1.jpg",
+        "ownNdc": "00378042401",
+        "labelNdc": "00093310905",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-59148000813-0.jpg",
+        "ownNdc": "59148000813",
+        "labelNdc": "59148000813",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-59148000813-0.jpg",
+        "ownNdc": "59148000813",
+        "labelNdc": "00093310905",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-59148000813-1.jpg",
+        "ownNdc": "59148000813",
+        "labelNdc": "59148000813",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-59148000813-1.jpg",
+        "ownNdc": "59148000813",
+        "labelNdc": "00093310905",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00173063310-0.jpg",
+        "ownNdc": "00173063310",
+        "labelNdc": "00173063310",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00173063310-0.jpg",
+        "ownNdc": "00173063310",
+        "labelNdc": "00093310905",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00173063310-1.jpg",
+        "ownNdc": "00173063310",
+        "labelNdc": "00173063310",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00173063310-1.jpg",
+        "ownNdc": "00173063310",
+        "labelNdc": "00093310905",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-13668001101-0.jpg",
+        "ownNdc": "13668001101",
+        "labelNdc": "13668001101",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-13668001101-0.jpg",
+        "ownNdc": "13668001101",
+        "labelNdc": "00093310905",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-13668001101-1.jpg",
+        "ownNdc": "13668001101",
+        "labelNdc": "13668001101",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-13668001101-1.jpg",
+        "ownNdc": "13668001101",
+        "labelNdc": "00093310905",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-68382026101-0.jpg",
+        "ownNdc": "68382026101",
+        "labelNdc": "68382026101",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/holdout-68382026101-0.jpg",
+        "ownNdc": "68382026101",
+        "labelNdc": "00093310905",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-68382026101-1.jpg",
+        "ownNdc": "68382026101",
+        "labelNdc": "68382026101",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "MATCH"
+      },
+      {
+        "image": "research/data/holdout-68382026101-1.jpg",
+        "ownNdc": "68382026101",
+        "labelNdc": "00093310905",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-00603509121-0.jpg",
+        "ownNdc": "00603509121",
+        "labelNdc": "00603509121",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00603509121-0.jpg",
+        "ownNdc": "00603509121",
+        "labelNdc": "00093310905",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00603509121-1.jpg",
+        "ownNdc": "00603509121",
+        "labelNdc": "00603509121",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00603509121-1.jpg",
+        "ownNdc": "00603509121",
+        "labelNdc": "00093310905",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-60505018500-0.jpg",
+        "ownNdc": "60505018500",
+        "labelNdc": "60505018500",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-60505018500-0.jpg",
+        "ownNdc": "60505018500",
+        "labelNdc": "00093310905",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-60505018500-1.jpg",
+        "ownNdc": "60505018500",
+        "labelNdc": "60505018500",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-60505018500-1.jpg",
+        "ownNdc": "60505018500",
+        "labelNdc": "00093310905",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-68180051303-0.jpg",
+        "ownNdc": "68180051303",
+        "labelNdc": "68180051303",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-68180051303-0.jpg",
+        "ownNdc": "68180051303",
+        "labelNdc": "23155012401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-68180051303-1.jpg",
+        "ownNdc": "68180051303",
+        "labelNdc": "68180051303",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-68180051303-1.jpg",
+        "ownNdc": "68180051303",
+        "labelNdc": "23155012401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-67253018110-0.jpg",
+        "ownNdc": "67253018110",
+        "labelNdc": "67253018110",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-67253018110-0.jpg",
+        "ownNdc": "67253018110",
+        "labelNdc": "00093310905",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-67253018110-1.jpg",
+        "ownNdc": "67253018110",
+        "labelNdc": "67253018110",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-67253018110-1.jpg",
+        "ownNdc": "67253018110",
+        "labelNdc": "00093310905",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "MISMATCH"
+      },
+      {
+        "image": "research/data/holdout-00093046301-0.jpg",
+        "ownNdc": "00093046301",
+        "labelNdc": "00093046301",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00093046301-0.jpg",
+        "ownNdc": "00093046301",
+        "labelNdc": "00093310905",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00093046301-1.jpg",
+        "ownNdc": "00093046301",
+        "labelNdc": "00093046301",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00093046301-1.jpg",
+        "ownNdc": "00093046301",
+        "labelNdc": "00093310905",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-55111017290-0.jpg",
+        "ownNdc": "55111017290",
+        "labelNdc": "55111017290",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-55111017290-0.jpg",
+        "ownNdc": "55111017290",
+        "labelNdc": "00093310905",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-55111017290-1.jpg",
+        "ownNdc": "55111017290",
+        "labelNdc": "55111017290",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-55111017290-1.jpg",
+        "ownNdc": "55111017290",
+        "labelNdc": "00093310905",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-62037064030-0.jpg",
+        "ownNdc": "62037064030",
+        "labelNdc": "62037064030",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-62037064030-0.jpg",
+        "ownNdc": "62037064030",
+        "labelNdc": "00093310905",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-62037064030-1.jpg",
+        "ownNdc": "62037064030",
+        "labelNdc": "62037064030",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-62037064030-1.jpg",
+        "ownNdc": "62037064030",
+        "labelNdc": "00093310905",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00378110101-0.jpg",
+        "ownNdc": "00378110101",
+        "labelNdc": "00378110101",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00378110101-0.jpg",
+        "ownNdc": "00378110101",
+        "labelNdc": "00093310905",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00378110101-1.jpg",
+        "ownNdc": "00378110101",
+        "labelNdc": "00378110101",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00378110101-1.jpg",
+        "ownNdc": "00378110101",
+        "labelNdc": "00093310905",
+        "wrong": true,
+        "difficulty": "easy",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00591079605-0.jpg",
+        "ownNdc": "00591079605",
+        "labelNdc": "00591079605",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00591079605-0.jpg",
+        "ownNdc": "00591079605",
+        "labelNdc": "68462022401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00591079605-1.jpg",
+        "ownNdc": "00591079605",
+        "labelNdc": "00591079605",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-00591079605-1.jpg",
+        "ownNdc": "00591079605",
+        "labelNdc": "68462022401",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-59762141603-0.jpg",
+        "ownNdc": "59762141603",
+        "labelNdc": "59762141603",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-59762141603-0.jpg",
+        "ownNdc": "59762141603",
+        "labelNdc": "00228249710",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-59762141603-1.jpg",
+        "ownNdc": "59762141603",
+        "labelNdc": "59762141603",
+        "wrong": false,
+        "difficulty": "right",
+        "verdict": "UNSURE"
+      },
+      {
+        "image": "research/data/holdout-59762141603-1.jpg",
+        "ownNdc": "59762141603",
+        "labelNdc": "00228249710",
+        "wrong": true,
+        "difficulty": "hard",
+        "verdict": "UNSURE"
+      }
+    ]
+  }
+}

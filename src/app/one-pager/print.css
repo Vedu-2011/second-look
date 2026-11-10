@@ -1,0 +1,57 @@
+.one-pager-tools { max-width: 7.5in; margin: 24px auto; padding: 0 16px; font-size: 18px; }
+.one-pager-tools a { display: inline-flex; align-items: center; min-height: 48px; font-weight: 700; text-decoration: underline; text-underline-offset: 4px; }
+.one-pager { box-sizing: border-box; width: 7.5in; margin: 24px auto; padding: .32in; color: var(--ink); background: var(--label); font: 11pt/1.28 var(--font-atkinson), sans-serif; box-shadow: var(--shadow-lift); }
+.one-pager h1 { font-size: 31pt; line-height: 1; font-weight: 800; letter-spacing: -.025em; }
+.one-pager h2 { font-size: 13.5pt; line-height: 1.15; font-weight: 750; margin-bottom: 5px; }
+.one-pager section { margin-top: 15px; }
+.sheet-heading { display: flex; align-items: center; gap: 14px; }
+.sheet-heading > svg { width: 40px; height: 46px; }
+.sheet-heading p { margin-top: 5px; font-weight: 650; font-size: 12pt; }
+.sheet-pitch { margin-top: 16px; font-size: 13pt; line-height: 1.25; }
+.sheet-problem { background: var(--foil); padding: 12px 14px; border-radius: 12px; }
+.sheet-how ol { display: flex; justify-content: space-between; gap: 5px; margin: 9px 0; padding: 0; list-style: none; }
+.sheet-how li { display: flex; align-items: center; gap: 8px; font-size: 10.5pt; font-weight: 700; }
+.sheet-how li span { background: var(--foil); padding: 7px 9px; border-radius: 8px; white-space: nowrap; }
+.sheet-how li b { color: var(--amber-deep); }
+.sheet-images { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.sheet-images figure { min-width: 0; }
+.sheet-images img { width: 100%; height: 112px; object-fit: contain; background: var(--foil); border-radius: 12px; }
+.sheet-images figcaption { font-size: 9pt; margin-top: 4px; color: var(--ink-soft); }
+.sheet-research { background: var(--foil); border-radius: 12px; padding: 12px 14px; }
+.sheet-research p + p { margin-top: 7px; }
+.one-pager a { text-decoration: underline; text-underline-offset: 2px; }
+.sheet-bottom { display: flex; align-items: center; gap: 18px; margin-top: 13px; }
+.sheet-bottom > div { flex: 1; }
+.sheet-safety { font-weight: 700; font-size: 10pt; }
+.sheet-links { margin-top: 8px; font-size: 10pt; }
+.sheet-bottom figure { text-align: center; flex-shrink: 0; font-size: 9pt; }
+.sheet-citations { margin-top: 10px; font-size: 8pt; line-height: 1.25; color: var(--ink-soft); }
+.social-export { display: none; width: 1200px; height: 630px; padding: 65px; background: var(--label); color: var(--ink); gap: 35px; align-items: center; }
+.social-copy { flex: 1; }
+.social-brand { display: flex; align-items: center; gap: 14px; font-size: 32px; font-weight: 700; }
+.social-brand svg { width: 35px; height: 40px; }
+.social-copy p { margin: 30px 0 24px; font-size: 80px; font-weight: 800; letter-spacing: -3px; line-height: 1; }
+.social-copy > span { font-size: 27px; }
+.social-copy small { display: block; margin-top: 32px; font-size: 23px; color: var(--ink-soft); }
+.social-pill { display: flex; flex-direction: column; gap: 30px; align-items: center; justify-content: center; background: var(--foil); width: 400px; height: 390px; border-radius: 32px; }
+.social-pill > span { font-size: 23px; color: var(--ink-soft); }
+@media screen and (max-width: 750px) {
+ .one-pager { width: auto; margin: 16px; padding: 20px; font-size: 18px; }
+ .one-pager h2 { font-size: 22px; }
+ .one-pager section { margin-top: 24px; }
+ .sheet-how ol { flex-direction: column; gap: 8px; }
+ .sheet-how li { font-size: 18px; }
+ .sheet-how li b { transform: rotate(90deg); }
+ .sheet-images { grid-template-columns: 1fr; }
+ .sheet-images img { height: 150px; }
+ .sheet-bottom { flex-direction: column; align-items: flex-start; }
+ .sheet-citations { font-size: 14px; }
+}
+@page { size: letter; margin: .5in; }
+@media print {
+ html, body { height: auto !important; min-height: 0 !important; background: var(--label) !important; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+ body > header, body > footer, body > a, .one-pager-tools, .social-export { display: none !important; }
+ main { flex: none !important; }
+ .one-pager { width: 7.5in; margin: 0; padding: 0; box-shadow: none; break-inside: avoid; }
+ .one-pager section { break-inside: avoid; }
+}

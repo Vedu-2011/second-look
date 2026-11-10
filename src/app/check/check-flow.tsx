@@ -505,6 +505,7 @@ function Capture({
       )}
       <input
         ref={cameraRef}
+        aria-label={kind === "label" ? "Take label photo" : "Take pill photo"}
         type="file"
         accept="image/*"
         capture="environment"
@@ -515,6 +516,7 @@ function Capture({
       />
       <input
         ref={uploadRef}
+        aria-label={kind === "label" ? "Upload label photo" : "Upload pill photo"}
         type="file"
         accept="image/*"
         className="sr-only"

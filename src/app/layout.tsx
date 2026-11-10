@@ -18,12 +18,15 @@ const atkinsonMono = Atkinson_Hyperlegible_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://getsecondlook.vercel.app"),
   title: {
     default: "Second Look — is this the right pill?",
     template: "%s · Second Look",
   },
   description:
     "Take a photo of your pharmacy label and one pill. Second Look checks the pill against the FDA record for your medicine.",
+  openGraph: { title: "Second Look: is this the right pill?", description: "AI reads the photos. Code compares the pill with real FDA records.", type: "website", images: [{url:"/social-card.png", width:1200, height:630, alt:"Is this the right pill? An FDA-record pill drawing beside Second Look’s amber bottle mark."}] },
+  twitter: { card:"summary_large_image", title:"Second Look: is this the right pill?", description:"AI reads. FDA records. Code decides.", images:["/social-card.png"] },
 };
 
 export const viewport: Viewport = {

@@ -7,7 +7,9 @@ import {
 } from "@/lib/research-holdout-results";
 import { HoldoutCharts } from "@/components/holdout-charts";
 import { percent } from "@/lib/research";
-export const metadata: Metadata = { title: "Research: a fresh NIH photo test" };
+import postHoldout from "../../../research/out/post-fix-holdout.json";
+import postDevelopment from "../../../research/out/post-fix-development.json";
+export const metadata: Metadata = { title: "Research: the frozen NIH photo test", description: "Every outcome from 150 NIH photos: correct answers, mistakes and uncertainty, with a separate post-hoc safety-fix audit." };
 const github = "https://github.com/Vedu-2011/second-look/blob/main/research/";
 function Outcomes({
   metrics,
@@ -83,13 +85,18 @@ export default function ResearchPage() {
   return (
     <div className="mx-auto max-w-5xl px-5 pt-10 sm:px-8 sm:pt-14">
       <h1 className="max-w-3xl text-4xl font-bold tracking-tight">
-        A fresh test, with every outcome counted
+        A frozen test, with every outcome counted
       </h1>
       <p className="mt-5 max-w-3xl text-xl font-semibold">
         {h
           ? holdoutHeadline(h)
           : "The new holdout test is not published yet. The development results below are not a fresh test."}
       </p>
+      <ol className="mt-7 max-w-3xl list-decimal space-y-4 pl-7 text-lg marker:font-bold">
+        <li>Direct AI also said “can’t tell” on 206/300 pairs (68.6%, about 69%). These 2016-era single-view photos were hard for both systems in this test.</li>
+        <li>When Second Look answered, it was right 83/88 times, versus 83/94 for direct AI. It made 4 false alarms versus 9, and passed 1 wrong pill versus 2. Most pairs still went unanswered.</li>
+        <li>The fresh test found a real safety bug: a single “5” looked like one side of “598;S”. We fixed it. The frozen results above stay unchanged; the separate before/after audit below is post-hoc.</li>
+      </ol>
       <p className="mt-4 max-w-3xl text-lg text-ink-soft">
         A wrong pill called fine matters. So does how often we cannot tell. We
         show both, along with false alarms and correct answers. These are
@@ -113,7 +120,7 @@ export default function ResearchPage() {
       {h && (
         <section className="mt-10">
           <h2 className="text-2xl font-bold">
-            Holdout: products never used for tuning
+            Frozen holdout: before either fix
           </h2>
           <p className="mt-3 max-w-3xl text-lg">
             {h.images} photos of {h.products} new products; {h.pairs} balanced
@@ -134,6 +141,14 @@ export default function ResearchPage() {
           </p>
         </section>
       )}
+      <section className="mt-12" id="post-hoc">
+        <h2 className="max-w-3xl text-2xl font-bold">After two fixes (post-hoc — this holdout is no longer untouched)</h2>
+        <p className="mt-4 max-w-3xl text-lg">We blocked folded short or partial imprint passes and let close colors agree across two photos. All readings, photos and pairs are unchanged. This rescore made zero model calls ($0). These photos informed a fix, so the numbers below are not fresh evidence of accuracy or safety.</p>
+        <p className="mt-4 max-w-3xl text-lg">On the same holdout, one view goes from 1 to 0 wrong passes, 83/88 to 83/87 correct answered, and 212 to 213 uncertain pairs. Two views go from 4 to 7 false alarms and 50 to 64 answered pairs. Higher coverage came with more false alarms; zero observed wrong passes is not proof of safety.</p>
+        <Outcomes metrics={postHoldout.metrics} caption="Post-hoc holdout rescore, same 300 pairs" />
+        <Outcomes metrics={postDevelopment.metrics} caption="Post-hoc development rescore, same 400 pairs" />
+        <p className="mt-4 text-base"><a className="underline underline-offset-4" href={github + "out/post-fix-holdout.json"}>Audit the post-hoc holdout</a>{" · "}<a className="underline underline-offset-4" href={github + "out/post-fix-development.json"}>Audit the post-hoc development set</a></p>
+      </section>
       <section className="mt-12 max-w-3xl">
         <h2 className="text-2xl font-bold">What changed before this test</h2>
         <p className="mt-4 text-lg">

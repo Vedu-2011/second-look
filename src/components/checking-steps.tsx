@@ -22,7 +22,7 @@ export function CheckingSteps({
   className?: string;
 }) {
   return (
-    <ol className={cn("flex flex-col gap-1", className)} aria-live="polite">
+    <ol className={cn("flex flex-col gap-1", className)} aria-label="Check progress" aria-live="polite" aria-atomic="true">
       {labels.map((label, i) => {
         const state = states[i] ?? "waiting";
         return (
