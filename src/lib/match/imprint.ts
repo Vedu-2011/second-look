@@ -115,7 +115,8 @@ export function compareImprint(
     // Phase 6 explicitly retains the complete I2/12 legacy case. It is NOT
     // permission to fold a short side of a longer imprint (e.g. 598;S vs 5).
     const fullI2 = !partial && [fda.join(""), pill.join("")].sort().join("|") === "12|I2";
-    const shortFold = [...fda, ...pill].some((t) => t.length <= 2 && fda.includes(t) !== pill.includes(t));
+    const shortTokens = (tokens: string[]) => tokens.filter((t) => t.length <= 2).sort().join(";");
+    const shortFold = shortTokens(fda) !== shortTokens(pill);
     if (partial || (!fullI2 && shortFold)) return { result: "close", partial, requiresExact: true };
     return { result: "close", partial };
   }

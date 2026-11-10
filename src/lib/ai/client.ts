@@ -33,6 +33,20 @@ export function setAiUsageObserver(observer?: UsageObserver) {
   usageObserver = observer;
 }
 
+function recordUsage(model: string, usage: Anthropic.Message["usage"]) {
+  usageObserver?.(model, usage.input_tokens, usage.output_tokens);
+  // Model and token counts only; never log transcriptions, prompts or images.
+  if (process.env.VERCEL_ENV === "production") {
+    console.info("second-look.ai.usage", JSON.stringify({
+      model,
+      inputTokens: usage.input_tokens,
+      outputTokens: usage.output_tokens,
+      cacheReadTokens: usage.cache_read_input_tokens ?? 0,
+      cacheWriteTokens: usage.cache_creation_input_tokens ?? 0,
+    }));
+  }
+}
+
 export async function toolRead<T>({
   image,
   system,
@@ -64,7 +78,7 @@ export async function toolRead<T>({
           ],
         }],
       });
-      usageObserver?.(model, response.usage.input_tokens, response.usage.output_tokens);
+      recordUsage(model, response.usage);
       const block = response.content.find((item) => item.type === "tool_use");
       if (!block || block.type !== "tool_use") throw new Error("Claude did not return the reading tool.");
       return validate(block.input);
@@ -83,6 +97,6 @@ export async function explainWithFacts(facts: Record<string, unknown>) {
     system: "You write a short, calm explanation for a pharmacy double-check. Use only the supplied facts. Never give dosing advice or medical advice. Never introduce a drug, strength, imprint, NDC, or number absent from facts.",
     messages: [{ role: "user", content: `Return JSON with summary and pharmacyScript. Facts JSON:\n${JSON.stringify(facts)}` }],
   });
-  usageObserver?.(textModel(), response.usage.input_tokens, response.usage.output_tokens);
+  recordUsage(textModel(), response.usage);
   return response.content.filter((item) => item.type === "text").map((item) => item.text).join("\n");
 }

@@ -16,9 +16,10 @@ describe("phase 6 imprint specificity", () => {
     expect(first.imprintSides).toEqual(["5"]);
     const r = decide({ndc: "23155012401"}, first, {labelProduct: expected.product, sameDrugProducts: expected.products});
     expect(r.verdict).toBe("UNSURE");
+    expect(r.features.find(f => f.name === "Imprint")?.result).toBe("unsure");
     expect(r.reasons.join(" ")).toContain("exact imprint");
   });
-  it.each([["598;S", "5"], ["S", "5"], ["I", "1"], ["S5", "55"], ["L484;200", "1484"], ["I2;44", "12"]])("does not pass folded short/partial %s vs %s", (fda, text) => {
+  it.each([["598;S", "5"], ["S", "5"], ["I", "1"], ["S5", "55"], ["S;S;5", "S;5;5"], ["L484;200", "1484"], ["I2;44", "12"]])("does not pass folded short/partial %s vs %s", (fda, text) => {
     expect(compareImprint(fda, text).requiresExact).toBe(true);
     const product = {...p, imprintRaw: fda};
     expect(decide({}, reading(text), {labelProduct: product, sameDrugProducts: [product]}).verdict).toBe("UNSURE");

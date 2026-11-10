@@ -160,7 +160,7 @@ function featureRows(ref: Scored | null, pill: PillReading, lowImprint: boolean)
       name: "Imprint",
       expected: p ? displayImprint(p.imprintRaw) || "None listed" : "—",
       found: found.imprint,
-      result: ref ? res(ref.imprint.result, lowImprint) : "unsure",
+      result: ref ? res(ref.imprint.result, lowImprint || ref.imprint.requiresExact) : "unsure",
     },
     {
       name: "Color",
