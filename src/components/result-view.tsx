@@ -1,5 +1,6 @@
 import { ArrowRight } from "lucide-react";
 import type { ReactNode } from "react";
+import { CopyScript } from "@/components/copy-script";
 import { FeatureTable } from "@/components/feature-table";
 import { PillDrawing, type PillHighlight } from "@/components/pill-drawing";
 import { RxNormBadge, SourceBadge } from "@/components/source-badge";
@@ -79,7 +80,7 @@ export function instructionFor(r: CheckResult) {
   return undefined;
 }
 
-export function ResultView({ result: r, photo }: { result: CheckResult; photo?: string }) {
+export function ResultView({ result: r, photo, explanation }: { result: CheckResult; photo?: string; explanation?: { summary: string; pharmacyScript: string } }) {
   const reference = r.matchedProduct ?? r.expected;
   const look = readingAppearance(r.pill);
   const read = r.pill.imprintSides.map((s) => s.trim()).filter(Boolean);
@@ -91,6 +92,17 @@ export function ResultView({ result: r, photo }: { result: CheckResult; photo?: 
   return (
     <article className="flex flex-col gap-5 sm:gap-6" aria-label="Check result">
       <VerdictField verdict={r.verdict} instruction={instructionFor(r)} />
+
+      {explanation && (
+        <section className="rounded-[var(--radius-photo)] bg-white p-5 shadow-[var(--shadow-soft)] sm:p-6" aria-labelledby="explanation-h">
+          <h2 id="explanation-h" className="text-xl font-bold text-ink">In plain words</h2>
+          <p className="mt-2 text-lg leading-relaxed text-ink">{explanation.summary}</p>
+          <div className="mt-5 flex flex-col gap-3 rounded-[var(--radius-card)] bg-foil p-4 sm:flex-row sm:items-center sm:justify-between">
+            <p className="text-base text-ink"><strong>What to say when you call your pharmacy:</strong><br />{explanation.pharmacyScript}</p>
+            <CopyScript text={explanation.pharmacyScript} />
+          </div>
+        </section>
+      )}
 
       <div className="grid gap-4 sm:grid-cols-2">
         <Panel title="What the FDA says it should look like">

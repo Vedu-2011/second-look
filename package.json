@@ -8,9 +8,11 @@
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run",
-    "smoke:fda": "tsx scripts/smoke-fda.ts"
+    "smoke:fda": "tsx scripts/smoke-fda.ts",
+    "smoke:ai": "tsx scripts/smoke-ai.ts"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^1.7.0",
     "@base-ui/react": "^1.9.0",
     "@upstash/redis": "^1.41.0",
     "class-variance-authority": "^0.7.1",

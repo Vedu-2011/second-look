@@ -2,6 +2,51 @@
 Claude Code adds a new entry at the top after every task (format in ~/Hackathons/CLAUDE.md).
 The planner reads this file when Vedhanth says "handoffs". Never delete old entries.
 
+## 2026-11-10 8:40 PM PST — Phase 2: AI photo reading and real /check flow — prompts/phase-2.md
+
+BUILDER: Codex
+HANDOFF — Phase 2 (AI photo reading → deterministic FDA verdict) — Tue Nov 10, 2026
+STATUS: PARTIAL — implementation and local verification are complete; live AI and production photo verification need `ANTHROPIC_API_KEY` from Vedhanth.
+
+WHAT I DID
+- Added the server-only Anthropic SDK client with env-configurable vision/text models, strict forced-tool readers, one retry, zod validation, and versioned label/pill prompts. The label prompt explicitly excludes patient names; the pill guess is a lead only.
+- Replaced the fake `/check` progress state with the real two-photo flow: client-side EXIF-aware resize to a 1600px long edge, JPEG quality 0.85, friendly unsupported/oversize errors, streamed NDJSON progress, AI reading chips, early retake exits, the user's pill photo in ResultView, explanation and “Copy what to say,” plus a shareable result link.
+- Added `/api/check`, a seven-day `sl:result:<id>` Redis result store, `/result/[id]`, per-IP 30/hour protection, and the `DAILY_CHECK_CAP` default of 500 with a Redis-outage fallback cap.
+- Added three fictional Maple Street Pharmacy label fixtures rendered to PNG, two NIH/NLM consumer-grade reference photos, and source notes. The NIH directory did not contain exact I2, L484, or Advil demo photos, so those were not fabricated or mislabeled.
+- Added the explanation safety guard and tests for invented drug names (including lowercase), numbers, dosing/medical advice, schemas, early exits, NDJSON ordering, rate limits, and result persistence.
+
+FILES CREATED/CHANGED
+- New: `src/lib/ai/`, `src/app/api/check/`, `src/app/result/[id]/`, `src/lib/check-input.ts`, `src/lib/rate-limit.ts`, `src/lib/result-store.ts`, `src/components/copy-script.tsx`, `scripts/smoke-ai.ts`, `test-images/`, `PRODUCT.md`.
+- Changed: `src/app/check/check-flow.tsx`, `src/components/result-view.tsx`, `src/lib/verdict-engine.ts`, `package.json` and lockfile.
+- Planner-owned `AGENTS.md`, `docs/ARCHITECTURE.md`, and `prompts/phase-2.md` remain preserved and are not included in the implementation commit.
+
+TESTS RUN
+- `npx tsc --noEmit --incremental false`: PASS.
+- `npm test`: PASS — 18 files, 120 tests.
+- `npm run lint`: PASS.
+- `npm run build`: PASS. Next reports the expected Atkinson font override warnings; no build failure.
+- `npm run smoke:fda`: PASS — cold MATCH 3196ms, SAME_MEDICINE_DIFFERENT_MAKER 409ms, MISMATCH 1612ms; warm 1–14ms. All three still use the real FDA fixtures/live APIs.
+- `npm run smoke:ai`: NOT RUN LIVE — safely prints `SKIPPED: ANTHROPIC_API_KEY is not set`.
+- Browser screenshot harness: NOT SAVED — hydration/navigation was unstable in the imported dev harness, so no phase-2 screenshot is claimed.
+
+CODE REVIEW
+- Codex review found eight real issues across three passes, all fixed: explanation-name checks were case-sensitive/lowered incorrectly; Redis fallback omitted the global daily cap; oversized JSON could exceed the deployment body limit; malformed/rejected requests could consume quota; Redis hourly rejection could still increment the daily counter; local result fallback entries outlived seven days; the streamed route had no explicit runtime budget; and the local fallback incremented daily quota before checking its hourly limit. Regression tests and a final local verification pass are green.
+
+CURRENT STATE OF THE APP
+- The feature branch is `feat/phase-2-codex`; production remains the phase-1 deployment until the key is supplied and this branch is intentionally merged/pushed according to the planner’s gate.
+- With `ANTHROPIC_API_KEY`, `VISION_MODEL` (default `claude-sonnet-5-5`), and `TEXT_MODEL` (default `claude-haiku-5-5`), `/api/check` calls the same importable `readLabel`/`readPill` functions that phase 4 can evaluate. Without the key, it returns a friendly configuration error and never exposes a secret.
+
+NEEDS VEDHANTH
+- Provide `ANTHROPIC_API_KEY` so it can be added to Vercel production/preview/development and `.env.local` without appearing in code, logs, or this handoff.
+- After the key is present, run `npm run smoke:ai`, capture the three real photo flows plus UNSURE retake screenshots at 375px and 1440px, then verify the preview/production `/check` flow.
+
+OPEN QUESTIONS FOR THE PLANNER
+- Keep `/dev/check` noindex until the planned phase 3 public “type what’s on your pill” feature.
+- The NIH directory source gap is documented; phase 4 should use the exact available benchmark inventory rather than infer missing demo-pill photos.
+
+SUGGESTED NEXT STEP
+Supply the Anthropic key, run the live smoke and screenshot checklist, then have the planner decide whether to merge this feature branch.
+
 ## 2026-11-09 1:45 PM PST — Phase 1: FDA data layer, matcher, verdict engine, ResultView — prompts/phase-1.md
 
 HANDOFF — Phase 1 (real FDA data → verdict, no AI yet) — Mon Nov 9, 2026, 1:45 PM PST

@@ -12,7 +12,16 @@ export const IMPRINT_MIN_CONFIDENCE = 0.7;
 export const COLOR_MIN_CONFIDENCE = 0.5;
 export const SHAPE_MIN_CONFIDENCE = 0.5;
 
-export type LabelReading = { ndc?: string; drugName?: string; strength?: string; form?: string };
+export type LabelReading = {
+  ndc?: string | null;
+  drugName?: string;
+  strength?: string;
+  form?: string;
+  pharmacyName?: string;
+  directions?: string;
+  isPrescriptionLabel?: boolean;
+  confidence?: { drugName: number; strength: number; ndc: number; form: number };
+};
 
 export type PillReading = {
   /** What's printed on the pill, one entry per side we could see. */
@@ -25,6 +34,10 @@ export type PillReading = {
   form?: string;
   /** A lead for code to check, never a conclusion. */
   guess?: { drugName: string; strength?: string } | null;
+  pillVisible?: boolean;
+  multiplePills?: boolean;
+  photoProblems?: string[];
+  scored?: boolean;
 };
 
 export type EngineData = {
