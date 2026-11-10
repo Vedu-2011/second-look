@@ -6,7 +6,7 @@ The planner reads this file when Vedhanth says "handoffs". Never delete old entr
 
 BUILDER: Codex
 HANDOFF — Phase 3
-STATUS: DONE — implementation and local verification complete. Phone-photo sample content is pending; all three photo folders are empty, so their recorded FDA examples remain in use.
+STATUS: DONE — implemented, reviewed, pushed to main, and verified on production. Phone-photo sample content is pending; all three photo folders are empty, so their recorded FDA examples remain in use.
 
 WHAT I DID
 - Committed the four planner files first in `54fb5f3` (“Planner docs”), then built on `feat/phase-3-codex`. Phase-3 task 7 explicitly authorizes the main push after review.
@@ -43,7 +43,7 @@ HOW TO TEST / NEXT STEP
 1. Print `/labels` at 100%, US Letter, browser headers/footers off; `?ndc=...` changes all labels, `?match.ndc=...` changes just the matching bottle.
 2. `/type`: NDC 0113-0517; I2/orange/oval → Matches. Change to L484/white/oval → Doesn't match and acetaminophen identification.
 3. `/samples/different-maker?live=1`: recorded example and honest fallback note until its photos exist. Add the two photos per folder README, run `npm run samples:build`, review printed verdicts, then commit generated public photos/JSON and deploy.
-4. Production verification follows deployment. Planner was not contacted.
+4. Production at https://getsecondlook.vercel.app is live from reviewed code commit `855d21f`; deployment https://second-look-ey05b4fn9-vedhanth.vercel.app reached Ready. Production browser checks PASS at 375 + 1440: typed MATCH, identified L484 MISMATCH, sample saved fallback, headline fit, `/dev/check` redirect, editable labels, and exactly three 3.5 × 2 inch labels on one print page. The print harness was corrected to wait for streamed labels to become visible before measuring. All public pages have no unfinished copy or mobile horizontal overflow. Production live photo regression: HTTP 200, MISMATCH in 7,473 ms, eight working/done step events, saved share page HTTP 200. Exact user demo-photo scenarios remain untested because their folders are empty. Planner was not contacted.
 
 ## 2026-11-09 9:05 PM PST — Merge phase 2 to production — chat
 
