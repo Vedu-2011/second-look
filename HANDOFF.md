@@ -6,7 +6,7 @@ The planner reads this file when Vedhanth says "handoffs". Never delete old entr
 
 BUILDER: Codex
 HANDOFF — Phase 5
-STATUS: PARTIAL — implementation and the single frozen holdout are complete, but the release goal was NOT met. Do not push main without Vedhanth's further direction. Final artifact/screenshots/preview verification is being completed.
+STATUS: PARTIAL — implementation, frozen holdout, audit and final screenshots are complete, but the release goal was NOT met. Do not push main without Vedhanth's further direction. Feature preview publication/verification pending.
 
 WHAT I DID / DEVELOPMENT DIAGNOSIS
 - Worked on feat/phase-5. Original phase-4 data is now DEVELOPMENT, never the fresh headline. Saved research/out/dev-diagnosis.{md,json}: all 400 pairs, every UNSURE/no-read and ten fixed-order examples. The original 257 abstentions have overlapping flags: 244 low imprint confidence, 108 no-imprint pair outcomes, 42 partial matching imprints, 69 color disagreements, 25 shape disagreements, 16 reader-error outcomes (8 photos), and 137 possible unseen-side cases inferred from FDA multipart text (not proven). There are 54 no-read photos. Discontinued status is context, not an abstention cause.
@@ -50,14 +50,15 @@ WHAT WENT WRONG / RELEASE GATE
 
 TESTS / REVIEW / FILES
 - PASS 190 tests / 26 files, lint, TypeScript, production build (two existing non-fatal Atkinson warnings). New tests cover merge conflicts/blank/partial/hard-look-alike cases, cleanup, photo continuation reuse/skip/expiry, metrics/loader integrity and input validation.
-- Browser at 375 + 1440 PASS: research layout/charts, flip step, skip, continuation-only other-side upload, both result photos, no overflow/runtime errors. Browser AI is mocked; no live app AI call claimed. Final data-backed research screenshots are being refreshed.
+- Browser at 375 + 1440 PASS, repeated after the holdout data build: correct 150-photo / 300-pair headline (1 wrong passed, 83/88 correct answered, 70.6% unsure), two charts, separate development table, flip/skip/continuation-only other-side upload, both result photos and no overflow/runtime errors. Browser AI is mocked; no live app AI call claimed. Final research/flip screenshots at both widths saved in docs/screenshots/phase-5/ and visually inspected.
 - Independent Python CSV/JSON audit PASS: all 900 rows, all method counts/accuracy/coverage, cohort/source hashes, hard selection, disjointness and ledger totals. Downloaded NIH photos remain ignored.
-- Pre-freeze Codex review: no code blockers, required replacing null holdout/missing CSV before shipping. Those artifacts now exist and validate. Final artifact review and feature preview pending; no main push.
+- Pre-freeze Codex review: no code blockers, required replacing null holdout/missing CSV before shipping. Those artifacts now exist and validate. Separate final Codex artifact/self-review confirms complete counts, no misleading improvement claim, preserved source freeze and honest failed-goal release gate. Composio discovery returned 401; existing authenticated GitHub/Vercel tools are used. Feature preview pending; no main push.
 - New/updated files include scripts/{diagnose-dev,research-holdout}.ts; lib/{pill-views,flip-store,research-safety,research-holdout-results}.ts and tests; ai cleanup/prompt/reader; check API/flow/photo service/input; result view; research page/charts; data/report/interpretation/README; screenshots. Original phase-4 artifacts are preserved.
 
 HOW TO TEST / CURRENT STATE / NEEDS VEDHANTH
 - Run npm test, npm run lint, npx tsc --noEmit, npm run build. Cached reproduction: env -u ANTHROPIC_API_KEY node --import tsx scripts/research-holdout.ts. It enforces frozen source/cohort hashes and does not pay again. The manually written post-run interpretation is separate so cached report regeneration cannot erase it.
 - On the feature preview, inspect /research's fresh headline, every safety metric, development section, freeze hash, audit links and limits. Test /check with mocked AI for flip/skip and both photo displays. Real AI label/photo/flip end-to-end production test NOT RUN; production not changed.
+- Preview caveat: frozen research-page buttons target GitHub main, which deliberately still holds phase 4, so the new report/CSV should be opened using the feature-branch links instead: https://github.com/Vedu-2011/second-look/blob/feat/phase-5/research/REPORT.md and https://github.com/Vedu-2011/second-look/blob/feat/phase-5/research/out/holdout-pairs.csv . No post-holdout source edit was made just to alter these links. They resolve to the new artifacts if the branch is later explicitly approved for main.
 - Planner has not been contacted; real bottle-photo sample folders remain empty.
 - Need architect direction: accept an honest but failed-goal feature release, or use this evidence as development and plan another bounded cycle with a NEW untouched holdout and budget. No further tuning or paid readings in this phase without direction.
 
