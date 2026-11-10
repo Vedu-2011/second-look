@@ -8,6 +8,8 @@ Photograph a pharmacy label and one pill to check whether the pill matches the F
 On 150 fresh NIH photos (300 label–photo pairs), Second Look called 1 of 150 wrong pills fine. When it answered, it was right 83 of 88 times; it said “can't tell” 70.6% of the time. [All safety, coverage and development results](https://getsecondlook.vercel.app/research).
 <!-- /research-headline -->
 
+Phase 5 is **preview-only; its coverage goal was not met**. Production above still runs phase 4. [Phase-5 preview](https://second-look-git-feat-phase-5-vedhanth.vercel.app/research) · [Frozen holdout report](https://github.com/Vedu-2011/second-look/blob/feat/phase-5/research/REPORT.md) · [Post-run interpretation](https://github.com/Vedu-2011/second-look/blob/feat/phase-5/research/INTERPRETATION.md). The preview's frozen audit buttons still point to main; use these feature-branch links for the new evidence until a release is explicitly approved.
+
 ![Second Look, showing the pill and FDA evidence](docs/screenshots/phase-3/after/home-1440.png)
 
 ## Why this matters
