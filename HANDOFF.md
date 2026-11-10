@@ -6,7 +6,7 @@ The planner reads this file when Vedhanth says "handoffs". Never delete old entr
 
 BUILDER: Codex
 HANDOFF — Phase 4
-STATUS: PARTIAL — implementation and cached measurements complete; final tests, screenshots and production deployment are being verified.
+STATUS: PARTIAL — implementation, audit, tests and screenshots complete; production publication/verification pending.
 
 WHAT I DID
 - Resumed the uncommitted phase-4 work on `feat/phase-4-codex`. Reused every completed reading in `research/out`; the resumed run made zero paid model calls. Recomputed the report, CSV and source hashes with ANTHROPIC_API_KEY unset. The cost ledger SHA256 was identical before/after: `7967d045fb14c7ee4f421029265d042d0ece1ef64a66e241d7ff3425d0348ba2`.
@@ -60,15 +60,16 @@ FILES CREATED / CHANGED
 - Updated: engine/matcher ONLY as listed above; home/sources/footer/README links; package files (+Recharts/research command); .gitignore. Screenshots in `docs/screenshots/phase-4/`.
 
 TESTS / REVIEW
-- Final resumed checks: PASS 142 tests / 22 files; lint, TypeScript and production build PASS. Only the two existing non-fatal Atkinson font override warnings. The final chart-margin visual fix is being rebuilt before publication.
+- Final resumed checks, repeated after the chart-margin fix: PASS 142 tests / 22 files; lint, TypeScript and production build PASS. Only the two existing non-fatal Atkinson font override warnings.
 - Original-engine equivalence audit: PASS 800/800 full results; no production drift.
 - Cached reproduction with ANTHROPIC_API_KEY unset: PASS, zero paid calls; cost ledger unchanged.
 - Earlier review findings fixed: incomplete result publication guard; explicit baseline reasoning configuration; conservative token-count/in-flight budget reservations in place of flat $0.10; equivalent-imprint negative exclusion; explicit unfavorable results/abstentions. Latest Codex review asked for artifact regeneration after source changes: fixed by cached regeneration, without new readings. Final source hashes must match committed implementation.
 - Final independent CSV/JSON audit: PASS, all 2,000 rows / five methods, balanced truth, 100 distinct product codes, hard-negative metadata, exact source hashes and cost-ledger totals agree. No downloaded NIH images are tracked.
-- Impeccable visual review found clipped percentage-axis labels; changed only the chart's left margin from -20 to 0. Research/home screenshots are being refreshed at 375 and 1440; no page-width overflow.
+- Impeccable visual review found clipped percentage-axis labels; changed only the chart's left margin from -20 to 0. Research/home screenshots refreshed at 375 and 1440. Browser checks PASS: three charts, correct headline, no runtime errors, no clipped axis labels and no page-width overflow at both widths.
+- Separate final Codex self-review of the full phase diff and reporting/axis follow-ups: no remaining blocking findings. The source-hash review finding is verified fixed, not merely documented. GitHub destination verified as public Vedu-2011/second-look, default branch main. Composio discovery returned 401, so existing authenticated GitHub/Vercel tools are used instead.
 
 HOW TO TEST / CURRENT STATE
-- Final local tests, build, screenshots and production checks are being completed before the final DONE update.
+- Local checklist completed: /research shows the 200-image / 400-pair headline, all five methods, the direct-AI tradeoff, three charts, abstentions, report/CSV links and limitations; home/footer/sources link to research. The complete run reproduces without an API key and without changing cost.json. Production checks remain pending before the final DONE update.
 - Production currently remains phase 3 until the reviewed feature branch is pushed to main, explicitly authorized by prompts/phase-4.md.
 - Planner has NOT been contacted. Real bottle-photo sample folders remain empty; phase 3's recorded examples are unchanged.
 
