@@ -1,9 +1,7 @@
 import { connection } from "next/server";
-import { explain } from "@/lib/ai/explain";
 import { AiUnavailableError } from "@/lib/ai/client";
-import { readLabel, readPill } from "@/lib/ai/readers";
-import { CHECK_BODY_MAX, checkRequestSchema, earlyExit, parseImageDataUrl, type CheckEvent } from "@/lib/check-input";
-import { runCheck } from "@/lib/check-service";
+import { CHECK_BODY_MAX, checkRequestSchema, parseImageDataUrl, type CheckEvent } from "@/lib/check-input";
+import { runPhotoCheck } from "@/lib/photo-check";
 import { friendlyFdaMessage } from "@/lib/fda/http";
 import { consumeCheckLimit } from "@/lib/rate-limit";
 import { saveResult } from "@/lib/result-store";
@@ -46,32 +44,15 @@ export async function POST(request: Request) {
         }
       };
       const work = async () => {
-        const started = performance.now();
-        send({ type: "step", step: 0, state: "working" });
-        send({ type: "step", step: 1, state: "working" });
         try {
-          const [label, pill] = await Promise.all([readLabel(labelImage), readPill(pillImage)]);
-          send({ type: "reading", kind: "label", value: label });
-          send({ type: "reading", kind: "pill", value: pill });
-          send({ type: "step", step: 0, state: "done" });
-          send({ type: "step", step: 1, state: "done" });
-          const exit = earlyExit(label, pill);
-          if (exit) {
-            send({ type: "step", step: exit.kind === "label" ? 0 : 1, state: "failed" });
-            send({ type: "early_exit", ...exit });
-            close();
-            return;
-          }
-          send({ type: "step", step: 2, state: "working" });
-          const result = await runCheck(label, pill);
-          send({ type: "step", step: 2, state: "done" });
-          send({ type: "step", step: 3, state: "working" });
-          const explanation = await explain(result);
+          const checked = await runPhotoCheck(labelImage, pillImage, send);
+          if (!checked.ok) return;
+          const { result, explanation, timings } = checked;
           const id = await saveResult({ result, explanation });
           send({ type: "step", step: 3, state: "done" });
-          send({ type: "result", result: { ...result, shareId: id }, explanation, timings: { ...result.timings, ai: Math.round(performance.now() - started) } });
+          send({ type: "result", result: { ...result, shareId: id }, explanation, timings });
         } catch (error) {
-          const message = error instanceof AiUnavailableError ? "AI reading isn't configured on this deployment yet. Add ANTHROPIC_API_KEY to try a real photo." : friendlyFdaMessage(error);
+          const message = error instanceof AiUnavailableError ? "Photo reading is unavailable right now. Try a saved sample or type what's on your pill." : friendlyFdaMessage(error);
           send({ type: "error", message });
         } finally { close(); }
       };

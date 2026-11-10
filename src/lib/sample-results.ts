@@ -27,6 +27,7 @@ const DATA: Record<string, EngineData> = {
     sameDrugProducts: RECORDED.ibuprofen200Products,
   },
   mismatch: {
+    labelProduct: RECORDED.perrigoI2Oval,
     labelDrug: CONCEPTS.ibuprofen200,
     sameDrugProducts: RECORDED.ibuprofen200Products,
     guessProducts: RECORDED.acetaminophen500Products,

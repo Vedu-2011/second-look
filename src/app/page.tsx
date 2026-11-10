@@ -1,4 +1,5 @@
 import { Camera, Pill, ScanSearch } from "lucide-react";
+import Link from "next/link";
 import { ButtonLink } from "@/components/button";
 import { PillDrawing } from "@/components/pill-drawing";
 import { SourceBadge } from "@/components/source-badge";
@@ -14,15 +15,15 @@ const steps = [
   {
     Icon: ScanSearch,
     title: "We check it against the FDA",
-    body: "Imprint, color, shape and size, compared with the FDA record for your medicine.",
+    body: "Imprint, color and shape, compared with the FDA record. Size is shown for reference.",
   },
 ];
 
 export default function Home() {
   return (
     <div className="mx-auto w-full max-w-6xl px-5 sm:px-8">
-      <section className="grid items-center gap-12 pt-10 pb-6 sm:pt-16 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16 lg:pt-20">
-        <div className="max-w-[38rem]">
+      <section className="grid grid-cols-1 items-center gap-12 pt-10 pb-6 sm:pt-16 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16 lg:pt-20">
+        <div className="min-w-0 max-w-[38rem]">
           <h1 className="text-4xl font-bold tracking-[-0.025em] text-balance text-ink sm:text-[3.5rem] sm:leading-[1.04]">
             Is this the right pill?
           </h1>
@@ -51,11 +52,13 @@ export default function Home() {
               Try a sample bottle
             </ButtonLink>
           </div>
+          <Link href="/type" className="mt-4 inline-flex min-h-12 items-center rounded-full text-base font-semibold text-ink-soft underline decoration-amber decoration-2 underline-offset-4">No camera? Type what&apos;s on your pill</Link>
         </div>
 
         {/* The product itself: what a real FDA record looks like, drawn to scale. */}
-        <figure className="rounded-[var(--radius-photo)] bg-white p-6 shadow-[var(--shadow-lift)] sm:p-8">
-          <figcaption className="text-base font-semibold text-ink-soft">What the FDA says it should look like</figcaption>
+        <figure className="min-w-0 rounded-[var(--radius-photo)] bg-white p-6 shadow-[var(--shadow-lift)] sm:p-8">
+          <figcaption className="text-xl font-bold text-ink">Try a sample bottle</figcaption>
+          <p className="mt-2 text-base text-ink-soft">Follow a pill from its label to the FDA evidence.</p>
           <div className="mt-2 grid place-items-center rounded-[var(--radius-card)] bg-foil px-4 py-10">
             <PillDrawing
               shapeCode={example.shapeCode}
@@ -87,6 +90,8 @@ export default function Home() {
             ))}
           </dl>
           <SourceBadge setid={example.setid} publishedDate={example.publishedDate} className="mt-5" />
+          <ButtonLink href="/samples/match?live=1" size="lg" className="mt-6 w-full px-4 whitespace-normal text-center">Run the sample check</ButtonLink>
+          <Link href="/samples" className="mt-3 flex min-h-12 items-center justify-center rounded-full text-base font-semibold text-ink-soft underline underline-offset-4">See all three bottles</Link>
         </figure>
       </section>
 

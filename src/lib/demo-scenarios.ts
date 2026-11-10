@@ -39,7 +39,7 @@ export const SCENARIOS: Scenario[] = [
     id: "mismatch",
     title: "The wrong pill",
     expect: "MISMATCH",
-    label: { drugName: "Ibuprofen", strength: "200 mg", form: "tablet" },
+    label: { ndc: "0113-0517", drugName: "Ibuprofen", strength: "200 mg", form: "tablet" },
     pill: {
       imprintSides: ["L484"],
       imprintConfidence: 0.92,

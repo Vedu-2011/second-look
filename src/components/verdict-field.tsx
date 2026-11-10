@@ -43,7 +43,7 @@ export function VerdictField({
         className,
       )}
     >
-      <div className={cn("flex items-start", compact ? "gap-3.5" : "gap-4 sm:gap-5")}>
+      <div className={cn("flex flex-col items-start sm:flex-row", compact ? "gap-3" : "gap-4 sm:gap-5")}>
         <span
           aria-hidden
           className={cn(
@@ -56,8 +56,8 @@ export function VerdictField({
         <div className="min-w-0">
           <p
             className={cn(
-              "font-bold tracking-[-0.02em] text-balance",
-              compact ? "text-3xl leading-[1.05]" : "text-verdict",
+              "font-bold tracking-[-0.02em] text-balance [overflow-wrap:anywhere]",
+              compact ? "text-[2rem] leading-[1.08]" : "text-[clamp(2.5rem,8vw,4.5rem)] leading-[1.04]",
             )}
           >
             {copy.word}

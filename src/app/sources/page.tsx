@@ -1,10 +1,17 @@
 import { ArrowUpRight } from "lucide-react";
 import type { Metadata } from "next";
+import { Suspense } from "react";
+import { connection } from "next/server";
+import { drugGroup } from "@/lib/fda/rxnav";
 
 export const metadata: Metadata = { title: "Data sources" };
 
-// Static until phase 3 makes "last checked" live from our cache.
-const LAST_CHECKED = "Nov 8, 2026";
+async function LiveCounts() {
+  await connection();
+  const drugs = [{ id: "310965", name: "Ibuprofen 200 mg" }, { id: "198440", name: "Acetaminophen 500 mg" }];
+  const groups = await Promise.all(drugs.map(async drug => ({ ...drug, group: await drugGroup(drug.id).catch(() => null) })));
+  return <section className="mt-7 rounded-[var(--radius-photo)] bg-foil p-5 sm:p-7" aria-label="Live FDA record counts"><h2 className="text-xl font-bold">The records behind a check</h2><ul className="mt-3 space-y-3">{groups.map(({ id, name, group }) => <li key={id} className="text-lg"><strong>{name}:</strong> {group ? `${group.products.length.toLocaleString("en-US")} products from every maker (${group.products.filter(p => p.active).length.toLocaleString("en-US")} active).` : "We couldn't load the current count. Try again later."}</li>)}</ul><p className="mt-4 text-sm text-ink-soft">Last checked: {new Date().toISOString().replace("T", " ").slice(0, 16)} UTC. Duplicate package sizes count once. FDA responses may be cached for up to 24 hours; counts include discontinued products.</p></section>;
+}
 
 const SOURCES = [
   {
@@ -17,7 +24,7 @@ const SOURCES = [
   {
     name: "NLM RxNorm (RxNav)",
     by: "National Library of Medicine",
-    what: "A standard list of every medicine sold in the US, with codes that tie each product (and each company that makes it) to the same drug and strength.",
+    what: "A standard vocabulary for US medicines, with codes that tie products from different companies to the same drug and strength.",
     use: "We look up the product on your label, then every other product with the same medicine and strength. That's how we can tell you a pill that looks different is still the same medicine.",
     links: [{ label: "RxNav", href: "https://lhncbc.nlm.nih.gov/RxNav/" }],
   },
@@ -41,9 +48,7 @@ export default function SourcesPage() {
         Second Look doesn&apos;t guess what a pill should look like. It checks the public records the FDA and the
         National Library of Medicine keep for every medicine sold in the US. All of it is free and open.
       </p>
-      <p className="mt-5 inline-flex rounded-full bg-foil px-4 py-2 text-base text-ink">
-        Last checked: <span className="ml-1.5 font-semibold">{LAST_CHECKED}</span>
-      </p>
+      <Suspense fallback={<p className="mt-7 rounded-[var(--radius-photo)] bg-foil p-5 text-lg">Loading FDA record counts…</p>}><LiveCounts /></Suspense>
 
       <ol className="mt-10 flex flex-col gap-5">
         {SOURCES.map((s, i) => (
@@ -82,7 +87,7 @@ export default function SourcesPage() {
 
       <p className="mt-8 text-base text-pretty text-ink-soft">
         Second Look only reads your photos to make the comparison. We don&apos;t keep your photos, and we never read
-        or store the patient name on your label.
+        or store the patient name on your label. Demo sample photos are intentionally public.
       </p>
     </div>
   );

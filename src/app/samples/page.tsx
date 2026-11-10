@@ -1,4 +1,6 @@
-import { ArrowRight, Camera } from "lucide-react";
+/* eslint-disable @next/next/no-img-element */
+import { ArrowRight } from "lucide-react";
+import { ButtonLink } from "@/components/button";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PillDrawing } from "@/components/pill-drawing";
@@ -10,7 +12,7 @@ import { formatDate } from "@/lib/fda/fixtures";
 import { RECORDED_ON } from "@/lib/fda/recorded";
 import type { Product } from "@/lib/fda/types";
 import { displayImprint } from "@/lib/match/imprint";
-import { SAMPLE_RESULTS } from "@/lib/sample-results";
+import { SAMPLES } from "@/lib/samples";
 
 export const metadata: Metadata = { title: "Sample bottles" };
 
@@ -45,13 +47,12 @@ export default function SamplesPage() {
       <div className="max-w-[40rem]">
         <h1 className="text-4xl font-bold tracking-[-0.025em] text-ink">Sample bottles</h1>
         <p className="mt-4 text-lg text-pretty text-ink-soft">
-          Three bottles we set up to show each kind of result. Each verdict below comes from our real checker run on
-          FDA records saved on {formatDate(RECORDED_ON)}. The patient names on the labels are made up.
+          See how a matching pill, a different maker, and a wrong pill compare. Each saved result comes from our checker and real FDA records. Demo patient details are made up.
         </p>
       </div>
 
       <ul className="mt-10 grid gap-6 lg:grid-cols-3">
-        {SAMPLE_RESULTS.map(({ scenario: s, result: r }) => {
+        {SAMPLES.map(({ scenario: s, result: r, photos, recordedAt }) => {
           const labelSays = r.labelProduct ?? r.expected;
           const inBottle = r.verdict === "MISMATCH" ? r.identifiedAs : r.matchedProduct;
           const source = labelSays?.setId ? r.labels[labelSays.setId] : undefined;
@@ -61,18 +62,15 @@ export default function SamplesPage() {
               className="flex flex-col gap-5 rounded-[var(--radius-photo)] bg-white p-5 shadow-[var(--shadow-lift)] sm:p-6"
             >
               <h2 className="text-2xl font-bold tracking-[-0.01em] text-ink">{s.title}</h2>
-              <div className="grid aspect-[16/10] place-items-center rounded-[var(--radius-photo)] bg-foil text-ink-soft">
-                <span className="flex flex-col items-center gap-2 text-base">
-                  <Camera className="size-7" aria-hidden />
-                  Bottle photo coming soon
-                </span>
-              </div>
+              {photos ? <div className="grid grid-cols-2 gap-2"><img src={photos.label} alt="Made-up pharmacy label" className="aspect-square w-full rounded-[var(--radius-row)] bg-foil object-contain" /><img src={photos.pill} alt="Real sample pill" className="aspect-square w-full rounded-[var(--radius-row)] bg-foil object-contain" /></div> : <p className="text-base text-ink-soft">Recorded FDA example · {formatDate(RECORDED_ON)}. This bottle has no demo photos yet.</p>}
+              {photos && <p className="text-sm text-ink-soft">Photo check saved {formatDate(recordedAt)}</p>}
               <div className="grid grid-cols-2 gap-3">
                 <PillSlot caption="Your label says" p={labelSays} />
                 <PillSlot caption="In the bottle" p={inBottle} />
               </div>
               <VerdictField verdict={r.verdict} instruction={instructionFor(r)} compact />
               <div className="mt-auto flex flex-col gap-3">
+                <ButtonLink href={`/samples/${s.id}?live=1`} className="w-full" size="lg">Run this check live</ButtonLink>
                 {labelSays?.setId && <SourceBadge setid={labelSays.setId} publishedDate={source?.publishedDate} />}
                 <Link
                   href={`/samples/${s.id}`}

@@ -139,7 +139,7 @@ export function ResultView({ result: r, photo, explanation }: { result: CheckRes
             <p className="text-lg leading-snug font-bold text-ink">
               {read.length ? <span className="font-mono">{read.join(" / ")}</span> : "No letters seen"}
             </p>
-            <p className="text-base text-ink-soft">As read from your photo. Size isn&apos;t measured.</p>
+            <p className="text-base text-ink-soft">{photo ? "As read from your photo." : "From the pill details supplied."} Size isn&apos;t measured.</p>
           </div>
         </Panel>
       </div>

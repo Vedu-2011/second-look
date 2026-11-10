@@ -2,6 +2,49 @@
 Claude Code adds a new entry at the top after every task (format in ~/Hackathons/CLAUDE.md).
 The planner reads this file when Vedhanth says "handoffs". Never delete old entries.
 
+## 2026-11-09 9:20 PM PST — Phase 3: labels, samples pipeline, public typed checks — prompts/phase-3.md
+
+BUILDER: Codex
+HANDOFF — Phase 3
+STATUS: DONE — implementation and local verification complete. Phone-photo sample content is pending; all three photo folders are empty, so their recorded FDA examples remain in use.
+
+WHAT I DID
+- Committed the four planner files first in `54fb5f3` (“Planner docs”), then built on `feat/phase-3-codex`. Phase-3 task 7 explicitly authorizes the main push after review.
+- Added noindex `/labels`: three fictional Maple Street Pharmacy / Alex Rivera labels, each 3.5 × 2 inches, on one US Letter print page. All printed fields accept shared query parameters and per-bottle overrides such as `different-maker.ndc`. Dates default to 11/09/2026; editable via `date`. Labels include the demo disclaimer.
+- Added `test-images/real/{match,different-maker,mismatch}/README.md`, `npm run samples:build`, EXIF orientation/removal, 1600px JPEG output through sharp, versioned public image paths, and atomic per-sample JSON saves. Empty folders retain prior samples; incomplete pairs or failed/early reads fail without replacing the old result.
+- Extracted `runPhotoCheck` so `/api/check` and the sample builder use exactly the same readers, FDA engine, and guarded explanation. Sample pages prefer real saved photos/results when present. Every sample has “Run this check live,” live streamed progress, and saved-result fallback. With no photos it clearly explains that it is showing the recorded FDA example instead of pretending to run AI.
+- Added public `/type`, linked from home and `/check`, with NDC/name modes, big inputs, two imprint sides, an uncertainty choice, FDA color/shape chips, and the shared ResultView. `/dev/check` redirects to `/type`; its obsolete form was removed. For typed pills, a small recorded FDA index supplies a possible drug lead only on an exact imprint; the live engine still verifies it before identification. L484 now works without asking a user to guess acetaminophen.
+- Polished mobile verdict wrapping, the home sample entry point, typed-result wording, GitHub footer, and `/sources` with live deduplicated product counts and UTC load time (24-hour cache disclosed). Updated the wrong-pill saved example to use the same orange-oval ibuprofen NDC as its printable label. Replaced the starter README with the product, citations, pipeline diagram, setup, demo instructions, 131-test count, and limits.
+
+FILES CREATED / CHANGED
+- New: `src/app/{labels,type}/`, `src/lib/{demo-labels,typed-check,recorded-lead,photo-check,samples,samples-build}.ts`, `src/lib/sample-results/{match,different-maker,mismatch}.json` (null until real photos exist), `src/components/sample-check.tsx`, `scripts/build-samples.ts`, three test files, photo-folder READMEs.
+- Updated APIs, sample/home/check/source pages, shared verdict/result/footer components, scenario fixtures, package files (+sharp), README. Screenshots: 10 before + 22 after images in `docs/screenshots/phase-3/`.
+
+TESTS RUN
+- `npm test`: PASS, 131 tests / 21 files (120 existing + 11 new). Covers label defaults/overrides, empty/failed/successful sample builds with mocked AI, typed modes/uncertainty/exact FDA leads; existing streamed-route tests stay green.
+- TypeScript, lint, production build: PASS. Only the two existing non-fatal Atkinson font override warnings.
+- `npm run samples:build`: PASS, all three folders empty, all three saved FDA examples kept, no AI call made for absent photos.
+- Browser at 375 and 1440: NDC 0113-0517 + I2/orange/oval → MATCH; L484/white/oval → MISMATCH with Acetaminophen 500 mg identified; sample live entry without photos → calm saved-result note; “Same medicine” headline fits; `/dev/check` → `/type`.
+- Chrome print check: three labels exactly 336 × 192 CSS pixels (3.5 × 2 inches), no clipped default text, one US Letter PDF page; global and per-scenario NDC query overrides PASS.
+- All public page text scanned for “preview”, “coming soon”, and “dev”: none. Built HTML scan for the old unfinished copy: no matches. Final pages have no horizontal overflow at 375 or 1440.
+- Live `/sources`: ibuprofen 200 mg 507 products (426 active), acetaminophen 500 mg 546 products (428 active), loaded from RxNav via shared cache.
+- `npm run smoke:ai` LIVE regression after pipeline extraction: readers MISMATCH in 8,072 ms; full HTTP check MISMATCH in 7,969 ms, all streamed steps, share page HTTP 200. Estimated direct-reader/explanation usage $0.022273; separate HTTP call excluded from estimate.
+
+REVIEW / DECISIONS
+- Separate `codex review --uncommitted`: no discrete actionable correctness bugs. Follow-up self-review fixed a mobile home min-content overflow, ensured generated JSON literal types work once photos are recorded, keyed sample state by bottle, and removed misleading photo wording from drawn typed results. No design was invented for missing real photos. Impeccable helped preserve the existing pharmacy materials, readable form controls, spacing, and responsive verdict hierarchy; docs/DESIGN.md remained the design source.
+
+EXACT REAL-PHOTO STATUS / NEEDS VEDHANTH
+- match: NO `label.jpg` or `pill.jpg`.
+- different-maker: NO `label.jpg` or `pill.jpg`.
+- mismatch: NO `label.jpg` or `pill.jpg`.
+- No user bottle photos were fabricated, substituted, or published. Real-photo sample replay/AI-down fallback cannot be proven end-to-end for these exact bottles until photos exist; mocked pipeline tests and the separate NIH live regression pass.
+
+HOW TO TEST / NEXT STEP
+1. Print `/labels` at 100%, US Letter, browser headers/footers off; `?ndc=...` changes all labels, `?match.ndc=...` changes just the matching bottle.
+2. `/type`: NDC 0113-0517; I2/orange/oval → Matches. Change to L484/white/oval → Doesn't match and acetaminophen identification.
+3. `/samples/different-maker?live=1`: recorded example and honest fallback note until its photos exist. Add the two photos per folder README, run `npm run samples:build`, review printed verdicts, then commit generated public photos/JSON and deploy.
+4. Production verification follows deployment. Planner was not contacted.
+
 ## 2026-11-09 9:05 PM PST — Merge phase 2 to production — chat
 
 BUILDER: Codex

@@ -1,0 +1,19 @@
+.label-sheet { display: flex; flex-direction: column; gap: .4in; align-items: center; }
+@media screen { .label-item { max-width: 100%; } }
+.label-item { box-sizing: border-box; width: 3.5in; height: 2in; background: white; color: black; padding: .13in .17in; font: 9pt/1.15 Arial, sans-serif; box-shadow: 0 4px 20px #17202b18; overflow-wrap: anywhere; display: flex; flex-direction: column; }
+.label-pharmacy { font-size: 13pt; font-weight: 800; }
+.label-rx, .label-details { display:flex; justify-content:space-between; gap: 8px; margin-top: 5px; }
+.label-patient { margin-top: 8px; font-weight: 700; font-size: 11pt; }
+.label-drug { font-size: 12pt; font-weight: 800; margin-top: 3px; }
+.label-directions { margin: 7px 0 4px; }
+.label-disclaimer { font-size: 7pt; margin-top: auto; padding-top: 4px; }
+.print-help code { overflow-wrap: anywhere; }
+@media screen and (max-width: 374px) { .label-item { transform: scale(.9); transform-origin: top center; margin-bottom: -.2in; } }
+@page { size: letter; margin: .5in; }
+@media print {
+  body { background: white !important; }
+  body > header, body > footer, .print-help { display: none !important; }
+  .label-workspace { margin: 0 !important; padding: 0 !important; max-width: none !important; }
+  .label-sheet { align-items: flex-start; gap: .4in; }
+  .label-item { box-shadow: none; break-inside: avoid; flex-shrink: 0; }
+}
