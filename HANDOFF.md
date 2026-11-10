@@ -2,6 +2,26 @@
 Claude Code adds a new entry at the top after every task (format in ~/Hackathons/CLAUDE.md).
 The planner reads this file when Vedhanth says "handoffs". Never delete old entries.
 
+## 2026-11-10 3:12 PM PST — Phase 7: final one-pager copy and comparison — prompts/phase-7.md
+
+BUILDER: Codex
+HANDOFF — Phase 7
+STATUS: DONE — content-only change released to main and verified on production. Feature freeze still in effect.
+
+WHAT I DID / FILES
+- Replaced `/one-pager` with the planner's exact copy and frozen comparison table. Live `/sources` and `/api/lookup` agreed on **507** deduplicated ibuprofen 200 mg products (426 active), so the copy's count stayed unchanged. No verdict logic, prompts, benchmark data or results changed.
+- `scripts/export-one-pager.mjs` uses the live FDA-backed typed check for `0113-0517` + white oval `L484`: MISMATCH, identified as acetaminophen 500 mg. It captures the entire red verdict and both side-by-side drawings in one screenshot without cutting either card. Replaced `public/one-pager-result.png` and removed the obsolete separate pill crop (recoverable from Git). No model calls or spend.
+- Print layout places the explanation next to the full screenshot and fills the Letter sheet. Kept the citations, live links and QR. Re-exported identical tagged PDFs to `public/second-look-one-pager.pdf` and `docs/second-look-one-pager.pdf`; screenshots at 375 px, 1440 px and rendered Letter are in `docs/screenshots/phase-7/`.
+- All three `test-images/real` sample directories still contain only READMEs. Skipped `samples:build`; saved FDA examples unchanged. No photos were fabricated.
+
+TESTS / REVIEW / HOW TO TEST
+- PASS: 209 tests in 27 files; lint, tsc and optimized build, with the same two non-fatal Atkinson fallback warnings. Local free smoke passed: recorded sample fallback with zero photo posts, typed MATCH, typed MISMATCH. `/one-pager` Lighthouse 13.6.0 accessibility: 100 locally. No horizontal overflow at 375 or 1440.
+- Print review: the full screenshot made the first print layout too tall. Fixed with a two-column print layout and inspected the new render; **1 page, 612 × 792 pt (US Letter), tagged**, no clipped content or large blank bottom. Separate self-review confirmed exact copy and numbers, the whole comparison, unchanged safety/research code and no stray assets. Composio returned 401, so used existing Git/Vercel auth.
+- PASS production: main `44bfdfa` deployment `dpl_Gos4ytaks4uDFKeKhiaydLLrVi9i` is Ready. The [one-pager](https://getsecondlook.vercel.app/one-pager) shows the new copy; the [PDF download](https://getsecondlook.vercel.app/second-look-one-pager.pdf) and comparison PNG match the local files byte-for-byte. PDF SHA-256: `5eeccaa7d0ac65c23a97928f36936fb3d2835b424bb07e766334ea1b0098a6c0`.
+
+CURRENT STATE / NEXT STEP
+- Use the live PDF for submission. To re-export, run `node scripts/export-one-pager.mjs` against an optimized local build, then check with `pdfinfo` and inspect a fresh render. No open code tasks for Phase 7. Real sample photos remain optional when supplied. Planner was not contacted.
+
 ## 2026-11-10 2:43 PM PST — Phase 6: safety follow-up, demo checks and one-page PDF — prompts/phase-6.md
 
 BUILDER: Codex
