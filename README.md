@@ -5,7 +5,7 @@ Photograph a pharmacy label and one pill to check whether the pill matches the F
 [Open the app](https://getsecondlook.vercel.app) · [Try a sample](https://getsecondlook.vercel.app/samples) · [Type a check](https://getsecondlook.vercel.app/type)
 
 <!-- research-headline -->
-On 200 NIH consumer photos (400 label–photo pairs), Second Look with Sonnet caught 38.5% of wrong pills with 1% false alarms on right pills. [Method, baseline comparison and limitations](https://getsecondlook.vercel.app/research).
+On 150 fresh NIH photos (300 label–photo pairs), Second Look called 1 of 150 wrong pills fine. When it answered, it was right 83 of 88 times; it said “can't tell” 70.6% of the time. [All safety, coverage and development results](https://getsecondlook.vercel.app/research).
 <!-- /research-headline -->
 
 ![Second Look, showing the pill and FDA evidence](docs/screenshots/phase-3/after/home-1440.png)

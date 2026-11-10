@@ -1,71 +1,47 @@
-# Second Look: NIH consumer-photo test
+# Second Look: development and fresh holdout
 
-Run 2026-11-10T18:35:49.333Z. Seed 20261109; 200 images, 100 distinct NDC products, 400 pairs. Prompt pill-v1. These are observed engineering measurements, not clinical accuracy or errors prevented.
+**Release goal not met:** the one-view pipeline abstained on 212/300 pairs and called one wrong pill fine; two views abstained on 250/300. Main remains unchanged. See [the post-run interpretation and concrete wrong-pass audit](INTERPRETATION.md). This section is documentation-only; the frozen implementation was not changed.
 
-## Method
+Holdout run 2026-11-10T21:46:49.656Z. Frozen implementation commit **7cb343a9bf00668b77a20465edc2a884160f60ec**. Seed 20261110, model claude-sonnet-5-5, prompt pill-v2. 150 photos / 75 new NDC products / 300 pairs; 126/150 wrong pairs are hard look-alikes. Zero development product-code overlap, including package aliases. No implementation changes are allowed after viewing holdout outcomes; hashes are enforced by the runner. Headline method was predeclared as one-view Sonnet, not selected by results.
 
-Only C3PI_Test JPG consumer photos from the [NIH index](https://data.lhncbc.nlm.nih.gov/public/Pills/directory_consumer_grade_images.txt). Product codes were seeded-shuffled; first 100 with two eligible photos, a resolvable RxNav drug group, and an FDA imprint were retained. 32 candidates were excluded (5 without an imprint/product; the remaining reasons are listed individually in DATA.md). 67 selected products are marked inactive/discontinued. We checked part numbers in the index: all selected products have a single part. Each photo appears once with its correct NDC and once with a different generic medicine, never an equivalent manufacturer change. 168 of 200 wrong pairs share the FDA color and shape but have a different imprint; the others are easy negatives. Labels and hard-negative selection use FDA metadata, not model answers. The completed cohort is fixed in out/cohort.json, including exact ground-truth product groups.
+## Holdout: every safety and usefulness metric together
 
-Both models call the exact production readPill with env-selected model and normal validation retry. No label-photo reading or explanation is evaluated. Single-visible-side imprint matching counts as exact; close allows confusable letters/numbers. Reader failures count as no-read/UNSURE, not exclusions. Color and shape agreement include exact or close matches. For verification the production decide function receives the known label NDC and its full recorded same-drug product group. The no-fold ablation only disables character folding. The direct baseline uses Sonnet and the same pairs, shown the photo and label drug/strength/NDC, with no tool lookup. Nonconforming baseline text becomes UNSURE; raw answers are saved. Haiku has a pipeline result, not an unrequested direct baseline.
-
-## Verification counts
-
-| Method | Wrong caught | False alarms | Right passed | Unsure overall | Easy caught | Hard caught |
-|---|---:|---:|---:|---:|---:|---:|
-| claude-sonnet-5-5 | 77/200 | 2/200 | 64/200 | 257/400 | 10/32 | 67/168 |
-| claude-sonnet-5-5-no-fold | 77/200 | 2/200 | 64/200 | 257/400 | 10/32 | 67/168 |
-| claude-haiku-5-5 | 56/200 | 6/200 | 41/200 | 297/400 | 7/32 | 49/168 |
-| claude-haiku-5-5-no-fold | 56/200 | 6/200 | 41/200 | 297/400 | 7/32 | 49/168 |
-| baseline | 91/200 | 9/200 | 49/200 | 248/400 | 28/32 | 63/168 |
-
-Catch rate is wrong MISMATCH / all wrong. False alarm rate is right MISMATCH / all right. Right pass rate is MATCH or SAME_MEDICINE / all right. UNSURE stays in every denominator and is never called a catch. Right + wrong balance is 200 + 200. Read the ratios directly; the site truncates percentages to one decimal.
-
-## Reading counts
-
-| Model | Exact | Close | Wrong | No read | Color agree | Shape agree | Reader errors |
+| Method | Wrong caught | Wrong called fine | False alarms | Right passed | Correct / decisive | Coverage | Unsure |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| claude-sonnet-5-5 | 119 | 1 | 26 | 54 | 157/200 | 184/200 | 8 |
-| claude-haiku-5-5 | 94 | 0 | 56 | 50 | 147/200 | 178/200 | 15 |
+| Sonnet, one view | 46/150 | 1/150 | 4/150 | 37/150 | 83/88 | 29.3% | 212/300 |
+| Sonnet, two views | 26/150 | 0/150 | 4/150 | 20/150 | 46/50 | 16.6% | 250/300 |
+| Direct Sonnet | 45/150 | 2/150 | 9/150 | 38/150 | 83/94 | 31.3% | 206/300 |
 
-## Time and estimated spend
+Decisive means not UNSURE. Correct decisive answers = right pills passed + wrong pills marked MISMATCH. Wrong passes, false alarms and abstentions are never counted as correct. Do not describe zero observed wrong passes as proven safety.
 
-- claude-sonnet-5-5: mean reading 2.858 s/image; estimated $0.010800 per new image/check (one reading reused for two benchmark pairs).
-- claude-haiku-5-5: mean reading 3.809 s/image; estimated $0.000764 per new image/check (one reading reused for two benchmark pairs).
-- Direct Sonnet baseline: 1.436 s/pair and $0.004862 estimated per pair.
-- Total estimated model spend: $6.668058. Hard limit $8; uncached requests now use token-count preflight, 10% plus 4,096 input-token headroom, maximum output and all reader attempts. The combined in-flight bound is reserved before starting. The original completed run used $0.10 per operation and stayed below the cap. Token usage is saved after each completed model response. Failed network requests with no usage response cannot be measured. Pricing: Sonnet $2/$10 per million input/output tokens; Haiku $0.10/$0.50 for these short prompts ([Anthropic pricing announcement](https://www.anthropic.com/claude-haiku-5-5)). No cache-write tokens are requested.
-- These timings measure model reading/direct classification, not the full app: label OCR, FDA network lookup, explanation, image upload and UI are excluded.
+## Development, never a test headline
 
-## Reproduce and audit
+The phase-4 200-photo / 100-product cohort is DEVELOPMENT data now. Its original pill-v1 one-view result was 77/200 wrong caught, 0/200 wrong called fine, 2/200 false alarms, 64/200 right passed, 141/143 correct decisive answers and 143/400 coverage. dev-diagnosis.md records all abstentions; dev-diagnosis.json has all 400 rows. Development two-view evaluation reuses v1 caches with the phase-5 engine, NOT new v2 readings. See development-results.json and PHASE4-REPORT.md. No development images were reread: the entire new budget was reserved for holdout. The optional extra partial-side relaxation was not adopted; the existing matcher already accepts visible subsets.
 
-Run npm install then npm run research with ANTHROPIC_API_KEY in ignored .env.local. research/data is gitignored. If data is absent, the committed cohort restores only those 200 images and verifies resized hashes; it does not resample. Cached readings are keyed by model, production prompt version and image SHA256. A completed rerun makes no model calls. out/results.json, out/pairs.csv, both readings caches, baseline.json, cost.json and cohort.json are auditable. DATA.md lists exact URLs, filenames and exclusions. Source file hashes in results.json identify the evaluation implementation.
+## Protocol and limitations
 
-## Limits and interpretation
+Only consumer C3PI_Test JPG rows from the NIH index, single-part products; two seeded views of 75 product-disjoint codes. To meet the predeclared hard-negative floor, we took the first 100 seeded eligible metadata records, selected 60 in mutual hard-negative pairs, then filled 15 from the remaining seeded order. This look-alike-stratified selection is not prescription-population sampling. FDA imprint, color, shape and all same-drug alternatives come from our RxNav ndcstatus=ALL client and are frozen in holdout-cohort.json. Exact URLs, hashes and skips are in HOLDOUT-DATA.md. Known label NDC, not label OCR. Same deterministic pair rules as development: balanced truth, different generic medicine, non-equivalent imprint, at least 80% hard pairs. Selection and exclusions happened before model outputs. 14 candidates skipped; individual reasons are recorded. 43 selected records are inactive/discontinued.
 
-The archive reflects the 2016 challenge era; some products are discontinued and FDA mappings have changed. Consumer photos are controlled photographs of single pills on backgrounds, not all real phone conditions. One view can hide the imprint. Size is not measured. Selection excludes products without usable ground truth and may not represent US prescriptions. There are two photos per product and each photo contributes two pairs: observations are correlated, not 400 independent clinical cases. Hard negatives are from this cohort, not every possible look-alike. Models may have seen these public images in training. There is no independent holdout for model development. No statistical significance or superiority claim is inferred from these counts. If the baseline wins, it is reported without changing the cohort or thresholds.
+Two-view evaluation merges both existing photos of each product. They are independent archive views, not guaranteed opposite sides or the same physical tablet. There are only 75 unique view-pairs; each is reused for two anchors. All observations are correlated by product and anchor. Two-view union preserves the minimum confidence of nonblank text, ignores a blank side for imprint confidence, and requires exact color agreement plus compatible shape and trusted appearance in both. Conflicts remain UNSURE. Empty/failed readings remain in denominators. Long/odd strings are cleaned and bounded; trimmed imprint confidence is capped below 0.7. The imprint threshold remains 0.7.
 
-Dataset citation: [Yaniv et al., National Library of Medicine pill image recognition challenge](https://pubmed.ncbi.nlm.nih.gov/29854569/). See [NIH archive](https://data.lhncbc.nlm.nih.gov/public/Pills/index.html).
+Direct baseline sees the same single photos and label drug/strength/NDC, no FDA lookup. Its frozen settings are max_tokens=128, thinking.type=between_tools, output_config.effort=high; reader reasoning retains production defaults. Nonconforming baseline text counts UNSURE. This is a system comparison, not an isolated causal test of deterministic code. Dataset is public and from the 2016 challenge era; training overlap, record changes and controlled backgrounds limit generalization. No size or authenticity measurement, no clinical validation. Different development/holdout distributions prevent a causal before/after accuracy claim.
 
-## Baseline configuration
+## Cost, timing, reproduction
 
-The initial 400-pair baseline used default adaptive thinking and max_tokens 128. Of those requests, 382 produced nonconforming replies (381 empty): this was an output-budget failure, not evidence of wrong-pill detection. Before publication, every baseline pair was repeated. Initial replies remain in baseline.json and all pilot spend is counted. The reported baseline uses thinking.type=between_tools, output_config.effort=high, max_tokens=128 (baseline-v2): https://platform.claude.com/docs/en/build-with-claude/thinking. Every pair uses v2, without selection by correctness. Production readers retain normal reasoning settings, so this compares system configurations, not an isolated causal effect of code alone. The prompt requests one word; invalid final text counts as UNSURE. 1 final baseline replies were nonconforming.
+New estimated spend **$3.062534 / $5**, separate from phase 4's $6.6680584. Every uncached operation reserves token-count input headroom and maximum output/reader retry costs across in-flight requests before launch. SDK network failures without returned usage cannot be billed from the ledger. Both-view evaluations reuse existing reads, with no extra API calls; a real two-photo check would pay for two reads. Mean one-photo read 2.446 s; direct baseline 1.093 s/pair. These exclude label OCR, FDA lookup, explanation, upload and UI. Reader errors: 0/150, retained as UNSURE.
 
-## What we learned
+Run npm run research (fully cached report regeneration, no --run). A new paid run requires explicit --run and an existing matching freeze; never reset it to hide a second run. All readings, raw direct replies, usage ledger, all 900 pair outcomes, cohort and freeze hashes are committed. Photos remain ignored; missing files are restored only when a new read needs them, and hashes checked. Holdout outcomes may be reported, not used to tune this release. Future tuning requires another development set and a new untouched holdout.
 
-Sonnet's pipeline caught 77/200 wrong pills with 2/200 false alarms and 257/400 abstentions. Direct AI caught 91/200, with 9/200 false alarms. The pipeline caught fewer wrong pills but raised fewer false alarms; it does not win overall accuracy. Its right-pill pass rate is low. Blank-side and unreadable photos were not discarded. The ablation produced the same verification outcomes on this cohort, so it provides no measured folding benefit here. Reader failures include overlong imprint/shape/form strings rejected by the unchanged production schema. Next investigate tighter transcription constraints, clearer schema descriptions, crop/lighting guidance and optional second-side capture, then evaluate those changes on a fresh held-out cohort. Do not tune thresholds on this set and relabel it an independent test.
+[NIH index](https://data.lhncbc.nlm.nih.gov/public/Pills/directory_consumer_grade_images.txt) · [Yaniv et al., dataset paper](https://pubmed.ncbi.nlm.nih.gov/29854569/)
 
-## All wrong-pill outcomes by difficulty
+## Development only: current engine, cached v1 readings
 
-| Method | Difficulty | Wrong pairs | Caught | Unsure | Incorrectly passed |
-|---|---|---:|---:|---:|---:|
-| claude-sonnet-5-5 | easy | 32 | 10 | 22 | 0 |
-| claude-sonnet-5-5 | hard | 168 | 67 | 101 | 0 |
-| claude-sonnet-5-5-no-fold | easy | 32 | 10 | 22 | 0 |
-| claude-sonnet-5-5-no-fold | hard | 168 | 67 | 101 | 0 |
-| claude-haiku-5-5 | easy | 32 | 7 | 25 | 0 |
-| claude-haiku-5-5 | hard | 168 | 49 | 119 | 0 |
-| claude-haiku-5-5-no-fold | easy | 32 | 7 | 25 | 0 |
-| claude-haiku-5-5-no-fold | hard | 168 | 49 | 119 | 0 |
-| baseline | easy | 32 | 28 | 4 | 0 |
-| baseline | hard | 168 | 63 | 102 | 3 |
+| Method | Wrong caught | Wrong called fine | False alarms | Right passed | Correct / decisive | Coverage | Unsure |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| Sonnet, one view | 66/200 | 0/200 | 2/200 | 56/200 | 122/124 | 31% | 276/400 |
+| Sonnet, two views | 34/200 | 0/200 | 2/200 | 32/200 | 66/68 | 17% | 332/400 |
+| Direct Sonnet | 91/200 | 3/200 | 9/200 | 49/200 | 140/152 | 38% | 248/400 |
 
-False alarms and right-pill pass rates apply to the shared 200 right pairs, not to wrong-pair difficulty categories. Every wrong-pair outcome is shown above; UNSURE is not a successful detection.
+Shape cleanup recognizes literal “-shaped” suffixes. Single-view engine checks now honor multiple/absent-pill signals, consistent with the camera pipeline; this adds abstentions versus phase 4, whose pure benchmark engine ignored those flags. The thresholds were not lowered. Strict two-view compatibility costs coverage on development; no outcome was discarded to hide this. The initial unstratified metadata-only holdout candidate pool failed the hard-negative floor. No model call had occurred; the stratification described above was fixed before freezing.
+
+Mean model cost per new single-view check $0.010721; direct classification $0.004848. Two-view model-reading cost would be approximately twice a single read, excluding label/explanation. Development reread spend: $0.

@@ -1,0 +1,2702 @@
+[
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 339,
+    "usd": 0.011
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 335,
+    "usd": 0.01096
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 332,
+    "usd": 0.01093
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 335,
+    "usd": 0.01096
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 341,
+    "usd": 0.01102
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 334,
+    "usd": 0.01095
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 335,
+    "usd": 0.01096
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 339,
+    "usd": 0.011
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 332,
+    "usd": 0.01093
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 356,
+    "usd": 0.01117
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 340,
+    "usd": 0.01101
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 337,
+    "usd": 0.01098
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 335,
+    "usd": 0.01096
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 335,
+    "usd": 0.01096
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 336,
+    "usd": 0.01097
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 332,
+    "usd": 0.01093
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 363,
+    "usd": 0.01124
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 364,
+    "usd": 0.01125
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 335,
+    "usd": 0.01096
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 332,
+    "usd": 0.01093
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 334,
+    "usd": 0.01095
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 332,
+    "usd": 0.01093
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 332,
+    "usd": 0.01093
+  },
+  {
+    "phase": "read",
+    "input": 2507,
+    "output": 575,
+    "usd": 0.010764
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 358,
+    "usd": 0.01119
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 338,
+    "usd": 0.01099
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 342,
+    "usd": 0.01103
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 337,
+    "usd": 0.01098
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 336,
+    "usd": 0.01097
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 338,
+    "usd": 0.01099
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 337,
+    "usd": 0.01098
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 333,
+    "usd": 0.01094
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 339,
+    "usd": 0.011
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 364,
+    "usd": 0.01125
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 335,
+    "usd": 0.01096
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 335,
+    "usd": 0.01096
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 339,
+    "usd": 0.011
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 338,
+    "usd": 0.01099
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 336,
+    "usd": 0.01097
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 373,
+    "usd": 0.01134
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 334,
+    "usd": 0.01095
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 391,
+    "usd": 0.01152
+  },
+  {
+    "phase": "read",
+    "input": 1577,
+    "output": 331,
+    "usd": 0.006464
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 334,
+    "usd": 0.01095
+  },
+  {
+    "phase": "read",
+    "input": 1577,
+    "output": 331,
+    "usd": 0.006464
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 339,
+    "usd": 0.011
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 334,
+    "usd": 0.01095
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 337,
+    "usd": 0.01098
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 379,
+    "usd": 0.0114
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 373,
+    "usd": 0.01134
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 335,
+    "usd": 0.01096
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 335,
+    "usd": 0.01096
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 333,
+    "usd": 0.01094
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 336,
+    "usd": 0.01097
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 362,
+    "usd": 0.01123
+  },
+  {
+    "phase": "read",
+    "input": 2507,
+    "output": 341,
+    "usd": 0.008424
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 366,
+    "usd": 0.01127
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 336,
+    "usd": 0.01097
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 335,
+    "usd": 0.01096
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 337,
+    "usd": 0.01098
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 337,
+    "usd": 0.01098
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 334,
+    "usd": 0.01095
+  },
+  {
+    "phase": "read",
+    "input": 1577,
+    "output": 337,
+    "usd": 0.006524
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 335,
+    "usd": 0.01096
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 343,
+    "usd": 0.01104
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 334,
+    "usd": 0.01095
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 334,
+    "usd": 0.01095
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 356,
+    "usd": 0.01117
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 330,
+    "usd": 0.01091
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 334,
+    "usd": 0.01095
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 356,
+    "usd": 0.01117
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 360,
+    "usd": 0.01121
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 336,
+    "usd": 0.01097
+  },
+  {
+    "phase": "read",
+    "input": 1577,
+    "output": 332,
+    "usd": 0.006474
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 331,
+    "usd": 0.01092
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 333,
+    "usd": 0.01094
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 354,
+    "usd": 0.01115
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 800,
+    "usd": 0.01561
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 341,
+    "usd": 0.01102
+  },
+  {
+    "phase": "read",
+    "input": 1577,
+    "output": 337,
+    "usd": 0.006524
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 339,
+    "usd": 0.011
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 341,
+    "usd": 0.01102
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 340,
+    "usd": 0.01101
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 337,
+    "usd": 0.01098
+  },
+  {
+    "phase": "read",
+    "input": 3225,
+    "output": 338,
+    "usd": 0.00983
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 337,
+    "usd": 0.01098
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 336,
+    "usd": 0.01097
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 339,
+    "usd": 0.011
+  },
+  {
+    "phase": "read",
+    "input": 1577,
+    "output": 332,
+    "usd": 0.006474
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 369,
+    "usd": 0.0113
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 342,
+    "usd": 0.01103
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 343,
+    "usd": 0.01104
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 337,
+    "usd": 0.01098
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 334,
+    "usd": 0.01095
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 336,
+    "usd": 0.01097
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 333,
+    "usd": 0.01094
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 338,
+    "usd": 0.01099
+  },
+  {
+    "phase": "read",
+    "input": 2507,
+    "output": 337,
+    "usd": 0.008384
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 793,
+    "usd": 0.01554
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 335,
+    "usd": 0.01096
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 339,
+    "usd": 0.011
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 332,
+    "usd": 0.01093
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 332,
+    "usd": 0.01093
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 360,
+    "usd": 0.01121
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 354,
+    "usd": 0.01115
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 332,
+    "usd": 0.01093
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 336,
+    "usd": 0.01097
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 334,
+    "usd": 0.01095
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 335,
+    "usd": 0.01096
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 336,
+    "usd": 0.01097
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 344,
+    "usd": 0.01105
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 341,
+    "usd": 0.01102
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 332,
+    "usd": 0.01093
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 332,
+    "usd": 0.01093
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 337,
+    "usd": 0.01098
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 334,
+    "usd": 0.01095
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 337,
+    "usd": 0.01098
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 336,
+    "usd": 0.01097
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 333,
+    "usd": 0.01094
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 335,
+    "usd": 0.01096
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 333,
+    "usd": 0.01094
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 333,
+    "usd": 0.01094
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 334,
+    "usd": 0.01095
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 338,
+    "usd": 0.01099
+  },
+  {
+    "phase": "read",
+    "input": 3225,
+    "output": 366,
+    "usd": 0.01011
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 333,
+    "usd": 0.01094
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 345,
+    "usd": 0.01106
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 365,
+    "usd": 0.01126
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 343,
+    "usd": 0.01104
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 337,
+    "usd": 0.01098
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 338,
+    "usd": 0.01099
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 335,
+    "usd": 0.01096
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 366,
+    "usd": 0.01127
+  },
+  {
+    "phase": "read",
+    "input": 3225,
+    "output": 346,
+    "usd": 0.00991
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 336,
+    "usd": 0.01097
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 335,
+    "usd": 0.01096
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 343,
+    "usd": 0.01104
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 340,
+    "usd": 0.01101
+  },
+  {
+    "phase": "read",
+    "input": 1577,
+    "output": 336,
+    "usd": 0.006514
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 341,
+    "usd": 0.01102
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 339,
+    "usd": 0.011
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 339,
+    "usd": 0.011
+  },
+  {
+    "phase": "read",
+    "input": 2347,
+    "output": 336,
+    "usd": 0.008054
+  },
+  {
+    "phase": "read",
+    "input": 3225,
+    "output": 344,
+    "usd": 0.00989
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 338,
+    "usd": 0.01099
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 336,
+    "usd": 0.01097
+  },
+  {
+    "phase": "read",
+    "input": 1577,
+    "output": 337,
+    "usd": 0.006524
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 342,
+    "usd": 0.01103
+  },
+  {
+    "phase": "read",
+    "input": 3805,
+    "output": 337,
+    "usd": 0.01098
+  },
+  {
+    "phase": "read",
+    "input": 1577,
+    "output": 343,
+    "usd": 0.006584
+  },
+  {
+    "phase": "baseline",
+    "input": 2572,
+    "output": 7,
+    "usd": 0.005214
+  },
+  {
+    "phase": "baseline",
+    "input": 2569,
+    "output": 8,
+    "usd": 0.005218
+  },
+  {
+    "phase": "baseline",
+    "input": 2569,
+    "output": 8,
+    "usd": 0.005218
+  },
+  {
+    "phase": "baseline",
+    "input": 2572,
+    "output": 7,
+    "usd": 0.005214
+  },
+  {
+    "phase": "baseline",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208
+  },
+  {
+    "phase": "baseline",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208
+  },
+  {
+    "phase": "baseline",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208
+  },
+  {
+    "phase": "baseline",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208
+  },
+  {
+    "phase": "baseline",
+    "input": 2572,
+    "output": 6,
+    "usd": 0.005204
+  },
+  {
+    "phase": "baseline",
+    "input": 2572,
+    "output": 6,
+    "usd": 0.005204
+  },
+  {
+    "phase": "baseline",
+    "input": 2570,
+    "output": 6,
+    "usd": 0.0052
+  },
+  {
+    "phase": "baseline",
+    "input": 2570,
+    "output": 8,
+    "usd": 0.00522
+  },
+  {
+    "phase": "baseline",
+    "input": 2570,
+    "output": 8,
+    "usd": 0.00522
+  },
+  {
+    "phase": "baseline",
+    "input": 2572,
+    "output": 7,
+    "usd": 0.005214
+  },
+  {
+    "phase": "baseline",
+    "input": 2572,
+    "output": 6,
+    "usd": 0.005204
+  },
+  {
+    "phase": "baseline",
+    "input": 2570,
+    "output": 6,
+    "usd": 0.0052
+  },
+  {
+    "phase": "baseline",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206
+  },
+  {
+    "phase": "baseline",
+    "input": 2571,
+    "output": 7,
+    "usd": 0.005212
+  },
+  {
+    "phase": "baseline",
+    "input": 2568,
+    "output": 6,
+    "usd": 0.005196
+  },
+  {
+    "phase": "baseline",
+    "input": 2571,
+    "output": 7,
+    "usd": 0.005212
+  },
+  {
+    "phase": "baseline",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206
+  },
+  {
+    "phase": "baseline",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208
+  },
+  {
+    "phase": "baseline",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206
+  },
+  {
+    "phase": "baseline",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206
+  },
+  {
+    "phase": "baseline",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206
+  },
+  {
+    "phase": "baseline",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206
+  },
+  {
+    "phase": "baseline",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206
+  },
+  {
+    "phase": "baseline",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208
+  },
+  {
+    "phase": "baseline",
+    "input": 2572,
+    "output": 7,
+    "usd": 0.005214
+  },
+  {
+    "phase": "baseline",
+    "input": 2572,
+    "output": 7,
+    "usd": 0.005214
+  },
+  {
+    "phase": "baseline",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208
+  },
+  {
+    "phase": "baseline",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208
+  },
+  {
+    "phase": "baseline",
+    "input": 2568,
+    "output": 8,
+    "usd": 0.005216
+  },
+  {
+    "phase": "baseline",
+    "input": 2576,
+    "output": 7,
+    "usd": 0.005222
+  },
+  {
+    "phase": "baseline",
+    "input": 2568,
+    "output": 8,
+    "usd": 0.005216
+  },
+  {
+    "phase": "baseline",
+    "input": 2576,
+    "output": 7,
+    "usd": 0.005222
+  },
+  {
+    "phase": "baseline",
+    "input": 2573,
+    "output": 7,
+    "usd": 0.005216
+  },
+  {
+    "phase": "baseline",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206
+  },
+  {
+    "phase": "baseline",
+    "input": 2573,
+    "output": 7,
+    "usd": 0.005216
+  },
+  {
+    "phase": "baseline",
+    "input": 2573,
+    "output": 7,
+    "usd": 0.005216
+  },
+  {
+    "phase": "baseline",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206
+  },
+  {
+    "phase": "baseline",
+    "input": 2573,
+    "output": 7,
+    "usd": 0.005216
+  },
+  {
+    "phase": "baseline",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206
+  },
+  {
+    "phase": "baseline",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206
+  },
+  {
+    "phase": "baseline",
+    "input": 1273,
+    "output": 7,
+    "usd": 0.002616
+  },
+  {
+    "phase": "baseline",
+    "input": 1270,
+    "output": 7,
+    "usd": 0.00261
+  },
+  {
+    "phase": "baseline",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206
+  },
+  {
+    "phase": "baseline",
+    "input": 2571,
+    "output": 7,
+    "usd": 0.005212
+  },
+  {
+    "phase": "baseline",
+    "input": 2570,
+    "output": 7,
+    "usd": 0.00521
+  },
+  {
+    "phase": "baseline",
+    "input": 2570,
+    "output": 8,
+    "usd": 0.00522
+  },
+  {
+    "phase": "baseline",
+    "input": 2570,
+    "output": 8,
+    "usd": 0.00522
+  },
+  {
+    "phase": "baseline",
+    "input": 2570,
+    "output": 8,
+    "usd": 0.00522
+  },
+  {
+    "phase": "baseline",
+    "input": 2570,
+    "output": 6,
+    "usd": 0.0052
+  },
+  {
+    "phase": "baseline",
+    "input": 2570,
+    "output": 8,
+    "usd": 0.00522
+  },
+  {
+    "phase": "baseline",
+    "input": 2570,
+    "output": 7,
+    "usd": 0.00521
+  },
+  {
+    "phase": "baseline",
+    "input": 2570,
+    "output": 7,
+    "usd": 0.00521
+  },
+  {
+    "phase": "baseline",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208
+  },
+  {
+    "phase": "baseline",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208
+  },
+  {
+    "phase": "baseline",
+    "input": 2569,
+    "output": 6,
+    "usd": 0.005198
+  },
+  {
+    "phase": "baseline",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208
+  },
+  {
+    "phase": "baseline",
+    "input": 2588,
+    "output": 7,
+    "usd": 0.005246
+  },
+  {
+    "phase": "baseline",
+    "input": 2588,
+    "output": 7,
+    "usd": 0.005246
+  },
+  {
+    "phase": "baseline",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208
+  },
+  {
+    "phase": "baseline",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208
+  },
+  {
+    "phase": "baseline",
+    "input": 2574,
+    "output": 6,
+    "usd": 0.005208
+  },
+  {
+    "phase": "baseline",
+    "input": 2574,
+    "output": 8,
+    "usd": 0.005228
+  },
+  {
+    "phase": "baseline",
+    "input": 2574,
+    "output": 7,
+    "usd": 0.005218
+  },
+  {
+    "phase": "baseline",
+    "input": 2574,
+    "output": 7,
+    "usd": 0.005218
+  },
+  {
+    "phase": "baseline",
+    "input": 2574,
+    "output": 7,
+    "usd": 0.005218
+  },
+  {
+    "phase": "baseline",
+    "input": 2574,
+    "output": 7,
+    "usd": 0.005218
+  },
+  {
+    "phase": "baseline",
+    "input": 2574,
+    "output": 128,
+    "usd": 0.006428
+  },
+  {
+    "phase": "baseline",
+    "input": 2574,
+    "output": 7,
+    "usd": 0.005218
+  },
+  {
+    "phase": "baseline",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206
+  },
+  {
+    "phase": "baseline",
+    "input": 2577,
+    "output": 7,
+    "usd": 0.005224
+  },
+  {
+    "phase": "baseline",
+    "input": 2577,
+    "output": 7,
+    "usd": 0.005224
+  },
+  {
+    "phase": "baseline",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206
+  },
+  {
+    "phase": "baseline",
+    "input": 2568,
+    "output": 6,
+    "usd": 0.005196
+  },
+  {
+    "phase": "baseline",
+    "input": 2577,
+    "output": 8,
+    "usd": 0.005234
+  },
+  {
+    "phase": "baseline",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206
+  },
+  {
+    "phase": "baseline",
+    "input": 2577,
+    "output": 8,
+    "usd": 0.005234
+  },
+  {
+    "phase": "baseline",
+    "input": 2571,
+    "output": 7,
+    "usd": 0.005212
+  },
+  {
+    "phase": "baseline",
+    "input": 2587,
+    "output": 7,
+    "usd": 0.005244
+  },
+  {
+    "phase": "baseline",
+    "input": 2587,
+    "output": 7,
+    "usd": 0.005244
+  },
+  {
+    "phase": "baseline",
+    "input": 2571,
+    "output": 7,
+    "usd": 0.005212
+  },
+  {
+    "phase": "baseline",
+    "input": 2571,
+    "output": 7,
+    "usd": 0.005212
+  },
+  {
+    "phase": "baseline",
+    "input": 2587,
+    "output": 7,
+    "usd": 0.005244
+  },
+  {
+    "phase": "baseline",
+    "input": 2571,
+    "output": 7,
+    "usd": 0.005212
+  },
+  {
+    "phase": "baseline",
+    "input": 340,
+    "output": 7,
+    "usd": 0.00075
+  },
+  {
+    "phase": "baseline",
+    "input": 2587,
+    "output": 7,
+    "usd": 0.005244
+  },
+  {
+    "phase": "baseline",
+    "input": 346,
+    "output": 6,
+    "usd": 0.000752
+  },
+  {
+    "phase": "baseline",
+    "input": 346,
+    "output": 7,
+    "usd": 0.000762
+  },
+  {
+    "phase": "baseline",
+    "input": 2576,
+    "output": 6,
+    "usd": 0.005212
+  },
+  {
+    "phase": "baseline",
+    "input": 2576,
+    "output": 6,
+    "usd": 0.005212
+  },
+  {
+    "phase": "baseline",
+    "input": 340,
+    "output": 8,
+    "usd": 0.00076
+  },
+  {
+    "phase": "baseline",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206
+  },
+  {
+    "phase": "baseline",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206
+  },
+  {
+    "phase": "baseline",
+    "input": 2569,
+    "output": 6,
+    "usd": 0.005198
+  },
+  {
+    "phase": "baseline",
+    "input": 2581,
+    "output": 8,
+    "usd": 0.005242
+  },
+  {
+    "phase": "baseline",
+    "input": 2581,
+    "output": 8,
+    "usd": 0.005242
+  },
+  {
+    "phase": "baseline",
+    "input": 2569,
+    "output": 6,
+    "usd": 0.005198
+  },
+  {
+    "phase": "baseline",
+    "input": 2581,
+    "output": 7,
+    "usd": 0.005232
+  },
+  {
+    "phase": "baseline",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208
+  },
+  {
+    "phase": "baseline",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208
+  },
+  {
+    "phase": "baseline",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208
+  },
+  {
+    "phase": "baseline",
+    "input": 2581,
+    "output": 7,
+    "usd": 0.005232
+  },
+  {
+    "phase": "baseline",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208
+  },
+  {
+    "phase": "baseline",
+    "input": 2570,
+    "output": 8,
+    "usd": 0.00522
+  },
+  {
+    "phase": "baseline",
+    "input": 2570,
+    "output": 7,
+    "usd": 0.00521
+  },
+  {
+    "phase": "baseline",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206
+  },
+  {
+    "phase": "baseline",
+    "input": 2570,
+    "output": 7,
+    "usd": 0.00521
+  },
+  {
+    "phase": "baseline",
+    "input": 2570,
+    "output": 8,
+    "usd": 0.00522
+  },
+  {
+    "phase": "baseline",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206
+  },
+  {
+    "phase": "baseline",
+    "input": 1295,
+    "output": 7,
+    "usd": 0.00266
+  },
+  {
+    "phase": "baseline",
+    "input": 2593,
+    "output": 7,
+    "usd": 0.005256
+  },
+  {
+    "phase": "baseline",
+    "input": 2585,
+    "output": 7,
+    "usd": 0.00524
+  },
+  {
+    "phase": "baseline",
+    "input": 1287,
+    "output": 7,
+    "usd": 0.002644
+  },
+  {
+    "phase": "baseline",
+    "input": 2585,
+    "output": 7,
+    "usd": 0.00524
+  },
+  {
+    "phase": "baseline",
+    "input": 2593,
+    "output": 7,
+    "usd": 0.005256
+  },
+  {
+    "phase": "baseline",
+    "input": 2585,
+    "output": 7,
+    "usd": 0.00524
+  },
+  {
+    "phase": "baseline",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206
+  },
+  {
+    "phase": "baseline",
+    "input": 2593,
+    "output": 7,
+    "usd": 0.005256
+  },
+  {
+    "phase": "baseline",
+    "input": 2574,
+    "output": 7,
+    "usd": 0.005218
+  },
+  {
+    "phase": "baseline",
+    "input": 2568,
+    "output": 6,
+    "usd": 0.005196
+  },
+  {
+    "phase": "baseline",
+    "input": 2574,
+    "output": 8,
+    "usd": 0.005228
+  },
+  {
+    "phase": "baseline",
+    "input": 346,
+    "output": 7,
+    "usd": 0.000762
+  },
+  {
+    "phase": "baseline",
+    "input": 340,
+    "output": 7,
+    "usd": 0.00075
+  },
+  {
+    "phase": "baseline",
+    "input": 2574,
+    "output": 7,
+    "usd": 0.005218
+  },
+  {
+    "phase": "baseline",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206
+  },
+  {
+    "phase": "baseline",
+    "input": 2574,
+    "output": 7,
+    "usd": 0.005218
+  },
+  {
+    "phase": "baseline",
+    "input": 2574,
+    "output": 7,
+    "usd": 0.005218
+  },
+  {
+    "phase": "baseline",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206
+  },
+  {
+    "phase": "baseline",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206
+  },
+  {
+    "phase": "baseline",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208
+  },
+  {
+    "phase": "baseline",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208
+  },
+  {
+    "phase": "baseline",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206
+  },
+  {
+    "phase": "baseline",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206
+  },
+  {
+    "phase": "baseline",
+    "input": 2576,
+    "output": 7,
+    "usd": 0.005222
+  },
+  {
+    "phase": "baseline",
+    "input": 2573,
+    "output": 7,
+    "usd": 0.005216
+  },
+  {
+    "phase": "baseline",
+    "input": 2573,
+    "output": 7,
+    "usd": 0.005216
+  },
+  {
+    "phase": "baseline",
+    "input": 2573,
+    "output": 8,
+    "usd": 0.005226
+  },
+  {
+    "phase": "baseline",
+    "input": 2576,
+    "output": 7,
+    "usd": 0.005222
+  },
+  {
+    "phase": "baseline",
+    "input": 2576,
+    "output": 7,
+    "usd": 0.005222
+  },
+  {
+    "phase": "baseline",
+    "input": 2576,
+    "output": 7,
+    "usd": 0.005222
+  },
+  {
+    "phase": "baseline",
+    "input": 2573,
+    "output": 7,
+    "usd": 0.005216
+  },
+  {
+    "phase": "baseline",
+    "input": 2572,
+    "output": 8,
+    "usd": 0.005224
+  },
+  {
+    "phase": "baseline",
+    "input": 2568,
+    "output": 8,
+    "usd": 0.005216
+  },
+  {
+    "phase": "baseline",
+    "input": 2572,
+    "output": 7,
+    "usd": 0.005214
+  },
+  {
+    "phase": "baseline",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206
+  },
+  {
+    "phase": "baseline",
+    "input": 341,
+    "output": 6,
+    "usd": 0.000742
+  },
+  {
+    "phase": "baseline",
+    "input": 340,
+    "output": 7,
+    "usd": 0.00075
+  },
+  {
+    "phase": "baseline",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206
+  },
+  {
+    "phase": "baseline",
+    "input": 2569,
+    "output": 6,
+    "usd": 0.005198
+  },
+  {
+    "phase": "baseline",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206
+  },
+  {
+    "phase": "baseline",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208
+  },
+  {
+    "phase": "baseline",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206
+  },
+  {
+    "phase": "baseline",
+    "input": 2569,
+    "output": 8,
+    "usd": 0.005218
+  },
+  {
+    "phase": "baseline",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206
+  },
+  {
+    "phase": "baseline",
+    "input": 2569,
+    "output": 6,
+    "usd": 0.005198
+  },
+  {
+    "phase": "baseline",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208
+  },
+  {
+    "phase": "baseline",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206
+  },
+  {
+    "phase": "baseline",
+    "input": 2572,
+    "output": 6,
+    "usd": 0.005204
+  },
+  {
+    "phase": "baseline",
+    "input": 2570,
+    "output": 8,
+    "usd": 0.00522
+  },
+  {
+    "phase": "baseline",
+    "input": 344,
+    "output": 6,
+    "usd": 0.000748
+  },
+  {
+    "phase": "baseline",
+    "input": 342,
+    "output": 8,
+    "usd": 0.000764
+  },
+  {
+    "phase": "baseline",
+    "input": 2570,
+    "output": 7,
+    "usd": 0.00521
+  },
+  {
+    "phase": "baseline",
+    "input": 2572,
+    "output": 6,
+    "usd": 0.005204
+  },
+  {
+    "phase": "baseline",
+    "input": 2572,
+    "output": 6,
+    "usd": 0.005204
+  },
+  {
+    "phase": "baseline",
+    "input": 1989,
+    "output": 8,
+    "usd": 0.004058
+  },
+  {
+    "phase": "baseline",
+    "input": 2570,
+    "output": 8,
+    "usd": 0.00522
+  },
+  {
+    "phase": "baseline",
+    "input": 1989,
+    "output": 8,
+    "usd": 0.004058
+  },
+  {
+    "phase": "baseline",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208
+  },
+  {
+    "phase": "baseline",
+    "input": 2569,
+    "output": 6,
+    "usd": 0.005198
+  },
+  {
+    "phase": "baseline",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208
+  },
+  {
+    "phase": "baseline",
+    "input": 2569,
+    "output": 6,
+    "usd": 0.005198
+  },
+  {
+    "phase": "baseline",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208
+  },
+  {
+    "phase": "baseline",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208
+  },
+  {
+    "phase": "baseline",
+    "input": 342,
+    "output": 7,
+    "usd": 0.000754
+  },
+  {
+    "phase": "baseline",
+    "input": 341,
+    "output": 8,
+    "usd": 0.000762
+  },
+  {
+    "phase": "baseline",
+    "input": 2570,
+    "output": 6,
+    "usd": 0.0052
+  },
+  {
+    "phase": "baseline",
+    "input": 2583,
+    "output": 7,
+    "usd": 0.005236
+  },
+  {
+    "phase": "baseline",
+    "input": 2569,
+    "output": 8,
+    "usd": 0.005218
+  },
+  {
+    "phase": "baseline",
+    "input": 2583,
+    "output": 6,
+    "usd": 0.005226
+  },
+  {
+    "phase": "baseline",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208
+  },
+  {
+    "phase": "baseline",
+    "input": 2569,
+    "output": 8,
+    "usd": 0.005218
+  },
+  {
+    "phase": "baseline",
+    "input": 2575,
+    "output": 7,
+    "usd": 0.00522
+  },
+  {
+    "phase": "baseline",
+    "input": 2570,
+    "output": 6,
+    "usd": 0.0052
+  },
+  {
+    "phase": "baseline",
+    "input": 2570,
+    "output": 7,
+    "usd": 0.00521
+  },
+  {
+    "phase": "baseline",
+    "input": 2575,
+    "output": 6,
+    "usd": 0.00521
+  },
+  {
+    "phase": "baseline",
+    "input": 2575,
+    "output": 6,
+    "usd": 0.00521
+  },
+  {
+    "phase": "baseline",
+    "input": 2575,
+    "output": 6,
+    "usd": 0.00521
+  },
+  {
+    "phase": "baseline",
+    "input": 2570,
+    "output": 7,
+    "usd": 0.00521
+  },
+  {
+    "phase": "baseline",
+    "input": 2570,
+    "output": 7,
+    "usd": 0.00521
+  },
+  {
+    "phase": "baseline",
+    "input": 2570,
+    "output": 7,
+    "usd": 0.00521
+  },
+  {
+    "phase": "baseline",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208
+  },
+  {
+    "phase": "baseline",
+    "input": 1271,
+    "output": 7,
+    "usd": 0.002612
+  },
+  {
+    "phase": "baseline",
+    "input": 1272,
+    "output": 7,
+    "usd": 0.002614
+  },
+  {
+    "phase": "baseline",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208
+  },
+  {
+    "phase": "baseline",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208
+  },
+  {
+    "phase": "baseline",
+    "input": 2570,
+    "output": 7,
+    "usd": 0.00521
+  },
+  {
+    "phase": "baseline",
+    "input": 2570,
+    "output": 7,
+    "usd": 0.00521
+  },
+  {
+    "phase": "baseline",
+    "input": 2568,
+    "output": 8,
+    "usd": 0.005216
+  },
+  {
+    "phase": "baseline",
+    "input": 2579,
+    "output": 7,
+    "usd": 0.005228
+  },
+  {
+    "phase": "baseline",
+    "input": 2579,
+    "output": 8,
+    "usd": 0.005238
+  },
+  {
+    "phase": "baseline",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206
+  },
+  {
+    "phase": "baseline",
+    "input": 2574,
+    "output": 7,
+    "usd": 0.005218
+  },
+  {
+    "phase": "baseline",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206
+  },
+  {
+    "phase": "baseline",
+    "input": 2574,
+    "output": 7,
+    "usd": 0.005218
+  },
+  {
+    "phase": "baseline",
+    "input": 2571,
+    "output": 7,
+    "usd": 0.005212
+  },
+  {
+    "phase": "baseline",
+    "input": 2568,
+    "output": 8,
+    "usd": 0.005216
+  },
+  {
+    "phase": "baseline",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206
+  },
+  {
+    "phase": "baseline",
+    "input": 2568,
+    "output": 8,
+    "usd": 0.005216
+  },
+  {
+    "phase": "baseline",
+    "input": 2571,
+    "output": 8,
+    "usd": 0.005222
+  },
+  {
+    "phase": "baseline",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206
+  },
+  {
+    "phase": "baseline",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206
+  },
+  {
+    "phase": "baseline",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206
+  },
+  {
+    "phase": "baseline",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206
+  },
+  {
+    "phase": "baseline",
+    "input": 2575,
+    "output": 7,
+    "usd": 0.00522
+  },
+  {
+    "phase": "baseline",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206
+  },
+  {
+    "phase": "baseline",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206
+  },
+  {
+    "phase": "baseline",
+    "input": 2575,
+    "output": 7,
+    "usd": 0.00522
+  },
+  {
+    "phase": "baseline",
+    "input": 2574,
+    "output": 7,
+    "usd": 0.005218
+  },
+  {
+    "phase": "baseline",
+    "input": 2574,
+    "output": 7,
+    "usd": 0.005218
+  },
+  {
+    "phase": "baseline",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206
+  },
+  {
+    "phase": "baseline",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206
+  },
+  {
+    "phase": "baseline",
+    "input": 2571,
+    "output": 7,
+    "usd": 0.005212
+  },
+  {
+    "phase": "baseline",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208
+  },
+  {
+    "phase": "baseline",
+    "input": 2571,
+    "output": 7,
+    "usd": 0.005212
+  },
+  {
+    "phase": "baseline",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208
+  },
+  {
+    "phase": "baseline",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206
+  },
+  {
+    "phase": "baseline",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208
+  },
+  {
+    "phase": "baseline",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206
+  },
+  {
+    "phase": "baseline",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208
+  },
+  {
+    "phase": "baseline",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206
+  },
+  {
+    "phase": "baseline",
+    "input": 2573,
+    "output": 7,
+    "usd": 0.005216
+  },
+  {
+    "phase": "baseline",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208
+  },
+  {
+    "phase": "baseline",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206
+  },
+  {
+    "phase": "baseline",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208
+  },
+  {
+    "phase": "baseline",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206
+  },
+  {
+    "phase": "baseline",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206
+  },
+  {
+    "phase": "baseline",
+    "input": 2589,
+    "output": 7,
+    "usd": 0.005248
+  },
+  {
+    "phase": "baseline",
+    "input": 2573,
+    "output": 7,
+    "usd": 0.005216
+  },
+  {
+    "phase": "baseline",
+    "input": 2570,
+    "output": 7,
+    "usd": 0.00521
+  },
+  {
+    "phase": "baseline",
+    "input": 2589,
+    "output": 7,
+    "usd": 0.005248
+  },
+  {
+    "phase": "baseline",
+    "input": 2570,
+    "output": 7,
+    "usd": 0.00521
+  },
+  {
+    "phase": "baseline",
+    "input": 2570,
+    "output": 7,
+    "usd": 0.00521
+  },
+  {
+    "phase": "baseline",
+    "input": 2570,
+    "output": 7,
+    "usd": 0.00521
+  },
+  {
+    "phase": "baseline",
+    "input": 2570,
+    "output": 7,
+    "usd": 0.00521
+  },
+  {
+    "phase": "baseline",
+    "input": 2570,
+    "output": 7,
+    "usd": 0.00521
+  },
+  {
+    "phase": "baseline",
+    "input": 2573,
+    "output": 7,
+    "usd": 0.005216
+  },
+  {
+    "phase": "baseline",
+    "input": 1990,
+    "output": 8,
+    "usd": 0.00406
+  },
+  {
+    "phase": "baseline",
+    "input": 2570,
+    "output": 7,
+    "usd": 0.00521
+  },
+  {
+    "phase": "baseline",
+    "input": 2568,
+    "output": 6,
+    "usd": 0.005196
+  },
+  {
+    "phase": "baseline",
+    "input": 1993,
+    "output": 6,
+    "usd": 0.004046
+  },
+  {
+    "phase": "baseline",
+    "input": 2570,
+    "output": 8,
+    "usd": 0.00522
+  },
+  {
+    "phase": "baseline",
+    "input": 2570,
+    "output": 8,
+    "usd": 0.00522
+  },
+  {
+    "phase": "baseline",
+    "input": 2568,
+    "output": 6,
+    "usd": 0.005196
+  },
+  {
+    "phase": "baseline",
+    "input": 2574,
+    "output": 6,
+    "usd": 0.005208
+  },
+  {
+    "phase": "baseline",
+    "input": 2570,
+    "output": 8,
+    "usd": 0.00522
+  },
+  {
+    "phase": "baseline",
+    "input": 2570,
+    "output": 7,
+    "usd": 0.00521
+  },
+  {
+    "phase": "baseline",
+    "input": 2574,
+    "output": 7,
+    "usd": 0.005218
+  },
+  {
+    "phase": "baseline",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208
+  },
+  {
+    "phase": "baseline",
+    "input": 2570,
+    "output": 8,
+    "usd": 0.00522
+  },
+  {
+    "phase": "baseline",
+    "input": 2569,
+    "output": 8,
+    "usd": 0.005218
+  },
+  {
+    "phase": "baseline",
+    "input": 2570,
+    "output": 8,
+    "usd": 0.00522
+  },
+  {
+    "phase": "baseline",
+    "input": 2569,
+    "output": 6,
+    "usd": 0.005198
+  },
+  {
+    "phase": "baseline",
+    "input": 1989,
+    "output": 6,
+    "usd": 0.004038
+  },
+  {
+    "phase": "baseline",
+    "input": 1990,
+    "output": 8,
+    "usd": 0.00406
+  },
+  {
+    "phase": "baseline",
+    "input": 2570,
+    "output": 8,
+    "usd": 0.00522
+  },
+  {
+    "phase": "baseline",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208
+  },
+  {
+    "phase": "baseline",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208
+  },
+  {
+    "phase": "baseline",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208
+  },
+  {
+    "phase": "baseline",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208
+  },
+  {
+    "phase": "baseline",
+    "input": 2569,
+    "output": 8,
+    "usd": 0.005218
+  },
+  {
+    "phase": "baseline",
+    "input": 2570,
+    "output": 8,
+    "usd": 0.00522
+  },
+  {
+    "phase": "baseline",
+    "input": 2570,
+    "output": 6,
+    "usd": 0.0052
+  },
+  {
+    "phase": "baseline",
+    "input": 2570,
+    "output": 8,
+    "usd": 0.00522
+  },
+  {
+    "phase": "baseline",
+    "input": 342,
+    "output": 6,
+    "usd": 0.000744
+  },
+  {
+    "phase": "baseline",
+    "input": 2569,
+    "output": 8,
+    "usd": 0.005218
+  },
+  {
+    "phase": "baseline",
+    "input": 2570,
+    "output": 8,
+    "usd": 0.00522
+  },
+  {
+    "phase": "baseline",
+    "input": 342,
+    "output": 7,
+    "usd": 0.000754
+  },
+  {
+    "phase": "baseline",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206
+  },
+  {
+    "phase": "baseline",
+    "input": 2570,
+    "output": 8,
+    "usd": 0.00522
+  },
+  {
+    "phase": "baseline",
+    "input": 1110,
+    "output": 7,
+    "usd": 0.00229
+  },
+  {
+    "phase": "baseline",
+    "input": 1112,
+    "output": 8,
+    "usd": 0.002304
+  },
+  {
+    "phase": "baseline",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208
+  },
+  {
+    "phase": "baseline",
+    "input": 1990,
+    "output": 8,
+    "usd": 0.00406
+  },
+  {
+    "phase": "baseline",
+    "input": 1989,
+    "output": 6,
+    "usd": 0.004038
+  },
+  {
+    "phase": "baseline",
+    "input": 2570,
+    "output": 7,
+    "usd": 0.00521
+  },
+  {
+    "phase": "baseline",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206
+  },
+  {
+    "phase": "baseline",
+    "input": 343,
+    "output": 7,
+    "usd": 0.000756
+  },
+  {
+    "phase": "baseline",
+    "input": 2570,
+    "output": 7,
+    "usd": 0.00521
+  },
+  {
+    "phase": "baseline",
+    "input": 2568,
+    "output": 7,
+    "usd": 0.005206
+  },
+  {
+    "phase": "baseline",
+    "input": 2570,
+    "output": 7,
+    "usd": 0.00521
+  },
+  {
+    "phase": "baseline",
+    "input": 2571,
+    "output": 7,
+    "usd": 0.005212
+  },
+  {
+    "phase": "baseline",
+    "input": 343,
+    "output": 7,
+    "usd": 0.000756
+  },
+  {
+    "phase": "baseline",
+    "input": 2570,
+    "output": 7,
+    "usd": 0.00521
+  },
+  {
+    "phase": "baseline",
+    "input": 2571,
+    "output": 7,
+    "usd": 0.005212
+  },
+  {
+    "phase": "baseline",
+    "input": 2569,
+    "output": 7,
+    "usd": 0.005208
+  },
+  {
+    "phase": "baseline",
+    "input": 342,
+    "output": 8,
+    "usd": 0.000764
+  },
+  {
+    "phase": "baseline",
+    "input": 341,
+    "output": 7,
+    "usd": 0.000752
+  }
+]

@@ -1,1 +1,172 @@
-null
+{
+  "version": 2,
+  "date": "2026-11-10T21:46:49.656Z",
+  "frozenCommit": "7cb343a9bf00668b77a20465edc2a884160f60ec",
+  "seed": 20261110,
+  "images": 150,
+  "products": 75,
+  "pairs": 300,
+  "hardPairs": 126,
+  "model": "claude-sonnet-5-5",
+  "promptVersion": "pill-v2",
+  "productOverlap": 0,
+  "totalUsd": 3.0625340000000016,
+  "skipped": [
+    {
+      "ndc": "00056016870",
+      "reason": "No drug group"
+    },
+    {
+      "ndc": "50474020001",
+      "reason": "No drug group"
+    },
+    {
+      "ndc": "00378182101",
+      "reason": "No drug group"
+    },
+    {
+      "ndc": "00093711698",
+      "reason": "No drug group"
+    },
+    {
+      "ndc": "51285006390",
+      "reason": "No FDA imprint/product"
+    },
+    {
+      "ndc": "00781106410",
+      "reason": "No drug group"
+    },
+    {
+      "ndc": "00173078401",
+      "reason": "No drug group"
+    },
+    {
+      "ndc": "00185525401",
+      "reason": "No drug group"
+    },
+    {
+      "ndc": "00173038700",
+      "reason": "No drug group"
+    },
+    {
+      "ndc": "51991007301",
+      "reason": "No drug group"
+    },
+    {
+      "ndc": "00087606005",
+      "reason": "No drug group"
+    },
+    {
+      "ndc": "00603576921",
+      "reason": "No drug group"
+    },
+    {
+      "ndc": "00093724406",
+      "reason": "No drug group"
+    },
+    {
+      "ndc": "00173094755",
+      "reason": "No drug group"
+    }
+  ],
+  "metrics": {
+    "Sonnet, one view": {
+      "n": 300,
+      "wrong": 150,
+      "right": 150,
+      "caught": 46,
+      "falseAlarms": 4,
+      "passed": 37,
+      "unsure": 212,
+      "wrongUnsure": 103,
+      "catchRate": 0.30666666666666664,
+      "falseAlarmRate": 0.02666666666666667,
+      "passRate": 0.24666666666666667,
+      "unsureRate": 0.7066666666666667,
+      "easy": {
+        "n": 24,
+        "caught": 6,
+        "unsure": 18,
+        "passed": 0
+      },
+      "hard": {
+        "n": 126,
+        "caught": 40,
+        "unsure": 85,
+        "passed": 1
+      },
+      "wrongPassed": 1,
+      "decisive": 88,
+      "correct": 83,
+      "decisiveAccuracy": 0.9431818181818182,
+      "coverage": 0.29333333333333333
+    },
+    "Sonnet, two views": {
+      "n": 300,
+      "wrong": 150,
+      "right": 150,
+      "caught": 26,
+      "falseAlarms": 4,
+      "passed": 20,
+      "unsure": 250,
+      "wrongUnsure": 124,
+      "catchRate": 0.17333333333333334,
+      "falseAlarmRate": 0.02666666666666667,
+      "passRate": 0.13333333333333333,
+      "unsureRate": 0.8333333333333334,
+      "easy": {
+        "n": 24,
+        "caught": 4,
+        "unsure": 20,
+        "passed": 0
+      },
+      "hard": {
+        "n": 126,
+        "caught": 22,
+        "unsure": 104,
+        "passed": 0
+      },
+      "wrongPassed": 0,
+      "decisive": 50,
+      "correct": 46,
+      "decisiveAccuracy": 0.92,
+      "coverage": 0.16666666666666666
+    },
+    "Direct Sonnet": {
+      "n": 300,
+      "wrong": 150,
+      "right": 150,
+      "caught": 45,
+      "falseAlarms": 9,
+      "passed": 38,
+      "unsure": 206,
+      "wrongUnsure": 103,
+      "catchRate": 0.3,
+      "falseAlarmRate": 0.06,
+      "passRate": 0.25333333333333335,
+      "unsureRate": 0.6866666666666666,
+      "easy": {
+        "n": 24,
+        "caught": 14,
+        "unsure": 10,
+        "passed": 0
+      },
+      "hard": {
+        "n": 126,
+        "caught": 31,
+        "unsure": 93,
+        "passed": 2
+      },
+      "wrongPassed": 2,
+      "decisive": 94,
+      "correct": 83,
+      "decisiveAccuracy": 0.8829787234042553,
+      "coverage": 0.31333333333333335
+    }
+  },
+  "readerErrors": 0,
+  "meanReadMs": 2446.44,
+  "meanBaselineMs": 1093.4266666666667,
+  "meanReadUsd": 0.010721146666666665,
+  "meanBaselineUsd": 0.004847873333333341
+}
