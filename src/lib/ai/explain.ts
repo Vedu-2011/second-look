@@ -16,7 +16,7 @@ export async function explain(result: EngineResult): Promise<Explanation> {
       reasons: result.reasons,
     });
     let parsed: unknown;
-    try { parsed = JSON.parse(raw); } catch { parsed = { summary: raw, pharmacyScript: fallback.pharmacyScript }; }
+    try { parsed = JSON.parse(raw); } catch { return fallback; }
     return guardExplanation(parsed, result);
   } catch {
     return fallback;

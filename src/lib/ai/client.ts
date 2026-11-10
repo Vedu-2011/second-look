@@ -25,6 +25,14 @@ export function textModel() {
 
 export type ImageInput = { base64: string; mediaType: "image/jpeg" | "image/png" | "image/gif" | "image/webp" };
 
+type UsageObserver = (model: string, inputTokens: number, outputTokens: number) => void;
+let usageObserver: UsageObserver | undefined;
+
+/** Optional process-local observer for the live smoke script; never records image data. */
+export function setAiUsageObserver(observer?: UsageObserver) {
+  usageObserver = observer;
+}
+
 export async function toolRead<T>({
   image,
   system,
@@ -47,7 +55,7 @@ export async function toolRead<T>({
         max_tokens: 1200,
         system,
         tools: [tool as Anthropic.Tool],
-        tool_choice: { type: "tool", name: tool.name },
+        tool_choice: { type: "auto" },
         messages: [{
           role: "user",
           content: [
@@ -56,6 +64,7 @@ export async function toolRead<T>({
           ],
         }],
       });
+      usageObserver?.(model, response.usage.input_tokens, response.usage.output_tokens);
       const block = response.content.find((item) => item.type === "tool_use");
       if (!block || block.type !== "tool_use") throw new Error("Claude did not return the reading tool.");
       return validate(block.input);
@@ -74,5 +83,6 @@ export async function explainWithFacts(facts: Record<string, unknown>) {
     system: "You write a short, calm explanation for a pharmacy double-check. Use only the supplied facts. Never give dosing advice or medical advice. Never introduce a drug, strength, imprint, NDC, or number absent from facts.",
     messages: [{ role: "user", content: `Return JSON with summary and pharmacyScript. Facts JSON:\n${JSON.stringify(facts)}` }],
   });
+  usageObserver?.(textModel(), response.usage.input_tokens, response.usage.output_tokens);
   return response.content.filter((item) => item.type === "text").map((item) => item.text).join("\n");
 }

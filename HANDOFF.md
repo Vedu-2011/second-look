@@ -2,10 +2,39 @@
 Claude Code adds a new entry at the top after every task (format in ~/Hackathons/CLAUDE.md).
 The planner reads this file when Vedhanth says "handoffs". Never delete old entries.
 
-## 2026-11-10 8:40 PM PST — Phase 2: AI photo reading and real /check flow — prompts/phase-2.md
+## 2026-11-09 8:54 PM PST — Phase 2 live follow-up — prompts/phase-2.md
 
 BUILDER: Codex
-HANDOFF — Phase 2 (AI photo reading → deterministic FDA verdict) — Tue Nov 10, 2026
+HANDOFF — Phase 2 live AI and browser verification — Mon Nov 9, 2026
+STATUS: PARTIAL — the photo flow is live and verified locally, but the three exact demo pill photos are unavailable, and production remains on phase 1 until Vedhanth authorizes merging the feature branch.
+
+WHAT I DID
+- Added `ANTHROPIC_API_KEY` as a Vercel environment variable for Production, Preview, and Development, and pulled it into ignored `.env.local`. The value is not recorded here or committed. The key was shared in chat, so Vedhanth should rotate it after this build.
+- Confirmed Anthropic lists both configured model IDs. Sonnet 5.5 does not support forced tool choice, so the label/pill readers now use automatic tool choice and still require/validate a tool response. The first live readers worked.
+- Made `npm run smoke:ai` load local development variables, measure token usage and estimated list-price cost, and exercise the real `/api/check` HTTP route plus `/result/[id]`. Malformed explanation JSON now falls back to the safe template.
+- Captured real browser outcomes at 375px and 1440px: an ibuprofen label with a real, different Strattera pill photo gives MISMATCH; a blank pill photo gives the friendly no-pill retake. No simulated verdict was used for these screenshots, and neither size overflowed horizontally.
+
+FILES
+- `src/lib/ai/client.ts`, `src/lib/ai/explain.ts`, `scripts/smoke-ai.ts`, `package.json`, and four PNGs in `docs/screenshots/phase-2/`.
+- Planner-owned `AGENTS.md`, `docs/ARCHITECTURE.md`, and `prompts/phase-2.md` are still uncommitted and untouched by this follow-up.
+
+TESTS
+- `npm test`: 120/120 pass; `npx tsc --noEmit --incremental false`: pass; `npm run lint`: pass; `npm run build`: pass (two non-fatal Atkinson font override warnings).
+- `npm run smoke:ai` LIVE: Sonnet 5.5 and Haiku 5.5 available. The made-up label was read as ibuprofen 200 mg, NDC 0113-0517. The NIH Strattera photo was read as a capsule with “Lilly 3227 10 mg.” Direct readers + FDA engine: MISMATCH in 8,102 ms. Token usage: Sonnet 1,778 in/297 out and 5,836 in/378 out; Haiku 449 in/500 out; estimated $0.022273 at Anthropic list prices (Sonnet $2/$10 and Haiku $0.10/$0.50 per million input/output tokens; source: https://www.anthropic.com/claude-haiku-5-5). This estimate excludes the separate full-route invocation.
+- Full `/api/check` HTTP check: streamed label and pill readings, FDA lookup and comparison steps in order; final MISMATCH in 10,691 ms, with route AI timing 10,229 ms. The share page returned HTTP 200. Blank-pill check returned a specific retake message.
+
+PROBLEMS / DECISIONS
+- The NIH source did not supply exact I2, L484, or Advil demo photos. Therefore MATCH, SAME_MEDICINE_DIFFERENT_MAKER, and the specified acetaminophen identification are not proven with real uploaded photos; do not claim them done. Deterministic engine scenarios remain covered by phase-1 tests.
+- The provided key was sent in chat. Rotate it when convenient, then update the same Vercel variables and local `.env.local`.
+- The smoke script uses Anthropic's current list prices and reports an estimate, not a billing statement.
+
+CURRENT STATE / NEEDS VEDHANTH / NEXT STEP
+- Branch: `feat/phase-2-codex`. Do not merge or deploy to production without Vedhanth's explicit “merge.” After review and push, inspect the Vercel preview, obtain exact demo pill images or user photos, verify the three requested verdicts on preview, then request the merge gate. Vedhanth has not told the planner “handoffs”; no planner message was sent.
+
+## 2026-11-09 8:40 PM PST — Phase 2: AI photo reading and real /check flow — prompts/phase-2.md
+
+BUILDER: Codex
+HANDOFF — Phase 2 (AI photo reading → deterministic FDA verdict) — Mon Nov 9, 2026
 STATUS: PARTIAL — implementation and local verification are complete; live AI and production photo verification need `ANTHROPIC_API_KEY` from Vedhanth.
 
 WHAT I DID
