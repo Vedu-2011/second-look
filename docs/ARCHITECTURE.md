@@ -117,3 +117,13 @@ Repo: github.com/Vedu-2011/second-look — PUBLIC (DSH requires a public repo).
 - Two-sided pills: show "Other side: …" text under the drawing for now; front+back drawing is a phase 5 extra.
 - FDA "CAPSULE" shape is also used for caplet TABLETS — treat oval / capsule / oblong as close shapes.
 - NIH dataset lives at https://data.lhncbc.nlm.nih.gov/public/Pills/index.html (paper: Yaniv et al. 2016, PMID 29854569).
+
+## Decisions after phase 1 (planner, Nov 9)
+- Every demo label gets an NDC (real pharmacy labels always print one). The exact NDCs are set once Vedhanth buys
+  the pills: the MATCH bottle's label must carry the NDC printed on the store bottle he actually buys. The wrong-pill
+  label uses an ibuprofen 200 mg NDC that looks like the other bottles (default 0113-0517, orange oval I2).
+- /dev/check becomes a public feature in phase 3: "No camera? Type what's on your pill" (linked from /check),
+  polished to DESIGN.md. Until then keep it noindex.
+- Real finding for the deck/Devpost: among active ibuprofen 200 mg tablets, the most common look is a BROWN ROUND
+  "I2" (38 products), not the orange oval — the same medicine comes in many looks, which is exactly why patients
+  get confused (Kesselheim). Use with the exact counts from the app.
