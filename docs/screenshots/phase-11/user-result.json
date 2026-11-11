@@ -1,0 +1,1173 @@
+{
+  "kind": "bottle",
+  "label": {
+    "ndc": "69452-212",
+    "drugName": "Ibuprofen",
+    "strength": "200 mg",
+    "form": "capsule"
+  },
+  "pills": [
+    {
+      "number": 1,
+      "box": {
+        "x": 0.6130952380952381,
+        "y": 0.37549603174603174,
+        "width": 0.14616402116402116,
+        "height": 0.08283730158730158
+      },
+      "result": {
+        "verdict": "UNSURE",
+        "expected": {
+          "ndc9": "69452-212",
+          "productCode": "694520212",
+          "ndc10": "69452-212-11",
+          "rxcui": "310964",
+          "setId": "4bc6e8f2-ba95-4352-80ed-b44608fc4936",
+          "labeler": "Bionpharma Inc.",
+          "title": "Ibuprofen 200 mg",
+          "imprintRaw": "IB200",
+          "imprintTokens": [
+            "IB200"
+          ],
+          "colorCodes": [
+            "C48333"
+          ],
+          "colorText": "blue",
+          "shapeCode": "C48336",
+          "sizeMm": 20,
+          "scored": false,
+          "marketingStatus": "ACTIVE",
+          "active": true
+        },
+        "expectedIsTypical": false,
+        "matchedProduct": null,
+        "identifiedAs": null,
+        "labelTitle": "Ibuprofen 200 mg",
+        "features": [
+          {
+            "name": "Imprint",
+            "expected": "IB200",
+            "found": "None seen",
+            "result": "unsure"
+          },
+          {
+            "name": "Color",
+            "expected": "Blue",
+            "found": "Green",
+            "result": "match"
+          },
+          {
+            "name": "Shape",
+            "expected": "Capsule",
+            "found": "Oval",
+            "result": "match"
+          },
+          {
+            "name": "Size",
+            "expected": "20 mm",
+            "found": "Not measured",
+            "result": "not_measured"
+          }
+        ],
+        "evidence": [
+          {
+            "source": "FDA DailyMed",
+            "role": "label",
+            "setId": "4bc6e8f2-ba95-4352-80ed-b44608fc4936",
+            "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=4bc6e8f2-ba95-4352-80ed-b44608fc4936"
+          }
+        ],
+        "reasons": [
+          "We couldn't see any letters or numbers on the pill. Most pills have them on one side, so try the other side."
+        ],
+        "productsCompared": 211,
+        "matchingListings": null,
+        "identifiedListings": null,
+        "label": {
+          "ndc": "69452-212",
+          "drugName": "Ibuprofen",
+          "strength": "200 mg",
+          "form": "capsule"
+        },
+        "pill": {
+          "imprintSides": [],
+          "imprintConfidence": 0.3,
+          "colors": [
+            "green"
+          ],
+          "colorConfidence": 0.6,
+          "shape": "oval",
+          "shapeConfidence": 0.6,
+          "form": "softgel",
+          "pillVisible": true,
+          "multiplePills": false,
+          "photoProblems": [
+            "blur",
+            "too far",
+            "glare"
+          ],
+          "guess": null
+        },
+        "labelProduct": {
+          "ndc9": "69452-212",
+          "productCode": "694520212",
+          "ndc10": "69452-212-11",
+          "rxcui": "310964",
+          "setId": "4bc6e8f2-ba95-4352-80ed-b44608fc4936",
+          "labeler": "Bionpharma Inc.",
+          "title": "Ibuprofen 200 mg",
+          "imprintRaw": "IB200",
+          "imprintTokens": [
+            "IB200"
+          ],
+          "colorCodes": [
+            "C48333"
+          ],
+          "colorText": "blue",
+          "shapeCode": "C48336",
+          "sizeMm": 20,
+          "scored": false,
+          "marketingStatus": "ACTIVE",
+          "active": true
+        },
+        "labels": {
+          "4bc6e8f2-ba95-4352-80ed-b44608fc4936": {
+            "setId": "4bc6e8f2-ba95-4352-80ed-b44608fc4936",
+            "title": "IBUPROFEN CAPSULE, LIQUID FILLED [BIONPHARMA INC.]",
+            "publishedDate": "2023-12-28",
+            "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=4bc6e8f2-ba95-4352-80ed-b44608fc4936",
+            "current": true
+          }
+        },
+        "checkedAt": "2026-11-11T19:59:05.989Z",
+        "timings": {
+          "label": 1444,
+          "drug": 223,
+          "guess": 0,
+          "dailymed": 686,
+          "total": 686
+        }
+      },
+      "features": {
+        "length": 121.84420080257475,
+        "width": 59.821706983096455,
+        "aspect": 2.036789101270609,
+        "area": 0.005230555555555555,
+        "lab": [
+          48.4,
+          -23.8,
+          0.3
+        ],
+        "relativeArea": 0.9286536248561565
+      }
+    },
+    {
+      "number": 2,
+      "box": {
+        "x": 0.751984126984127,
+        "y": 0.34871031746031744,
+        "width": 0.13161375661375663,
+        "height": 0.09573412698412699
+      },
+      "result": {
+        "verdict": "UNSURE",
+        "expected": {
+          "ndc9": "69452-212",
+          "productCode": "694520212",
+          "ndc10": "69452-212-11",
+          "rxcui": "310964",
+          "setId": "4bc6e8f2-ba95-4352-80ed-b44608fc4936",
+          "labeler": "Bionpharma Inc.",
+          "title": "Ibuprofen 200 mg",
+          "imprintRaw": "IB200",
+          "imprintTokens": [
+            "IB200"
+          ],
+          "colorCodes": [
+            "C48333"
+          ],
+          "colorText": "blue",
+          "shapeCode": "C48336",
+          "sizeMm": 20,
+          "scored": false,
+          "marketingStatus": "ACTIVE",
+          "active": true
+        },
+        "expectedIsTypical": false,
+        "matchedProduct": null,
+        "identifiedAs": null,
+        "labelTitle": "Ibuprofen 200 mg",
+        "features": [
+          {
+            "name": "Imprint",
+            "expected": "IB200",
+            "found": "IB 200",
+            "result": "unsure"
+          },
+          {
+            "name": "Color",
+            "expected": "Blue",
+            "found": "Turquoise",
+            "result": "match"
+          },
+          {
+            "name": "Shape",
+            "expected": "Capsule",
+            "found": "Oblong",
+            "result": "match"
+          },
+          {
+            "name": "Size",
+            "expected": "20 mm",
+            "found": "Not measured",
+            "result": "not_measured"
+          }
+        ],
+        "evidence": [
+          {
+            "source": "FDA DailyMed",
+            "role": "label",
+            "setId": "4bc6e8f2-ba95-4352-80ed-b44608fc4936",
+            "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=4bc6e8f2-ba95-4352-80ed-b44608fc4936"
+          }
+        ],
+        "reasons": [
+          "We couldn't read the letters on the pill clearly enough to be sure (we think it says IB 200)."
+        ],
+        "productsCompared": 211,
+        "matchingListings": null,
+        "identifiedListings": null,
+        "label": {
+          "ndc": "69452-212",
+          "drugName": "Ibuprofen",
+          "strength": "200 mg",
+          "form": "capsule"
+        },
+        "pill": {
+          "imprintSides": [
+            "IB 200"
+          ],
+          "imprintConfidence": 0.35,
+          "colors": [
+            "turquoise"
+          ],
+          "colorConfidence": 0.8,
+          "shape": "oblong",
+          "shapeConfidence": 0.7,
+          "form": "softgel",
+          "pillVisible": true,
+          "multiplePills": false,
+          "photoProblems": [
+            "blur",
+            "glare"
+          ],
+          "scored": false,
+          "guess": {
+            "drugName": "Ibuprofen",
+            "strength": "200 mg"
+          }
+        },
+        "labelProduct": {
+          "ndc9": "69452-212",
+          "productCode": "694520212",
+          "ndc10": "69452-212-11",
+          "rxcui": "310964",
+          "setId": "4bc6e8f2-ba95-4352-80ed-b44608fc4936",
+          "labeler": "Bionpharma Inc.",
+          "title": "Ibuprofen 200 mg",
+          "imprintRaw": "IB200",
+          "imprintTokens": [
+            "IB200"
+          ],
+          "colorCodes": [
+            "C48333"
+          ],
+          "colorText": "blue",
+          "shapeCode": "C48336",
+          "sizeMm": 20,
+          "scored": false,
+          "marketingStatus": "ACTIVE",
+          "active": true
+        },
+        "labels": {
+          "4bc6e8f2-ba95-4352-80ed-b44608fc4936": {
+            "setId": "4bc6e8f2-ba95-4352-80ed-b44608fc4936",
+            "title": "IBUPROFEN CAPSULE, LIQUID FILLED [BIONPHARMA INC.]",
+            "publishedDate": "2023-12-28",
+            "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=4bc6e8f2-ba95-4352-80ed-b44608fc4936",
+            "current": true
+          }
+        },
+        "checkedAt": "2026-11-11T19:59:05.989Z",
+        "timings": {
+          "label": 1444,
+          "drug": 223,
+          "guess": 0,
+          "dailymed": 686,
+          "total": 686
+        }
+      },
+      "features": {
+        "length": 127.08931650296222,
+        "width": 62.49434597482089,
+        "aspect": 2.0336130336361435,
+        "area": 0.005632407407407407,
+        "lab": [
+          52.9,
+          -21.5,
+          -0.1
+        ],
+        "relativeArea": 1
+      }
+    },
+    {
+      "number": 3,
+      "box": {
+        "x": 0.29828042328042326,
+        "y": 0.41220238095238093,
+        "width": 0.1765873015873016,
+        "height": 0.07242063492063493
+      },
+      "result": {
+        "verdict": "MISMATCH",
+        "expected": {
+          "ndc9": "69452-212",
+          "productCode": "694520212",
+          "ndc10": "69452-212-11",
+          "rxcui": "310964",
+          "setId": "4bc6e8f2-ba95-4352-80ed-b44608fc4936",
+          "labeler": "Bionpharma Inc.",
+          "title": "Ibuprofen 200 mg",
+          "imprintRaw": "IB200",
+          "imprintTokens": [
+            "IB200"
+          ],
+          "colorCodes": [
+            "C48333"
+          ],
+          "colorText": "blue",
+          "shapeCode": "C48336",
+          "sizeMm": 20,
+          "scored": false,
+          "marketingStatus": "ACTIVE",
+          "active": true
+        },
+        "expectedIsTypical": false,
+        "matchedProduct": null,
+        "identifiedAs": {
+          "ndc9": "50090-0005",
+          "productCode": "500900005",
+          "ndc10": "50090-0005-0",
+          "rxcui": "209459",
+          "setId": "1b4db77f-b254-4db5-8e98-d46850140a9b",
+          "labeler": "A-S Medication Solutions",
+          "title": "Acetaminophen 500 mg",
+          "brand": "Tylenol",
+          "imprintRaw": "TYLENOL;500",
+          "imprintTokens": [
+            "TYLENOL",
+            "500"
+          ],
+          "colorCodes": [
+            "C48325"
+          ],
+          "colorText": "white",
+          "shapeCode": "C48345",
+          "sizeMm": 19,
+          "scored": false,
+          "marketingStatus": "ACTIVE",
+          "active": true
+        },
+        "labelTitle": "Ibuprofen 200 mg",
+        "features": [
+          {
+            "name": "Imprint",
+            "expected": "IB200",
+            "found": "TYLENOL 500",
+            "result": "mismatch"
+          },
+          {
+            "name": "Color",
+            "expected": "Blue",
+            "found": "White",
+            "result": "mismatch"
+          },
+          {
+            "name": "Shape",
+            "expected": "Capsule",
+            "found": "Oblong",
+            "result": "match"
+          },
+          {
+            "name": "Size",
+            "expected": "20 mm",
+            "found": "Not measured",
+            "result": "not_measured"
+          }
+        ],
+        "highlight": "imprint",
+        "evidence": [
+          {
+            "source": "FDA DailyMed",
+            "role": "label",
+            "setId": "4bc6e8f2-ba95-4352-80ed-b44608fc4936",
+            "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=4bc6e8f2-ba95-4352-80ed-b44608fc4936"
+          },
+          {
+            "source": "FDA DailyMed",
+            "role": "identified",
+            "setId": "1b4db77f-b254-4db5-8e98-d46850140a9b",
+            "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=1b4db77f-b254-4db5-8e98-d46850140a9b"
+          },
+          {
+            "source": "NLM RxNorm",
+            "role": "drug",
+            "rxcui": "310964",
+            "url": "https://mor.nlm.nih.gov/RxNav/search?searchBy=RXCUI&searchTerm=310964"
+          }
+        ],
+        "reasons": [
+          "No Ibuprofen 200 mg the FDA lists has \"TYLENOL 500\" on it. We checked 211 products from every maker.",
+          "\"TYLENOL 500\" is listed for Tylenol (acetaminophen 500 mg) (FDA record)."
+        ],
+        "productsCompared": 211,
+        "matchingListings": null,
+        "identifiedListings": {
+          "products": [
+            {
+              "ndc9": "50090-0005",
+              "productCode": "500900005",
+              "ndc10": "50090-0005-0",
+              "rxcui": "209459",
+              "setId": "1b4db77f-b254-4db5-8e98-d46850140a9b",
+              "labeler": "A-S Medication Solutions",
+              "title": "Acetaminophen 500 mg",
+              "brand": "Tylenol",
+              "imprintRaw": "TYLENOL;500",
+              "imprintTokens": [
+                "TYLENOL",
+                "500"
+              ],
+              "colorCodes": [
+                "C48325"
+              ],
+              "colorText": "white",
+              "shapeCode": "C48345",
+              "sizeMm": 19,
+              "scored": false,
+              "marketingStatus": "ACTIVE",
+              "active": true
+            },
+            {
+              "ndc9": "50090-1695",
+              "productCode": "500901695",
+              "ndc10": "50090-1695-0",
+              "rxcui": "209459",
+              "setId": "85294a70-3233-4ba5-bc36-ee3f2964aebf",
+              "labeler": "A-S Medication Solutions",
+              "title": "Acetaminophen 500 mg",
+              "brand": "Tylenol",
+              "imprintRaw": "TYLENOL;500",
+              "imprintTokens": [
+                "TYLENOL",
+                "500"
+              ],
+              "colorCodes": [
+                "C48325"
+              ],
+              "colorText": "white",
+              "shapeCode": "C48345",
+              "sizeMm": 19,
+              "scored": false,
+              "marketingStatus": "ACTIVE",
+              "active": true
+            },
+            {
+              "ndc9": "50090-5469",
+              "productCode": "500905469",
+              "ndc10": "50090-5469-0",
+              "rxcui": "209459",
+              "setId": "bcb7eb24-16cb-439e-879f-48d2f5e8ba83",
+              "labeler": "A-S Medication Solutions",
+              "title": "Acetaminophen 500 mg",
+              "brand": "Tylenol",
+              "imprintRaw": "TYLENOL;500",
+              "imprintTokens": [
+                "TYLENOL",
+                "500"
+              ],
+              "colorCodes": [
+                "C48325"
+              ],
+              "colorText": "white(RED PRINT)",
+              "shapeCode": "C48345",
+              "sizeMm": 19,
+              "scored": false,
+              "marketingStatus": "ACTIVE",
+              "active": true
+            },
+            {
+              "ndc9": "50580-108",
+              "productCode": "505800108",
+              "ndc10": "50580-108-20",
+              "rxcui": "209459",
+              "setId": "3f653262-b931-7d42-e063-6394a90adddd",
+              "labeler": "Kenvue Brands LLC",
+              "title": "Acetaminophen 500 mg",
+              "brand": "Tylenol",
+              "imprintRaw": "TYLENOL;500",
+              "imprintTokens": [
+                "TYLENOL",
+                "500"
+              ],
+              "colorCodes": [
+                "C48325"
+              ],
+              "colorText": "white(with red print)",
+              "shapeCode": "C48345",
+              "sizeMm": 18,
+              "scored": false,
+              "marketingStatus": "ACTIVE",
+              "active": true
+            },
+            {
+              "ndc9": "50580-378",
+              "productCode": "505800378",
+              "ndc10": "50580-378-01",
+              "rxcui": "209459",
+              "setId": "17cfa99d-abb2-4d77-9e0e-e77109fbb61a",
+              "labeler": "Kenvue Brands LLC",
+              "title": "Acetaminophen 500 mg",
+              "brand": "Tylenol",
+              "imprintRaw": "TYLENOL;500",
+              "imprintTokens": [
+                "TYLENOL",
+                "500"
+              ],
+              "colorCodes": [
+                "C48325"
+              ],
+              "colorText": "white",
+              "shapeCode": "C48345",
+              "sizeMm": 19,
+              "scored": false,
+              "marketingStatus": "ACTIVE",
+              "active": true
+            },
+            {
+              "ndc9": "50580-449",
+              "productCode": "505800449",
+              "ndc10": "50580-449-00",
+              "rxcui": "209459",
+              "setId": "59773893-09a8-47a2-943a-e9ea9da4458a",
+              "labeler": "Kenvue Brands LLC",
+              "title": "Acetaminophen 500 mg",
+              "brand": "Tylenol",
+              "imprintRaw": "TYLENOL;500",
+              "imprintTokens": [
+                "TYLENOL",
+                "500"
+              ],
+              "colorCodes": [
+                "C48325"
+              ],
+              "colorText": "white",
+              "shapeCode": "C48345",
+              "sizeMm": 19,
+              "scored": false,
+              "marketingStatus": "ACTIVE",
+              "active": true
+            },
+            {
+              "ndc9": "50580-457",
+              "productCode": "505800457",
+              "ndc10": "50580-457-10",
+              "rxcui": "209459",
+              "setId": "c830320e-72ba-48ff-a4cd-250ac5650bf0",
+              "labeler": "Kenvue Brands LLC",
+              "title": "Acetaminophen 500 mg",
+              "brand": "Tylenol",
+              "imprintRaw": "TYLENOL;500",
+              "imprintTokens": [
+                "TYLENOL",
+                "500"
+              ],
+              "colorCodes": [
+                "C48325"
+              ],
+              "colorText": "white(WHITE WITH RED PRINT)",
+              "shapeCode": "C48345",
+              "sizeMm": 18,
+              "scored": false,
+              "marketingStatus": "ACTIVE",
+              "active": true
+            },
+            {
+              "ndc9": "50580-491",
+              "productCode": "505800491",
+              "ndc10": "50580-491-01",
+              "rxcui": "209459",
+              "setId": "4961695d-72f3-533a-e063-6294a90a5a29",
+              "labeler": "Kenvue Brands LLC",
+              "title": "Acetaminophen 500 mg",
+              "brand": "Tylenol",
+              "imprintRaw": "TYLENOL;500",
+              "imprintTokens": [
+                "TYLENOL",
+                "500"
+              ],
+              "colorCodes": [
+                "C48325"
+              ],
+              "colorText": "white(white with red print)",
+              "shapeCode": "C48345",
+              "sizeMm": 18,
+              "scored": false,
+              "marketingStatus": "ACTIVE",
+              "active": true
+            },
+            {
+              "ndc9": "50580-937",
+              "productCode": "505800937",
+              "ndc10": "50580-937-01",
+              "rxcui": "209459",
+              "setId": "103d109d-f520-409c-8da2-eb6b0fbec891",
+              "labeler": "Kenvue Brands LLC",
+              "title": "Acetaminophen 500 mg",
+              "brand": "Tylenol",
+              "imprintRaw": "TYLENOL;500",
+              "imprintTokens": [
+                "TYLENOL",
+                "500"
+              ],
+              "colorCodes": [
+                "C48325"
+              ],
+              "colorText": "white(RED PRINT)",
+              "shapeCode": "C48345",
+              "sizeMm": 19,
+              "scored": false,
+              "marketingStatus": "ACTIVE",
+              "active": true
+            },
+            {
+              "ndc9": "66715-6447",
+              "productCode": "667156447",
+              "ndc10": "66715-6447-2",
+              "rxcui": "209459",
+              "setId": "fa951d50-b79c-4161-8c81-fcf386b0964e",
+              "labeler": "Lil' Drug Store Products, Inc.",
+              "title": "Acetaminophen 500 mg",
+              "brand": "Tylenol",
+              "imprintRaw": "TYLENOL;500",
+              "imprintTokens": [
+                "TYLENOL",
+                "500"
+              ],
+              "colorCodes": [
+                "C48325"
+              ],
+              "colorText": "white",
+              "shapeCode": "C48345",
+              "sizeMm": 18,
+              "scored": false,
+              "marketingStatus": "ACTIVE",
+              "active": true
+            },
+            {
+              "ndc9": "66715-6547",
+              "productCode": "667156547",
+              "ndc10": "66715-6547-2",
+              "rxcui": "209459",
+              "setId": "fa951d50-b79c-4161-8c81-fcf386b0964e",
+              "labeler": "Lil' Drug Store Products, Inc.",
+              "title": "Acetaminophen 500 mg",
+              "brand": "Tylenol",
+              "imprintRaw": "TYLENOL;500",
+              "imprintTokens": [
+                "TYLENOL",
+                "500"
+              ],
+              "colorCodes": [
+                "C48325"
+              ],
+              "colorText": "white",
+              "shapeCode": "C48345",
+              "sizeMm": 18,
+              "scored": false,
+              "marketingStatus": "ACTIVE",
+              "active": true
+            },
+            {
+              "ndc9": "66715-9747",
+              "productCode": "667159747",
+              "ndc10": "66715-9747-1",
+              "rxcui": "209459",
+              "setId": "fa951d50-b79c-4161-8c81-fcf386b0964e",
+              "labeler": "Lil' Drug Store Products, Inc.",
+              "title": "Acetaminophen 500 mg",
+              "brand": "Tylenol",
+              "imprintRaw": "TYLENOL;500",
+              "imprintTokens": [
+                "TYLENOL",
+                "500"
+              ],
+              "colorCodes": [
+                "C48325"
+              ],
+              "colorText": "white",
+              "shapeCode": "C48345",
+              "sizeMm": 18,
+              "scored": false,
+              "marketingStatus": "ACTIVE",
+              "active": true
+            },
+            {
+              "ndc9": "53209-1001",
+              "productCode": "532091001",
+              "ndc10": "53209-1001-1",
+              "rxcui": "209459",
+              "setId": "8502ea21-937d-4b33-a3e0-ffab5dc38cd8",
+              "labeler": "Morning Star OTC",
+              "title": "Acetaminophen 500 mg",
+              "brand": "Tylenol",
+              "imprintRaw": "TYLENOL;500",
+              "imprintTokens": [
+                "TYLENOL",
+                "500"
+              ],
+              "colorCodes": [
+                "C48325"
+              ],
+              "colorText": "white",
+              "shapeCode": "C48345",
+              "sizeMm": 19,
+              "scored": false,
+              "marketingStatus": "ACTIVE",
+              "active": true
+            },
+            {
+              "ndc9": "67751-167",
+              "productCode": "677510167",
+              "ndc10": "67751-167-01",
+              "rxcui": "209459",
+              "setId": "86b6ac01-3866-4cd8-a1be-9babb6ff311b",
+              "labeler": "Navajo Manufacturing Company Inc.",
+              "title": "Acetaminophen 500 mg",
+              "brand": "Tylenol",
+              "imprintRaw": "TYLENOL;500",
+              "imprintTokens": [
+                "TYLENOL",
+                "500"
+              ],
+              "colorCodes": [
+                "C48325"
+              ],
+              "colorText": "white",
+              "shapeCode": "C48345",
+              "sizeMm": 19,
+              "scored": false,
+              "marketingStatus": "ACTIVE",
+              "active": true
+            },
+            {
+              "ndc9": "73097-012",
+              "productCode": "730970012",
+              "ndc10": "73097-012-02",
+              "rxcui": "209459",
+              "setId": "8ed90757-833e-f4d9-e053-2995a90a29db",
+              "labeler": "Savings Distributors LLC",
+              "title": "Acetaminophen 500 mg",
+              "brand": "Tylenol",
+              "imprintRaw": "TYLENOL;500",
+              "imprintTokens": [
+                "TYLENOL",
+                "500"
+              ],
+              "colorCodes": [
+                "C48325"
+              ],
+              "colorText": "white",
+              "shapeCode": "C48345",
+              "sizeMm": 19,
+              "scored": false,
+              "marketingStatus": "ACTIVE",
+              "active": true
+            },
+            {
+              "ndc9": "85237-1946",
+              "productCode": "852371946",
+              "ndc10": "85237-1946-0",
+              "rxcui": "209459",
+              "setId": "529d3a51-a248-7c02-e063-6294a90a10ae",
+              "labeler": "Select Consumer Group LLC",
+              "title": "Acetaminophen 500 mg",
+              "brand": "Tylenol",
+              "imprintRaw": "TYLENOL;500",
+              "imprintTokens": [
+                "TYLENOL",
+                "500"
+              ],
+              "colorCodes": [
+                "C48325"
+              ],
+              "colorText": "white",
+              "shapeCode": "C48345",
+              "sizeMm": 19,
+              "scored": false,
+              "marketingStatus": "ACTIVE",
+              "active": true
+            }
+          ],
+          "sellers": [
+            "A-S Medication Solutions",
+            "Kenvue Brands LLC",
+            "Lil' Drug Store Products, Inc.",
+            "Morning Star OTC",
+            "Navajo Manufacturing Company Inc.",
+            "Savings Distributors LLC",
+            "Select Consumer Group LLC"
+          ],
+          "unknownSellerCount": 0
+        },
+        "label": {
+          "ndc": "69452-212",
+          "drugName": "Ibuprofen",
+          "strength": "200 mg",
+          "form": "capsule"
+        },
+        "pill": {
+          "imprintSides": [
+            "TYLENOL 500"
+          ],
+          "imprintConfidence": 0.8,
+          "colors": [
+            "white"
+          ],
+          "colorConfidence": 0.85,
+          "shape": "oblong",
+          "shapeConfidence": 0.85,
+          "form": "tablet",
+          "pillVisible": true,
+          "multiplePills": false,
+          "photoProblems": [
+            "blur"
+          ],
+          "scored": false,
+          "guess": {
+            "drugName": "Tylenol (acetaminophen)",
+            "strength": "500 mg"
+          }
+        },
+        "labelProduct": {
+          "ndc9": "69452-212",
+          "productCode": "694520212",
+          "ndc10": "69452-212-11",
+          "rxcui": "310964",
+          "setId": "4bc6e8f2-ba95-4352-80ed-b44608fc4936",
+          "labeler": "Bionpharma Inc.",
+          "title": "Ibuprofen 200 mg",
+          "imprintRaw": "IB200",
+          "imprintTokens": [
+            "IB200"
+          ],
+          "colorCodes": [
+            "C48333"
+          ],
+          "colorText": "blue",
+          "shapeCode": "C48336",
+          "sizeMm": 20,
+          "scored": false,
+          "marketingStatus": "ACTIVE",
+          "active": true
+        },
+        "labels": {
+          "4bc6e8f2-ba95-4352-80ed-b44608fc4936": {
+            "setId": "4bc6e8f2-ba95-4352-80ed-b44608fc4936",
+            "title": "IBUPROFEN CAPSULE, LIQUID FILLED [BIONPHARMA INC.]",
+            "publishedDate": "2023-12-28",
+            "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=4bc6e8f2-ba95-4352-80ed-b44608fc4936",
+            "current": true
+          },
+          "1b4db77f-b254-4db5-8e98-d46850140a9b": {
+            "setId": "1b4db77f-b254-4db5-8e98-d46850140a9b",
+            "title": "TYLENOL EXTRA STRENGTH (ACETAMINOPHEN) TABLET, FILM COATED [A-S MEDICATION SOLUTIONS]",
+            "publishedDate": "2024-05-17",
+            "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=1b4db77f-b254-4db5-8e98-d46850140a9b",
+            "current": true
+          }
+        },
+        "checkedAt": "2026-11-11T19:59:06.124Z",
+        "timings": {
+          "label": 1444,
+          "drug": 223,
+          "guess": 726,
+          "dailymed": 86,
+          "total": 814
+        }
+      },
+      "features": {
+        "length": 130.1178909498843,
+        "width": 62.236746450995156,
+        "aspect": 2.090692370179382,
+        "area": 0.005761111111111111,
+        "lab": [
+          93.7,
+          -2.4,
+          7
+        ],
+        "relativeArea": 1.0228505671543646
+      },
+      "odd": "a different color"
+    },
+    {
+      "number": 4,
+      "box": {
+        "x": 0.7440476190476191,
+        "y": 0.4697420634920635,
+        "width": 0.14484126984126985,
+        "height": 0.08878968253968254
+      },
+      "result": {
+        "verdict": "UNSURE",
+        "expected": {
+          "ndc9": "69452-212",
+          "productCode": "694520212",
+          "ndc10": "69452-212-11",
+          "rxcui": "310964",
+          "setId": "4bc6e8f2-ba95-4352-80ed-b44608fc4936",
+          "labeler": "Bionpharma Inc.",
+          "title": "Ibuprofen 200 mg",
+          "imprintRaw": "IB200",
+          "imprintTokens": [
+            "IB200"
+          ],
+          "colorCodes": [
+            "C48333"
+          ],
+          "colorText": "blue",
+          "shapeCode": "C48336",
+          "sizeMm": 20,
+          "scored": false,
+          "marketingStatus": "ACTIVE",
+          "active": true
+        },
+        "expectedIsTypical": false,
+        "matchedProduct": null,
+        "identifiedAs": null,
+        "labelTitle": "Ibuprofen 200 mg",
+        "features": [
+          {
+            "name": "Imprint",
+            "expected": "IB200",
+            "found": "IB 200",
+            "result": "unsure"
+          },
+          {
+            "name": "Color",
+            "expected": "Blue",
+            "found": "Turquoise",
+            "result": "match"
+          },
+          {
+            "name": "Shape",
+            "expected": "Capsule",
+            "found": "Oval",
+            "result": "match"
+          },
+          {
+            "name": "Size",
+            "expected": "20 mm",
+            "found": "Not measured",
+            "result": "not_measured"
+          }
+        ],
+        "evidence": [
+          {
+            "source": "FDA DailyMed",
+            "role": "label",
+            "setId": "4bc6e8f2-ba95-4352-80ed-b44608fc4936",
+            "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=4bc6e8f2-ba95-4352-80ed-b44608fc4936"
+          }
+        ],
+        "reasons": [
+          "We couldn't read the letters on the pill clearly enough to be sure (we think it says IB 200)."
+        ],
+        "productsCompared": 211,
+        "matchingListings": null,
+        "identifiedListings": null,
+        "label": {
+          "ndc": "69452-212",
+          "drugName": "Ibuprofen",
+          "strength": "200 mg",
+          "form": "capsule"
+        },
+        "pill": {
+          "imprintSides": [
+            "IB 200"
+          ],
+          "imprintConfidence": 0.4,
+          "colors": [
+            "turquoise"
+          ],
+          "colorConfidence": 0.8,
+          "shape": "oval",
+          "shapeConfidence": 0.6,
+          "form": "softgel",
+          "pillVisible": true,
+          "multiplePills": false,
+          "photoProblems": [
+            "blur",
+            "too far"
+          ],
+          "scored": false,
+          "guess": {
+            "drugName": "Ibuprofen",
+            "strength": "200 mg"
+          }
+        },
+        "labelProduct": {
+          "ndc9": "69452-212",
+          "productCode": "694520212",
+          "ndc10": "69452-212-11",
+          "rxcui": "310964",
+          "setId": "4bc6e8f2-ba95-4352-80ed-b44608fc4936",
+          "labeler": "Bionpharma Inc.",
+          "title": "Ibuprofen 200 mg",
+          "imprintRaw": "IB200",
+          "imprintTokens": [
+            "IB200"
+          ],
+          "colorCodes": [
+            "C48333"
+          ],
+          "colorText": "blue",
+          "shapeCode": "C48336",
+          "sizeMm": 20,
+          "scored": false,
+          "marketingStatus": "ACTIVE",
+          "active": true
+        },
+        "labels": {
+          "4bc6e8f2-ba95-4352-80ed-b44608fc4936": {
+            "setId": "4bc6e8f2-ba95-4352-80ed-b44608fc4936",
+            "title": "IBUPROFEN CAPSULE, LIQUID FILLED [BIONPHARMA INC.]",
+            "publishedDate": "2023-12-28",
+            "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=4bc6e8f2-ba95-4352-80ed-b44608fc4936",
+            "current": true
+          }
+        },
+        "checkedAt": "2026-11-11T19:59:05.989Z",
+        "timings": {
+          "label": 1444,
+          "drug": 223,
+          "guess": 0,
+          "dailymed": 684,
+          "total": 684
+        }
+      },
+      "features": {
+        "length": 127.25321142665078,
+        "width": 59.193697116604696,
+        "aspect": 2.1497763718994736,
+        "area": 0.005416666666666667,
+        "lab": [
+          52.3,
+          -20.9,
+          0.3
+        ],
+        "relativeArea": 0.9616965313167845
+      }
+    }
+  ],
+  "clumps": [
+    {
+      "kind": "touching",
+      "box": {
+        "x": 0.16534391534391535,
+        "y": 0.3630952380952381,
+        "width": 0.16732804232804233,
+        "height": 0.07886904761904762
+      }
+    },
+    {
+      "kind": "touching",
+      "box": {
+        "x": 0.07539682539682539,
+        "y": 0.4806547619047619,
+        "width": 0.22685185185185186,
+        "height": 0.13045634920634921
+      }
+    },
+    {
+      "kind": "touching",
+      "box": {
+        "x": 0.4398148148148148,
+        "y": 0.4523809523809524,
+        "width": 0.17592592592592593,
+        "height": 0.15029761904761904
+      }
+    },
+    {
+      "kind": "touching",
+      "box": {
+        "x": 0.3194444444444444,
+        "y": 0.5104166666666666,
+        "width": 0.05423280423280423,
+        "height": 0.03571428571428571
+      }
+    },
+    {
+      "kind": "touching",
+      "box": {
+        "x": 0.373015873015873,
+        "y": 0.5863095238095238,
+        "width": 0.14616402116402116,
+        "height": 0.09573412698412699
+      }
+    }
+  ],
+  "decision": {
+    "matched": 0,
+    "unreadable": 3,
+    "flagged": [
+      3
+    ],
+    "verdict": "MISMATCH",
+    "title": "Pill 3 doesn't match your label.",
+    "instruction": "Its imprint is listed for Acetaminophen 500 mg. Don't take any pills from this bottle; call your pharmacy.",
+    "asks": []
+  },
+  "image": {
+    "width": 1512,
+    "height": 2016
+  },
+  "checkedAt": "2026-11-11T19:59:06.125Z",
+  "elapsedMs": 7717,
+  "usage": [
+    {
+      "model": "claude-sonnet-5-5",
+      "inputTokens": 1443,
+      "outputTokens": 339,
+      "estimatedUsd": 0.006276
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "inputTokens": 1451,
+      "outputTokens": 369,
+      "estimatedUsd": 0.006592
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "inputTokens": 1455,
+      "outputTokens": 373,
+      "estimatedUsd": 0.00664
+    },
+    {
+      "model": "claude-sonnet-5-5",
+      "inputTokens": 1451,
+      "outputTokens": 368,
+      "estimatedUsd": 0.006582
+    }
+  ]
+}

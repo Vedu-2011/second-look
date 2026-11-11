@@ -1,0 +1,112 @@
+{
+  "scope": "Single untuned functional test, not accuracy evidence. Known label supplied, not read by AI.",
+  "frozenCommit": "3414aab74ec5ead77e5f098d942e3e899feede43",
+  "sourceSha256": "1865d8c99b43fd49efabf12b47e58be14dc662b876b74dccfebd5589e3a6562b",
+  "mode": "live; durable .30 cap",
+  "coaching": [
+    "Spread them out so none touch."
+  ],
+  "checkAnyway": "Diagnostic run explicitly continued after coaching, if offered.",
+  "decision": {
+    "matched": 0,
+    "unreadable": 3,
+    "flagged": [
+      3
+    ],
+    "verdict": "MISMATCH",
+    "title": "Pill 3 doesn't match your label.",
+    "instruction": "Its imprint is listed for Acetaminophen 500 mg. Don't take any pills from this bottle; call your pharmacy.",
+    "asks": []
+  },
+  "pills": [
+    {
+      "number": 1,
+      "imprint": [],
+      "confidence": 0.3,
+      "verdict": "UNSURE"
+    },
+    {
+      "number": 2,
+      "imprint": [
+        "IB 200"
+      ],
+      "confidence": 0.35,
+      "verdict": "UNSURE"
+    },
+    {
+      "number": 3,
+      "imprint": [
+        "TYLENOL 500"
+      ],
+      "confidence": 0.8,
+      "verdict": "MISMATCH",
+      "odd": "a different color"
+    },
+    {
+      "number": 4,
+      "imprint": [
+        "IB 200"
+      ],
+      "confidence": 0.4,
+      "verdict": "UNSURE"
+    }
+  ],
+  "clumps": [
+    {
+      "kind": "touching",
+      "box": {
+        "x": 0.16534391534391535,
+        "y": 0.3630952380952381,
+        "width": 0.16732804232804233,
+        "height": 0.07886904761904762
+      }
+    },
+    {
+      "kind": "touching",
+      "box": {
+        "x": 0.07539682539682539,
+        "y": 0.4806547619047619,
+        "width": 0.22685185185185186,
+        "height": 0.13045634920634921
+      }
+    },
+    {
+      "kind": "touching",
+      "box": {
+        "x": 0.4398148148148148,
+        "y": 0.4523809523809524,
+        "width": 0.17592592592592593,
+        "height": 0.15029761904761904
+      }
+    },
+    {
+      "kind": "touching",
+      "box": {
+        "x": 0.3194444444444444,
+        "y": 0.5104166666666666,
+        "width": 0.05423280423280423,
+        "height": 0.03571428571428571
+      }
+    },
+    {
+      "kind": "touching",
+      "box": {
+        "x": 0.373015873015873,
+        "y": 0.5863095238095238,
+        "width": 0.14616402116402116,
+        "height": 0.09573412698412699
+      }
+    }
+  ],
+  "readReservations": [
+    4
+  ],
+  "usage": {
+    "budgetUsd": 0.3,
+    "recordedSpendUsd": 0.026090000000000002,
+    "committedUsd": 0.026090000000000002,
+    "responses": 4,
+    "uniqueReadings": 4
+  },
+  "readerFailures": []
+}

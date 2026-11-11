@@ -1,0 +1,12 @@
+{
+  "consensus-demo": {
+    "id": "c80f8d1b-1e05-4c01-a4f1-78748dc4fcdf",
+    "verdict": "LOOKS_RIGHT",
+    "photosSaved": false
+  },
+  "user-result": {
+    "id": "5af545c9-7911-4ae7-92d5-02d863933c1e",
+    "verdict": "MISMATCH",
+    "photosSaved": false
+  }
+}

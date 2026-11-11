@@ -1,0 +1,10 @@
+{
+  "source": "test-images/real/extra/user-test-ibuprofen-tylenol.jpg",
+  "size": [
+    1512,
+    2016
+  ],
+  "hasExif": true,
+  "hasGps": false,
+  "note": "Presence only; no location values recorded."
+}

@@ -19,6 +19,14 @@
       "replay": 0
     },
     {
+      "name": "user",
+      "width": 375,
+      "errors": [],
+      "overflow": false,
+      "realPreparation": 0,
+      "replay": 1
+    },
+    {
       "name": "consensus",
       "width": 1440,
       "errors": [],
@@ -33,6 +41,14 @@
       "overflow": false,
       "realPreparation": 1,
       "replay": 0
+    },
+    {
+      "name": "user",
+      "width": 1440,
+      "errors": [],
+      "overflow": false,
+      "realPreparation": 0,
+      "replay": 1
     }
   ]
 }
