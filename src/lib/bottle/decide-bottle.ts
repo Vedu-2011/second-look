@@ -108,6 +108,11 @@ export function decideBottle(pills: readonly BottlePill[], clumps: readonly Bott
   if (!pills.length) return { ...base, verdict: "UNSURE", title: "We couldn't check any pills yet.", instruction: `${nudgeText(clumps, false)} and snap again.`, asks, next };
   if (pills.length && matched === pills.length && !clumps.length)
     return { ...base, verdict: "MATCH", title: `All ${pills.length} ${pillsWord(pills.length)} we found match your label.`, instruction: "Check that every pill in your photo has a number. We only checked the pills we found." };
+  const inferred = pills.filter(p => p.consensus && !p.carried && p.result.verdict === "UNSURE");
+  if (!clumps.length && !odd.length && !warnings.length && inferred.length && matched >= 2 && matched + inferred.length === pills.length) {
+    const label = pills[0].result.label.drugName || "label's medicine";
+    return { ...base, verdict: "LOOKS_RIGHT", title: `These pills look like your ${label.toLowerCase()}.`, instruction: `We read the print on ${matched} of ${pills.length}. The other ${inferred.length} look the same as those. Ask your pharmacist if anything looks off.`, asks: [], next: undefined };
+  }
   const matchedText = `${matched} ${pillsWord(matched)} ${matched === 1 ? "matches" : "match"}.`;
   if (tooMany) return { ...base, verdict: "UNSURE", title: `${matchedText} ${needed.length} couldn't be read.`, instruction: ending, asks, next };
   if (faceDown.length && faceDown.length === needed.length && !clumps.length)

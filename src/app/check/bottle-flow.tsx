@@ -10,7 +10,7 @@ import { pillRingPosition } from "@/lib/bottle/overlay";
 import { BOTTLE_BODY_BYTES, prepareBottlePhoto } from "@/lib/bottle/upload";
 
 type Photo = Awaited<ReturnType<typeof prepareBottlePhoto>>;
-type Phase = "label" | "bottle" | "again" | "checking" | "result" | "error";
+type Phase = "label" | "bottle" | "again" | "checking" | "result" | "error" | "coaching";
 const list = (n: readonly number[]) => n.length > 1 ? `${n.slice(0, -1).join(", ")} and ${n.at(-1)}` : String(n[0]);
 /** What to do before the second photo, from the first result. */
 function againSteps(result: BottleResult) {
@@ -29,6 +29,8 @@ export function BottleFlow() {
   const [shareId, setShareId] = useState<string>();
   const [continuationToken, setContinuationToken] = useState<string>();
   const [error, setError] = useState("");
+  const [coaching, setCoaching] = useState<string[]>([]);
+  const [coachingPrevious, setCoachingPrevious] = useState<string>();
   const [busyPhoto, setBusyPhoto] = useState(false);
   const [steps, setSteps] = useState<StepState[]>(["waiting", "waiting", "waiting", "waiting"]);
   const [progress, setProgress] = useState({ completed: 0, total: 0 });
@@ -36,6 +38,7 @@ export function BottleFlow() {
   const urls = useRef<string[]>([]), controllerRef = useRef<AbortController | null>(null);
   useEffect(() => { heading.current?.focus(); }, [phase]);
   useEffect(() => () => { urls.current.forEach((url) => URL.revokeObjectURL(url)); controllerRef.current?.abort(); }, []);
+  const coachingPhoto = coachingPrevious ? again : bottle;
   const kind = phase === "label" ? "label" : "bottle";
   const photo = phase === "label" ? label : phase === "again" ? again : bottle;
   async function choose(file?: File) {
@@ -46,15 +49,16 @@ export function BottleFlow() {
     finally { setBusyPhoto(false); }
   }
   /** First check: label + pills. "Snap again": only the new pills photo plus the first check's saved id. */
-  async function check(previousId?: string) {
+  async function check(previousId?: string, checkAnyway = false) {
     const pills = previousId ? again : bottle;
     if ((!previousId && !label) || !pills || controllerRef.current) return;
-    setError(""); if (!previousId) { setResult(undefined); setShareId(undefined); setContinuationToken(undefined); } setPhase("checking");
+    setCoaching([]); setError(""); if (!previousId) { setResult(undefined); setShareId(undefined); setContinuationToken(undefined); } setPhase("checking");
     setSteps(["waiting", "waiting", "waiting", "waiting"]); setProgress({ completed: 0, total: 0 });
     const controller = new AbortController(); controllerRef.current = controller;
     const timer = setTimeout(() => controller.abort(), 125_000);
     let terminal = false;
     function receive(event: BottleEvent) {
+      if (event.type === "coaching") { terminal = true; setCoaching(event.tips); setCoachingPrevious(previousId); setPhase("coaching"); }
       if (event.type === "step") setSteps((s) => s.map((v, i) => i === event.step ? event.state : v));
       if (event.type === "progress") setProgress({ completed: event.completed, total: event.total });
       if (event.type === "segmented") setProgress({ completed: 0, total: event.boxes.length });
@@ -62,7 +66,7 @@ export function BottleFlow() {
       if (event.type === "result") { terminal = true; if (previousId) { setBottle(pills); setAgain(undefined); } setResult(event.result); setShareId(event.shareId); setContinuationToken(event.continuationToken); setPhase("result"); }
     }
     try {
-      const form = new FormData(); form.set("bottleImage", pills!.blob, "pills.jpg");
+      const form = new FormData(); if (checkAnyway) form.set("checkAnyway", "1"); form.set("bottleImage", pills!.blob, "pills.jpg");
       if (previousId) { form.set("previousId", previousId); form.set("continuationToken", continuationToken ?? ""); } else form.set("labelImage", label!.blob, "label.jpg");
       // Browser-generated multipart overhead is bounded before sending, under the platform's cap.
       if ((await new Response(form).blob()).size > BOTTLE_BODY_BYTES) throw new Error("Those photos are too large together. Please choose them again.");
@@ -76,7 +80,7 @@ export function BottleFlow() {
     } catch (e) { setError(controller.signal.aborted ? "That check took too long. Try fewer pills or check one pill." : e instanceof Error ? e.message : "We couldn't finish this check."); setPhase("error"); }
     finally { clearTimeout(timer); controllerRef.current = null; }
   }
-  const title = phase === "label" ? "Photo of the label" : phase === "bottle" ? "Photo of all the pills" : phase === "again" ? "Snap the same pills again" : phase === "checking" ? "Checking the pills we find" : phase === "result" ? "Your whole-bottle photo check" : "Let's take another look";
+  const title = phase === "label" ? "Photo of the label" : phase === "bottle" ? "Photo of all the pills" : phase === "again" ? "Snap the same pills again" : phase === "coaching" ? "A clearer photo will help" : phase === "checking" ? "Checking the pills we find" : phase === "result" ? "Your whole-bottle photo check" : "Let's take another look";
   return <div className="space-y-6">
     <div ref={heading} tabIndex={-1} className="outline-none"><p className="mb-2 text-lg font-semibold text-ink-soft">Check my pills{["label", "bottle"].includes(phase) ? ` · Step ${phase === "label" ? 1 : 2} of 2` : ""}</p><h1 className="text-3xl font-bold tracking-tight sm:text-4xl">{title}</h1></div>
     {(phase === "label" || phase === "bottle" || phase === "again") && <>
@@ -91,6 +95,12 @@ export function BottleFlow() {
       <div className="flex flex-col gap-3 sm:flex-row">{phase === "bottle" && <Button variant="ghost" onClick={() => setPhase("label")}>Back to label</Button>}{phase === "again" && <Button variant="ghost" onClick={() => setPhase("result")}>Back to my result</Button>}{photo && <Button disabled={busyPhoto} size="lg" className="text-lg" onClick={() => phase === "label" ? setPhase("bottle") : phase === "again" ? void check(shareId) : void check()}>{phase === "label" ? "Next: photo of the pills" : phase === "again" ? "Check again" : "Check my pills"}</Button>}</div>
       <p className="text-lg text-ink-soft">{phase === "again" ? "We read the requested pills first. Earlier readings stay marked as history. Before a new green result, we read every pill again. If the layout changed, we start a full check." : "Photos stay in this check only. Shared results keep readings and positions, never photos. Every five pills count as one check (minimum one)."}</p>
     </>}
+    {phase === "coaching" && <section className="space-y-5 rounded-[var(--radius-card)] bg-foil p-5 sm:p-7" aria-label="Photo tips before reading">
+      <ul className="space-y-3 text-xl font-semibold">{coaching.map(tip => <li key={tip}>{tip}</li>)}</ul>
+      {coachingPhoto && <img src={coachingPhoto.preview} alt="Your photo before any AI reading" className="max-h-80 w-full rounded-2xl object-contain" />}
+      <p className="text-lg text-ink-soft">No AI reading has started. A clearer photo gives us a better chance of reading every pill.</p>
+      <div className="flex flex-col gap-3 sm:flex-row"><Button size="lg" onClick={() => setPhase(coachingPrevious ? "again" : "bottle")}>Retake</Button><Button size="lg" variant="secondary" onClick={() => void check(coachingPrevious, true)}>Check anyway</Button></div>
+    </section>}
     {phase === "checking" && <CheckingSteps states={steps} labels={["Reading your label", "Finding the pills", `Reading each pill (${progress.completed} of ${progress.total || "…"})`, "Checking with FDA records"]} className="rounded-[var(--radius-photo)] bg-foil p-3" />}
     {error && <div role="alert" className="rounded-[var(--radius-card)] bg-foil p-5"><p className="text-lg font-semibold">{error}</p>{phase === "error" && <div className="mt-4 flex flex-col gap-3"><Button variant="secondary" onClick={() => setPhase(again ? "again" : "bottle")}>Retake pills photo</Button><Button variant="ghost" onClick={() => setPhase("label")}>Retake label photo</Button></div>}</div>}
     {phase === "result" && result && <BottleResultView result={result} photo={bottle?.preview} shareId={shareId} onNext={result.decision.next && shareId && continuationToken ? () => { setAgain(undefined); setError(""); setPhase("again"); } : undefined} onRetake={() => { setResult(undefined); setBottle(undefined); setPhase("bottle"); }} />}

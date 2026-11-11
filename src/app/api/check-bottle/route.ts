@@ -3,11 +3,13 @@ import { connection } from "next/server";
 import sharp from "sharp";
 import { AiUnavailableError } from "@/lib/ai/client";
 import { BottleQuotaError, runBottleCheck, runBottleFollowUp } from "@/lib/bottle/check-bottle";
+import { captureCoaching } from "@/lib/bottle/coaching";
+import { segmentBottle, SegmentationError } from "@/lib/bottle/segment";
 import { MAX_BOTTLE_PIXELS } from "@/lib/bottle/segment";
 import { BOTTLE_BODY_BYTES, BOTTLE_UPLOAD_BYTES, LABEL_UPLOAD_BYTES } from "@/lib/bottle/upload";
 import type { BottleEvent } from "@/lib/bottle/types";
 import { friendlyFdaMessage } from "@/lib/fda/http";
-import { bottleCheckUnits, consumeCheckLimit } from "@/lib/rate-limit";
+import { bottleCheckUnits, consumeCheckLimit, consumePreparationLimit } from "@/lib/rate-limit";
 import { canContinueBottle, getBottleResult, saveBottleResult, type StoredBottleResult } from "@/lib/result-store";
 
 export const maxDuration = 120;
@@ -34,9 +36,10 @@ async function boundedForm(request: Request) {
 }
 export async function POST(request: Request) {
   await connection();
-  let label: { mediaType: "image/jpeg"; base64: string } | null = null, bottle: Buffer, previousId = "", continuationToken = "";
+  let label: { mediaType: "image/jpeg"; base64: string } | null = null, bottle: Buffer, previousId = "", continuationToken = "", checkAnyway = false;
   try {
     const form = await boundedForm(request);
+    checkAnyway = form.get("checkAnyway") === "1";
     const labelFile = form.get("labelImage"), bottleFile = form.get("bottleImage"), previous = form.get("previousId");
     // "Flip and snap again" sends only the new pills photo plus the first check's saved id; the label is reused.
     continuationToken = typeof form.get("continuationToken") === "string" ? String(form.get("continuationToken")) : "";
@@ -61,6 +64,16 @@ export async function POST(request: Request) {
     if (!canContinueBottle(previous, continuationToken)) return Response.json({ error: "Continue from the browser that made this check, or start a new check with your label photo." }, { status: 403, headers: { "cache-control": "no-store" } });
   }
   const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || request.headers.get("x-real-ip") || "unknown";
+  const preparation = await consumePreparationLimit(ip);
+  if (!preparation.allowed) return Response.json({ error: preparation.message }, { status: 429, headers: { "cache-control": "no-store" } });
+  let prepared;
+  try { prepared = await segmentBottle(bottle); }
+  catch (error) {
+    const event: BottleEvent = { type: "retake", code: error instanceof SegmentationError ? error.code : "image", message: error instanceof SegmentationError ? error.message : "We couldn't open that photograph. Please choose it again." };
+    return new Response(JSON.stringify(event) + "\n", { headers: { "content-type": "application/x-ndjson", "cache-control": "no-store" } });
+  }
+  const tips = captureCoaching(prepared);
+  if (tips.length && !checkAnyway) return new Response(JSON.stringify({ type: "coaching", tips }) + "\n", { headers: { "content-type": "application/x-ndjson", "cache-control": "no-store" } });
   const initial = await consumeCheckLimit(ip);
   if (!initial.allowed) return Response.json({ error: initial.message }, { status: 429, headers: { "cache-control": "no-store" } });
   let canceled = false, reservedUnits = 1;
@@ -75,7 +88,7 @@ export async function POST(request: Request) {
             const units = bottleCheckUnits(count), extra = Math.max(0, units - reservedUnits);
             if (extra) { const reserved = await consumeCheckLimit(ip, extra); if (!reserved.allowed) throw new BottleQuotaError(reserved.message); reservedUnits = units; }
           };
-          const result = previous ? await runBottleFollowUp(previous.result, bottle, reserve, send) : await runBottleCheck(label!, bottle, reserve, send);
+          const result = previous ? await runBottleFollowUp(previous.result, bottle, reserve, send, { prepared, checkAnyway: true }) : await runBottleCheck(label!, bottle, reserve, send, { prepared, checkAnyway: true });
           if (result && !canceled) {
             const continuationToken = randomBytes(32).toString("hex");
             send({ type: "result", result, shareId: await saveBottleResult(result, continuationToken), continuationToken });

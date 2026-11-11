@@ -212,3 +212,31 @@ Repo: github.com/Vedu-2011/second-look — PUBLIC (DSH requires a public repo).
 - Pill 10 in the saved before photo is still an engine MATCH with a photo-only SHAPE outlier warning: aspect
   1.553 vs median 1.851, log deviation 0.17534 > tolerance 0.15839. Size and color did not trigger. No threshold,
   prompt, engine, segmentation, quota or follow-up planning rule changed.
+
+## Decisions for phase 11, before the real-photo test (Codex, Nov 11)
+- Bottle-only consensus requires at least two CURRENT imprint-confirmed pills in the same look-alike group, all
+  sharing the same complete FDA imprint. Any red pill, odd/appearance warning, clump/cutoff, unresolved region or
+  conflicting fragment blocks support. Literal fragments only, no confusable folding. Carried readings never
+  confirm or acquire consensus. Inferred per-pill engine verdicts stay UNSURE; all-confirmed remains MATCH;
+  all-current-confirmed-or-supported can be separate LOOKS_RIGHT, explicitly appearance support only.
+- Bottle borderline confidence [.5,.7): at most five independent second reader calls, with different pixels from
+  a 2x upscale. Exact symmetric full normalized agreement, visible single pill, consistent appearance and >=.5
+  confidence on both readings meet the unchanged .7 imprint bar. Both original readings/confidences are recorded.
+  Agreement on only a known proper fragment (e.g. IB2 in IB200) is recorded but stays unconfirmed; it may support
+  appearance consensus. This avoids mistaking an agreed partial transcription for a complete imprint. No red
+  verdict is overridden. Secondary calls have no SDK retry and at most one generation attempt.
+- Quota reserves all primary+secondary calls in groups of five, before secondary calls start. Max20 pills+5 extra
+  calls. Reservations serialize across workers and across follow-up verification. On failure, workers drain before
+  closing the stream, so there are no late enqueue attempts or new readers after quota denial.
+- Segmentation constants selected on SYNTHETIC controls: low-light L<65, saturation >border+.12, green/blue excess
+  >border+6 RGB, Lab chroma >border+4. Existing Lab-distance mask retained. Controls include faint translucent gels
+  and gray noise. Two-marker splitting requires exactly two distance-transform peaks >=.75 max, separation >=1.6
+  max radius, neck saddle <=.65 min peak, area ratio<=1.5, both convex solidity>=.94, aspect<=3.3, no remaining neck.
+  Otherwise retain dashed unchecked regions. White/black/yellow/texture, three-pill clumps, unequal pairs and
+  rotated pairs are controls. Existing development composites are functional tests, not new accuracy evidence.
+- Coaching before ANY AI: median working-image pill length <2.5% long edge advises moving closer; >=2 unchecked
+  regions advises spreading. Retake is primary, Check anyway secondary; no label/crop AI or paid-check quota until
+  continuation. Free preparation has separate 30/min/IP throttling. Any invalid/over20 image still rejects.
+- Freeze before looking at or running the supplied real user photo. One new live run under .30 durable cap; no
+  threshold or prompt tuning on that photo. Known Bionpharma NDC69452-212 label is supplied, not AI label reading.
+  Frozen single-pill engine, matcher constants, AI prompts and benchmark files stay unchanged.

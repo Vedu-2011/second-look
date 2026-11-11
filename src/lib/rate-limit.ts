@@ -46,4 +46,22 @@ export async function consumeCheckLimit(ip: string, units = 1): Promise<LimitRes
   dailyMemory.set(dayKey, { count: d + units, expires: now + 172_800_000 });
   return { allowed: true, count: h + units };
 }
-export function clearRateLimitForTests() { memory.clear(); dailyMemory.clear(); }
+export function clearRateLimitForTests() { memory.clear(); dailyMemory.clear(); preparationMemory.clear(); }
+
+// Free preparation is separate from paid-reading quota; bounded to stop repeated segmentation abuse.
+const preparationMemory = new Map<string, { count: number; expires: number }>();
+export async function consumePreparationLimit(ip: string): Promise<LimitResult> {
+  const now = Date.now(), slot = Math.floor(now / 60_000);
+  const k = key(`prepare:${ip.replace(/[^a-zA-Z0-9:._-]/g, '_').slice(0,100)}:${slot}`);
+  const redis = getRedis();
+  if (redis) {
+    try {
+      const count = await redis.eval<[], number>("local n=redis.call('INCR', KEYS[1]); redis.call('EXPIRE', KEYS[1],120); return n", [k], []);
+      return count <= 30 ? { allowed: true, count } : { allowed: false, count, message: 'Please wait a minute before preparing another photo.' };
+    } catch { return { allowed: false, count: 0, message: 'We could not prepare a check right now. Please try again shortly.' }; }
+  }
+  for (const [name, v] of preparationMemory) if (v.expires <= now) preparationMemory.delete(name);
+  const count = (preparationMemory.get(k)?.count ?? 0) + 1;
+  preparationMemory.set(k, { count, expires: now + 120_000 });
+  return count <= 30 ? { allowed: true, count } : { allowed: false, count, message: 'Please wait a minute before preparing another photo.' };
+}

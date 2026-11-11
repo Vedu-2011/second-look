@@ -52,12 +52,13 @@ describe("a wrong pill is caught from either side (recorded readings)", () => {
     expect(result.pills[6].result.identifiedAs).toBeNull();
     expect(result.pills[6].result.reasons.join(" ")).toContain("Turn the pill over");
   });
-  it('the real "22 63" reading at 0.6 confidence stays "can\'t tell", and the look-alike check still singles it out', async () => {
+  it('two independent matching "22 63" reads retain both confidences and make the wrong pill red', async () => {
     readings[AMOXICILLIN] = recorded.amoxicillin2263LowConfidence as PillReading;
     const result = await check(await spread({ 5: { color: AMOXICILLIN, rx: 55, ry: 30 } }));
-    expect(result.pills[4].result.verdict).toBe("UNSURE");
+    expect(result.pills[4].result.verdict).toBe("MISMATCH");
+    expect(result.pills[4].doubleRead).toMatchObject({ agreed: true, firstConfidence: .6, secondConfidence: .6 });
     expect(result.pills[4].odd).toContain("different");
-    expect(result.decision).toMatchObject({ verdict: "WARNING", title: "Pill 5 looks different from the others.", instruction: "Flip just that one and snap again.", asks: [5] });
+    expect(result.decision).toMatchObject({ verdict: "MISMATCH", asks: [5] });
   });
 });
 
@@ -65,7 +66,10 @@ describe("flip and snap again", () => {
   it("reads the flipped pill first, then verifies every carried imprint before green", async () => {
     readings[FACE_DOWN] = { ...(recorded.g12 as PillReading), imprintSides: [], imprintConfidence: 0 };
     const first = await check(await spread({ 4: { color: FACE_DOWN } }));
-    expect(first.decision).toMatchObject({ verdict: "FACE_DOWN", asks: [4] });
+    expect(first.decision.verdict).toBe("LOOKS_RIGHT");
+    // Continue a pre-phase11 stored result: it asked to flip the blank pill.
+    first.pills.forEach(p => { delete p.consensus; });
+    first.decision = { ...first.decision, verdict: "FACE_DOWN", asks: [4], next: "flip" };
     reads.mockClear();
     // Same spread, phone a little closer and to the side; pill 4 flipped where it was.
     const second = await runBottleFollowUp(first, await spread({}, (p) => ({ ...p, cx: p.cx * 1.04 + 25, cy: p.cy * 1.04 - 30 })), async () => {}, () => {}, deps());
@@ -103,13 +107,13 @@ describe("fresh review regressions", () => {
     readings[FACE_DOWN] = { ...(recorded.g12 as PillReading), imprintSides: [], imprintConfidence: 0 };
     const first = await check(await spread({ 4: { color: FACE_DOWN } }));
     reads.mockClear();
-    // Pill 1 replaced by an indistinguishable silhouette, but its actual imprint differs.
+    // Pill 2 replaced by an indistinguishable silhouette, but its actual imprint differs.
     reads.mockImplementationOnce(async () => structuredClone(recorded.g12 as PillReading))
       .mockImplementationOnce(async () => structuredClone(recorded.amoxicillin93 as PillReading));
     const second = await runBottleFollowUp(first, await spread(), async () => {}, () => {}, deps());
     expect(reads).toHaveBeenCalledTimes(10);
     expect(second!.decision.verdict).toBe("MISMATCH");
-    expect(second!.pills[0].result.verdict).toBe("MISMATCH");
+    expect(second!.pills[1].result.verdict).toBe("MISMATCH");
   });
   it("a removed circled cutoff never resolves the old bottle to green, even on another follow-up", async () => {
     const first = await check(await spread());
@@ -146,4 +150,24 @@ it("an unavailable reverse reader cannot erase a previously confident mismatch",
   expect(second!.decision.verdict).toBe("MISMATCH");
   expect(second!.pills[4].result.identifiedAs).toBeNull();
   expect(second!.pills[4].result.reasons.join(" ")).toContain("mismatch still stands");
+});
+
+it('two agreeing expected fragments stay unconfirmed and can only support appearance consensus', async () => {
+  readings[FACE_DOWN] = { ...(recorded.g12 as PillReading), imprintSides: ['G'], imprintConfidence: .6 };
+  const result = await check(await spread({ 4: { color: FACE_DOWN } }));
+  expect(result.pills[3].doubleRead).toMatchObject({ agreed: true, partial: true });
+  expect(result.pills[3].result.verdict).toBe('UNSURE');
+  expect(result.pills[3].result.pill.imprintConfidence).toBe(.6);
+  expect(result.decision.verdict).toBe('LOOKS_RIGHT');
+});
+it('the five-extra-read cap is shared across both follow-up reading rounds',async()=>{
+ const previous=await check(await spread());
+ previous.decision={...previous.decision,asks:[1,2,3],next:'flip'};
+ const reader=vi.fn(async()=>({...structuredClone(recorded.g12 as PillReading),imprintConfidence:.6}));
+ const reservations:number[]=[];
+ const result=await runBottleFollowUp(previous,await spread(),async n=>{reservations.push(n);},()=>{},{label:LABEL,readPill:reader});
+ expect(reader).toHaveBeenCalledTimes(15);
+ expect(result!.pills.filter(p=>p.doubleRead)).toHaveLength(5);
+ expect(Math.max(...reservations)).toBe(15);
+ expect(result!.decision.verdict).not.toBe('MATCH');
 });

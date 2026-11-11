@@ -1,3 +1,6 @@
+import { captureCoaching } from "./coaching";
+import { applyConsensus } from "./consensus";
+import { agreeReadings, borderline, expectedFragment, MAX_EXTRA_READS, secondReadImage } from "./double-read";
 import { mergePillViews } from "@/lib/pill-views";
 import { DEFAULT_VISION_MODEL, type ImageInput, type ReadOptions } from "@/lib/ai/client";
 import { readLabel, readPill } from "@/lib/ai/readers";
@@ -16,9 +19,12 @@ export const unreadablePill = (): PillReading => ({ imprintSides: [], imprintCon
 export async function mapFive<T, R>(items: readonly T[], work: (item: T, index: number) => Promise<R>): Promise<R[]> {
   let cursor = 0;
   const out: R[] = new Array(items.length);
+  let failed = false, failure: unknown;
   await Promise.all(Array.from({ length: Math.min(5, items.length) }, async () => {
-    while (cursor < items.length) { const i = cursor++; out[i] = await work(items[i], i); }
+    while (cursor < items.length && !failed) { const i = cursor++; try { out[i] = await work(items[i], i); } catch (error) { failed = true; failure = error; } }
   }));
+  // Drain already-started requests before the API closes its stream; start none after quota failure.
+  if (failed) throw failure;
   return out;
 }
 
@@ -28,6 +34,8 @@ export type BottleDependencies = {
   /** For the development-only smoke with a declared label, never a browser request. */
   label?: LabelReading;
   onUsage?: ReadOptions["onUsage"];
+  prepared?: SegmentedBottle;
+  checkAnyway?: boolean;
 };
 export async function runBottleCheck(
   labelImage: ImageInput,
@@ -42,6 +50,19 @@ export async function runBottleCheck(
     usage.push({ model, inputTokens, outputTokens, estimatedUsd: model === DEFAULT_VISION_MODEL ? (inputTokens * 2 + outputTokens * 10) / 1e6 : null });
     dependencies.onUsage?.(model, inputTokens, outputTokens);
   };
+  // Segment BEFORE any pill AI; a rejected photo never reads a crop.
+  send({ type: "step", step: 1, state: "working" });
+  let segmented: SegmentedBottle;
+  try { segmented = dependencies.prepared ?? await segmentBottle(bottleImage); } catch (error) {
+    if (!(error instanceof SegmentationError)) throw error;
+    send({ type: "step", step: 1, state: "failed" });
+    send({ type: "retake", code: error.code, message: error.message });
+    return null;
+  }
+  send({ type: "step", step: 1, state: "done" });
+  send({ type: "segmented", boxes: segmented.boxes, image: segmented.image });
+  const tips = captureCoaching(segmented);
+  if (tips.length && !dependencies.checkAnyway) { send({ type: "coaching", tips }); return null; }
   send({ type: "step", step: 0, state: "working" });
   const label = dependencies.label ?? await readLabel(labelImage, { model: DEFAULT_VISION_MODEL, onUsage });
   const exit = earlyExit(label, { ...unreadablePill(), pillVisible: true });
@@ -51,34 +72,45 @@ export async function runBottleCheck(
     return null;
   }
   send({ type: "step", step: 0, state: "done" });
-  // Segment BEFORE any pill AI; a rejected photo never reads a crop.
-  send({ type: "step", step: 1, state: "working" });
-  let segmented: SegmentedBottle;
-  try { segmented = await segmentBottle(bottleImage); } catch (error) {
-    if (!(error instanceof SegmentationError)) throw error;
-    send({ type: "step", step: 1, state: "failed" });
-    send({ type: "retake", code: error.code, message: error.message });
-    return null;
-  }
-  send({ type: "step", step: 1, state: "done" });
-  send({ type: "segmented", boxes: segmented.boxes, image: segmented.image });
   // Initial quota was reserved by the API. Reserve all remaining units before ANY crop reads.
   await reserveRemaining(segmented.crops.length);
   // Fetch expected records ONCE, and deduplicate simultaneous mismatch leads/DailyMed requests.
   const resolved = await resolveLabelData(label);
-  const pills = await readAndCheck(label, segmented, segmented.crops.map((_, i) => i), new Map(), resolved, send, dependencies, onUsage);
+  const budget = readingBudget(segmented.crops.length, reserveRemaining);
+  const pills = applyConsensus(await readAndCheck(label, segmented, segmented.crops.map((_, i) => i), new Map(), resolved, send, dependencies, onUsage, budget), segmented.clumps);
   return { kind: "bottle", label, pills, clumps: segmented.clumps, decision: decideBottle(pills, segmented.clumps), image: segmented.image, checkedAt: new Date().toISOString(), elapsedMs: Math.round(performance.now() - started), usage };
 }
 
+type ReadingBudget = { planned: number; extras: number; reserve: (total: number) => Promise<void> };
+function readingBudget(planned: number, reserve: (n: number) => Promise<void>): ReadingBudget {
+  let queue = Promise.resolve();
+  return { planned, extras: 0, reserve(total) { const next = queue.then(() => reserve(total)); queue = next; return next; } };
+}
+
 /** Reads only the crops in `read`; every other pill keeps the reading it had in the first photo. */
-async function readAndCheck(label: LabelReading, segmented: SegmentedBottle, read: number[], reused: Map<number, BottlePill>, resolved: ResolvedLabelData, send: Send, dependencies: BottleDependencies, onUsage: ReadOptions["onUsage"], followUp = false, prior = new Map<number, BottlePill>()) {
+async function readAndCheck(label: LabelReading, segmented: SegmentedBottle, read: number[], reused: Map<number, BottlePill>, resolved: ResolvedLabelData, send: Send, dependencies: BottleDependencies, onUsage: ReadOptions["onUsage"], budget: ReadingBudget, followUp = false, prior = new Map<number, BottlePill>()) {
   send({ type: "step", step: 2, state: "working" });
   let completed = 0;
   send({ type: "progress", completed, total: read.length });
+  const doubleReads = new Map<number, NonNullable<BottlePill["doubleRead"]>>();
   const readings = new Map<number, PillReading>(await mapFive(read, async (i): Promise<[number, PillReading]> => {
     let reading: PillReading;
-    try { reading = await (dependencies.readPill ?? readPill)({ mediaType: "image/png", base64: segmented.crops[i].toString("base64") }, { model: DEFAULT_VISION_MODEL, onUsage }); }
-    catch { reading = unreadablePill(); } // A failed reader abstains; never turns a partial bottle green.
+    try {
+      const reader = dependencies.readPill ?? readPill;
+      reading = await reader({ mediaType: "image/png", base64: segmented.crops[i].toString("base64") }, { model: DEFAULT_VISION_MODEL, onUsage });
+      if (borderline(reading) && budget.extras < MAX_EXTRA_READS) {
+        budget.extras++;
+        await budget.reserve(budget.planned + budget.extras);
+        let attempt = 0;
+        try {
+          const transformed = await secondReadImage(segmented.crops[i]);
+          const second = await reader({ mediaType: "image/png", base64: transformed.toString("base64") }, { model: DEFAULT_VISION_MODEL, onUsage, maxRetries: 0, beforeAttempt: async () => { if (++attempt > 1) throw new Error("One independent second read only"); } });
+          const agreed = agreeReadings(reading, second);
+          if (agreed.evidence.agreed && expectedFragment(reading, resolved.data?.labelProduct)) { agreed.reading.imprintConfidence = reading.imprintConfidence; agreed.evidence.partial = true; }
+          reading = agreed.reading; doubleReads.set(i, agreed.evidence);
+        } catch { doubleReads.set(i, { agreed: false, firstConfidence: reading.imprintConfidence, secondConfidence: 0, firstImprint: reading.imprintSides, secondImprint: [] }); }
+      }
+    } catch (error) { if (error instanceof BottleQuotaError) throw error; reading = unreadablePill(); } // A failed reader abstains; never turns a partial bottle green.
     send({ type: "progress", completed: ++completed, total: read.length });
     return [i, reading];
   }));
@@ -93,6 +125,11 @@ async function readAndCheck(label: LabelReading, segmented: SegmentedBottle, rea
     // A reverse view cannot erase an already confident mismatch (including an unreadable/conflicting reverse).
     if (before?.result.verdict === "MISMATCH" && result.verdict !== "MISMATCH") result = { ...result, verdict: "MISMATCH", identifiedAs: null, reasons: [...result.reasons, "The first view already showed an imprint that does not match your label. That mismatch still stands."] };
     const pill: BottlePill = { number: i + 1, box, result, features: segmented.features[i], ...(reading && followUp ? { reread: true } : {}), ...(kept && !reading ? { carried: true, previousVerdict: kept.previousVerdict ?? kept.result.verdict } : {}) };
+    const doubleRead = doubleReads.get(i);
+    if (doubleRead) {
+      pill.doubleRead = doubleRead;
+      pill.result = { ...pill.result, reasons: [...pill.result.reasons, doubleRead.partial ? "Read twice, same expected fragment; this is not a complete imprint confirmation." : doubleRead.agreed ? "Read twice, same normalized imprint. The independent readings agreed." : "The independent second reading did not agree clearly enough; the imprint remains uncertain."] };
+    }
     pill.appearanceWarning = appearanceWarning(pill);
     return pill;
   });
@@ -122,7 +159,7 @@ export async function runBottleFollowUp(
   send({ type: "step", step: 0, state: "done" });
   send({ type: "step", step: 1, state: "working" });
   let segmented: SegmentedBottle;
-  try { segmented = await segmentBottle(bottleImage); } catch (error) {
+  try { segmented = dependencies.prepared ?? await segmentBottle(bottleImage); } catch (error) {
     if (!(error instanceof SegmentationError)) throw error;
     send({ type: "step", step: 1, state: "failed" });
     send({ type: "retake", code: error.code, message: error.message });
@@ -130,21 +167,26 @@ export async function runBottleFollowUp(
   }
   send({ type: "step", step: 1, state: "done" });
   send({ type: "segmented", boxes: segmented.boxes, image: segmented.image });
+  const tips = captureCoaching(segmented);
+  if (tips.length && !dependencies.checkAnyway) { send({ type: "coaching", tips }); return null; }
   const plan = planFollowUp(previous, segmented);
   const read = plan.mode === "fresh" ? segmented.crops.map((_, i) => i) : plan.reread;
   await reserveRemaining(read.length);
+  const budget = readingBudget(read.length, reserveRemaining);
   const resolved = await resolveLabelData(previous.label);
-  let pills = await readAndCheck(previous.label, segmented, read, plan.mode === "fresh" ? new Map() : plan.reused, resolved, send, dependencies, onUsage, plan.mode === "reread", plan.mode === "reread" ? plan.prior : new Map());
+  let pills = await readAndCheck(previous.label, segmented, read, plan.mode === "fresh" ? new Map() : plan.reused, resolved, send, dependencies, onUsage, budget, plan.mode === "reread", plan.mode === "reread" ? plan.prior : new Map());
   const unresolvedRegions = plan.mode === "reread" ? plan.unresolvedRegions : (previous.unresolvedRegions ?? 0) + (previous.clumps?.length ?? 0);
   // Geometry is enough to guide a flip, never to certify a new green bottle. Read all carried pills before green.
   const carriedIndices = pills.flatMap((p, i) => p.carried ? [i] : []);
   if (carriedIndices.length && !unresolvedRegions && !segmented.clumps.length && pills.filter(p => !p.carried).every(p => p.result.verdict === "MATCH" || p.result.verdict === "SAME_MEDICINE_DIFFERENT_MAKER")) {
-    await reserveRemaining(segmented.crops.length);
+    budget.planned += carriedIndices.length;
+    await budget.reserve(budget.planned + budget.extras);
     const kept = new Map(pills.flatMap((p, i) => p.carried ? [] : [[i, p] as [number, BottlePill]]));
-    const verified = await readAndCheck(previous.label, segmented, carriedIndices, new Map(), resolved, send, dependencies, onUsage);
+    const verified = await readAndCheck(previous.label, segmented, carriedIndices, new Map(), resolved, send, dependencies, onUsage, budget);
     pills = annotatePills(verified.map((p, i) => kept.get(i) ?? { ...p, reread: true }));
     read.push(...carriedIndices);
   }
+  pills = applyConsensus(pills, segmented.clumps, unresolvedRegions);
   const reread = [...new Set(read)].sort((a, b) => a - b).map((i) => i + 1), reused = segmented.boxes.length - reread.length;
   const note = plan.mode === "fresh" ? plan.reason
     : !reread.length ? `No new readings were made. All ${reused} earlier readings remain unconfirmed in this photo.`

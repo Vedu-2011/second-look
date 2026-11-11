@@ -1,3 +1,4 @@
+import { splitTouching, SPLIT_RULES } from "./split-touching";
 import sharp from "sharp";
 import type { BottleClump, NormalizedBox, PillFeatures } from "./types";
 
@@ -198,7 +199,12 @@ export async function segmentBottle(input: Buffer, options: { diagnostics?: (val
   const otsuThreshold = (d: Float32Array) => { const hist = new Uint32Array(256); for (const v of d) hist[Math.min(255, Math.round(v))]++; return Math.max(12, otsu(hist, d.length) + 0.5); };
   const distances = localBackground(labs, w, h, otsuThreshold);
   const threshold = otsuThreshold(distances);
-  let mask = Uint8Array.from(distances, (d) => d > threshold ? 1 : 0);
+  // Fixed synthetic dark-paper/noise controls: low-light teal chroma can be visible without a large L contrast.
+  const saturation = (i: number) => { const r=data[i*info.channels],g=data[i*info.channels+1],b=data[i*info.channels+2];return (Math.max(r,g,b)-Math.min(r,g,b))/Math.max(1,Math.max(r,g,b)); };
+  const teal = (i: number) => Math.max(data[i*info.channels+1],data[i*info.channels+2])-data[i*info.channels];
+  const chroma = (i: number) => Math.hypot(labs[i*3+1],labs[i*3+2]);
+  const bgSat=median(borderIndices.map(saturation)),bgTeal=median(borderIndices.map(teal)),bgChroma=median(borderIndices.map(chroma));
+  let mask = Uint8Array.from(distances, (d,i) => d > threshold || (labs[i*3]<65 && saturation(i)>bgSat+.12 && teal(i)>bgTeal+6 && chroma(i)>bgChroma+4) ? 1 : 0);
   mask = morph(morph(mask, w, h, false), w, h, true); // opening removes tiny specks
   mask = morph(morph(mask, w, h, true), w, h, false); // closing joins imprint holes
   fillHoles(mask, w, h);
@@ -235,8 +241,20 @@ export async function segmentBottle(input: Buffer, options: { diagnostics?: (val
   // Every detected edge foreground remains unchecked, even if it resembles a surface or a thin sliver.
   const cutoffs = components.filter((c) => c.edge);
   const inside = objects.filter((c) => !c.edge);
-  const touching = inside.filter((c) => c.neck || c.area > typical * 2.2 || c.solidity < 0.91 || thin(c));
-  const pills = inside.filter((c) => !touching.includes(c));
+  const candidates = inside.filter((c) => c.neck || c.area > typical * 2.2 || c.solidity < 0.91 || thin(c));
+  const touching: Component[] = [], split: Component[] = [];
+  for (const c of candidates) {
+    const parts = splitTouching(c.pixels, w);
+    const measured = parts?.map(pixels => {
+      let x=w,y=h,right=0,bottom=0;const rows=new Map<number,[number,number]>();
+      for(const i of pixels){const px=i%w,py=Math.floor(i/w);x=Math.min(x,px);y=Math.min(y,py);right=Math.max(right,px);bottom=Math.max(bottom,py);const r=rows.get(py);rows.set(py,r?[Math.min(r[0],px),Math.max(r[1],px)]:[px,px]);}
+      const hull=hullArea([...rows].flatMap(([py,[a,b]])=>[[a,py],[b,py]] as Point[]));
+      return { x,y,width:right-x+1,height:bottom-y+1,area:pixels.length,solidity:pixels.length/Math.max(1,hull),neck:hasNeck(pixels,pixels.length,w),edge:false,pixels };
+    });
+    if(measured?.length===2 && measured.every(p=>p.area>=minArea && p.solidity>=SPLIT_RULES.minSolidity && !p.neck && !thin(p) && measure(p.pixels,w,labs,n).aspect<=SPLIT_RULES.maxAspect))split.push(...measured);
+    else touching.push(c);
+  }
+  const pills = [...inside.filter((c) => !candidates.includes(c)), ...split];
   options.diagnostics?.({ threshold, typical, pills, touching, cutoffs, surfaces: surfaces.length, ignoredAtEdge: objects.filter((c) => c.edge && !cutoffs.includes(c)).length });
   if (!pills.length && !touching.length && !cutoffs.length) throw new SegmentationError("none", "We couldn't find any separate pills.");
   if (pills.length > MAX_BOTTLE_PILLS) throw new SegmentationError("too_many", `We found ${pills.length} objects, more than the 20-pill limit.`);

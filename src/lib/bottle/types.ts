@@ -20,10 +20,12 @@ export type BottlePill = {
   carried?: boolean;
   /** Display provenance only; never current confirmation. */
   previousVerdict?: CheckResult["verdict"];
+  consensus?: { confirmedNumbers: number[]; partialConsistent: boolean };
+  doubleRead?: { agreed: boolean; partial?: boolean; firstConfidence: number; secondConfidence: number; firstImprint: string[]; secondImprint: string[] };
 };
 export type BottleDecision = {
   /** FACE_DOWN: the only open question is pills with their writing face-down (calm, not a warning). */
-  verdict: "MATCH" | "MISMATCH" | "WARNING" | "UNSURE" | "FACE_DOWN";
+  verdict: "MATCH" | "MISMATCH" | "WARNING" | "UNSURE" | "FACE_DOWN" | "LOOKS_RIGHT";
   title: string;
   instruction: string;
   matched: number;
@@ -49,6 +51,7 @@ export type BottleResult = {
   usage: { model: string; inputTokens: number; outputTokens: number; estimatedUsd: number | null }[];
 };
 export type BottleEvent =
+  | { type: "coaching"; tips: string[] }
   | { type: "step"; step: 0 | 1 | 2 | 3; state: "working" | "done" | "failed" }
   | { type: "segmented"; boxes: NormalizedBox[]; image: { width: number; height: number } }
   | { type: "progress"; completed: number; total: number }

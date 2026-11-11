@@ -6,7 +6,7 @@ import type { LabelReading, PillReading } from "@/lib/verdict-engine";
 
 vi.mock("next/server", () => ({ connection: async () => {} }));
 vi.mock("@/lib/redis", () => ({ getRedis: () => null, key: (v: string) => "sl:" + v }));
-vi.mock("@/lib/rate-limit", async (original) => ({ ...(await original<typeof import("@/lib/rate-limit")>()), consumeCheckLimit: vi.fn(async () => ({ allowed: true, count: 1 })) }));
+vi.mock("@/lib/rate-limit", async (original) => ({ ...(await original<typeof import("@/lib/rate-limit")>()), consumePreparationLimit: vi.fn(async () => ({ allowed: true, count: 1 })), consumeCheckLimit: vi.fn(async () => ({ allowed: true, count: 1 })) }));
 vi.mock("@/lib/ai/readers", () => ({ readLabel: vi.fn(), readPill: vi.fn() }));
 vi.mock("@/lib/check-service", () => ({ resolveLabelData: vi.fn(async () => ({})), runResolvedCheck: vi.fn() }));
 
@@ -42,7 +42,7 @@ describe("POST /api/check-bottle", () => {
     const response = await POST(await request());
     expect(response.status).toBe(200); expect(response.headers.get("content-type")).toContain("ndjson"); expect(response.headers.get("cache-control")).toBe("no-store");
     const output = await events(response);
-    expect(output.filter((e) => e.type === "step").map((e) => `${e.step}:${e.state}`)).toEqual(["0:working", "0:done", "1:working", "1:done", "2:working", "2:done", "3:working", "3:done"]);
+    expect(output.filter((e) => e.type === "step").map((e) => `${e.step}:${e.state}`)).toEqual(["1:working", "1:done", "0:working", "0:done", "2:working", "2:done", "3:working", "3:done"]);
     expect(output.filter((e) => e.type === "progress").map((e) => e.completed)).toEqual([0,1,2,3,4,5,6,7,8,9]);
     expect(readLabel).toHaveBeenCalledTimes(1); expect(readPill).toHaveBeenCalledTimes(9); expect(peak).toBe(5); expect(resolveLabelData).toHaveBeenCalledTimes(1);
     expect(vi.mocked(readPill).mock.calls.every((c) => c[1]?.model === "claude-sonnet-5-5")).toBe(true);
@@ -141,4 +141,30 @@ describe("POST /api/check-bottle", () => {
       expect(consumeCheckLimit).toHaveBeenNthCalledWith(2, "unknown", 2); // ceil(11 / 5) = 3 checks in all
     });
   });
+});
+
+it('charges all five independent retries and never starts a sixth', async () => {
+  vi.mocked(readPill).mockResolvedValue({ ...source.pill, imprintConfidence: .6 });
+  const out = await events(await POST(await request(10)));
+  const r = out.at(-1).result;
+  expect(readPill).toHaveBeenCalledTimes(15);
+  expect(r.pills.filter((p: { doubleRead?: unknown }) => p.doubleRead)).toHaveLength(5);
+  expect(vi.mocked(consumeCheckLimit).mock.calls.reduce((n,args)=>n+(args[1]??1),0)).toBe(3);
+  expect(r.pills.filter((p: { doubleRead?: { agreed: boolean } }) => p.doubleRead?.agreed)).toHaveLength(5);
+});
+it('extra-read quota denial starts no secondary readers and emits no success', async () => {
+  vi.mocked(readPill).mockResolvedValue({ ...source.pill, imprintConfidence: .6 });
+  vi.mocked(consumeCheckLimit).mockResolvedValueOnce({ allowed:true,count:1 }).mockResolvedValueOnce({ allowed:true,count:2 }).mockResolvedValue({ allowed:false,count:30,message:'No extra quota' });
+  const out=await events(await POST(await request(10)));
+  expect(out.at(-1)).toEqual({type:'error',message:'No extra quota'});
+  expect(vi.mocked(readPill).mock.calls.every(c=>!c[1]?.beforeAttempt)).toBe(true);
+  expect(out.some(e=>e.type==='result')).toBe(false);
+});
+it('tiny-pill coaching is free, precedes label AI, and only explicit Check anyway continues', async () => {
+  const sharp=(await import('sharp')).default;
+  const tiny=await sharp(Buffer.from('<svg width="1200" height="1000"><rect width="1200" height="1000" fill="#333"/><ellipse cx="500" cy="500" rx="12" ry="8" fill="white"/></svg>')).png().toBuffer();
+  const make=(anyway=false)=>{const f=new FormData();f.set('labelImage',new Blob([new Uint8Array(tiny)],{type:'image/png'}),'label.png');f.set('bottleImage',new Blob([new Uint8Array(tiny)],{type:'image/png'}),'pills.png');if(anyway)f.set('checkAnyway','1');return new Request('http://localhost/api/check-bottle',{method:'POST',body:f});};
+  const first=await events(await POST(make()));expect(first.at(-1).type).toBe('coaching');
+  expect(readLabel).not.toHaveBeenCalled();expect(readPill).not.toHaveBeenCalled();expect(consumeCheckLimit).not.toHaveBeenCalled();
+  const second=await events(await POST(make(true)));expect(second.at(-1).type).toBe('result');expect(readLabel).toHaveBeenCalledTimes(1);expect(readPill).toHaveBeenCalledTimes(1);
 });

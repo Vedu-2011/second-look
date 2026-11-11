@@ -1,0 +1,38 @@
+{
+  "base": "http://localhost:3001",
+  "scope": "Mocked synthetic consensus, actual free coaching endpoint, cached real user outcome; no paid browser calls.",
+  "reports": [
+    {
+      "name": "consensus",
+      "width": 375,
+      "errors": [],
+      "overflow": false,
+      "realPreparation": 0,
+      "replay": 1
+    },
+    {
+      "name": "coaching",
+      "width": 375,
+      "errors": [],
+      "overflow": false,
+      "realPreparation": 1,
+      "replay": 0
+    },
+    {
+      "name": "consensus",
+      "width": 1440,
+      "errors": [],
+      "overflow": false,
+      "realPreparation": 0,
+      "replay": 1
+    },
+    {
+      "name": "coaching",
+      "width": 1440,
+      "errors": [],
+      "overflow": false,
+      "realPreparation": 1,
+      "replay": 0
+    }
+  ]
+}

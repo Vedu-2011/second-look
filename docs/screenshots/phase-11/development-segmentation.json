@@ -1,0 +1,24 @@
+{
+  "scope": "Functional composites selected from DEVELOPMENT only. Not fresh benchmark evidence. Labels are declared FDA groundtruth, not live label readings.",
+  "results": [
+    {
+      "id": "blue-eight-plus-white",
+      "pills": 9,
+      "clumps": 0,
+      "expected": 9
+    },
+    {
+      "id": "blue-nine",
+      "pills": 9,
+      "clumps": 0,
+      "expected": 9
+    },
+    {
+      "id": "orange-eight-plus-blue",
+      "pills": 9,
+      "clumps": 0,
+      "expected": 9
+    }
+  ],
+  "sourcesVerified": true
+}
