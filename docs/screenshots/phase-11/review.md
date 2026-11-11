@@ -25,3 +25,8 @@ Implementation frozen in 3414aab74ec5ead77e5f098d942e3e899feede43 before inspect
 - Existing nonfatal Atkinson Mono fallback-font build warning remains.
 
 Composio discovery returned HTTP401; authenticated Git and Vercel CLIs used for publishing. Preview only; no merge authorized for phase11.
+
+## Deployed preview verification
+- Ready a6b48d4 deployment dpl_FsUDtQKQttZx1g2QdwKquTPuQTZj; branch alias verified. Six live-flow scenes (result replay/free coaching), plus four actual share-page scenes at375/1440; keyboard evidence, correct counts, no photos on shares, no runtime errors/overflow. /check,/samples,/labels,/type HTTP200; garbage NDC HTTP400. See deployment.json, browser-checks.json and preview-checks.json.
+- One initial preview-driver run reached every shared-page assertion but failed in its final fetch smoke loop by calling Response.status as a function. Corrected the driver property access and reran successfully; this was a test-script bug, no app change or paid call.
+- Git push succeeded normally; no staging branch/history rewrite needed. Main remains 0f7becc.

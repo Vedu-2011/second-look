@@ -1,5 +1,5 @@
 {
-  "base": "http://localhost:3001",
+  "base": "https://second-look-git-feat-phase-10c-polish-vedhanth.vercel.app",
   "scope": "Mocked synthetic consensus, actual free coaching endpoint, cached real user outcome; no paid browser calls.",
   "reports": [
     {

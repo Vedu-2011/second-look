@@ -1,0 +1,60 @@
+{
+  "base": "https://second-look-git-feat-phase-10c-polish-vedhanth.vercel.app",
+  "scope": "Actual saved share pages, keyboard/focus/evidence and free routes. All paid photo endpoints blocked.",
+  "reports": [
+    {
+      "name": "consensus-demo",
+      "width": 375,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "photosStored": false
+    },
+    {
+      "name": "user-result",
+      "width": 375,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "photosStored": false
+    },
+    {
+      "name": "consensus-demo",
+      "width": 1440,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "photosStored": false
+    },
+    {
+      "name": "user-result",
+      "width": 1440,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "photosStored": false
+    }
+  ],
+  "free": [
+    {
+      "path": "/check",
+      "status": 200
+    },
+    {
+      "path": "/samples",
+      "status": 200
+    },
+    {
+      "path": "/labels",
+      "status": 200
+    },
+    {
+      "path": "/type",
+      "status": 200
+    },
+    {
+      "path": "/api/lookup?ndc=garbage",
+      "status": 400
+    }
+  ]
+}
