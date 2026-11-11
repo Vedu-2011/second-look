@@ -2,6 +2,15 @@
 Claude Code adds a new entry at the top after every task (format in ~/Hackathons/CLAUDE.md).
 The planner reads this file when Vedhanth says "handoffs". Never delete old entries.
 
+## 2026-11-10 7:00 PM PST — Phase 8 approved merge and production confirmation — chat
+
+BUILDER: Codex
+HANDOFF — Phase 8 release
+STATUS: DONE
+- Vedhanth reviewed the preview and explicitly authorized the merge. Separate review confirmed the tested branch tip, clean diff checks and unchanged checker/API/research paths. Fast-forwarded main from 3ad03e8 to 910afb4 and pushed main.
+- Production dpl_7bTdqTKSy4r4goGRWzEfcYPz7j9M reached Ready. Confirmed https://getsecondlook.vercel.app contains the v2 hero/bento and its social PNG matches local bytes. Free production smoke PASS: sample fallback MATCH 846 ms with zero photo posts; typed MATCH 621 ms (server 122 ms); typed MISMATCH 270 ms (server 65 ms), identified as Acetaminophen 500 mg. No AI calls/spend.
+- Composio discovery returned 401; existing Git/Vercel authentication worked. Next authorized task is phase-8-addendum on its own branch, with permission to merge after checks; phase 9 must remain preview-only until a later explicit merge.
+
 ## 2026-11-10 6:27 PM PST — Phase 8: premium visual redesign preview — prompts/phase-8.md
 
 BUILDER: Codex
