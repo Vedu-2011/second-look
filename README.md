@@ -1,6 +1,6 @@
 # Second Look
 
-Photograph a pharmacy label, then pour your pills onto a towel and snap one photo. Second Look checks every pill against the FDA records for that medicine, shows the evidence, and gives you words to use when calling your pharmacist. If a pill's writing is face-down or it looks different from the rest, it circles just that pill: flip it where it is and snap again, and only the flipped pills are read again.
+Photograph a pharmacy label, then pour your pills onto a towel and snap one photo. Second Look checks every pill against the FDA records for that medicine, shows the evidence, and gives you words to use when calling your pharmacist. If a pill's writing is face-down or it looks different from the rest, it circles just that pill: flip it where it is and snap again, and the requested pills are read first. Before a new green result, every pill is read in the new photo.
 
 [Open the app](https://getsecondlook.vercel.app) · [Try a sample](https://getsecondlook.vercel.app/samples) · [Type a check](https://getsecondlook.vercel.app/type)
 
@@ -79,9 +79,9 @@ The builder applies orientation, resizes to 1600px, strips EXIF, runs the same l
 - **Touching or cut-off pills** are circled and never counted as checked.
 - **Green** only when every pill we found is confirmed by its imprint. We only check the pills we can see.
 
-**Flip and snap again** matches the second photo to the first by pill positions, reads only the flipped (or newly separated) pills, and keeps the other readings. If the pills moved too much to match, it checks every pill again and says so. One check covers up to 5 re-read pills.
+**Flip and snap again** uses positions to guide the requested reads, combining both views conservatively. Other readings are marked as unconfirmed history, since a position cannot prove pill identity. Before issuing a new green result, every carried pill is read again. A known mismatch stays red while another view can help identify it. If the pills moved too much to match, it starts a full check. Missing circled regions block completion. Quota covers every actual re-read, in groups of five (minimum one check).
 
-Shared bottle results contain readings, FDA evidence and numbered boxes on a neutral surface, **no uploaded photograph or crop**. These bottle rules are separate from the frozen single-pill benchmark.
+Shared bottle results contain readings, FDA evidence and numbered boxes on a neutral surface, **no uploaded photograph or crop**. A separate private token in the original browser authorizes continuation; public share links do not. These bottle rules are separate from the frozen single-pill benchmark.
 
 `npm run bottle:composites` prepares three functional composites made from real NIH **development-cohort** consumer photographs on plain backgrounds, without AI calls. The first `npm run smoke:bottle -- --live` reads them with the production Sonnet reader under a durable $1 total cap; later `npm run smoke:bottle` replays cached readings without spending again. The smoke uses declared FDA labels, not AI label-photo readings. These examples are not part of the frozen benchmark and are not evidence of whole-bottle accuracy. Original benchmark results remain unchanged. Exact inputs, observed outcomes, spend and limitations are recorded in `HANDOFF.md`.
 

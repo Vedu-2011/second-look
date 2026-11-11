@@ -1,0 +1,48 @@
+{
+  "base": "http://localhost:3001",
+  "note": "Actual cached live results replayed at API boundary; no new paid call.",
+  "reports": [
+    {
+      "width": 375,
+      "state": "real-red",
+      "errors": [],
+      "overflow": false,
+      "markers": 10
+    },
+    {
+      "width": 375,
+      "state": "real-after-flip",
+      "errors": [],
+      "overflow": false,
+      "markers": 10
+    },
+    {
+      "width": 1440,
+      "state": "real-red",
+      "errors": [],
+      "overflow": false,
+      "markers": 10
+    },
+    {
+      "width": 1440,
+      "state": "real-after-flip",
+      "errors": [],
+      "overflow": false,
+      "markers": 10
+    },
+    {
+      "width": 1920,
+      "state": "real-red",
+      "errors": [],
+      "overflow": false,
+      "markers": 10
+    },
+    {
+      "width": 1920,
+      "state": "real-after-flip",
+      "errors": [],
+      "overflow": false,
+      "markers": 10
+    }
+  ]
+}

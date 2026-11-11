@@ -21,7 +21,7 @@ So we asked a simple question: can a phone tell you, in seconds, whether the pil
 your label, and prove it?
 
 ## What it does
-- Pour and snap: pour the pills onto a towel or plate and take one photo. Code numbers every pill, AI reads each one, and code checks each against the label. A wrong pill, or one that looks different from the rest, is flagged, and if a pill's writing is face-down we circle just that one: flip it where it is and snap again, and only the flipped pills get read again. The bottle is only green when every pill we found is confirmed by its imprint. These bottle rules are separate from the frozen single-pill benchmark.
+- Pour and snap: pour the pills onto a towel or plate and take one photo. Code numbers every pill, AI reads each one, and code checks each against the label. A wrong pill, or one that looks different from the rest, is flagged, and if a pill's writing is face-down we circle just that one: flip it where it is and snap again, and the requested pills are read first. Earlier readings are marked as history; every carried pill is read again before a new green bottle result. The bottle is only green when every pill we found is confirmed by its imprint. These bottle rules are separate from the frozen single-pill benchmark.
 - Take a photo of the pharmacy label and one pill (or type what's on the pill if you don't have a camera).
 - Second Look reads the label and the letters stamped on the pill, then checks the pill against every FDA record
   for that medicine and strength, from every manufacturer.

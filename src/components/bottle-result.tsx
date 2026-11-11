@@ -72,7 +72,9 @@ export function BottleResultView({ result, photo, shareId, onRetake, onNext }: {
           return <button key={pill.number} type="button" onClick={() => selectPill(pill.number)} aria-label={`Pill ${pill.number}: ${word(pill)}${asks.has(pill.number) ? ", flip this one" : ""}. See reading`} style={{ left: `clamp(22px, ${corner.x}%, calc(100% - 22px))`, top: `clamp(22px, ${corner.y}%, calc(100% - 22px))` }} className={cn("absolute grid min-h-11 min-w-11 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full shadow-[0_0_0_3px_white,0_2px_8px_#0004]", TONE[s])}><span className="font-mono text-base font-bold">{pill.number}<span className="ml-0.5 text-xs" aria-hidden>{SYMBOL[s]}</span></span></button>;
         })}
       </div>
-      <p className="mt-3 text-lg text-ink-soft">✓ Matches · × Doesn&apos;t match · ↻ Writing face-down · ! Looks different · ? Can&apos;t tell</p>
+      <ul aria-label="Marker legend" className="mt-4 grid grid-cols-2 gap-x-3 gap-y-2 text-lg text-ink-soft sm:grid-cols-3">
+        {["✓ Matches", "× Doesn't match", "↻ Writing face-down", "! Looks different", "? Can't tell"].map((label, i) => <li key={label} className={cn("whitespace-nowrap", i === 2 && "col-span-2 sm:col-span-1")}>{label}</li>)}
+      </ul>
     </section>
     <section aria-labelledby="bottle-readings"><h2 id="bottle-readings" className="text-2xl font-bold">Every pill we found</h2>
       <ol className="mt-4 space-y-5">{result.pills.map((pill) => <li id={`bottle-pill-${pill.number}`} key={pill.number} tabIndex={-1} className={cn("scroll-mt-28 rounded-[var(--radius-card)] bg-white p-5 shadow-[var(--shadow-soft)] outline-offset-4", selected === pill.number && "outline-2 outline-ink")}>
