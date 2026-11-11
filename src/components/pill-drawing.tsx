@@ -57,7 +57,7 @@ export function PillDrawing({
   const fontSize = front ? imprintFontSize(front, geo) : 0;
   const style = imprintStyle(geo);
   const scored = isScored(score);
-  const id = idFor([shapeCode, colorCodes, sizeMm, imprintSides, score, highlight]);
+  const id = idFor([shapeCode, colorCodes, sizeMm, imprintSides, score, highlight, pxPerMm, ruler]);
 
   const rulerMm = ruler ? Math.max(5, Math.floor(geo.width / 5) * 5) : 0;
   const rulerSpace = ruler ? 4.2 : 0;
