@@ -2,6 +2,23 @@
 Claude Code adds a new entry at the top after every task (format in ~/Hackathons/CLAUDE.md).
 The planner reads this file when Vedhanth says "handoffs". Never delete old entries.
 
+## 2026-11-10 7:18 PM PST — Phase 9 preparation, exact model permission pending — prompts/phase-9.md
+
+BUILDER: Codex
+PREVIEW: NOT CREATED — whole-bottle implementation has not started.
+HANDOFF — Phase 9
+STATUS: PARTIAL — safe local checkpoint pending the required model execution permission, not a code or usage failure.
+
+DONE / CURRENT STATE
+- Phase 8 and its addendum were completed in order, merged and confirmed on production. Main and origin/main are 763b47f. Final deployment dpl_GFwfXLWP4LVEESzWgjL3ei65waMg reached Ready; final free API recheck returned MATCH, SAME_MEDICINE_DIFFERENT_MAKER and MISMATCH for the new real bottles. The addendum's full handoff follows below, including 245 passing tests and production accessibility 100 on all five main pages.
+- Created feat/phase-9-bottle from that release. Preserved the planner's new prompts/phase-9.md, prompts/phase-9-partial-SUPERSEDED.md and test-images/real/README-bottle.md verbatim in this local WIP checkpoint. ONLY phase-9.md is authoritative; do not execute the superseded partial prompt. No feature source code or benchmark/photo data changed for phase 9. Branch is not pushed, deployed or merged.
+- Vedhanth explicitly requires GPT-6.1 Sol on High for phase 9. This chat cannot change its own model. Available multi_agent_v1.spawn_agent supports model gpt-6.1-sol and reasoning_effort high, but its tool instructions require explicit permission to delegate/spawn. Asked via the pending asynchronous question whether to delegate phase 9 to that exact model and review the work here. No reply received at this checkpoint; do not assume silence is permission. No alternate model has built phase 9.
+
+LEFT / NEXT COMMAND
+- All implementation tasks 1–9 in phase-9.md remain: code-only segmentation/crops/warnings; concurrent existing Sonnet readers with cost/crop caps; pure per-pill and bottle rules; streaming/rate-limited private API and photo-free stored results; accessible overlay/UI preserving one-pill flow; development-only composite live smoke within $1; tests; docs/screenshots; reviewed branch push and Vercel preview handoff. No phase-9 tests, paid model calls or evaluation have run. Phase-9 spend: $0.
+- Next action after Vedhanth approves model delegation: use multi_agent_v1.spawn_agent with model gpt-6.1-sol and reasoning_effort high for the bounded phase-9 implementation, then review/integrate its changes, run all required verification and obtain a real preview. Re-read AGENTS/docs/current prompt first. Never merge phase 9 until Vedhanth reviews that feature's preview and explicitly says merge.
+- Existing production is healthy. All temporary local optimized servers started for the addendum were stopped. No credential values were printed or put in prompts. Planner was not contacted.
+
 ## 2026-11-10 7:16 PM PST — Real demo bottles and shared-seller honesty fix — prompts/phase-8-addendum.md
 
 BUILDER: Codex
