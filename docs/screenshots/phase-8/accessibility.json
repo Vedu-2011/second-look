@@ -1,0 +1,34 @@
+{
+  "base": "https://second-look-git-feat-phase-8-redesign-vedhanth.vercel.app",
+  "version": "13.6.0",
+  "results": [
+    {
+      "route": "/",
+      "score": 100,
+      "failed": []
+    },
+    {
+      "route": "/check",
+      "score": 100,
+      "failed": []
+    },
+    {
+      "route": "/type",
+      "score": 100,
+      "failed": []
+    },
+    {
+      "route": "/samples",
+      "score": 100,
+      "failed": []
+    },
+    {
+      "route": "/research",
+      "score": 100,
+      "failed": []
+    }
+  ],
+  "implementationCommit": "ed8497e5b42530c9e754b25c942f22c1c9c1bd2a",
+  "checkedOn": "2026-11-10",
+  "note": "Mobile Lighthouse accessibility only. Automated checks do not replace a complete accessibility audit."
+}

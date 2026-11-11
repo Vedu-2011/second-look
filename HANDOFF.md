@@ -2,6 +2,43 @@
 Claude Code adds a new entry at the top after every task (format in ~/Hackathons/CLAUDE.md).
 The planner reads this file when Vedhanth says "handoffs". Never delete old entries.
 
+## 2026-11-10 6:27 PM PST — Phase 8: premium visual redesign preview — prompts/phase-8.md
+
+BUILDER: Codex
+PREVIEW: https://second-look-git-feat-phase-8-redesign-vedhanth.vercel.app
+HANDOFF — Phase 8
+STATUS: DONE — visual redesign pushed to feat/phase-8-redesign, preview verified. Awaiting Vedhanth's visual review and explicit “merge”. Main and production remain at 3ad03e8.
+
+WHAT I DID / FILES
+- Preserved the planner's incoming DESIGN v2, archived v1, DEVPOST, SCRIPT and phase-8 prompt verbatim in 058d341 before implementation. Followed v2's system SF stack with next/font Inter fallback; kept Atkinson Mono for distinctive imprint/NDC/strength characters. Replaced the v1 palette, radii, typography, elevation and pill buttons; added the sticky translucent navigation and compact footer.
+- Rebuilt home with the large hero, CSS iPhone containing a real computed MISMATCH ResultView, floating FDA-drawn pills, cited stat band, AI/code sequence, varied bento grid, live product count, prescribed frozen research numbers and final CTA. Live ibuprofen count was 507. The spec says “3-step” but explicitly lists Photograph → Read → Check → Answer; implemented the four listed stages.
+- Updated PillDrawing's bevel/contact shadow and color glow, preserving its API, dimensions and geometry. Restyled all four verdicts with distinct tints and symbols, comparison panels, feature list, source chips and pharmacist script. Moved the script after the evidence in the DOM so keyboard and reading order agree. Restyled /check, /type, /samples and detail pages, /sources, /research charts, /labels screen view, /style, /one-pager screen view and 404 through shared tokens/components. Existing forms, requests and result conditions are unchanged.
+- Refreshed the orange bottle SVG/ICO, 1200×630 social card and complete typed-mismatch screenshot used on the screen one-pager. Added scripts/export-brand.mjs and scripts/screenshots-phase8.ts; export-one-pager.mjs accepts safe temporary output paths; the free smoke accepts the new sample CTA label.
+- Saved 34 BEFORE and 34 AFTER screenshots, plus the social card, in docs/screenshots/phase-8/. Thirteen routes and all four result states are captured at 375 and 1440. Viewed every AFTER image; inspected the long mobile style gallery in readable sections. Result-only captures hide the sticky nav during capture, while full-page screenshots retain it. Screenshots use the existing network-free computed FDA fixtures for deterministic result states and abort photo-check requests.
+
+FROZEN BEHAVIOR / SPEND
+- PASS: git diff --exit-code main -- src/lib src/app/api research is empty. No verdict-engine.ts, imprint.ts, AI prompt, FDA parser, matching, threshold, research record/result or API behavior changes in this phase. No test-photo tuning or benchmark reruns. Frozen research headline and full caveats remain on /research.
+- All three test-images/real folders still contain only READMEs. Did not invent photos or run samples:build. The phone and bento explicitly say typed/supplied pill details and use real FDA drawings; uploaded-photo behavior continues through the existing ResultView. Photo-backed replay remains untested until photos are supplied.
+- Paid AI calls: 0. Phase spend: $0. The optional paid production smoke was NOT RUN; only free sample/typed checks were needed for this visual phase.
+
+TESTS / ACCESSIBILITY / PREVIEW
+- PASS: 232 tests in 28 files (209 existing plus 23 contrast checks); npm run lint, npx tsc --noEmit and optimized next build. One existing non-fatal Atkinson Mono fallback-font warning remains. git diff --check passes.
+- PASS Lighthouse 13.6.0 mobile accessibility on the Vercel PREVIEW: / 100, /check 100, /type 100, /samples 100, /research 100, zero failed automated audits. Summary saved as docs/screenshots/phase-8/accessibility.json. Automated scores do not certify every accessibility requirement.
+- Explicit AA checks cover both endpoints of every verdict gradient, dark instructions, orange normal/hover buttons and secondary text. Worst title ratios: match 4.77:1, same 5.02:1, mismatch 4.62:1, unsure 9.63:1. Ink on orange is 7.65:1; white on orange is only 2.20:1, so buttons use ink. Secondary text on gray is 4.66:1. Darkened blue links on gray to #0066cc after Lighthouse caught the original blue's contrast failure.
+- Browser PASS: skip link first, brand link next; result focus offset for sticky nav; no runtime errors or horizontal overflow in screenshot routes at 375/1440; home also fits 1920. At prefers-reduced-motion: reduce, hero, floating pills, verdict and icon animations all compute to none and button transitions to 0s. Normal mode retains hero-reveal, pill-float, verdict-reveal and icon-draw.
+- FREE preview smoke PASS: home → sample fallback MATCH in 834 ms, zero /api/check posts; typed I2/orange/oval MATCH in 657 ms (server 155 ms); typed L484/white/oval MISMATCH in 254 ms (server 67 ms), identified as Acetaminophen 500 mg. Additional free /api/verify checks returned SAME_MEDICINE_DIFFERENT_MAKER (302 ms server) and low-confidence UNSURE (0 ms cached server). Metadata, icon, friendly 404 and mobile widths passed.
+- Initial implementation deployment ed8497e: dpl_2cds78LSKGeoHH9V944QPfbUehWu, Ready, preview-only. Preview social-card.png, one-pager-result.png and second-look-one-pager.pdf match local bytes. Handoff-only commit follows; no application code changes after verification.
+
+REVIEW / PROBLEMS / DECISIONS
+- Separate Codex self-review before push: fixed insufficient blue-on-gray link contrast; aligned desktop sample card rows; hid crowded mobile decorative floating pills; corrected sticky-nav overlap in result screenshots; changed script DOM order to match visual/keyboard order; explicitly set the 56px desktop display size because Tailwind's inlined token did not respond to a media variable; fully disabled reduced-motion effects. No unresolved release-blocking findings.
+- The final v2 print candidate measured 981.9 CSS px, exceeding the existing 979px one-Letter-page guard. Retained BOTH original phase-7 PDFs exactly as task 7 allows. PDF SHA-256 remains 5eeccaa7d0ac65c23a97928f36936fb3d2835b424bb07e766334ea1b0098a6c0. Screen version is v2; downloaded PDF is the verified phase-7 layout. Temporary candidates were never copied to the canonical PDF paths.
+- Composio tool discovery returned HTTP 401; used existing Git/Vercel authentication. First Git upload disconnected; a normal retry succeeded. No force push, main push or manual production alias change.
+- A NEW untracked prompts/phase-8-addendum.md appeared during work. It requests scenario/behavior changes beyond this prompt's explicit visual-only freeze. Left it untouched and uncommitted; it needs a separate authorized task. Planner docs saved at phase start were not rewritten or sent anywhere.
+
+CURRENT STATE / NEEDS VEDHANTH / NEXT STEP
+- Review the PREVIEW above, including home and /samples. Merge only after Vedhanth explicitly says “merge” following that review. Branch: feat/phase-8-redesign. Main/production unchanged. No implementation work remains for the original phase-8 prompt.
+- Keep the phase-7 PDF for submission unless a later authorized task produces and visually verifies a single Letter-page replacement. Treat the new addendum as separate scope. Planner was not contacted; tell the planner “handoffs” when ready.
+
 ## 2026-11-10 3:12 PM PST — Phase 7: final one-pager copy and comparison — prompts/phase-7.md
 
 BUILDER: Codex
