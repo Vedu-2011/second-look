@@ -1,5 +1,5 @@
 {
-  "base": "http://localhost:3001",
+  "base": "https://second-look-git-feat-phase-9-bottle-vedhanth.vercel.app",
   "note": "Actual cached live results replayed at API boundary; no new paid call.",
   "reports": [
     {
@@ -7,42 +7,54 @@
       "state": "real-red",
       "errors": [],
       "overflow": false,
-      "markers": 10
+      "markers": 10,
+      "focus": "bottle-pill-5",
+      "legendFits": true
     },
     {
       "width": 375,
       "state": "real-after-flip",
       "errors": [],
       "overflow": false,
-      "markers": 10
+      "markers": 10,
+      "focus": "bottle-pill-5",
+      "legendFits": true
     },
     {
       "width": 1440,
       "state": "real-red",
       "errors": [],
       "overflow": false,
-      "markers": 10
+      "markers": 10,
+      "focus": "bottle-pill-5",
+      "legendFits": true
     },
     {
       "width": 1440,
       "state": "real-after-flip",
       "errors": [],
       "overflow": false,
-      "markers": 10
+      "markers": 10,
+      "focus": "bottle-pill-5",
+      "legendFits": true
     },
     {
       "width": 1920,
       "state": "real-red",
       "errors": [],
       "overflow": false,
-      "markers": 10
+      "markers": 10,
+      "focus": "bottle-pill-5",
+      "legendFits": true
     },
     {
       "width": 1920,
       "state": "real-after-flip",
       "errors": [],
       "overflow": false,
-      "markers": 10
+      "markers": 10,
+      "focus": "bottle-pill-5",
+      "legendFits": true
     }
   ]
 }

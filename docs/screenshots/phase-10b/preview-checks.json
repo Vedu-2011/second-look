@@ -1,0 +1,24 @@
+{
+  "base": "https://second-look-git-feat-phase-9-bottle-vedhanth.vercel.app",
+  "note": "No paid calls; public ID continuation rejected before quota/AI.",
+  "checks": [
+    {
+      "id": "63a1a5cd-0ffe-440b-839c-3e89470697e3",
+      "status": 200,
+      "hasPill5": true,
+      "hasContinuationToken": false
+    },
+    {
+      "id": "1537e0b0-9286-467d-84d2-9f2ff8425ff6",
+      "status": 200,
+      "hasPill5": true,
+      "hasContinuationToken": false
+    },
+    {
+      "publicIdCannotContinue": 403,
+      "body": {
+        "error": "Continue from the browser that made this check, or start a new check with your label photo."
+      }
+    }
+  ]
+}

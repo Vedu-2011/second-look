@@ -29,4 +29,6 @@ All seven concrete findings fixed; none dismissed as “not a bug”.
 7. **Fixed + tests:** separate private random continuation token; only SHA256 stored outside public result. Missing/cross-check token returns 403 before quota/AI; expired ID 404. Public share remains read-only. Failed UI requests retain prior result/token for retry.
 8. **Clarified:** /research explicitly describes frozen pill-v2 results as historical, not current-release performance; independent real-bottle sensitivity/false-warning rates unmeasured. No benchmark rerun or new accuracy claim.
 
-341 network-free tests pass (41 files). Lint, TypeScript and optimized build recorded separately in the final handoff. Reader prompts, matcher thresholds, shared engine and research artifacts have zero diff from the phase-10 starting commit eb397b1.
+342 network-free tests pass (41 files). Lint, TypeScript and optimized build recorded separately in the final handoff. Reader prompts, matcher thresholds, shared engine and research artifacts have zero diff from the phase-10 starting commit eb397b1.
+
+Final added regression: an unavailable reverse reader cannot erase a confident mismatch or invent an identification. Preview UI/keyboard/legend checks pass at 375/1440/1920; actual public-ID continuation returns 403 before quota/AI. See browser-checks.json and preview-checks.json.

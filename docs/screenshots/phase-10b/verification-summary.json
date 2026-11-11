@@ -1,0 +1,23 @@
+{
+  "note": "Zero AI calls: runCheck on already paid, cached reverse-side readings; not fresh photo accuracy evidence.",
+  "reverseSide": [
+    {
+      "imprint": [
+        "2263"
+      ],
+      "confidence": 0.85,
+      "verdict": "MISMATCH",
+      "identifiedAs": null
+    },
+    {
+      "imprint": [
+        "2263"
+      ],
+      "confidence": 0.8,
+      "verdict": "MISMATCH",
+      "identifiedAs": null
+    }
+  ],
+  "spendUsd": 0.17502999999999996,
+  "responses": 25
+}

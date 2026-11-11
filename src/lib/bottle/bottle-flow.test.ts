@@ -135,3 +135,15 @@ describe("fresh review regressions", () => {
     expect(second!.pills[0]).toMatchObject({ carried: true, result: { verdict: "UNSURE" } });
   });
 });
+
+it("an unavailable reverse reader cannot erase a previously confident mismatch", async () => {
+  readings[AMOXICILLIN] = recorded.amoxicillin93 as PillReading;
+  const photo = await spread({ 5: { color: AMOXICILLIN, rx: 55, ry: 30 } });
+  const first = await check(photo);
+  reads.mockClear(); reads.mockRejectedValueOnce(new Error("Reader unavailable"));
+  const second = await runBottleFollowUp(first, photo, async () => {}, () => {}, deps());
+  expect(reads).toHaveBeenCalledTimes(1);
+  expect(second!.decision.verdict).toBe("MISMATCH");
+  expect(second!.pills[4].result.identifiedAs).toBeNull();
+  expect(second!.pills[4].result.reasons.join(" ")).toContain("mismatch still stands");
+});
