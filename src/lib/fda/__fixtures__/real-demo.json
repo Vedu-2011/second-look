@@ -1,9 +1,22 @@
 {
   "recordedAt": "2026-11-11T02:58:01.207Z",
   "sources": [
-    "https://rxnav.nlm.nih.gov/REST/ndcproperties.json?id=63981-598&ndcstatus=ALL",
-    "https://rxnav.nlm.nih.gov/REST/ndcproperties.json?id=0573-0169&ndcstatus=ALL",
-    "https://rxnav.nlm.nih.gov/REST/ndcproperties.json?id=50580-937&ndcstatus=ALL"
+    "https://rxnav.nlm.nih.gov/REST/ndcproperties.json?id=639810598&ndcstatus=ALL",
+    "https://rxnav.nlm.nih.gov/REST/ndcproperties.json?id=005730169&ndcstatus=ALL",
+    "https://rxnav.nlm.nih.gov/REST/ndcproperties.json?id=505800937&ndcstatus=ALL",
+    "https://rxnav.nlm.nih.gov/REST/ndcproperties.json?id=198440&ndcstatus=ALL",
+    "https://rxnav.nlm.nih.gov/REST/ndcproperties.json?id=1100005&ndcstatus=ALL",
+    "https://rxnav.nlm.nih.gov/REST/ndcproperties.json?id=1293942&ndcstatus=ALL",
+    "https://rxnav.nlm.nih.gov/REST/ndcproperties.json?id=1358835&ndcstatus=ALL",
+    "https://rxnav.nlm.nih.gov/REST/ndcproperties.json?id=200977&ndcstatus=ALL",
+    "https://rxnav.nlm.nih.gov/REST/ndcproperties.json?id=209433&ndcstatus=ALL",
+    "https://rxnav.nlm.nih.gov/REST/ndcproperties.json?id=209443&ndcstatus=ALL",
+    "https://rxnav.nlm.nih.gov/REST/ndcproperties.json?id=209459&ndcstatus=ALL",
+    "https://rxnav.nlm.nih.gov/REST/ndcproperties.json?id=310964&ndcstatus=ALL",
+    "https://rxnav.nlm.nih.gov/REST/ndcproperties.json?id=2673691&ndcstatus=ALL",
+    "https://rxnav.nlm.nih.gov/REST/ndcproperties.json?id=606990&ndcstatus=ALL",
+    "https://rxnav.nlm.nih.gov/REST/ndcproperties.json?id=644386&ndcstatus=ALL",
+    "https://rxnav.nlm.nih.gov/REST/ndcproperties.json?id=731533&ndcstatus=ALL"
   ],
   "products": {
     "63981-598": {

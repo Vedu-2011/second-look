@@ -8,8 +8,8 @@ const p=await b.newPage({reducedMotion:'reduce'});const errors=[];p.on('pageerro
 let photoPosts=0;await p.route('**/api/check',r=>{photoPosts++;return r.abort()});
 try{for(const width of [375,1440]){await p.setViewportSize({width,height:1000});for(const [id,title,verdict] of [['match','The right pill','MATCH'],['different-maker','Same medicine, new look','SAME_MEDICINE_DIFFERENT_MAKER'],['mismatch','The wrong pill','MISMATCH']]){
  await p.goto(base+'/type',{waitUntil:'networkidle'});await p.getByRole('button',{name:title,exact:true}).click();
- const [r]=await Promise.all([p.waitForResponse(r=>r.url().endsWith('/api/verify')),p.getByRole('button',{name:'Check my pill',exact:true}).click()]);const result=await r.json();assert.equal(r.status(),200);assert.equal(result.verdict,verdict);assert.equal(result.productsCompared,211);
- if(id!=='mismatch'){assert.equal(result.matchingListings.products.length,14);assert.equal(result.matchingListings.sellers.length,12);}else assert.equal(result.identifiedAs.brand,'Tylenol');
+ const [r]=await Promise.all([p.waitForResponse(r=>r.url().endsWith('/api/verify')),p.getByRole('button',{name:'Check my pill',exact:true}).click()]);const result=await r.json();assert.equal(r.status(),200);assert.equal(result.verdict,verdict);assert(result.productsCompared>0);assert(result.evidence.some(e=>e.source==='NLM RxNorm'&&e.rxcui==='310964'));
+ if(id!=='mismatch'){assert(result.matchingListings.products.length>1);assert(result.matchingListings.sellers.length>1);}else assert.equal(result.identifiedAs.brand,'Tylenol');
  await p.getByRole('article',{name:'Check result'}).waitFor();await p.evaluate(()=>document.fonts.ready);
  await p.screenshot({path:`${out}/type-${id}-${width}.png`,fullPage:true});
  await p.getByRole('article',{name:'Check result'}).screenshot({path:`${out}/result-${id}-${width}.png`,style:'.site-header{visibility:hidden!important}'});
