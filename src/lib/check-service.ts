@@ -69,7 +69,7 @@ export async function runResolvedCheck(label: LabelReading, pill: PillReading, r
   if (result.verdict === "MISMATCH" && pill.guess?.drugName) {
     t = performance.now();
     const guessLabel = { drugName: pill.guess.drugName, strength: pill.guess.strength, form: pill.form };
-    const cacheKey = drugTerm(guessLabel);
+    const cacheKey = drugTerm(guessLabel) ?? "";
     let pending = resolved.guesses.get(cacheKey);
     if (!pending) {
       pending = (async () => {

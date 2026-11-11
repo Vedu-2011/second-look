@@ -22,7 +22,7 @@ export async function buildBottleComposites() {
     if (!item || held.has(item.product.productCode)) throw new Error(`Ineligible development input: ${file}`);
     const bytes = await readFile(path.join(root, file));
     if (createHash("sha256").update(bytes).digest("hex") !== item.sha256) throw new Error(`Development source hash changed: ${file}`);
-    const found = await segmentBottle(bytes, { cutouts: true });
+    const found = await segmentBottle(bytes, { cutouts: true }).catch((e) => { throw new Error(`${file}: ${e.message}`); });
     if (found.crops.length !== 1 || !found.cutouts?.[0]) throw new Error(`Expected one separate pill in development source: ${file}`);
     const cutout = await sharp(found.cutouts[0]).resize({ width: 320, height: 260, fit: "inside" }).png().toBuffer();
     return { item, cutout, meta: await sharp(cutout).metadata() };

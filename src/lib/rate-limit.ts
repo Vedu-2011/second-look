@@ -30,7 +30,7 @@ export async function consumeCheckLimit(ip: string, units = 1): Promise<LimitRes
   const redis = getRedis();
   if (redis) {
     try {
-      const [allowed, count, reason] = await redis.eval<[number, number, number]>(RESERVE, [hourKey, dayKey], [units, dayCap]);
+      const [allowed, count, reason] = await redis.eval<[number, number], [number, number, number]>(RESERVE, [hourKey, dayKey], [units, dayCap]);
       return allowed === 1 ? { allowed: true, count } : { allowed: false, count, message: reason === 1 ? hourMessage : dayMessage };
     } catch {
       // A local fallback here would bypass the shared cap across server instances.

@@ -1,3 +1,4 @@
+import type Anthropic from "@anthropic-ai/sdk";
 import { mkdir, open, readFile, unlink, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -39,7 +40,7 @@ async function main() {
         if (!live) throw new Error(`No cached ${kind} reading for ${key.slice(0, 12)}. Re-run with --live to authorize this script's budgeted calls. No paid call was made.`);
         if (!process.env.ANTHROPIC_API_KEY) throw new Error("ANTHROPIC_API_KEY is not set.");
         const counted = await getAnthropic(0).messages.countTokens({
-          model: DEFAULT_VISION_MODEL, system: prompt, tools: [tool], tool_choice: { type: "auto" },
+          model: DEFAULT_VISION_MODEL, system: prompt, tools: [tool as Anthropic.Tool], tool_choice: { type: "auto" },
           messages: [{ role: "user", content: [{ type: "image", source: { type: "base64", media_type: image.mediaType, data: image.base64 } }, { type: "text", text: "Use the tool and return only the structured reading." }] }],
         });
         ledger.reserve(key, smokeBound(counted.input_tokens));

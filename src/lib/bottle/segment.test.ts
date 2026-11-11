@@ -12,7 +12,7 @@ describe("deterministic whole-bottle segmentation", () => {
   });
   it("tolerates low-amplitude wood-like texture", async () => {
     const input = await scene(6, { background: "#bc995f" });
-    const { data, info } = await sharp(input).raw().toBuffer({ resolveWithObject: true });
+    const { data, info } = await sharp(input).removeAlpha().raw().toBuffer({ resolveWithObject: true });
     for (let i = 0; i < data.length; i++) data[i] = Math.max(0, Math.min(255, data[i] + Math.round(3 * Math.sin(Math.floor(i / 3) * 0.02))));
     const textured = await sharp(data, { raw: { width: info.width, height: info.height, channels: 3 } }).png().toBuffer();
     expect((await segmentBottle(textured)).boxes).toHaveLength(6);
@@ -24,7 +24,8 @@ describe("deterministic whole-bottle segmentation", () => {
     expect(found.boxes[5].y).toBeGreaterThan(found.boxes[0].y);
   });
   it.each([2, 9])("rejects a touching pair among %i pills without splitting", async (n) => {
-    await expect(segmentBottle(await scene(n, { touching: true }))).rejects.toMatchObject({ code: "touching_clutter" });
+    const error = await segmentBottle(await scene(n, { touching: true })).then(() => null, (e) => e);
+    expect(error?.code).toBe("touching_clutter");
   });
   it("rejects no pills and 25 pills, and accepts exactly 20", async () => {
     await expect(segmentBottle(await scene(0))).rejects.toMatchObject({ code: "none" });

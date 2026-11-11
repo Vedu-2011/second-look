@@ -68,8 +68,24 @@ function fillHoles(mask: Uint8Array, w: number, h: number) {
   while (head < tail) { const i = queue[head++], x = i % w; if (x) add(i - 1); if (x < w - 1) add(i + 1); if (i >= w) add(i - w); if (i < mask.length - w) add(i + w); }
   for (let i = 0; i < mask.length; i++) if (!seen[i]) mask[i] = 1;
 }
+/** A waist between two wider lobes is ambiguous. Detect only; never split it. */
+function hasNeck(pixels: Int32Array, count: number, w: number) {
+  let sx = 0, sy = 0, sxx = 0, syy = 0, sxy = 0;
+  for (let j = 0; j < count; j++) { const x = pixels[j] % w, y = Math.floor(pixels[j] / w); sx += x; sy += y; sxx += x*x; syy += y*y; sxy += x*y; }
+  const angle = Math.atan2(2 * (sxy - sx*sy/count), (sxx - sx*sx/count) - (syy - sy*sy/count)) / 2;
+  const cos = Math.cos(angle), sin = Math.sin(angle), bins = new Map<number, number>();
+  for (let j = 0; j < count; j++) { const v = Math.round((pixels[j] % w) * cos + Math.floor(pixels[j] / w) * sin); bins.set(v, (bins.get(v) ?? 0) + 1); }
+  const low = Math.min(...bins.keys()), high = Math.max(...bins.keys());
+  const profile = Array.from({ length: high-low+1 }, (_, i) => { let sum = 0; for (let k = -2; k <= 2; k++) sum += bins.get(low+i+k) ?? 0; return sum / 5; });
+  const gap = Math.max(4, Math.round(profile.length * .08));
+  for (let j = Math.ceil(profile.length * .2); j < profile.length * .8; j++) {
+    const left = Math.max(...profile.slice(0, Math.max(1, j-gap))), right = Math.max(...profile.slice(j+gap));
+    if (profile[j] < Math.min(left, right) * .86) return true;
+  }
+  return false;
+}
 /** Deterministic foreground finding only. No drug recognition, no splitting ambiguous blobs. */
-export async function segmentBottle(input: Buffer, options: { cutouts?: boolean } = {}): Promise<SegmentedBottle> {
+export async function segmentBottle(input: Buffer, options: { cutouts?: boolean; diagnostics?: (value: unknown) => void } = {}): Promise<SegmentedBottle> {
   if (!input.length || input.length > MAX_BOTTLE_BYTES) throw new SegmentationError("bytes", "Choose a photograph under 12 MB.");
   const source = sharp(input, { limitInputPixels: MAX_BOTTLE_PIXELS, failOn: "warning" });
   let metadata;
@@ -100,7 +116,7 @@ export async function segmentBottle(input: Buffer, options: { cutouts?: boolean 
   mask = morph(morph(mask, w, h, true), w, h, false); // closing joins imprint holes
   fillHoles(mask, w, h);
   const seen = new Uint8Array(n), queue = new Int32Array(n);
-  const components: { x: number; y: number; width: number; height: number; area: number; solidity: number; edge: boolean }[] = [];
+  const components: { x: number; y: number; width: number; height: number; area: number; solidity: number; neck: boolean; edge: boolean }[] = [];
   const minArea = Math.max(24, n * 0.00008);
   for (let seed = 0; seed < n; seed++) {
     if (!mask[seed] || seen[seed]) continue;
@@ -115,13 +131,14 @@ export async function segmentBottle(input: Buffer, options: { cutouts?: boolean 
     }
     if (tail < minArea) continue;
     const hull = hullArea([...rows].flatMap(([y, [a, b]]) => [[a, y], [b, y]] as Point[]));
-    components.push({ x: minX, y: minY, width: maxX - minX + 1, height: maxY - minY + 1, area: tail, solidity: tail / Math.max(1, hull), edge: minX <= edge || minY <= edge || maxX >= w - edge || maxY >= h - edge });
+    components.push({ x: minX, y: minY, width: maxX - minX + 1, height: maxY - minY + 1, area: tail, solidity: tail / Math.max(1, hull), neck: hasNeck(queue, tail, w), edge: minX <= edge || minY <= edge || maxX >= w - edge || maxY >= h - edge });
   }
   const typical = median(components.map((c) => c.area));
   const pills = components.filter((c) => c.area >= typical * 0.04);
+  options.diagnostics?.({ threshold, typical, pills });
   if (!pills.length) throw new SegmentationError("none", "We couldn't find any separate pills.");
   if (pills.length > MAX_BOTTLE_PILLS) throw new SegmentationError("too_many", `We found ${pills.length} objects, more than the 20-pill limit.`);
-  if (pills.some((c) => c.edge || c.area > typical * 2.2 || c.area > n * 0.18 || Math.max(c.width / c.height, c.height / c.width) > 4.3 || c.solidity < 0.91 || c.area / (c.width * c.height) < 0.36)) throw new SegmentationError("touching_clutter", "Some pills may be touching, cut off, or mixed with other objects.");
+  if (pills.some((c) => c.edge || c.neck || c.area > typical * 2.2 || c.area > n * 0.18 || Math.max(c.width / c.height, c.height / c.width) > 4.3 || c.solidity < 0.91 || c.area / (c.width * c.height) < 0.36)) throw new SegmentationError("touching_clutter", "Some pills may be touching, cut off, or mixed with other objects.");
   // Stable row-major numbering. No shape/color assumptions influence which blobs are kept.
   pills.sort((a, b) => Math.abs(a.y - b.y) < Math.min(a.height, b.height) * 0.5 ? a.x - b.x : a.y - b.y);
   const boxes: NormalizedBox[] = [], crops: Buffer[] = [], cutouts: Buffer[] = [];
