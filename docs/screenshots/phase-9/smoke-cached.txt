@@ -1,0 +1,317 @@
+
+> second-look@0.1.0 smoke:bottle
+> node --env-file-if-exists=.env.local --import tsx scripts/smoke-bottle.ts
+
+Mode: CACHE ONLY, no paid calls. Model claude-sonnet-5-5; standard $2 input / $10 output per million. Ledger test-images/bottle/generated/usage-ledger.json
+{
+  "scenario": "blue-eight-plus-white",
+  "scope": "Functional demo, not benchmark evidence",
+  "perPill": [
+    {
+      "number": 1,
+      "verdict": "UNSURE",
+      "imprint": [
+        "L | 750"
+      ],
+      "appearanceWarning": "gray oval vs blue oval"
+    },
+    {
+      "number": 2,
+      "verdict": "UNSURE",
+      "imprint": [
+        "L | 750"
+      ],
+      "appearanceWarning": "gray oval vs blue oval"
+    },
+    {
+      "number": 3,
+      "verdict": "UNSURE",
+      "imprint": [
+        "L | 750"
+      ],
+      "appearanceWarning": "gray oval vs blue oval"
+    },
+    {
+      "number": 4,
+      "verdict": "UNSURE",
+      "imprint": [
+        "L | 750"
+      ],
+      "appearanceWarning": "gray oval vs blue oval"
+    },
+    {
+      "number": 5,
+      "verdict": "UNSURE",
+      "imprint": [
+        "L | 750"
+      ],
+      "appearanceWarning": "gray oval vs blue oval"
+    },
+    {
+      "number": 6,
+      "verdict": "UNSURE",
+      "imprint": [
+        "L | 750"
+      ],
+      "appearanceWarning": "gray oval vs blue oval"
+    },
+    {
+      "number": 7,
+      "verdict": "UNSURE",
+      "imprint": [
+        "L | 750"
+      ],
+      "appearanceWarning": "gray oval vs blue oval"
+    },
+    {
+      "number": 8,
+      "verdict": "UNSURE",
+      "imprint": [
+        "L | 750"
+      ],
+      "appearanceWarning": "gray oval vs blue oval"
+    },
+    {
+      "number": 9,
+      "verdict": "MISMATCH",
+      "imprint": [
+        "500"
+      ],
+      "appearanceWarning": null
+    }
+  ],
+  "bottle": {
+    "matched": 0,
+    "unreadable": 8,
+    "flagged": [
+      9,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "verdict": "MISMATCH",
+    "title": "Pill 9 doesn't match your label.",
+    "instruction": "Don't take any pills from this bottle; call your pharmacy."
+  },
+  "elapsedMs": 1354,
+  "newSpendUsd": 0,
+  "totalUsage": {
+    "budgetUsd": 1,
+    "recordedSpendUsd": 0.018822,
+    "committedUsd": 0.018822,
+    "responses": 3,
+    "uniqueReadings": 3
+  },
+  "cacheHits": 9
+}
+{
+  "scenario": "blue-nine",
+  "scope": "Functional demo, not benchmark evidence",
+  "perPill": [
+    {
+      "number": 1,
+      "verdict": "UNSURE",
+      "imprint": [
+        "L | 750"
+      ],
+      "appearanceWarning": "gray oval vs blue oval"
+    },
+    {
+      "number": 2,
+      "verdict": "UNSURE",
+      "imprint": [
+        "L | 750"
+      ],
+      "appearanceWarning": "gray oval vs blue oval"
+    },
+    {
+      "number": 3,
+      "verdict": "UNSURE",
+      "imprint": [
+        "L | 750"
+      ],
+      "appearanceWarning": "gray oval vs blue oval"
+    },
+    {
+      "number": 4,
+      "verdict": "UNSURE",
+      "imprint": [
+        "L | 750"
+      ],
+      "appearanceWarning": "gray oval vs blue oval"
+    },
+    {
+      "number": 5,
+      "verdict": "UNSURE",
+      "imprint": [
+        "L | 750"
+      ],
+      "appearanceWarning": "gray oval vs blue oval"
+    },
+    {
+      "number": 6,
+      "verdict": "UNSURE",
+      "imprint": [
+        "L | 750"
+      ],
+      "appearanceWarning": "gray oval vs blue oval"
+    },
+    {
+      "number": 7,
+      "verdict": "UNSURE",
+      "imprint": [
+        "L | 750"
+      ],
+      "appearanceWarning": "gray oval vs blue oval"
+    },
+    {
+      "number": 8,
+      "verdict": "UNSURE",
+      "imprint": [
+        "L | 750"
+      ],
+      "appearanceWarning": "gray oval vs blue oval"
+    },
+    {
+      "number": 9,
+      "verdict": "UNSURE",
+      "imprint": [
+        "L | 750"
+      ],
+      "appearanceWarning": "gray oval vs blue oval"
+    }
+  ],
+  "bottle": {
+    "matched": 0,
+    "unreadable": 9,
+    "flagged": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "verdict": "WARNING",
+    "title": "Pill 1 looks different from your label's medicine.",
+    "instruction": "gray oval vs blue oval. Don't take it; check with your pharmacist. We couldn't confirm its identity."
+  },
+  "elapsedMs": 721,
+  "newSpendUsd": 0,
+  "totalUsage": {
+    "budgetUsd": 1,
+    "recordedSpendUsd": 0.018822,
+    "committedUsd": 0.018822,
+    "responses": 3,
+    "uniqueReadings": 3
+  },
+  "cacheHits": 18
+}
+{
+  "scenario": "orange-eight-plus-blue",
+  "scope": "Functional demo, not benchmark evidence",
+  "perPill": [
+    {
+      "number": 1,
+      "verdict": "MATCH",
+      "imprint": [
+        "WPI 900"
+      ],
+      "appearanceWarning": null
+    },
+    {
+      "number": 2,
+      "verdict": "MATCH",
+      "imprint": [
+        "WPI 900"
+      ],
+      "appearanceWarning": null
+    },
+    {
+      "number": 3,
+      "verdict": "MATCH",
+      "imprint": [
+        "WPI 900"
+      ],
+      "appearanceWarning": null
+    },
+    {
+      "number": 4,
+      "verdict": "MATCH",
+      "imprint": [
+        "WPI 900"
+      ],
+      "appearanceWarning": null
+    },
+    {
+      "number": 5,
+      "verdict": "MATCH",
+      "imprint": [
+        "WPI 900"
+      ],
+      "appearanceWarning": null
+    },
+    {
+      "number": 6,
+      "verdict": "MATCH",
+      "imprint": [
+        "WPI 900"
+      ],
+      "appearanceWarning": null
+    },
+    {
+      "number": 7,
+      "verdict": "MATCH",
+      "imprint": [
+        "WPI 900"
+      ],
+      "appearanceWarning": null
+    },
+    {
+      "number": 8,
+      "verdict": "MATCH",
+      "imprint": [
+        "WPI 900"
+      ],
+      "appearanceWarning": null
+    },
+    {
+      "number": 9,
+      "verdict": "MISMATCH",
+      "imprint": [
+        "L | 750"
+      ],
+      "appearanceWarning": null
+    }
+  ],
+  "bottle": {
+    "matched": 8,
+    "unreadable": 0,
+    "flagged": [
+      9
+    ],
+    "verdict": "MISMATCH",
+    "title": "Pill 9 doesn't match your label.",
+    "instruction": "Don't take any pills from this bottle; call your pharmacy."
+  },
+  "elapsedMs": 1632,
+  "newSpendUsd": 0,
+  "totalUsage": {
+    "budgetUsd": 1,
+    "recordedSpendUsd": 0.018822,
+    "committedUsd": 0.018822,
+    "responses": 3,
+    "uniqueReadings": 3
+  },
+  "cacheHits": 27
+}
+Real bottle pair absent: skipped. Composites are not real-bottle validation.
+{"final":{"budgetUsd":1,"recordedSpendUsd":0.018822,"committedUsd":0.018822,"responses":3,"uniqueReadings":3},"cacheHits":27}

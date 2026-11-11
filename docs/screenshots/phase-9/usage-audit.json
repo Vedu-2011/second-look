@@ -1,0 +1,13 @@
+{
+  "smokeRecordedUsd": 0.018822,
+  "smokeResponses": 3,
+  "extraApiLabelChecks": 2,
+  "labelUsageCaptured": false,
+  "inputTokensEstimate": 1037,
+  "conservativeGeneratedAttemptLimit": 12,
+  "labelUpperBoundUsd": 0.269688,
+  "phaseUpperBoundUsd": 0.28851,
+  "note": "Two blank-bottle API checks read the label before returning retake. Their usage receipts were not retained. This is a conservative bound using count_tokens plus input headroom, maximum1200 output and 2 manual attempts x3 SDK transports per API check; not a measured bill. No further paid calls.",
+  "pricingSource": "https://platform.claude.com/docs/en/about-claude/pricing",
+  "tokenCountSource": "https://platform.claude.com/docs/en/build-with-claude/token-counting"
+}

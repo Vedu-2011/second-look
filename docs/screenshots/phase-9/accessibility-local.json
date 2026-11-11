@@ -1,0 +1,17 @@
+[
+  {
+    "state": "check-default",
+    "score": 100,
+    "failed": []
+  },
+  {
+    "state": "bottle-capture",
+    "score": 100,
+    "failed": []
+  },
+  {
+    "state": "bottle-result-live-smoke-replay",
+    "score": 100,
+    "failed": []
+  }
+]
