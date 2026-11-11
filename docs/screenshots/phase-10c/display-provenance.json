@@ -1,0 +1,19 @@
+{
+  "scope": "Display provenance only; all current verdicts/decisions/readings unchanged.",
+  "sourceBeforeCheckedAt": "2026-11-11T08:18:54.570Z",
+  "sourceAfterCheckedAt": "2026-11-11T08:18:58.471Z",
+  "beforeSha256": "1b9dae202ab18698f81483561a9fe5bcb4fe6ac5c6427a1f14c9b03009ac94af",
+  "afterSha256": "66d4d161384df6de8212d2b9df2ed31e3e7dadc67e3c56d2854457c41b6ae5e9",
+  "previousVerdicts": {
+    "1": "UNSURE",
+    "2": "MATCH",
+    "3": "MATCH",
+    "4": "MATCH",
+    "6": "MATCH",
+    "7": "MATCH",
+    "8": "MATCH",
+    "9": "MATCH",
+    "10": "MATCH"
+  },
+  "applied": true
+}
