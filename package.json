@@ -12,7 +12,9 @@
     "smoke:ai": "node --env-file-if-exists=.env.local --import tsx scripts/smoke-ai.ts",
     "samples:build": "node --env-file-if-exists=.env.local --import tsx scripts/build-samples.ts",
     "research": "node --env-file-if-exists=.env.local --import tsx scripts/research-holdout.ts",
-    "research:dev": "node --import tsx scripts/diagnose-dev.ts"
+    "research:dev": "node --import tsx scripts/diagnose-dev.ts",
+    "bottle:composites": "tsx scripts/build-bottle-composites.ts",
+    "smoke:bottle": "node --env-file-if-exists=.env.local --import tsx scripts/smoke-bottle.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^1.7.0",

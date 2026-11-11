@@ -10,9 +10,9 @@ export class AiUnavailableError extends Error {
   }
 }
 
-export function getAnthropic() {
+export function getAnthropic(maxRetries?: number) {
   if (!process.env.ANTHROPIC_API_KEY) throw new AiUnavailableError();
-  return new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
+  return new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY, ...(maxRetries === undefined ? {} : { maxRetries }) });
 }
 
 export function visionModel() {
@@ -25,7 +25,7 @@ export function textModel() {
 
 export type ImageInput = { base64: string; mediaType: "image/jpeg" | "image/png" | "image/gif" | "image/webp" };
 
-type UsageObserver = (model: string, inputTokens: number, outputTokens: number) => void;
+export type UsageObserver = (model: string, inputTokens: number, outputTokens: number) => void;
 let usageObserver: UsageObserver | undefined;
 
 /** Optional process-local observer for the live smoke script; never records image data. */
@@ -33,7 +33,8 @@ export function setAiUsageObserver(observer?: UsageObserver) {
   usageObserver = observer;
 }
 
-function recordUsage(model: string, usage: Anthropic.Message["usage"]) {
+function recordUsage(model: string, usage: Anthropic.Message["usage"], observer?: UsageObserver) {
+  observer?.(model, usage.input_tokens, usage.output_tokens);
   usageObserver?.(model, usage.input_tokens, usage.output_tokens);
   // Model and token counts only; never log transcriptions, prompts or images.
   if (process.env.VERCEL_ENV === "production") {
@@ -47,22 +48,35 @@ function recordUsage(model: string, usage: Anthropic.Message["usage"]) {
   }
 }
 
+export type ReadOptions = {
+  model?: string;
+  /** Request-scoped observer; never changes another concurrent request's accounting. */
+  onUsage?: UsageObserver;
+  /** Smoke-only durable reservation before each billable attempt. */
+  beforeAttempt?: () => Promise<void>;
+  maxRetries?: number;
+};
+
 export async function toolRead<T>({
   image,
   system,
   tool,
   model = visionModel(),
   validate,
+  onUsage,
+  beforeAttempt,
+  maxRetries,
 }: {
   image: ImageInput;
   system: string;
   tool: { name: string; description: string; input_schema: Record<string, unknown> };
   model?: string;
   validate: (input: unknown) => T;
-}) {
-  const client = getAnthropic();
+} & ReadOptions) {
+  const client = getAnthropic(maxRetries);
   let lastError: unknown;
   for (let attempt = 0; attempt < 2; attempt++) {
+    await beforeAttempt?.();
     try {
       const response = await client.messages.create({
         model,
@@ -78,7 +92,7 @@ export async function toolRead<T>({
           ],
         }],
       });
-      recordUsage(model, response.usage);
+      recordUsage(model, response.usage, onUsage);
       const block = response.content.find((item) => item.type === "tool_use");
       if (!block || block.type !== "tool_use") throw new Error("Claude did not return the reading tool.");
       return validate(block.input);

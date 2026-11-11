@@ -1,0 +1,86 @@
+import { beforeEach, describe, expect, it, vi } from "vitest";
+import { SAMPLE_RESULTS } from "@/lib/sample-results";
+import { scene } from "@/lib/bottle/test-scenes";
+import { BOTTLE_BODY_BYTES } from "@/lib/bottle/upload";
+import type { LabelReading, PillReading } from "@/lib/verdict-engine";
+
+vi.mock("next/server", () => ({ connection: async () => {} }));
+vi.mock("@/lib/redis", () => ({ getRedis: () => null, key: (v: string) => "sl:" + v }));
+vi.mock("@/lib/rate-limit", async (original) => ({ ...(await original<typeof import("@/lib/rate-limit")>()), consumeCheckLimit: vi.fn(async () => ({ allowed: true, count: 1 })) }));
+vi.mock("@/lib/ai/readers", () => ({ readLabel: vi.fn(), readPill: vi.fn() }));
+vi.mock("@/lib/check-service", () => ({ resolveLabelData: vi.fn(async () => ({})), runResolvedCheck: vi.fn() }));
+
+const { POST } = await import("./route");
+const { readLabel, readPill } = await import("@/lib/ai/readers");
+const { resolveLabelData, runResolvedCheck } = await import("@/lib/check-service");
+const { consumeCheckLimit } = await import("@/lib/rate-limit");
+const { getBottleResult } = await import("@/lib/result-store");
+const source = SAMPLE_RESULTS[0].result;
+let active = 0, peak = 0;
+beforeEach(() => {
+  vi.clearAllMocks(); active = 0; peak = 0;
+  vi.mocked(consumeCheckLimit).mockResolvedValue({ allowed: true, count: 1 });
+  vi.mocked(readLabel).mockResolvedValue(source.label);
+  vi.mocked(readPill).mockImplementation(async (_image, options) => {
+    active++; peak = Math.max(active, peak);
+    await new Promise((resolve) => setTimeout(resolve, 1));
+    options?.onUsage?.("claude-sonnet-5-5", 100, 10);
+    active--; return source.pill;
+  });
+  vi.mocked(runResolvedCheck).mockImplementation(async (label: LabelReading, pill: PillReading) => ({ ...structuredClone(source), label, pill, verdict: pill.pillVisible === false ? "UNSURE" : "MATCH" }));
+});
+async function request(count = 9, touching = false) {
+  const form = new FormData();
+  form.set("labelImage", new Blob([new Uint8Array(await scene(1))], { type: "image/png" }), "label.png");
+  form.set("bottleImage", new Blob([new Uint8Array(await scene(count, { touching }))], { type: "image/png" }), "bottle.png");
+  return new Request("http://localhost/api/check-bottle", { method: "POST", body: form });
+}
+const events = async (response: Response) => (await response.text()).trim().split("\n").map((s) => JSON.parse(s));
+
+describe("POST /api/check-bottle", () => {
+  it("streams actual progress, caps concurrent Sonnet reads at five, and resolves expected FDA data once", async () => {
+    const response = await POST(await request());
+    expect(response.status).toBe(200); expect(response.headers.get("content-type")).toContain("ndjson"); expect(response.headers.get("cache-control")).toBe("no-store");
+    const output = await events(response);
+    expect(output.filter((e) => e.type === "step").map((e) => `${e.step}:${e.state}`)).toEqual(["0:working", "0:done", "1:working", "1:done", "2:working", "2:done", "3:working", "3:done"]);
+    expect(output.filter((e) => e.type === "progress").map((e) => e.completed)).toEqual([1,2,3,4,5,6,7,8,9]);
+    expect(readLabel).toHaveBeenCalledTimes(1); expect(readPill).toHaveBeenCalledTimes(9); expect(peak).toBe(5); expect(resolveLabelData).toHaveBeenCalledTimes(1);
+    expect(vi.mocked(readPill).mock.calls.every((c) => c[1]?.model === "claude-sonnet-5-5")).toBe(true);
+    expect(consumeCheckLimit).toHaveBeenNthCalledWith(1, "unknown"); expect(consumeCheckLimit).toHaveBeenNthCalledWith(2, "unknown", 1);
+    const terminal = output.at(-1); expect(terminal.type).toBe("result"); expect(terminal.result.usage).toHaveLength(9);
+    const stored = await getBottleResult(terminal.shareId); expect(stored?.result.pills).toHaveLength(9);
+    const serialized = JSON.stringify(stored); for (const forbidden of ["base64", "dataUrl", "crops", "bottleImage", "labelImage"]) expect(serialized).not.toContain(forbidden);
+  });
+  it("rejects the initial cap before any AI call", async () => {
+    vi.mocked(consumeCheckLimit).mockResolvedValueOnce({ allowed: false, count: 30, message: "Hourly limit" });
+    expect((await POST(await request())).status).toBe(429); expect(readLabel).not.toHaveBeenCalled(); expect(readPill).not.toHaveBeenCalled();
+  });
+  it("rejects the weighted reservation before starting any crop reader", async () => {
+    vi.mocked(consumeCheckLimit).mockResolvedValueOnce({ allowed: true, count: 30 }).mockResolvedValueOnce({ allowed: false, count: 30, message: "Hourly limit" });
+    const output = await events(await POST(await request()));
+    expect(output.at(-1)).toEqual({ type: "error", message: "Hourly limit" }); expect(readPill).not.toHaveBeenCalled(); expect(resolveLabelData).not.toHaveBeenCalled();
+  });
+  it.each([0,25])("rejects %i detected pills before pill AI", async (n) => {
+    const output = await events(await POST(await request(n))); expect(output.at(-1).type).toBe("retake"); expect(readPill).not.toHaveBeenCalled();
+  });
+  it("rejects touching pills and an unreadable label without crop calls", async () => {
+    expect((await events(await POST(await request(9, true)))).at(-1).type).toBe("retake"); expect(readPill).not.toHaveBeenCalled();
+    vi.mocked(readLabel).mockResolvedValueOnce({ isPrescriptionLabel: false });
+    expect((await events(await POST(await request()))).at(-1).code).toBe("not_label"); expect(readPill).not.toHaveBeenCalled();
+  });
+  it("a failed reader becomes UNSURE and the bottle is never green", async () => {
+    vi.mocked(readPill).mockRejectedValueOnce(new Error("reader unavailable"));
+    const terminal = (await events(await POST(await request()))).at(-1);
+    expect(terminal.type).toBe("result"); expect(terminal.result.decision.verdict).toBe("UNSURE"); expect(terminal.result.pills[0].result.verdict).toBe("UNSURE");
+  });
+  it("rejects malformed/oversized bodies without relying on Content-Length", async () => {
+    const invalid = await POST(new Request("http://localhost/api/check-bottle", { method: "POST", body: "bad" })); expect(invalid.status).toBe(400);
+    const huge = new Request("http://localhost/api/check-bottle", { method: "POST", body: new Uint8Array(BOTTLE_BODY_BYTES + 1), headers: { "content-type": "multipart/form-data; boundary=x" } });
+    expect((await POST(huge)).status).toBe(400); expect(readLabel).not.toHaveBeenCalled(); expect(readPill).not.toHaveBeenCalled();
+  });
+  it("keeps usage scoped to two simultaneous requests", async () => {
+    const [a,b] = await Promise.all([request(3), request(3)]);
+    const output = await Promise.all([POST(a).then(events), POST(b).then(events)]);
+    expect(output.map((o) => o.at(-1).result.usage.length)).toEqual([3,3]);
+  });
+});

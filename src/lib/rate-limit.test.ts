@@ -21,3 +21,20 @@ describe("check rate limit fallback", () => {
     clearRateLimitForTests();
   });
 });
+
+it("reserves weighted checks atomically across concurrent bottles and the shared daily cap", async () => {
+  const old = process.env.DAILY_CHECK_CAP; process.env.DAILY_CHECK_CAP = "7"; clearRateLimitForTests();
+  try {
+    const attempts = await Promise.all(Array.from({ length: 10 }, (_, i) => consumeCheckLimit(`weighted-${i}`, 2)));
+    expect(attempts.filter((a) => a.allowed)).toHaveLength(3);
+    expect((await consumeCheckLimit("last", 1)).allowed).toBe(true);
+    expect((await consumeCheckLimit("over", 1)).allowed).toBe(false);
+  } finally { if (old === undefined) delete process.env.DAILY_CHECK_CAP; else process.env.DAILY_CHECK_CAP = old; clearRateLimitForTests(); }
+});
+it("a failed weighted reservation doesn't partially spend the hourly allowance", async () => {
+  clearRateLimitForTests();
+  for (let i = 0; i < 29; i++) await consumeCheckLimit("no-partial");
+  expect((await consumeCheckLimit("no-partial", 2)).allowed).toBe(false);
+  expect((await consumeCheckLimit("no-partial")).allowed).toBe(true);
+  clearRateLimitForTests();
+});

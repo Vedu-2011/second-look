@@ -26,8 +26,7 @@ async function resolveDrug(label: LabelReading): Promise<DrugConcept | null> {
   return term ? approximateTerm(term) : null;
 }
 
-export async function runCheck(label: LabelReading, pill: PillReading): Promise<CheckResult> {
-  const t0 = performance.now();
+export async function resolveLabelData(label: LabelReading) {
   const timings = { label: 0, drug: 0, guess: 0, dailymed: 0, total: 0 };
 
   // 1. The label: exact product from the NDC, else the drug from its name.
@@ -51,27 +50,47 @@ export async function runCheck(label: LabelReading, pill: PillReading): Promise<
     labelNdcNotFound,
     labelNdcAmbiguous,
   };
+  return { data, group, timings, guesses: new Map<string, Promise<Product[]>>(), metas: new Map<string, Promise<LabelMeta | null>>() };
+}
+
+export type ResolvedLabelData = Awaited<ReturnType<typeof resolveLabelData>>;
+
+/** Reuses exactly the same expected FDA data for every pill; engine behavior is unchanged. */
+export async function runResolvedCheck(label: LabelReading, pill: PillReading, resolved: ResolvedLabelData): Promise<CheckResult> {
+  const t0 = performance.now();
+  const { data, group } = resolved;
+  const labelProduct = data.labelProduct ?? null;
+  const timings = { ...resolved.timings };
+  let t = performance.now();
   let result = decide(label, pill, data);
   let guessProducts: Product[] = [];
 
   // 3. Doesn't match: check the reader's guess against FDA data to say what the pill really is.
   if (result.verdict === "MISMATCH" && pill.guess?.drugName) {
     t = performance.now();
-    const guessDrug = await resolveDrug({ drugName: pill.guess.drugName, strength: pill.guess.strength, form: pill.form });
-    if (guessDrug) {
-      const guessGroup = await drugGroup(guessDrug.rxcui);
-      if (guessGroup && guessGroup.generic.rxcui !== group?.generic.rxcui) {
-        guessProducts = guessGroup.products;
-        result = decide(label, pill, { ...data, guessProducts });
-      }
+    const guessLabel = { drugName: pill.guess.drugName, strength: pill.guess.strength, form: pill.form };
+    const cacheKey = drugTerm(guessLabel);
+    let pending = resolved.guesses.get(cacheKey);
+    if (!pending) {
+      pending = (async () => {
+        const drug = await resolveDrug(guessLabel);
+        const guessed = drug ? await drugGroup(drug.rxcui) : null;
+        return guessed && guessed.generic.rxcui !== group?.generic.rxcui ? guessed.products : [];
+      })();
+      resolved.guesses.set(cacheKey, pending);
     }
+    guessProducts = await pending;
+    if (guessProducts.length) result = decide(label, pill, { ...data, guessProducts });
     timings.guess = ms(t);
   }
 
   // 4. Label titles and published dates for every FDA record we cite.
   t = performance.now();
   const setIds = result.evidence.flatMap((e) => (e.setId ? [e.setId] : []));
-  const metas = await Promise.all(setIds.map((id) => labelMeta(id).catch(() => null)));
+  const metas = await Promise.all([...new Set(setIds)].map((id) => {
+    if (!resolved.metas.has(id)) resolved.metas.set(id, labelMeta(id).catch(() => null));
+    return resolved.metas.get(id)!;
+  }));
   timings.dailymed = ms(t);
   timings.total = ms(t0);
 
@@ -86,4 +105,11 @@ export async function runCheck(label: LabelReading, pill: PillReading): Promise<
     checkedAt: new Date().toISOString(),
     timings,
   };
+}
+
+export async function runCheck(label: LabelReading, pill: PillReading): Promise<CheckResult> {
+  const start = performance.now();
+  const result = await runResolvedCheck(label, pill, await resolveLabelData(label));
+  result.timings.total = ms(start);
+  return result;
 }

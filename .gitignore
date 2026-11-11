@@ -42,3 +42,6 @@ yarn-error.log*
 next-env.d.ts
 /research/data/
 /research/out/*.tmp
+
+# Development-only bottle composites and durable local smoke usage/cache
+/test-images/bottle/generated/
