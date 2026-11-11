@@ -87,7 +87,7 @@ describe("optional second-side flow", () => {
     mocks.pill.mockResolvedValue({
       ...sample.pill,
       pillVisible: true,
-      colors: ["blue"],
+      colors: ["white"],
     });
     expect((await finishPhotoCheck(sample, image)).result.verdict).toBe(
       "UNSURE",
