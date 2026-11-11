@@ -3,7 +3,8 @@ import { copyFile, mkdir } from "node:fs/promises";
 import { chromium } from "playwright-core";
 
 const base = process.argv[2] || "http://localhost:3211";
-const output = "docs/screenshots/phase-7";
+const output = process.env.ONE_PAGER_SCREENSHOTS_DIR || "docs/screenshots/phase-7";
+const pdfPath = process.env.ONE_PAGER_PDF_PATH || "public/second-look-one-pager.pdf";
 const picture = "public/one-pager-result.png";
 await mkdir(output, { recursive: true });
 const browser = await chromium.launch({
@@ -55,8 +56,8 @@ try {
   });
   const size = await printPage.locator(".one-pager").boundingBox();
   assert(size && size.height <= 979, `Print content exceeds Letter margins: ${size?.height}px`);
-  await printPage.pdf({path:"public/second-look-one-pager.pdf",format:"Letter",printBackground:true,preferCSSPageSize:true,displayHeaderFooter:false,tagged:true});
-  await copyFile("public/second-look-one-pager.pdf", "docs/second-look-one-pager.pdf");
+  await printPage.pdf({path:pdfPath,format:"Letter",printBackground:true,preferCSSPageSize:true,displayHeaderFooter:false,tagged:true});
+  if (!process.env.ONE_PAGER_PDF_PATH) await copyFile(pdfPath, "docs/second-look-one-pager.pdf");
   console.log(`Screenshot ${width} × ${height} CSS px; print content ${size.height.toFixed(1)} px.`);
 
   for (const width of [375, 1440]) {

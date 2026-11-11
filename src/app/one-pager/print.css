@@ -43,7 +43,7 @@
 .social-copy p { margin: 30px 0 24px; font-size: 80px; font-weight: 800; letter-spacing: -3px; line-height: 1; }
 .social-copy > span { font-size: 27px; }
 .social-copy small { display: block; margin-top: 32px; font-size: 23px; color: var(--ink-soft); }
-.social-pill { display: flex; flex-direction: column; gap: 30px; align-items: center; justify-content: center; background: var(--foil); width: 400px; height: 390px; border-radius: 32px; }
+.social-pill { display: flex; flex-direction: column; gap: 30px; align-items: center; justify-content: center; background: white; width: 400px; height: 390px; border-radius: 32px; }
 .social-pill > span { font-size: 23px; color: var(--ink-soft); }
 @media screen and (max-width: 750px) {
  .one-pager { width: auto; margin: 16px; padding: 20px; font-size: 18px; }

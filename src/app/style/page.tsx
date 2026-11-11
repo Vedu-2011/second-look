@@ -16,13 +16,14 @@ import { VERDICTS } from "@/lib/verdict";
 export const metadata: Metadata = { title: "Style", robots: { index: false } };
 
 const TOKENS = [
-  ["--ink", "#17202B", "Text, icons"],
-  ["--label", "#FAFBFC", "Page background"],
-  ["--foil", "#E7EAEF", "Surfaces, wells"],
-  ["--amber", "#E0901E", "Brand, camera frame, primary button"],
-  ["--match", "#1C8A57", "Verdict: matches"],
-  ["--mismatch", "#C42F2A", "Verdict: doesn't match"],
-  ["--unsure", "#4A5A85", "Verdict: can't tell"],
+  ["--ink", "#1D1D1F", "Text, icons"],
+  ["--bg", "#FFFFFF", "Page background"],
+  ["--bg-soft", "#F5F5F7", "Section background"],
+  ["--brand", "#FF9500", "Brand, primary action"],
+  ["--match", "#1F7A3A", "Verdict: matches"],
+  ["--same", "#0E6F80", "Verdict: same medicine"],
+  ["--mismatch", "#C9241A", "Verdict: doesn't match"],
+  ["--unsure", "#3A3A3C", "Verdict: can't tell"],
 ] as const;
 
 function Section({ title, note, children }: { title: string; note?: string; children: ReactNode }) {
@@ -50,7 +51,7 @@ export default function StylePage() {
         <ul className="grid gap-5 md:grid-cols-3">
           {realPills.map((p) => (
             <li key={p.id} className="flex flex-col rounded-[var(--radius-photo)] bg-white p-5 shadow-[var(--shadow-soft)]">
-              <div className="grid min-h-56 place-items-center rounded-[var(--radius-card)] bg-foil p-4">
+              <div className="grid min-h-56 place-items-center rounded-[var(--radius-card)] bg-white p-4">
                 <PillDrawing
                   shapeCode={p.shapeCode}
                   colorCodes={p.colorCodes}
@@ -77,7 +78,7 @@ export default function StylePage() {
         <h3 className="mt-10 text-xl font-bold text-ink">Highlighting the feature that doesn&apos;t match</h3>
         <div className="mt-4 grid grid-cols-2 gap-4 md:grid-cols-4">
           {(["imprint", "color", "shape"] as const).map((h) => (
-            <figure key={h} className="grid place-items-center gap-2 rounded-[var(--radius-card)] bg-foil p-4">
+            <figure key={h} className="grid place-items-center gap-2 rounded-[var(--radius-card)] bg-white p-4">
               <PillDrawing
                 shapeCode={IBUPROFEN_I2_OVAL.shapeCode}
                 colorCodes={IBUPROFEN_I2_OVAL.colorCodes}
@@ -89,7 +90,7 @@ export default function StylePage() {
               <figcaption className="text-base font-semibold text-ink">{h[0].toUpperCase() + h.slice(1)}</figcaption>
             </figure>
           ))}
-          <figure className="grid place-items-center gap-2 rounded-[var(--radius-card)] bg-foil p-4">
+          <figure className="grid place-items-center gap-2 rounded-[var(--radius-card)] bg-white p-4">
             <PillDrawing
               shapeCode={OMEPRAZOLE_CAPSULE.shapeCode}
               colorCodes={OMEPRAZOLE_CAPSULE.colorCodes}
@@ -111,7 +112,7 @@ export default function StylePage() {
           {Object.entries(SHAPE_CODES).map(([code, s], i) => {
             const colors = Object.keys(COLOR_CODES);
             return (
-              <li key={code} className="flex flex-col items-center gap-1.5 rounded-[var(--radius-row)] bg-foil px-2 py-3 text-center">
+              <li key={code} className="flex flex-col items-center gap-1.5 rounded-[var(--radius-row)] bg-white px-2 py-3 text-center">
                 <PillDrawing
                   shapeCode={code}
                   colorCodes={[colors[i % colors.length]]}
@@ -211,12 +212,12 @@ export default function StylePage() {
         </ul>
       </Section>
 
-      <Section title="Type" note="Atkinson Hyperlegible Next for everything; Atkinson Hyperlegible Mono only for imprints, NDCs and strengths.">
+      <Section title="Type" note="SF system type with Inter fallback. Atkinson Hyperlegible Mono only for imprints, NDCs and strengths.">
         <div className="flex flex-col gap-3">
           <p className="text-verdict font-bold tracking-[-0.02em] text-ink">Doesn&apos;t match</p>
           <p className="text-4xl font-bold text-ink">Is this the right pill?</p>
           <p className="text-2xl font-bold text-ink">How a check works</p>
-          <p className="text-lg text-ink">Body text, 18px on phones and 20px on laptops, for a worried reader.</p>
+          <p className="text-lg text-ink">Clear body text, 17px on phones and 19px on laptops.</p>
           <p className="font-mono text-2xl font-bold text-ink">I2 · L484 · 0O 1Il 5S 8B 2Z · NDC 0113-0517 · 200 mg</p>
         </div>
       </Section>

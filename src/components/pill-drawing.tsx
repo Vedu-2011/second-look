@@ -29,7 +29,7 @@ type Props = {
 };
 
 const PAD = 2.4; // mm around the pill for the shadow and highlight ring
-const MISMATCH = "#C42F2A";
+const MISMATCH = "#C9241A";
 
 // Stable ids for gradients/clips without hooks, so this renders on the server.
 function idFor(parts: unknown[]) {
