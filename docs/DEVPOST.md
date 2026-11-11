@@ -21,6 +21,7 @@ So we asked a simple question: can a phone tell you, in seconds, whether the pil
 your label, and prove it?
 
 ## What it does
+- Whole-bottle mode: spread up to 20 pills on a plain contrasting surface. Code finds and numbers the pills, AI reads each crop, and code checks each against the label. A mismatched or visibly different pill is flagged; unclear pills stay uncertain. This feature has functional development-image smoke checks, separate from the frozen single-pill benchmark.
 - Take a photo of the pharmacy label and one pill (or type what's on the pill if you don't have a camera).
 - Second Look reads the label and the letters stamped on the pill, then checks the pill against every FDA record
   for that medicine and strength, from every manufacturer.

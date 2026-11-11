@@ -59,7 +59,7 @@ The AI smoke script requires a production build and a live API key. It starts a 
 
 ## Demo photos and labels
 
-Open `/labels` to print three 3.5 × 2 inch labels on US Letter paper at 100% scale, browser headers/footers off. Query parameters edit all fields: `?ndc=0113-0517&mfr=L.%20Perrigo`; prefix a field with `match.`, `different-maker.`, or `mismatch.` to edit one label.
+Open `/labels` to print three 3.5 × 2 inch labels on US Letter paper at 100% scale, browser headers/footers off. Query parameters edit all fields: `?ndc=63981-598&mfr=Costco`; prefix a field with `match.`, `different-maker.`, or `mismatch.` to edit one label.
 
 Put `label.jpg` and `pill.jpg` in each applicable `test-images/real/{match,different-maker,mismatch}/` folder. Read its README for the intended medicine. Use only fictional patient details: these demo images become public.
 
@@ -68,6 +68,16 @@ npm run samples:build
 ```
 
 The builder applies orientation, resizes to 1600px, strips EXIF, runs the same live pipeline as `/api/check`, and saves public photos plus dated JSON results. Empty folders keep the saved FDA example. Failed reads keep the previous result. Commit generated files to publish. The sample's live button reruns the stored photos through the rate-limited API and falls back to the saved check if unavailable.
+
+## Whole-bottle check (phase 9 preview)
+
+Choose **Check the whole bottle** on `/check`. Photograph the label, then spread up to 20 pills on plain paper whose color contrasts with the pills. Keep the pills apart, letters facing up. Code finds the pills and crops each one from the uploaded image; the existing Sonnet reader transcribes each crop, and the deterministic FDA engine checks each pill.
+
+The photo gets a numbered marker for each detected pill. Select a marker to jump to its reading and result. Check that every visible pill has a number. This checks the pills detected in the photo, not medicine left in the bottle. A mismatch makes the bottle result red. A confident appearance difference with unreadable text remains **UNSURE for that pill**, with a bottle warning; it never becomes an invented imprint-based mismatch. The bottle can be green only when every detected pill matches or is the same medicine from another listed seller. Unreadable pills lead to a retake. Touching pills, clutter, a varied background, zero pills or more than 20 call for a clearer photo.
+
+The one-pill path remains available. Shared bottle results contain readings, FDA evidence and numbered boxes on a neutral surface, **no uploaded photograph or crop**.
+
+`npm run smoke:bottle` runs three functional composites made from real NIH **development-cohort** consumer photographs on plain backgrounds, with cached readings and a $1 total cap. These examples are not part of the frozen benchmark and are not evidence of whole-bottle accuracy. Original benchmark results remain unchanged. Exact inputs, observed outcomes, spend and limitations are recorded in `HANDOFF.md`.
 
 ## Tests and limits
 
