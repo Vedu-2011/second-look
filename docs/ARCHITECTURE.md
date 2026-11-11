@@ -153,3 +153,28 @@ Repo: github.com/Vedu-2011/second-look — PUBLIC (DSH requires a public repo).
 - Finding: the FDA record for the NDC on our Kirkland bottle (63981-598) lists imprint "IB1", but the softgels inside
   say "IB 200". Second Look flags this (SAME_MEDICINE, different listing) instead of calling it a match.
 - Earlier demo NDCs (Kirkland 63981-598, Tylenol 50580-937, older tablet fixtures) stay as regression fixtures.
+
+## Decisions after phase 10 (builder, Nov 10) — pour and snap
+- Bottle-level rules, separate from the frozen single-pill benchmark (research numbers untouched).
+- Segmentation models the background locally (per-cell medians, smoothed), so dark paper with folds, a gradient or a
+  table strip works. Large edge-touching regions ("surfaces": >1% of the photo, spanning ≥40% of a side) are treated
+  as background; if they cover >35% of the photo we ask for a plainer surface.
+- Touching pills and pills cut off at the edge no longer fail the photo: they come back as circled clumps, never green.
+- Wrong pill from either side: one confident side that no listed version of the label's medicine has → MISMATCH.
+  Identifying the wrong pill needs both sides (recordedLead fallback lets identification work after a flip).
+- Look-alike groups (src/lib/bottle/lookalike.ts): per pill relative area, aspect, mean Lab color. Odd = outside
+  median ± 4 × robust SD of the same photo. Floors size 15% / shape 12% / color 8 (L counts half); caps 40% / 30% / 18.
+  Needs ≥3 pills and a 60% main group. Floors sit above the noise among identical pills in the harsh drawn scene
+  (size 8.6%, shape 0.5%, color 0); dev composites' odd pills differ by 13–36% / 66–83% / 21–63. Set from drawn
+  scenes and composites, not the demo photos. Odd → WARNING at least, and the first pill asked about.
+- Face-down: blank face + looks like the confirmed pills + the label product has an imprint → "writing face-down",
+  not confirmed. The FDA ";" format can't say which face is blank, so any imprinted product may have a blank face.
+- Max 3 flip asks; more than that → "Give the pills a gentle shake, pour again, snap again."
+- Flip and snap again: similarity-transform match by position (several starts, mutual nearest neighbours within
+  min(0.35 × median gap, pill size)). Re-read only asked or newly separated pills; any lost, added (outside a former
+  clump) or changed pill → fresh full check, said in the result. Quota max(1, ceil(rereads / 5)).
+- No score-line feature (not cheap enough to do reliably).
+- Real photos (Nov 10): the 10-pill bottle came back WARNING, not the expected RED: the amoxicillin read "22 63" at
+  confidence 0.6 (below the engine's bar) so it stayed "can't tell", but the look-alike check singled it out as a
+  different color and asked to flip it first. Three-pills-close photo with the metformin label → RED as expected.
+  No thresholds were tuned to these photos.

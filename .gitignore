@@ -45,3 +45,7 @@ next-env.d.ts
 
 # Development-only bottle composites and durable local smoke usage/cache
 /test-images/bottle/generated/
+
+# Phase 10: printable labels PDF and a photo of the printed sheet stay local
+/test-images/real/second-look-demo-labels.pdf
+/test-images/real/extra/labels-sheet-photo.jpg

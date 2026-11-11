@@ -1,7 +1,8 @@
 import sharp from "sharp";
 import { describe, expect, it } from "vitest";
 import { MAX_BOTTLE_BYTES, segmentBottle } from "./segment";
-import { scene } from "./test-scenes";
+import { deviations, oddOnesOut, referenceOf } from "./lookalike";
+import { grid, layout, scene } from "./test-scenes";
 
 describe("deterministic whole-bottle segmentation", () => {
   it.each(["white", "black", "#f6df89"])("finds every colored pill on %s", async (background) => {
@@ -23,22 +24,55 @@ describe("deterministic whole-bottle segmentation", () => {
     expect(found.boxes[1].x).toBeGreaterThan(found.boxes[0].x);
     expect(found.boxes[5].y).toBeGreaterThan(found.boxes[0].y);
   });
-  it.each([2, 9])("rejects a touching pair among %i pills without splitting", async (n) => {
-    const error = await segmentBottle(await scene(n, { touching: true })).then(() => null, (e) => e);
-    expect(error?.code).toBe("touching_clutter");
+  it.each([2, 9])("circles a touching pair among %i pills instead of failing the photo, and never splits it", async (n) => {
+    const found = await segmentBottle(await scene(n, { touching: true }));
+    expect(found.clumps).toEqual([expect.objectContaining({ kind: "touching" })]);
+    expect(found.boxes).toHaveLength(n - 2);
+    expect(found.crops).toHaveLength(n - 2);
+  });
+  it("circles a pill cut off at the edge, but ignores a thin table edge", async () => {
+    const found = await segmentBottle(await layout([...grid().slice(0, 4), { cx: 8, cy: 820 }], { strip: "#7a5a3a" }));
+    expect(found.boxes).toHaveLength(4);
+    expect(found.clumps).toEqual([expect.objectContaining({ kind: "cutoff" })]);
   });
   it("rejects no pills and 25 pills, and accepts exactly 20", async () => {
     await expect(segmentBottle(await scene(0))).rejects.toMatchObject({ code: "none" });
     await expect(segmentBottle(await scene(25))).rejects.toMatchObject({ code: "too_many" });
     expect((await segmentBottle(await scene(20))).boxes).toHaveLength(20);
   });
-  it("rejects a varied border, cut-off objects, and huge clutter", async () => {
-    const varied = await sharp(Buffer.from('<svg width="1200" height="1000"><rect width="600" height="1000" fill="white"/><rect x="600" width="600" height="1000" fill="black"/></svg>')).png().toBuffer();
-    await expect(segmentBottle(varied)).rejects.toMatchObject({ code: "background" });
-    const edge = await sharp(Buffer.from('<svg width="1200" height="1000"><rect width="1200" height="1000" fill="white"/><ellipse cx="2" cy="500" rx="60" ry="40" fill="blue"/></svg>')).png().toBuffer();
-    await expect(segmentBottle(edge)).rejects.toBeInstanceOf(Error);
+  it("works on a real-life counter: lighting gradient, fold lines and a strip of table along one edge", async () => {
+    const found = await segmentBottle(await layout(grid(), { gradient: true, folds: true, strip: "#7a5a3a" }));
+    expect(found.boxes).toHaveLength(9);
+    expect(found.clumps).toHaveLength(0);
+  });
+  it("finds pills on both halves of a two-tone surface", async () => {
+    const twoTone = await sharp(Buffer.from(`<svg width="1200" height="1000"><rect width="600" height="1000" fill="white"/><rect x="600" width="600" height="1000" fill="#202024"/><ellipse cx="200" cy="300" rx="60" ry="32" fill="#3066b8"/><ellipse cx="300" cy="700" rx="60" ry="32" fill="#3066b8"/><ellipse cx="900" cy="300" rx="60" ry="32" fill="#f2f0ea"/><ellipse cx="950" cy="700" rx="60" ry="32" fill="#f2f0ea"/></svg>`)).png().toBuffer();
+    expect((await segmentBottle(twoTone)).boxes).toHaveLength(4);
+  });
+  it("rejects a busy patterned background and huge clutter", async () => {
+    await expect(segmentBottle(await layout(grid(), { stripes: true }))).rejects.toMatchObject({ code: "background" });
     const clutter = await sharp(Buffer.from('<svg width="1200" height="1000"><rect width="1200" height="1000" fill="white"/><rect x="100" y="100" width="900" height="700" fill="blue"/></svg>')).png().toBuffer();
     await expect(segmentBottle(clutter)).rejects.toMatchObject({ code: "touching_clutter" });
+  });
+  it("measures size and shape from the silhouette", async () => {
+    const found = await segmentBottle(await layout([{ cx: 250, cy: 250, rx: 80, ry: 40 }, { cx: 650, cy: 250, rx: 80, ry: 40 }, { cx: 450, cy: 650, rx: 40, ry: 40, color: "#e8a040" }]));
+    const [a, , round] = found.features;
+    expect(a.aspect).toBeCloseTo(2, 1);
+    expect(round.aspect).toBeCloseTo(1, 1);
+    expect(round.relativeArea).toBeCloseTo(0.5, 1);
+    expect(round.lab[2]).toBeGreaterThan(a.lab[2] + 20); // orange is far more yellow than off-white
+  });
+  it("keeps identical pills alike in a harsh scene (the noise the look-alike floors sit above)", async () => {
+    // Tilt shrinks far rows up to 8%; shadows, folds, blur and JPEG on top.
+    const pills = grid(Array.from({ length: 9 }, (_, i) => { const k = 1 - 0.04 * Math.floor(i / 3); return { angle: i * 17 - 60, rx: 60 * k, ry: 32 * k }; }));
+    const harsh = await sharp(await layout([...pills.map((p) => ({ ...p, cx: p.cx + 7, cy: p.cy + 9, color: "#0c0c0e" })), ...pills], { gradient: true, folds: true, strip: "#7a5a3a" })).blur(1.6).jpeg({ quality: 65 }).toBuffer();
+    const found = await segmentBottle(harsh);
+    expect(found.boxes).toHaveLength(9);
+    const ref = referenceOf(found.features), worst = found.features.map((f) => deviations(f, ref));
+    expect(Math.max(...worst.map((d) => d.size))).toBeLessThan(Math.log(1.1));
+    expect(Math.max(...worst.map((d) => d.shape))).toBeLessThan(Math.log(1.05));
+    expect(Math.max(...worst.map((d) => d.color))).toBeLessThan(3);
+    expect(oddOnesOut(found.features)?.odd.size).toBe(0);
   });
   it("crops original pixels rather than the 1200px working image", async () => {
     const full = await sharp(await scene(9)).resize(3600, 3000).png().toBuffer();

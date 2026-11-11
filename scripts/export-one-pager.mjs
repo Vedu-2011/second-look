@@ -3,7 +3,7 @@ import { copyFile, mkdir } from "node:fs/promises";
 import { chromium } from "playwright-core";
 
 const base = process.argv[2] || "http://localhost:3211";
-const output = process.env.ONE_PAGER_SCREENSHOTS_DIR || "docs/screenshots/phase-7";
+const output = process.env.ONE_PAGER_SCREENSHOTS_DIR || "docs/screenshots/phase-10";
 const pdfPath = process.env.ONE_PAGER_PDF_PATH || "public/second-look-one-pager.pdf";
 const picture = "public/one-pager-result.png";
 await mkdir(output, { recursive: true });
@@ -17,8 +17,10 @@ try {
   // real photos are added to the sample replay later. No model calls.
   const page = await browser.newPage({viewport:{width:1440,height:2400},deviceScaleFactor:2,reducedMotion:"reduce"});
   await page.goto(base + "/type", {waitUntil:"networkidle"});
-  await page.getByRole("textbox", {name:/NDC on the label/}).fill("0113-0517");
-  await page.getByRole("textbox", {name:/Imprint on one side/}).fill("L484");
+  // The final demo: metformin label, amoxicillin 93 / 2263 look-alike (phase 8 addendum 3).
+  await page.getByRole("textbox", {name:/NDC on the label/}).fill("70010-065");
+  await page.getByRole("textbox", {name:/Imprint on one side/}).fill("93");
+  await page.getByRole("textbox", {name:/Other side/}).fill("2263");
   await page.getByRole("button", {name:"White",exact:true}).click();
   await page.getByRole("button", {name:"Oval",exact:true}).click();
   const [response] = await Promise.all([
@@ -28,14 +30,14 @@ try {
   assert.equal(response.status(), 200);
   const checked = await response.json();
   assert.equal(checked.verdict, "MISMATCH");
-  assert.match(checked.identifiedAs?.title, /Acetaminophen 500 mg/i);
+  assert.match(checked.identifiedAs?.title, /Amoxicillin 500 mg/i);
   const result = page.getByRole("article", {name:"Check result"});
   const verdict = result.locator('[data-verdict="MISMATCH"]');
   const cards = result.locator(":scope > div").filter({has:page.getByText("What the FDA says it should look like", {exact:true})}).first();
   await cards.getByText("What's in your bottle", {exact:true}).waitFor();
   const drawings = cards.locator("svg[role=img]");
-  assert.match(await drawings.nth(0).getAttribute("aria-label"), /I2/);
-  assert.match(await drawings.nth(1).getAttribute("aria-label"), /L484/);
+  assert.match(await drawings.nth(0).getAttribute("aria-label"), /G/);
+  assert.match(await drawings.nth(1).getAttribute("aria-label"), /93/);
   await page.evaluate(async () => { await document.fonts.ready; window.scrollTo(0, 0); });
   const top = await verdict.boundingBox();
   const bottom = await cards.boundingBox();

@@ -43,7 +43,7 @@ describe("POST /api/check-bottle", () => {
     expect(response.status).toBe(200); expect(response.headers.get("content-type")).toContain("ndjson"); expect(response.headers.get("cache-control")).toBe("no-store");
     const output = await events(response);
     expect(output.filter((e) => e.type === "step").map((e) => `${e.step}:${e.state}`)).toEqual(["0:working", "0:done", "1:working", "1:done", "2:working", "2:done", "3:working", "3:done"]);
-    expect(output.filter((e) => e.type === "progress").map((e) => e.completed)).toEqual([1,2,3,4,5,6,7,8,9]);
+    expect(output.filter((e) => e.type === "progress").map((e) => e.completed)).toEqual([0,1,2,3,4,5,6,7,8,9]);
     expect(readLabel).toHaveBeenCalledTimes(1); expect(readPill).toHaveBeenCalledTimes(9); expect(peak).toBe(5); expect(resolveLabelData).toHaveBeenCalledTimes(1);
     expect(vi.mocked(readPill).mock.calls.every((c) => c[1]?.model === "claude-sonnet-5-5")).toBe(true);
     expect(consumeCheckLimit).toHaveBeenNthCalledWith(1, "unknown"); expect(consumeCheckLimit).toHaveBeenNthCalledWith(2, "unknown", 1);
@@ -63,8 +63,14 @@ describe("POST /api/check-bottle", () => {
   it.each([0,25])("rejects %i detected pills before pill AI", async (n) => {
     const output = await events(await POST(await request(n))); expect(output.at(-1).type).toBe("retake"); expect(readPill).not.toHaveBeenCalled();
   });
-  it("rejects touching pills and an unreadable label without crop calls", async () => {
-    expect((await events(await POST(await request(9, true)))).at(-1).type).toBe("retake"); expect(readPill).not.toHaveBeenCalled();
+  it("checks the separate pills, circles touching ones without reading them, and is never green", async () => {
+    const terminal = (await events(await POST(await request(9, true)))).at(-1);
+    expect(terminal.type).toBe("result"); expect(readPill).toHaveBeenCalledTimes(7);
+    expect(terminal.result.clumps).toEqual([expect.objectContaining({ kind: "touching" })]);
+    expect(terminal.result.decision).toMatchObject({ verdict: "UNSURE", matched: 7, next: "nudge" });
+    expect((await getBottleResult(terminal.shareId))?.result.clumps).toHaveLength(1);
+  });
+  it("rejects an unreadable label without crop calls", async () => {
     vi.mocked(readLabel).mockResolvedValueOnce({ isPrescriptionLabel: false });
     expect((await events(await POST(await request()))).at(-1).code).toBe("not_label"); expect(readPill).not.toHaveBeenCalled();
   });
@@ -82,5 +88,37 @@ describe("POST /api/check-bottle", () => {
     const [a,b] = await Promise.all([request(3), request(3)]);
     const output = await Promise.all([POST(a).then(events), POST(b).then(events)]);
     expect(output.map((o) => o.at(-1).result.usage.length)).toEqual([3,3]);
+  });
+  describe("flip and snap again", () => {
+    async function again(previousId: string, count = 9) {
+      const form = new FormData();
+      form.set("previousId", previousId);
+      form.set("bottleImage", new Blob([new Uint8Array(await scene(count))], { type: "image/png" }), "pills.jpg");
+      return new Request("http://localhost/api/check-bottle", { method: "POST", body: form });
+    }
+    it("an unknown or expired first check is a friendly 404 before any AI or quota", async () => {
+      const response = await POST(await again("00000000-0000-4000-8000-000000000000"));
+      expect(response.status).toBe(404); expect((await response.json()).error).toContain("expired");
+      expect(consumeCheckLimit).not.toHaveBeenCalled(); expect(readPill).not.toHaveBeenCalled();
+    });
+    it("reuses the saved label, re-reads only the pills we asked about, and counts one check", async () => {
+      const first = (await events(await POST(await request()))).at(-1);
+      const stored = await getBottleResult(first.shareId);
+      stored!.result.decision.asks = [3]; // as if pill 3 had been face-down
+      vi.clearAllMocks(); vi.mocked(consumeCheckLimit).mockResolvedValue({ allowed: true, count: 1 });
+      const terminal = (await events(await POST(await again(first.shareId)))).at(-1);
+      expect(terminal.type).toBe("result");
+      expect(readLabel).not.toHaveBeenCalled(); expect(readPill).toHaveBeenCalledTimes(1);
+      expect(terminal.result.followUp).toMatchObject({ mode: "reread", reread: [3], reused: 8 });
+      expect(consumeCheckLimit).toHaveBeenCalledTimes(1);
+      expect((await getBottleResult(terminal.shareId))?.result.followUp?.reread).toEqual([3]);
+    });
+    it("checks every pill again when the count changed, and says so", async () => {
+      const first = (await events(await POST(await request()))).at(-1);
+      vi.clearAllMocks(); vi.mocked(consumeCheckLimit).mockResolvedValue({ allowed: true, count: 1 });
+      const terminal = (await events(await POST(await again(first.shareId, 11)))).at(-1);
+      expect(terminal.result.followUp.mode).toBe("fresh"); expect(readPill).toHaveBeenCalledTimes(11);
+      expect(consumeCheckLimit).toHaveBeenNthCalledWith(2, "unknown", 2); // ceil(11 / 5) = 3 checks in all
+    });
   });
 });

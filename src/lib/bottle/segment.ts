@@ -1,5 +1,5 @@
 import sharp from "sharp";
-import type { NormalizedBox } from "./types";
+import type { BottleClump, NormalizedBox, PillFeatures } from "./types";
 
 export const MAX_BOTTLE_PILLS = 20;
 export const MAX_BOTTLE_BYTES = 12 * 1024 * 1024;
@@ -11,6 +11,10 @@ export class SegmentationError extends Error {
 export type SegmentedBottle = {
   image: { width: number; height: number };
   boxes: NormalizedBox[];
+  /** Measured from each pill's silhouette in the photo (no AI); same order as boxes. */
+  features: PillFeatures[];
+  /** Touching pills and pills cut off at the edge: circled, never read, never green. */
+  clumps: BottleClump[];
   /** Request-local only. Never serialize or store this object. */
   crops: Buffer[];
 };
@@ -82,6 +86,93 @@ function hasNeck(pixels: Int32Array, count: number, w: number) {
   }
   return false;
 }
+/**
+ * Background color, estimated locally. Real counters and towels have folds, shading and a strip of table at one
+ * edge, so one global background color fails. Pass 1 takes a wide median of coarse cells (pills are a minority of
+ * any window when spread out); pass 2 re-averages each cell from pixels pass 1 called background.
+ */
+function localBackground(labs: Float32Array, w: number, h: number, threshold: (d: Float32Array) => number) {
+  const cell = Math.max(8, Math.round(Math.min(w, h) / 48)), gw = Math.ceil(w / cell), gh = Math.ceil(h / cell);
+  const grid = (values: (gx: number, gy: number) => number[] | null) => {
+    const out = new Float32Array(gw * gh * 3), known = new Uint8Array(gw * gh);
+    for (let gy = 0; gy < gh; gy++) for (let gx = 0; gx < gw; gx++) { const v = values(gx, gy); if (v) { out.set(v, (gy * gw + gx) * 3); known[gy * gw + gx] = 1; } }
+    return { out, known };
+  };
+  const sample = (from: Float32Array, x: number, y: number) => {
+    // Bilinear between cell centers, so the model has no block edges.
+    const fx = Math.min(gw - 1, Math.max(0, (x + 0.5) / cell - 0.5)), fy = Math.min(gh - 1, Math.max(0, (y + 0.5) / cell - 0.5));
+    const x0 = Math.floor(fx), y0 = Math.floor(fy), x1 = Math.min(gw - 1, x0 + 1), y1 = Math.min(gh - 1, y0 + 1), tx = fx - x0, ty = fy - y0;
+    return [0, 1, 2].map((c) => (from[(y0 * gw + x0) * 3 + c] * (1 - tx) + from[(y0 * gw + x1) * 3 + c] * tx) * (1 - ty) + (from[(y1 * gw + x0) * 3 + c] * (1 - tx) + from[(y1 * gw + x1) * 3 + c] * tx) * ty);
+  };
+  const distances = (model: Float32Array) => {
+    const d = new Float32Array(w * h);
+    for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) { const i = y * w + x, b = sample(model, x, y); d[i] = Math.hypot(labs[3 * i] - b[0], labs[3 * i + 1] - b[1], labs[3 * i + 2] - b[2]); }
+    return d;
+  };
+  // Pass 1: per-cell medians, then a median over a window about a quarter of the photo wide.
+  const cells = grid((gx, gy) => {
+    const ch: number[][] = [[], [], []];
+    for (let y = gy * cell; y < Math.min(h, (gy + 1) * cell); y += 2) for (let x = gx * cell; x < Math.min(w, (gx + 1) * cell); x += 2) for (let c = 0; c < 3; c++) ch[c].push(labs[(y * w + x) * 3 + c]);
+    return ch.map(median);
+  }).out;
+  const radius = Math.max(2, Math.round(Math.min(gw, gh) * 0.13));
+  const first = grid((gx, gy) => {
+    const ch: number[][] = [[], [], []];
+    for (let y = Math.max(0, gy - radius); y <= Math.min(gh - 1, gy + radius); y++) for (let x = Math.max(0, gx - radius); x <= Math.min(gw - 1, gx + radius); x++) for (let c = 0; c < 3; c++) ch[c].push(cells[(y * gw + x) * 3 + c]);
+    return ch.map(median);
+  }).out;
+  const d1 = distances(first), t1 = threshold(d1);
+  // Pass 2: average only pixels pass 1 called background (with a margin), fill gaps from neighbors, smooth.
+  const second = grid((gx, gy) => {
+    const sum = [0, 0, 0]; let count = 0, total = 0;
+    for (let y = gy * cell; y < Math.min(h, (gy + 1) * cell); y++) for (let x = gx * cell; x < Math.min(w, (gx + 1) * cell); x++) {
+      total++; const i = y * w + x; if (d1[i] > t1 * 0.6) continue;
+      count++; for (let c = 0; c < 3; c++) sum[c] += labs[3 * i + c];
+    }
+    return count >= total * 0.3 ? sum.map((v) => v / count) : null;
+  });
+  for (let pass = 0; pass < gw + gh && second.known.includes(0); pass++) {
+    const known = second.known.slice();
+    for (let gy = 0; gy < gh; gy++) for (let gx = 0; gx < gw; gx++) {
+      const i = gy * gw + gx; if (known[i]) continue;
+      const sum = [0, 0, 0]; let n = 0;
+      for (const [x, y] of [[gx - 1, gy], [gx + 1, gy], [gx, gy - 1], [gx, gy + 1]]) if (x >= 0 && y >= 0 && x < gw && y < gh && known[y * gw + x]) { n++; for (let c = 0; c < 3; c++) sum[c] += second.out[(y * gw + x) * 3 + c]; }
+      if (n) { second.out.set(sum.map((v) => v / n), i * 3); second.known[i] = 1; }
+    }
+  }
+  if (second.known.includes(0)) return d1; // no background anywhere: keep pass 1
+  const smooth = grid((gx, gy) => {
+    const sum = [0, 0, 0]; let n = 0;
+    for (let y = Math.max(0, gy - 1); y <= Math.min(gh - 1, gy + 1); y++) for (let x = Math.max(0, gx - 1); x <= Math.min(gw - 1, gx + 1); x++) { n++; for (let c = 0; c < 3; c++) sum[c] += second.out[(y * gw + x) * 3 + c]; }
+    return sum.map((v) => v / n);
+  }).out;
+  return distances(smooth);
+}
+/** Size, shape and color of one silhouette, from its pixels only (no AI). Lengths are in working-image pixels. */
+function measure(pixels: Int32Array, w: number, labs: Float32Array, n: number): Omit<PillFeatures, "relativeArea"> {
+  let sx = 0, sy = 0, sxx = 0, syy = 0, sxy = 0;
+  for (let j = 0; j < pixels.length; j++) { const x = pixels[j] % w, y = Math.floor(pixels[j] / w); sx += x; sy += y; sxx += x * x; syy += y * y; sxy += x * y; }
+  const c = pixels.length, mx = sx / c, my = sy / c, vxx = sxx / c - mx * mx, vyy = syy / c - my * my, vxy = sxy / c - mx * my;
+  const spread = Math.sqrt(((vxx - vyy) / 2) ** 2 + vxy ** 2), major = (vxx + vyy) / 2 + spread, minor = Math.max(0.25, (vxx + vyy) / 2 - spread);
+  const angle = Math.atan2(2 * vxy, vxx - vyy) / 2, cos = Math.cos(angle), sin = Math.sin(angle);
+  // Color from the middle of the pill only, away from shadows and edge blending.
+  const ch: number[][] = [[], [], []];
+  for (let j = 0; j < pixels.length; j++) {
+    const dx = pixels[j] % w - mx, dy = Math.floor(pixels[j] / w) - my, u = dx * cos + dy * sin, v = -dx * sin + dy * cos;
+    if (u * u / (4 * major) + v * v / (4 * minor) < 0.45) for (let k = 0; k < 3; k++) ch[k].push(labs[pixels[j] * 3 + k]);
+  }
+  const length = 4 * Math.sqrt(major), width = 4 * Math.sqrt(minor);
+  return { length, width, aspect: length / width, area: c / n, lab: ch.map((v) => Math.round(median(v) * 10) / 10) as [number, number, number] };
+}
+type Component = { x: number; y: number; width: number; height: number; area: number; solidity: number; neck: boolean; edge: boolean; pixels: Int32Array };
+const toBox = (p: Component, w: number, h: number, image: { width: number; height: number }) => {
+  const pad = Math.max(4, Math.round(Math.max(p.width, p.height) * 0.08));
+  const left = Math.max(0, Math.floor((p.x - pad) * image.width / w)), top = Math.max(0, Math.floor((p.y - pad) * image.height / h));
+  const right = Math.min(image.width, Math.ceil((p.x + p.width + pad) * image.width / w)), bottom = Math.min(image.height, Math.ceil((p.y + p.height + pad) * image.height / h));
+  return { region: { left, top, width: right - left, height: bottom - top }, box: { x: left / image.width, y: top / image.height, width: (right - left) / image.width, height: (bottom - top) / image.height } };
+};
+const rowMajor = <T extends { y: number; x: number; height: number }>(a: T, b: T) => Math.abs(a.y - b.y) < Math.min(a.height, b.height) * 0.5 ? a.x - b.x : a.y - b.y;
+
 /** Deterministic foreground finding only. No drug recognition, no splitting ambiguous blobs. */
 export async function segmentBottle(input: Buffer, options: { diagnostics?: (value: unknown) => void } = {}): Promise<SegmentedBottle> {
   if (!input.length || input.length > MAX_BOTTLE_BYTES) throw new SegmentationError("bytes", "Choose a photograph under 12 MB.");
@@ -96,25 +187,23 @@ export async function segmentBottle(input: Buffer, options: { diagnostics?: (val
   const { data, info } = await sharp(original.data).resize({ width: 1200, height: 1200, fit: "inside", withoutEnlargement: true }).removeAlpha().raw().toBuffer({ resolveWithObject: true });
   const w = info.width, h = info.height, n = w * h;
   if (w < 100 || h < 100) throw new SegmentationError("small", "Move closer and use a larger photograph.");
-  const labs = new Float32Array(n * 3), border: number[][] = [[], [], []];
+  const labs = new Float32Array(n * 3);
   const edge = Math.max(2, Math.round(Math.min(w, h) * 0.025));
   const borderIndices: number[] = [];
   for (let i = 0; i < n; i++) {
-    const c = lab(data[i * info.channels], data[i * info.channels + 1], data[i * info.channels + 2]);
-    labs.set(c, i * 3);
+    labs.set(lab(data[i * info.channels], data[i * info.channels + 1], data[i * info.channels + 2]), i * 3);
     const x = i % w, y = Math.floor(i / w);
-    if ((x < edge || x >= w - edge || y < edge || y >= h - edge) && i % 3 === 0) { c.forEach((v, j) => border[j].push(v)); borderIndices.push(i); }
+    if ((x < edge || x >= w - edge || y < edge || y >= h - edge) && i % 3 === 0) borderIndices.push(i);
   }
-  const bg = border.map(median), distances = new Float32Array(n), hist = new Uint32Array(256);
-  for (let i = 0; i < n; i++) { const d = Math.hypot(labs[3 * i] - bg[0], labs[3 * i + 1] - bg[1], labs[3 * i + 2] - bg[2]); distances[i] = d; hist[Math.min(255, Math.round(d))]++; }
-  if (quantile(borderIndices.map((i) => distances[i]), 0.9) > 13) throw new SegmentationError("background", "The background varies too much to find every pill safely.");
-  const threshold = Math.max(12, otsu(hist, n) + 0.5);
+  const otsuThreshold = (d: Float32Array) => { const hist = new Uint32Array(256); for (const v of d) hist[Math.min(255, Math.round(v))]++; return Math.max(12, otsu(hist, d.length) + 0.5); };
+  const distances = localBackground(labs, w, h, otsuThreshold);
+  const threshold = otsuThreshold(distances);
   let mask = Uint8Array.from(distances, (d) => d > threshold ? 1 : 0);
   mask = morph(morph(mask, w, h, false), w, h, true); // opening removes tiny specks
   mask = morph(morph(mask, w, h, true), w, h, false); // closing joins imprint holes
   fillHoles(mask, w, h);
   const seen = new Uint8Array(n), queue = new Int32Array(n);
-  const components: { x: number; y: number; width: number; height: number; area: number; solidity: number; neck: boolean; edge: boolean }[] = [];
+  const components: Component[] = [];
   const minArea = Math.max(24, n * 0.00008);
   for (let seed = 0; seed < n; seed++) {
     if (!mask[seed] || seen[seed]) continue;
@@ -129,27 +218,39 @@ export async function segmentBottle(input: Buffer, options: { diagnostics?: (val
     }
     if (tail < minArea) continue;
     const hull = hullArea([...rows].flatMap(([y, [a, b]]) => [[a, y], [b, y]] as Point[]));
-    components.push({ x: minX, y: minY, width: maxX - minX + 1, height: maxY - minY + 1, area: tail, solidity: tail / Math.max(1, hull), neck: hasNeck(queue, tail, w), edge: minX <= edge || minY <= edge || maxX >= w - edge || maxY >= h - edge });
+    components.push({ x: minX, y: minY, width: maxX - minX + 1, height: maxY - minY + 1, area: tail, solidity: tail / Math.max(1, hull), neck: hasNeck(queue, tail, w), edge: minX <= edge || minY <= edge || maxX >= w - edge || maxY >= h - edge, pixels: queue.slice(0, tail) });
   }
-  const typical = median(components.map((c) => c.area));
-  const pills = components.filter((c) => c.area >= typical * 0.04);
-  options.diagnostics?.({ threshold, typical, pills });
-  if (!pills.length) throw new SegmentationError("none", "We couldn't find any separate pills.");
+  // Another surface along a side of the photo (the table past the towel, a plate rim) runs along that side.
+  // It is background, not a pill; but if such surfaces cover much of the photo, the background is too busy.
+  const surfaces = components.filter((c) => c.edge && c.area > n * 0.01 && (c.width >= w * 0.4 || c.height >= h * 0.4));
+  if (surfaces.reduce((sum, c) => sum + c.area, 0) > n * 0.35) throw new SegmentationError("background", "The background varies too much to find every pill safely.");
+  const onSurface = new Uint8Array(n); for (const c of surfaces) for (const i of c.pixels) onSurface[i] = 1;
+  // After removing slow shading, the rest of the border must be plain: a busy pattern could hide or invent pills.
+  if (quantile(borderIndices.filter((i) => !onSurface[i]).map((i) => distances[i]), 0.9) > 13) throw new SegmentationError("background", "The background varies too much to find every pill safely.");
+  // "Typical" comes from objects fully inside the frame, so a long table edge can't skew it.
+  const typical = median(components.filter((c) => !c.edge).map((c) => c.area)) || median(components.filter((c) => !surfaces.includes(c)).map((c) => c.area));
+  const objects = components.filter((c) => !surfaces.includes(c) && c.area >= typical * 0.04);
+  if (objects.some((c) => c.area > n * 0.18)) throw new SegmentationError("touching_clutter", "Something large is in the photo with the pills.");
+  const thin = (c: Component) => Math.max(c.width / c.height, c.height / c.width) > 4.3 || c.area / (c.width * c.height) < 0.36;
+  // At the edge: a real cut-off pill is circled; a thin sliver (a table or paper edge) is not a pill.
+  const cutoffs = objects.filter((c) => c.edge && c.area >= typical * 0.25 && !thin(c));
+  const inside = objects.filter((c) => !c.edge);
+  const touching = inside.filter((c) => c.neck || c.area > typical * 2.2 || c.solidity < 0.91 || thin(c));
+  const pills = inside.filter((c) => !touching.includes(c));
+  options.diagnostics?.({ threshold, typical, pills, touching, cutoffs, surfaces: surfaces.length, ignoredAtEdge: objects.filter((c) => c.edge && !cutoffs.includes(c)).length });
+  if (!pills.length && !touching.length && !cutoffs.length) throw new SegmentationError("none", "We couldn't find any separate pills.");
   if (pills.length > MAX_BOTTLE_PILLS) throw new SegmentationError("too_many", `We found ${pills.length} objects, more than the 20-pill limit.`);
-  if (pills.some((c) => c.edge || c.neck || c.area > typical * 2.2 || c.area > n * 0.18 || Math.max(c.width / c.height, c.height / c.width) > 4.3 || c.solidity < 0.91 || c.area / (c.width * c.height) < 0.36)) throw new SegmentationError("touching_clutter", "Some pills may be touching, cut off, or mixed with other objects.");
   // Stable row-major numbering. No shape/color assumptions influence which blobs are kept.
-  pills.sort((a, b) => Math.abs(a.y - b.y) < Math.min(a.height, b.height) * 0.5 ? a.x - b.x : a.y - b.y);
-  const boxes: NormalizedBox[] = [], crops: Buffer[] = [];
+  pills.sort(rowMajor);
+  const pillArea = median(pills.map((p) => p.area)) || typical;
+  const boxes: NormalizedBox[] = [], crops: Buffer[] = [], features: PillFeatures[] = [];
   for (const p of pills) {
-    const pad = Math.max(4, Math.round(Math.max(p.width, p.height) * 0.08));
-    const left = Math.max(0, Math.floor((p.x - pad) * image.width / w));
-    const top = Math.max(0, Math.floor((p.y - pad) * image.height / h));
-    const right = Math.min(image.width, Math.ceil((p.x + p.width + pad) * image.width / w));
-    const bottom = Math.min(image.height, Math.ceil((p.y + p.height + pad) * image.height / h));
-    const region = { left, top, width: right - left, height: bottom - top };
-    boxes.push({ x: left / image.width, y: top / image.height, width: region.width / image.width, height: region.height / image.height });
+    const { region, box } = toBox(p, w, h, image);
+    boxes.push(box);
+    features.push({ ...measure(p.pixels, w, labs, n), relativeArea: p.area / pillArea });
     crops.push(await sharp(original.data).extract(region).png().toBuffer());
-
   }
-  return { image, boxes, crops };
+  const clumps: BottleClump[] = [...touching.map((c) => ({ c, kind: "touching" as const })), ...cutoffs.map((c) => ({ c, kind: "cutoff" as const }))]
+    .sort((a, b) => rowMajor(a.c, b.c)).map(({ c, kind }) => ({ kind, box: toBox(c, w, h, image).box }));
+  return { image, boxes, features, clumps, crops };
 }

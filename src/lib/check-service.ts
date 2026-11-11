@@ -5,6 +5,7 @@ import type { DrugConcept, LabelMeta, Product } from "@/lib/fda/types";
 import { decide, type EngineData, type EngineResult, type LabelReading, type PillReading } from "@/lib/verdict-engine";
 
 import { listingEvidence, type ListingEvidence } from './listing-evidence';
+import { recordedLead } from './recorded-lead';
 
 export type CheckResult = EngineResult & {
   matchingListings?: ListingEvidence | null;
@@ -65,10 +66,13 @@ export async function runResolvedCheck(label: LabelReading, pill: PillReading, r
   let result = decide(label, pill, data);
   let guessProducts: Product[] = [];
 
-  // 3. Doesn't match: check the reader's guess against FDA data to say what the pill really is.
-  if (result.verdict === "MISMATCH" && pill.guess?.drugName) {
+  // 3. Doesn't match: check a lead against FDA data to say what the pill really is. The lead is the reader's
+  // guess, else our recorded FDA imprint index: a flip merges two photos, and neither photo alone shows enough
+  // to guess from. Either way the lead only names a candidate; the engine re-checks the whole imprint.
+  const lead = pill.guess?.drugName ? pill.guess : recordedLead(pill);
+  if (result.verdict === "MISMATCH" && lead?.drugName) {
     t = performance.now();
-    const guessLabel = { drugName: pill.guess.drugName, strength: pill.guess.strength, form: pill.form };
+    const guessLabel = { drugName: lead.drugName, strength: lead.strength, form: pill.form };
     const cacheKey = drugTerm(guessLabel) ?? "";
     let pending = resolved.guesses.get(cacheKey);
     if (!pending) {

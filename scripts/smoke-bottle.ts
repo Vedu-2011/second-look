@@ -76,7 +76,7 @@ async function main() {
       if (readerFailure) throw readerFailure;
       if (!result) throw new Error(`${id}: ${JSON.stringify(events.find((e) => e.type === "retake"))}`);
       if (expectedCount && result.pills.length !== expectedCount) throw new Error(`${id}: found ${result.pills.length}, expected ${expectedCount}; no accuracy claim permitted.`);
-      const output = { scenario: id, scope: "Functional demo, not benchmark evidence", perPill: result.pills.map((p) => ({ number: p.number, verdict: p.result.verdict, imprint: p.result.pill.imprintSides, appearanceWarning: p.appearanceWarning ?? null })), bottle: result.decision, elapsedMs: Math.round(performance.now() - started), newSpendUsd: ledger.spent() - before, totalUsage: ledger.summary(), cacheHits };
+      const output = { scenario: id, scope: "Functional demo, not benchmark evidence", perPill: result.pills.map((p) => ({ number: p.number, verdict: p.result.verdict, imprint: p.result.pill.imprintSides, imprintConfidence: p.result.pill.imprintConfidence, colors: p.result.pill.colors, shape: p.result.pill.shape, identifiedAs: p.result.identifiedAs?.title ?? null, appearanceWarning: p.appearanceWarning ?? null, odd: p.odd ?? null, faceDown: p.faceDown ?? false })), clumps: result.clumps ?? [], bottle: result.decision, elapsedMs: Math.round(performance.now() - started), newSpendUsd: ledger.spent() - before, totalUsage: ledger.summary(), cacheHits };
       outputs.push(output);
       await writeFile(path.join(dir, `${id}-result.json`), JSON.stringify(result, null, 2) + "\n");
       console.log(JSON.stringify(output, null, 2));
@@ -88,8 +88,11 @@ async function main() {
     const realPills = await readFile(path.join(realDir, "pills.jpg")).catch(() => null);
     if (realLabel && realPills) {
       const label = await cachedRead({ mediaType: "image/jpeg", base64: realLabel.toString("base64") }, "label") as LabelReading;
-      await checkScenario("real-bottle", realPills, label);
+      await checkScenario("real-bottle", realPills, label, 10);
     } else console.log("Real bottle pair absent: skipped. Composites are not real-bottle validation.");
+    // Three loose pills (metformin G 12, amoxicillin 93, Tylenol) with the metformin label TYPED, not read from a photo.
+    const threePills = await readFile(path.join(root, "test-images/real/extra/three-pills-close.jpg")).catch(() => null);
+    if (threePills) await checkScenario("real-three-pills", threePills, { ndc: "70010-065", drugName: "Metformin", strength: "1,000 mg", form: "tablet" }, 3);
     await writeFile(path.join(dir, "smoke-output.json"), JSON.stringify({ outputs, usage: ledger.summary() }, null, 2) + "\n");
     console.log(JSON.stringify({ final: ledger.summary(), cacheHits }));
   } finally { await lock.close(); await unlink(path.join(dir, "smoke.lock")); }

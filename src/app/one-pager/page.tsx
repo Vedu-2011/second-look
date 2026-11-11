@@ -3,13 +3,16 @@ import type { Metadata } from "next";
 import { QRCodeSVG } from "qrcode.react";
 import { BrandMark } from "@/components/site-chrome";
 import { PillDrawing } from "@/components/pill-drawing";
-import { IBUPROFEN_I2_OVAL as example } from "@/lib/fda/fixtures";
+import type { Product } from "@/lib/fda/types";
+import { REAL_DEMO } from "@/lib/sample-results";
 import "./print.css";
 
 export const metadata: Metadata = { title:"One-page project description", description:"Second Look: the problem, FDA-backed checker, frozen NIH results and limits on one printable page.", robots:{index:false,follow:false} };
 const app="https://getsecondlook.vercel.app";
-// Snapshot of the deduplicated count from the live app at export time.
-const ibuprofenVersions = 507;
+// The demo label's medicine: metformin 1,000 mg (NDC 70010-065). Count of FDA-listed products in its RxNorm group,
+// from the recorded FDA snapshot the app's samples use (src/lib/fda/__fixtures__/real-demo.json).
+const metformin = REAL_DEMO.products["70010-065"] as Product;
+const metforminVersions = REAL_DEMO.groups["861004"].products.length;
 const outcomes = [
   ["Right when it gave an answer", "83 of 88", "83 of 94"],
   ["False alarms on the right pill", "4", "9"],
@@ -21,7 +24,7 @@ export default function OnePager() {
     <div className="one-pager-tools"><a href="/second-look-one-pager.pdf">Download the one-page PDF</a><p>Print at 100%, US Letter, headers and footers off.</p></div>
     <article className="one-pager">
       <header className="sheet-heading"><BrandMark/><div><h1>Second Look</h1><p>Is the pill in your bottle the medicine on your label?</p></div></header>
-      <p className="sheet-pitch">Take a photo of the pharmacy label and one pill. Second Look reads both, checks the pill against every FDA record for that medicine, and shows you the proof in about 10 seconds.</p>
+      <p className="sheet-pitch">Snap the pharmacy label, then pour the pills onto a towel and snap them. Second Look checks every pill against every FDA record for that medicine and shows the proof. Unsure about one? Flip just that pill and snap again.</p>
 
       <div className="sheet-evidence">
        <div className="sheet-story">
@@ -35,20 +38,20 @@ export default function OnePager() {
         </section>
         <section className="sheet-how">
           <h2>AI reads. Code decides.</h2>
-          <ol>{["Label photo", "Pill photo", "AI reads", "FDA records", "Code decides"].map((step, i) => (
+          <ol>{["Label photo", "Pills photo", "AI reads", "FDA records", "Code decides"].map((step, i) => (
             <li key={step}><span>{step}</span>{i < 4 && <b aria-hidden>→</b>}</li>
           ))}</ol>
-          <p>Claude reads the label and the letters stamped on the pill. Then plain code, not the AI, compares the imprint, color and shape with every maker&apos;s FDA record for that medicine and picks the answer: Matches, Same medicine from another maker, Doesn&apos;t match, or Can&apos;t tell. Every answer links to the FDA record it used.</p>
+          <p>Claude reads the label and the letters on each pill. Then plain code, not the AI, compares the imprint, color and shape with every maker&apos;s FDA record for that medicine and picks the answer: Matches, Same medicine from another maker, Doesn&apos;t match, or Can&apos;t tell. Every answer links to the FDA record it used.</p>
         </section>
        </div>
 
        <div className="sheet-example">
         <figure className="sheet-result">
-          <img src="/one-pager-result.png" alt="Doesn't match: the FDA's orange I2 ibuprofen drawing next to the white L484 pill drawing." />
-          <figcaption>The wrong pill, caught: the FDA&apos;s picture of what should be in the bottle, next to what is.</figcaption>
+          <img src="/one-pager-result.png" alt="Doesn't match: the FDA's drawing of the metformin G 12 tablet next to a white amoxicillin 93 / 2263 tablet." />
+          <figcaption>The wrong pill, caught: a white amoxicillin that looks like the label&apos;s metformin. The imprint gives it away.</figcaption>
         </figure>
 
-        <p className="sheet-data"><strong>Real records:</strong> FDA DailyMed · NLM RxNorm ({ibuprofenVersions} versions of ibuprofen 200 mg, from every maker) · NIH Pill Image dataset. Demo patient labels are made up; the pills and the records are real.</p>
+        <p className="sheet-data"><strong>Real records:</strong> FDA DailyMed · NLM RxNorm ({metforminVersions} FDA-listed versions of metformin 1,000 mg, from every maker) · NIH Pill Image dataset. Demo patient labels are made up; the pills and the records are real.</p>
        </div>
       </div>
 
@@ -77,6 +80,6 @@ export default function OnePager() {
         <p id="kesselheim">[2] Kesselheim AS et al. Ann Intern Med. 2014;161:96-103. <a href="https://pubmed.ncbi.nlm.nih.gov/25023248/">PMID 25023248</a>. Dataset: Yaniv et al., <a href="https://pubmed.ncbi.nlm.nih.gov/29854569/">PMID 29854569</a>.</p>
       </div>
     </article>
-    <aside className="social-export" aria-hidden="true"><div className="social-copy"><div className="social-brand"><BrandMark/>Second Look</div><p>Is this the<br/>right pill?</p><span>AI reads. FDA records. Code decides.</span><small>getsecondlook.vercel.app</small></div><div className="social-pill"><PillDrawing shapeCode={example.shapeCode} colorCodes={example.colorCodes} sizeMm={example.sizeMm} imprintSides={example.imprintSides} score={example.score} pxPerMm={22}/><span>FDA record → drawn pill</span></div></aside>
+    <aside className="social-export" aria-hidden="true"><div className="social-copy"><div className="social-brand"><BrandMark/>Second Look</div><p>Is this the<br/>right pill?</p><span>AI reads. FDA records. Code decides.</span><small>getsecondlook.vercel.app</small></div><div className="social-pill"><PillDrawing shapeCode={metformin.shapeCode ?? ""} colorCodes={metformin.colorCodes} sizeMm={metformin.sizeMm ?? 19} imprintSides={metformin.imprintRaw.split(";")} score={metformin.scored ? 2 : 1} pxPerMm={14}/><span>FDA record → drawn pill</span></div></aside>
   </>;
 }

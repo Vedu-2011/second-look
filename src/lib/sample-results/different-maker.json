@@ -1,1 +1,572 @@
-null
+{
+  "result": {
+    "verdict": "SAME_MEDICINE_DIFFERENT_MAKER",
+    "expected": {
+      "ndc9": "0573-0169",
+      "productCode": "005730169",
+      "ndc10": "0573-0169-02",
+      "rxcui": "731533",
+      "setId": "1f01c10a-9434-91a4-2ee4-352315a6b610",
+      "labeler": "Haleon US Holdings LLC",
+      "imprintRaw": "Advil",
+      "imprintTokens": [
+        "ADVIL"
+      ],
+      "colorCodes": [
+        "C48329"
+      ],
+      "colorText": "green(Transparent green to blue green)",
+      "shapeCode": "C48336",
+      "sizeMm": 20,
+      "scored": false,
+      "marketingStatus": "ACTIVE",
+      "active": true,
+      "title": "Ibuprofen 200 mg",
+      "brand": "Advil"
+    },
+    "expectedIsTypical": false,
+    "matchedProduct": {
+      "ndc9": "21130-699",
+      "productCode": "211300699",
+      "ndc10": "21130-699-18",
+      "rxcui": "310964",
+      "setId": "57f06daf-690d-44a7-95a5-468732949750",
+      "labeler": "Safeway, Inc.",
+      "title": "Ibuprofen 200 mg",
+      "imprintRaw": "IB200",
+      "imprintTokens": [
+        "IB200"
+      ],
+      "colorCodes": [
+        "C48333"
+      ],
+      "colorText": "blue",
+      "shapeCode": "C48336",
+      "sizeMm": 18,
+      "scored": false,
+      "marketingStatus": "ACTIVE",
+      "active": true
+    },
+    "identifiedAs": null,
+    "labelTitle": "Advil (ibuprofen 200 mg)",
+    "features": [
+      {
+        "name": "Imprint",
+        "expected": "IB200",
+        "found": "IB 200",
+        "result": "match"
+      },
+      {
+        "name": "Color",
+        "expected": "Blue",
+        "found": "Turquoise and purple",
+        "result": "match"
+      },
+      {
+        "name": "Shape",
+        "expected": "Capsule",
+        "found": "Capsule",
+        "result": "match"
+      },
+      {
+        "name": "Size",
+        "expected": "18 mm",
+        "found": "Not measured",
+        "result": "not_measured"
+      }
+    ],
+    "evidence": [
+      {
+        "source": "FDA DailyMed",
+        "role": "label",
+        "setId": "1f01c10a-9434-91a4-2ee4-352315a6b610",
+        "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=1f01c10a-9434-91a4-2ee4-352315a6b610"
+      },
+      {
+        "source": "FDA DailyMed",
+        "role": "matched",
+        "setId": "57f06daf-690d-44a7-95a5-468732949750",
+        "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=57f06daf-690d-44a7-95a5-468732949750"
+      },
+      {
+        "source": "NLM RxNorm",
+        "role": "drug",
+        "rxcui": "310964",
+        "url": "https://mor.nlm.nih.gov/RxNav/search?searchBy=RXCUI&searchTerm=310964"
+      }
+    ],
+    "reasons": [
+      "Your label lists Advil (ibuprofen 200 mg) sold by Haleon US Holdings LLC. Your pill matches another FDA-listed version: same medicine, same strength."
+    ],
+    "productsCompared": 211,
+    "matchingListings": {
+      "products": [
+        {
+          "ndc9": "69452-212",
+          "productCode": "694520212",
+          "ndc10": "69452-212-11",
+          "rxcui": "310964",
+          "setId": "4bc6e8f2-ba95-4352-80ed-b44608fc4936",
+          "labeler": "Bionpharma Inc.",
+          "title": "Ibuprofen 200 mg",
+          "imprintRaw": "IB200",
+          "imprintTokens": [
+            "IB200"
+          ],
+          "colorCodes": [
+            "C48333"
+          ],
+          "colorText": "blue",
+          "shapeCode": "C48336",
+          "sizeMm": 20,
+          "scored": false,
+          "marketingStatus": "ACTIVE",
+          "active": true
+        },
+        {
+          "ndc9": "69452-260",
+          "productCode": "694520260",
+          "ndc10": "69452-260-11",
+          "rxcui": "310964",
+          "setId": "2b4ecdd8-627a-445f-8ddc-f2b6c832c1e8",
+          "labeler": "Bionpharma Inc.",
+          "title": "Ibuprofen 200 mg",
+          "imprintRaw": "IB200",
+          "imprintTokens": [
+            "IB200"
+          ],
+          "colorCodes": [
+            "C48333"
+          ],
+          "colorText": "blue",
+          "shapeCode": "C48336",
+          "sizeMm": 20,
+          "scored": false,
+          "marketingStatus": "ACTIVE",
+          "active": true
+        },
+        {
+          "ndc9": "70000-0571",
+          "productCode": "700000571",
+          "ndc10": "70000-0571-1",
+          "rxcui": "310964",
+          "setId": "e751cb66-5fa5-4171-b061-da34aa10de6c",
+          "labeler": "Cardinal Health (Leader) 70000",
+          "title": "Ibuprofen 200 mg",
+          "imprintRaw": "IB200",
+          "imprintTokens": [
+            "IB200"
+          ],
+          "colorCodes": [
+            "C48333"
+          ],
+          "colorText": "blue",
+          "shapeCode": "C48336",
+          "sizeMm": 18,
+          "scored": false,
+          "marketingStatus": "ACTIVE",
+          "active": true
+        },
+        {
+          "ndc9": "53943-212",
+          "productCode": "539430212",
+          "ndc10": "53943-212-15",
+          "rxcui": "310964",
+          "setId": "d07ea9e3-88b0-4aa0-903a-10555dcca37d",
+          "labeler": "DISCOUNT DRUG MART, INC.",
+          "title": "Ibuprofen 200 mg",
+          "imprintRaw": "IB200",
+          "imprintTokens": [
+            "IB200"
+          ],
+          "colorCodes": [
+            "C48333"
+          ],
+          "colorText": "blue",
+          "shapeCode": "C48336",
+          "sizeMm": 20,
+          "scored": false,
+          "marketingStatus": "ACTIVE",
+          "active": true
+        },
+        {
+          "ndc9": "55910-197",
+          "productCode": "559100197",
+          "ndc10": "55910-197-12",
+          "rxcui": "310964",
+          "setId": "7f510feb-023c-4974-af6d-3e7a30cef362",
+          "labeler": "Dolgencorp, Inc. (DOLLAR GENERAL & REXALL)",
+          "title": "Ibuprofen 200 mg",
+          "imprintRaw": "IB200",
+          "imprintTokens": [
+            "IB200"
+          ],
+          "colorCodes": [
+            "C48333"
+          ],
+          "colorText": "blue",
+          "shapeCode": "C48336",
+          "sizeMm": 18,
+          "scored": false,
+          "marketingStatus": "ACTIVE",
+          "active": true
+        },
+        {
+          "ndc9": "82501-1010",
+          "productCode": "825011010",
+          "ndc10": "82501-1010-0",
+          "rxcui": "310964",
+          "setId": "04e1b176-b74a-413e-a8e1-dd3764b9aa8b",
+          "labeler": "Gobrands, Inc. (Goodnow)",
+          "title": "Ibuprofen 200 mg",
+          "imprintRaw": "IB200",
+          "imprintTokens": [
+            "IB200"
+          ],
+          "colorCodes": [
+            "C48333"
+          ],
+          "colorText": "blue(green)",
+          "shapeCode": "C48336",
+          "sizeMm": 18,
+          "scored": false,
+          "marketingStatus": "ACTIVE",
+          "active": true
+        },
+        {
+          "ndc9": "37808-699",
+          "productCode": "378080699",
+          "ndc10": "37808-699-20",
+          "rxcui": "310964",
+          "setId": "2f193146-74b2-4941-893d-3d2f5c8ee659",
+          "labeler": "H E B",
+          "title": "Ibuprofen 200 mg",
+          "imprintRaw": "IB200",
+          "imprintTokens": [
+            "IB200"
+          ],
+          "colorCodes": [
+            "C48333"
+          ],
+          "colorText": "blue(green)",
+          "shapeCode": "C48336",
+          "sizeMm": 18,
+          "scored": false,
+          "marketingStatus": "ACTIVE",
+          "active": true
+        },
+        {
+          "ndc9": "21130-699",
+          "productCode": "211300699",
+          "ndc10": "21130-699-18",
+          "rxcui": "310964",
+          "setId": "57f06daf-690d-44a7-95a5-468732949750",
+          "labeler": "Safeway, Inc.",
+          "title": "Ibuprofen 200 mg",
+          "imprintRaw": "IB200",
+          "imprintTokens": [
+            "IB200"
+          ],
+          "colorCodes": [
+            "C48333"
+          ],
+          "colorText": "blue",
+          "shapeCode": "C48336",
+          "sizeMm": 18,
+          "scored": false,
+          "marketingStatus": "ACTIVE",
+          "active": true
+        },
+        {
+          "ndc9": "24385-499",
+          "productCode": "243850499",
+          "ndc10": "24385-499-41",
+          "rxcui": "310964",
+          "setId": "9d085414-c7a1-4cc9-9c9c-ff6ccef2db3e",
+          "labeler": "AmerisourceBergen Drug Corporation",
+          "title": "Ibuprofen 200 mg",
+          "imprintRaw": "IB200",
+          "imprintTokens": [
+            "IB200"
+          ],
+          "colorCodes": [
+            "C48333"
+          ],
+          "colorText": "BLUE",
+          "shapeCode": "C48336",
+          "sizeMm": 19,
+          "scored": false,
+          "marketingStatus": "COMPLETED",
+          "active": false
+        },
+        {
+          "ndc9": "37205-736",
+          "productCode": "372050736",
+          "ndc10": "37205-736-57",
+          "rxcui": "310964",
+          "setId": "0f23767c-f6b7-47a0-a5d7-711f651bea16",
+          "labeler": "Cardinal Health",
+          "title": "Ibuprofen 200 mg",
+          "imprintRaw": "IB200",
+          "imprintTokens": [
+            "IB200"
+          ],
+          "colorCodes": [
+            "C48333"
+          ],
+          "colorText": "blue",
+          "shapeCode": "C48336",
+          "sizeMm": 19,
+          "scored": false,
+          "marketingStatus": "COMPLETED",
+          "active": false
+        },
+        {
+          "ndc9": "59779-197",
+          "productCode": "597790197",
+          "ndc10": "59779-197-03",
+          "rxcui": "310964",
+          "setId": "c1faef8f-7bf1-49b7-93ab-672a038c917f",
+          "labeler": "CVS Pharmacy",
+          "title": "Ibuprofen 200 mg",
+          "imprintRaw": "IB200",
+          "imprintTokens": [
+            "IB200"
+          ],
+          "colorCodes": [
+            "C48333"
+          ],
+          "colorText": "BLUE",
+          "shapeCode": "C48336",
+          "sizeMm": 19,
+          "scored": false,
+          "marketingStatus": "COMPLETED",
+          "active": false
+        },
+        {
+          "ndc9": "50804-199",
+          "productCode": "508040199",
+          "ndc10": "50804-199-20",
+          "rxcui": "310964",
+          "setId": "3c8d5ae9-6d18-4fc7-a13e-63a11f062fd0",
+          "labeler": "Geiss, Destin & Dunn Inc.",
+          "title": "Ibuprofen 200 mg",
+          "imprintRaw": "IB200",
+          "imprintTokens": [
+            "IB200"
+          ],
+          "colorCodes": [
+            "C48333"
+          ],
+          "colorText": "blue",
+          "shapeCode": "C48336",
+          "sizeMm": 19,
+          "scored": false,
+          "marketingStatus": "COMPLETED",
+          "active": false
+        },
+        {
+          "ndc9": "59726-120",
+          "productCode": "597260120",
+          "ndc10": "59726-120-20",
+          "rxcui": "310964",
+          "labeler": "P & L Development, LLC",
+          "title": "Ibuprofen 200 mg",
+          "imprintRaw": "IB200",
+          "imprintTokens": [
+            "IB200"
+          ],
+          "colorCodes": [
+            "C48333"
+          ],
+          "colorText": "blue",
+          "shapeCode": "C48336",
+          "sizeMm": 10,
+          "scored": false,
+          "marketingStatus": "COMPLETED",
+          "active": false
+        },
+        {
+          "ndc9": "11822-0231",
+          "productCode": "118220231",
+          "ndc10": "11822-0231-1",
+          "rxcui": "310964",
+          "setId": "9372c47d-2a3c-4f44-86f8-7568657844e7",
+          "labeler": "Rite Aid Corporation",
+          "title": "Ibuprofen 200 mg",
+          "imprintRaw": "IB200",
+          "imprintTokens": [
+            "IB200"
+          ],
+          "colorCodes": [
+            "C48333"
+          ],
+          "colorText": "blue",
+          "shapeCode": "C48336",
+          "sizeMm": 18,
+          "scored": false,
+          "marketingStatus": "COMPLETED",
+          "active": false
+        },
+        {
+          "ndc9": "11822-3307",
+          "productCode": "118223307",
+          "ndc10": "11822-3307-1",
+          "rxcui": "310964",
+          "setId": "389454b7-c17d-4413-b1ab-dee9a13f81cf",
+          "labeler": "Rite Aid Corporation",
+          "title": "Ibuprofen 200 mg",
+          "imprintRaw": "IB200",
+          "imprintTokens": [
+            "IB200"
+          ],
+          "colorCodes": [
+            "C48333"
+          ],
+          "colorText": "blue",
+          "shapeCode": "C48336",
+          "sizeMm": 18,
+          "scored": false,
+          "marketingStatus": "COMPLETED",
+          "active": false
+        },
+        {
+          "ndc9": "0363-0197",
+          "productCode": "003630197",
+          "ndc10": "0363-0197-16",
+          "rxcui": "310964",
+          "setId": "0ae94dac-2c14-4fd4-87d4-06f0935db458",
+          "labeler": "Walgreen Company",
+          "title": "Ibuprofen 200 mg",
+          "imprintRaw": "IB200",
+          "imprintTokens": [
+            "IB200"
+          ],
+          "colorCodes": [
+            "C48333"
+          ],
+          "colorText": "BLUE",
+          "shapeCode": "C48336",
+          "sizeMm": 19,
+          "scored": false,
+          "marketingStatus": "COMPLETED",
+          "active": false
+        }
+      ],
+      "sellers": [
+        "Bionpharma Inc.",
+        "Cardinal Health (Leader) 70000",
+        "DISCOUNT DRUG MART, INC.",
+        "Dolgencorp, Inc. (DOLLAR GENERAL & REXALL)",
+        "Gobrands, Inc. (Goodnow)",
+        "H E B",
+        "Safeway, Inc.",
+        "AmerisourceBergen Drug Corporation",
+        "Cardinal Health",
+        "CVS Pharmacy",
+        "Geiss, Destin & Dunn Inc.",
+        "P & L Development, LLC",
+        "Rite Aid Corporation",
+        "Walgreen Company"
+      ],
+      "unknownSellerCount": 0
+    },
+    "identifiedListings": null,
+    "label": {
+      "ndc": "0573-0169",
+      "drugName": "Advil Liqui-Gels (ibuprofen)",
+      "strength": "200 mg",
+      "form": "capsule",
+      "pharmacyName": "Maple Street Pharmacy",
+      "directions": "Use only as directed on the original package.",
+      "isPrescriptionLabel": true,
+      "confidence": {
+        "drugName": 0.97,
+        "strength": 0.98,
+        "ndc": 0.96,
+        "dosageForm": 0.97,
+        "form": 0.97
+      }
+    },
+    "pill": {
+      "imprintSides": [
+        "IB 200"
+      ],
+      "imprintConfidence": 0.85,
+      "colors": [
+        "turquoise",
+        "purple"
+      ],
+      "colorConfidence": 0.6,
+      "shape": "capsule",
+      "shapeConfidence": 0.85,
+      "form": "softgel",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": false,
+      "guess": {
+        "drugName": "Ibuprofen",
+        "strength": "200 mg"
+      }
+    },
+    "labelProduct": {
+      "ndc9": "0573-0169",
+      "productCode": "005730169",
+      "ndc10": "0573-0169-02",
+      "rxcui": "731533",
+      "setId": "1f01c10a-9434-91a4-2ee4-352315a6b610",
+      "labeler": "Haleon US Holdings LLC",
+      "imprintRaw": "Advil",
+      "imprintTokens": [
+        "ADVIL"
+      ],
+      "colorCodes": [
+        "C48329"
+      ],
+      "colorText": "green(Transparent green to blue green)",
+      "shapeCode": "C48336",
+      "sizeMm": 20,
+      "scored": false,
+      "marketingStatus": "ACTIVE",
+      "active": true,
+      "title": "Ibuprofen 200 mg",
+      "brand": "Advil"
+    },
+    "labels": {
+      "1f01c10a-9434-91a4-2ee4-352315a6b610": {
+        "setId": "1f01c10a-9434-91a4-2ee4-352315a6b610",
+        "title": "ADVIL (IBUPROFEN) CAPSULE, LIQUID FILLED [HALEON US HOLDINGS LLC]",
+        "publishedDate": "2026-07-31",
+        "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=1f01c10a-9434-91a4-2ee4-352315a6b610",
+        "current": true
+      },
+      "57f06daf-690d-44a7-95a5-468732949750": {
+        "setId": "57f06daf-690d-44a7-95a5-468732949750",
+        "title": "IBUPROFEN CAPSULE, LIQUID FILLED [SAFEWAY, INC.]",
+        "publishedDate": "2026-08-20",
+        "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=57f06daf-690d-44a7-95a5-468732949750",
+        "current": true
+      }
+    },
+    "checkedAt": "2026-11-11T06:30:52.316Z",
+    "timings": {
+      "label": 357,
+      "drug": 313,
+      "guess": 0,
+      "dailymed": 116,
+      "total": 792
+    }
+  },
+  "explanation": {
+    "summary": "The pill looks like a different maker's version of the same medicine and strength on your label.",
+    "pharmacyScript": "My pill looks different from the label. Can you confirm it is the same medicine and strength?"
+  },
+  "recordedAt": "2026-11-11T06:30:56.111Z",
+  "photos": {
+    "label": "/samples/different-maker/label-f198d7ef16cf.jpg",
+    "pill": "/samples/different-maker/pill-c980340891d8.jpg"
+  }
+}

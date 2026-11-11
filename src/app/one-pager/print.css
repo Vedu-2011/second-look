@@ -19,6 +19,7 @@
 .sheet-how li b { color: var(--amber-deep); }
 .sheet-result { margin-top: 15px; }
 .sheet-result img { display: block; width: 100%; height: auto; border-radius: 12px; }
+@media print { .sheet-result img { max-height: 300px; object-fit: contain; } }
 .sheet-result figcaption { font-size: 9.5pt; margin-top: 4px; text-align: center; color: var(--ink-soft); }
 .sheet-data { margin-top: 12px; }
 .sheet-research { background: var(--foil); border-radius: 12px; padding: 12px 14px; }

@@ -1,1 +1,619 @@
-null
+{
+  "result": {
+    "verdict": "MATCH",
+    "expected": {
+      "ndc9": "70010-065",
+      "productCode": "700100065",
+      "ndc10": "70010-065-01",
+      "rxcui": "861004",
+      "setId": "2387a618-24d8-4813-aa83-9114edb35374",
+      "labeler": "Granules Pharmaceuticals Inc.",
+      "imprintRaw": "G;12",
+      "imprintTokens": [
+        "G",
+        "12"
+      ],
+      "colorCodes": [
+        "C48325"
+      ],
+      "colorText": "white(White to off-white)",
+      "shapeCode": "C48345",
+      "sizeMm": 19,
+      "scored": false,
+      "marketingStatus": "ACTIVE",
+      "active": true,
+      "title": "Metformin hydrochloride 1000 mg"
+    },
+    "expectedIsTypical": false,
+    "matchedProduct": {
+      "ndc9": "70010-065",
+      "productCode": "700100065",
+      "ndc10": "70010-065-01",
+      "rxcui": "861004",
+      "setId": "2387a618-24d8-4813-aa83-9114edb35374",
+      "labeler": "Granules Pharmaceuticals Inc.",
+      "imprintRaw": "G;12",
+      "imprintTokens": [
+        "G",
+        "12"
+      ],
+      "colorCodes": [
+        "C48325"
+      ],
+      "colorText": "white(White to off-white)",
+      "shapeCode": "C48345",
+      "sizeMm": 19,
+      "scored": false,
+      "marketingStatus": "ACTIVE",
+      "active": true,
+      "title": "Metformin hydrochloride 1000 mg"
+    },
+    "identifiedAs": null,
+    "labelTitle": "Metformin hydrochloride 1000 mg",
+    "features": [
+      {
+        "name": "Imprint",
+        "expected": "G / 12",
+        "found": "G 12",
+        "result": "match"
+      },
+      {
+        "name": "Color",
+        "expected": "White",
+        "found": "White",
+        "result": "match"
+      },
+      {
+        "name": "Shape",
+        "expected": "Oval",
+        "found": "Oval",
+        "result": "match"
+      },
+      {
+        "name": "Size",
+        "expected": "19 mm",
+        "found": "Not measured",
+        "result": "not_measured"
+      }
+    ],
+    "evidence": [
+      {
+        "source": "FDA DailyMed",
+        "role": "label",
+        "setId": "2387a618-24d8-4813-aa83-9114edb35374",
+        "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=2387a618-24d8-4813-aa83-9114edb35374"
+      },
+      {
+        "source": "NLM RxNorm",
+        "role": "drug",
+        "rxcui": "861004",
+        "url": "https://mor.nlm.nih.gov/RxNav/search?searchBy=RXCUI&searchTerm=861004"
+      }
+    ],
+    "reasons": [
+      "The letters, color and shape match the FDA record for Metformin hydrochloride 1000 mg."
+    ],
+    "productsCompared": 145,
+    "matchingListings": {
+      "products": [
+        {
+          "ndc9": "70010-065",
+          "productCode": "700100065",
+          "ndc10": "70010-065-01",
+          "rxcui": "861004",
+          "setId": "2387a618-24d8-4813-aa83-9114edb35374",
+          "labeler": "Granules Pharmaceuticals Inc.",
+          "imprintRaw": "G;12",
+          "imprintTokens": [
+            "G",
+            "12"
+          ],
+          "colorCodes": [
+            "C48325"
+          ],
+          "colorText": "white(White to off-white)",
+          "shapeCode": "C48345",
+          "sizeMm": 19,
+          "scored": false,
+          "marketingStatus": "ACTIVE",
+          "active": true,
+          "title": "Metformin hydrochloride 1000 mg"
+        },
+        {
+          "ndc9": "50090-6507",
+          "productCode": "500906507",
+          "ndc10": "50090-6507-0",
+          "rxcui": "861004",
+          "setId": "1ef6c527-89f5-4830-8900-7532b0a7ef26",
+          "labeler": "A-S Medication Solutions",
+          "title": "Metformin hydrochloride 1000 mg",
+          "imprintRaw": "G;12",
+          "imprintTokens": [
+            "G",
+            "12"
+          ],
+          "colorCodes": [
+            "C48325"
+          ],
+          "colorText": "white(White to off-white)",
+          "shapeCode": "C48345",
+          "sizeMm": 19,
+          "scored": false,
+          "marketingStatus": "ACTIVE",
+          "active": true
+        },
+        {
+          "ndc9": "50090-6508",
+          "productCode": "500906508",
+          "ndc10": "50090-6508-0",
+          "rxcui": "861004",
+          "setId": "1c046303-993c-4111-ac9a-40a0d97ca6a2",
+          "labeler": "A-S Medication Solutions",
+          "title": "Metformin hydrochloride 1000 mg",
+          "imprintRaw": "G;12",
+          "imprintTokens": [
+            "G",
+            "12"
+          ],
+          "colorCodes": [
+            "C48325"
+          ],
+          "colorText": "white(White to off-white)",
+          "shapeCode": "C48345",
+          "sizeMm": 19,
+          "scored": false,
+          "marketingStatus": "ACTIVE",
+          "active": true
+        },
+        {
+          "ndc9": "71610-673",
+          "productCode": "716100673",
+          "ndc10": "71610-673-30",
+          "rxcui": "861004",
+          "setId": "34aa1761-d16f-4bfc-b7fa-bf1b0387e8a3",
+          "labeler": "Aphena Pharma Solutions - Tennessee, LLC",
+          "title": "Metformin hydrochloride 1000 mg",
+          "imprintRaw": "G;12",
+          "imprintTokens": [
+            "G",
+            "12"
+          ],
+          "colorCodes": [
+            "C48325"
+          ],
+          "colorText": "white(White to off-white)",
+          "shapeCode": "C48345",
+          "sizeMm": 19,
+          "scored": false,
+          "marketingStatus": "ACTIVE",
+          "active": true
+        },
+        {
+          "ndc9": "70934-830",
+          "productCode": "709340830",
+          "ndc10": "70934-830-90",
+          "rxcui": "861004",
+          "setId": "bc3e7bea-68c3-d132-e053-2a95a90af7a0",
+          "labeler": "Denton Pharma, Inc. DBA Northwind Pharmaceuticals",
+          "title": "Metformin hydrochloride 1000 mg",
+          "imprintRaw": "G;12",
+          "imprintTokens": [
+            "G",
+            "12"
+          ],
+          "colorCodes": [
+            "C48325"
+          ],
+          "colorText": "white(White to off-white)",
+          "shapeCode": "C48345",
+          "sizeMm": 19,
+          "scored": false,
+          "marketingStatus": "ACTIVE",
+          "active": true
+        },
+        {
+          "ndc9": "62207-442",
+          "productCode": "622070442",
+          "ndc10": "62207-442-43",
+          "rxcui": "861004",
+          "setId": "8cd5555c-f6b2-28d8-e053-2a95a90a5f1e",
+          "labeler": "Granules India Ltd",
+          "title": "Metformin hydrochloride 1000 mg",
+          "imprintRaw": "G;12",
+          "imprintTokens": [
+            "G",
+            "12"
+          ],
+          "colorCodes": [
+            "C48325"
+          ],
+          "colorText": "white(White to off-white)",
+          "shapeCode": "C48345",
+          "sizeMm": 19,
+          "scored": false,
+          "marketingStatus": "ACTIVE",
+          "active": true
+        },
+        {
+          "ndc9": "68645-584",
+          "productCode": "686450584",
+          "ndc10": "68645-584-59",
+          "rxcui": "861004",
+          "setId": "b51da8d7-ab4a-4c40-97c9-88bd379366d1",
+          "labeler": "Legacy Pharmaceutical Packaging, LLC",
+          "title": "Metformin hydrochloride 1000 mg",
+          "imprintRaw": "G;12",
+          "imprintTokens": [
+            "G",
+            "12"
+          ],
+          "colorCodes": [
+            "C48325"
+          ],
+          "colorText": "white(white to off-white)",
+          "shapeCode": "C48345",
+          "sizeMm": 19,
+          "scored": false,
+          "marketingStatus": "ACTIVE",
+          "active": true
+        },
+        {
+          "ndc9": "0904-7164",
+          "productCode": "009047164",
+          "ndc10": "0904-7164-61",
+          "rxcui": "861004",
+          "setId": "5e783025-bf6d-465e-bf58-bcd253afad2c",
+          "labeler": "Major Pharmaceuticals",
+          "title": "Metformin hydrochloride 1000 mg",
+          "imprintRaw": "G;12",
+          "imprintTokens": [
+            "G",
+            "12"
+          ],
+          "colorCodes": [
+            "C48325"
+          ],
+          "colorText": "white(White to off-white)",
+          "shapeCode": "C48345",
+          "sizeMm": 19,
+          "scored": false,
+          "marketingStatus": "ACTIVE",
+          "active": true
+        },
+        {
+          "ndc9": "71709-112",
+          "productCode": "717090112",
+          "ndc10": "71709-112-06",
+          "rxcui": "861004",
+          "setId": "5df6adc9-79fd-66ef-e053-2991aa0a75ce",
+          "labeler": "Metcure Pharmaceuticals, Inc.",
+          "title": "Metformin hydrochloride 1000 mg",
+          "imprintRaw": "G;12",
+          "imprintTokens": [
+            "G",
+            "12"
+          ],
+          "colorCodes": [
+            "C48325"
+          ],
+          "colorText": "white(WHITE TO OFF-WHITE)",
+          "shapeCode": "C48345",
+          "sizeMm": 19,
+          "scored": true,
+          "marketingStatus": "ACTIVE",
+          "active": true
+        },
+        {
+          "ndc9": "51655-566",
+          "productCode": "516550566",
+          "ndc10": "51655-566-25",
+          "rxcui": "861004",
+          "setId": "dae7b1c1-7ff1-883c-e053-2a95a90a1a2b",
+          "labeler": "Northwind Health Company, LLC",
+          "title": "Metformin hydrochloride 1000 mg",
+          "imprintRaw": "G;12",
+          "imprintTokens": [
+            "G",
+            "12"
+          ],
+          "colorCodes": [
+            "C48325"
+          ],
+          "colorText": "white(White to off-white)",
+          "shapeCode": "C48345",
+          "sizeMm": 19,
+          "scored": false,
+          "marketingStatus": "ACTIVE",
+          "active": true
+        },
+        {
+          "ndc9": "68788-8430",
+          "productCode": "687888430",
+          "ndc10": "68788-8430-1",
+          "rxcui": "861004",
+          "setId": "62ca8af4-ff91-4bf6-b7c6-895b3b5ce8c3",
+          "labeler": "Preferred Pharmaceuticals Inc.",
+          "title": "Metformin hydrochloride 1000 mg",
+          "imprintRaw": "G;12",
+          "imprintTokens": [
+            "G",
+            "12"
+          ],
+          "colorCodes": [
+            "C48325"
+          ],
+          "colorText": "white(White to off-white)",
+          "shapeCode": "C48345",
+          "sizeMm": 19,
+          "scored": false,
+          "marketingStatus": "ACTIVE",
+          "active": true
+        },
+        {
+          "ndc9": "71205-555",
+          "productCode": "712050555",
+          "ndc10": "71205-555-00",
+          "rxcui": "861004",
+          "setId": "5f243894-bda3-4fa9-97e4-209dcb389dee",
+          "labeler": "Proficient Rx LP",
+          "title": "Metformin hydrochloride 1000 mg",
+          "imprintRaw": "G;12",
+          "imprintTokens": [
+            "G",
+            "12"
+          ],
+          "colorCodes": [
+            "C48325"
+          ],
+          "colorText": "white(White to off-white)",
+          "shapeCode": "C48345",
+          "sizeMm": 19,
+          "scored": false,
+          "marketingStatus": "ACTIVE",
+          "active": true
+        },
+        {
+          "ndc9": "82009-047",
+          "productCode": "820090047",
+          "ndc10": "82009-047-10",
+          "rxcui": "861004",
+          "setId": "f39ee08d-73db-71b9-e053-2995a90a877c",
+          "labeler": "Quallent Pharmaceuticals Health LLC",
+          "title": "Metformin hydrochloride 1000 mg",
+          "imprintRaw": "G;12",
+          "imprintTokens": [
+            "G",
+            "12"
+          ],
+          "colorCodes": [
+            "C48325"
+          ],
+          "colorText": "white(White to off-white)",
+          "shapeCode": "C48345",
+          "sizeMm": 19,
+          "scored": true,
+          "marketingStatus": "ACTIVE",
+          "active": true
+        },
+        {
+          "ndc9": "70518-3101",
+          "productCode": "705183101",
+          "ndc10": "70518-3101-0",
+          "rxcui": "861004",
+          "setId": "59a4ccda-5487-4ac4-9373-0c0fc8b7c88b",
+          "labeler": "REMEDYREPACK INC.",
+          "title": "Metformin hydrochloride 1000 mg",
+          "imprintRaw": "G;12",
+          "imprintTokens": [
+            "G",
+            "12"
+          ],
+          "colorCodes": [
+            "C48325"
+          ],
+          "colorText": "white(White to off-white)",
+          "shapeCode": "C48345",
+          "sizeMm": 19,
+          "scored": false,
+          "marketingStatus": "ACTIVE",
+          "active": true
+        },
+        {
+          "ndc9": "87441-054",
+          "productCode": "874410054",
+          "ndc10": "87441-054-01",
+          "rxcui": "861004",
+          "setId": "552ad61d-bafd-478d-e063-6294a90a02f9",
+          "labeler": "Unit Dose Solutions, Inc.",
+          "title": "Metformin hydrochloride 1000 mg",
+          "imprintRaw": "G;12",
+          "imprintTokens": [
+            "G",
+            "12"
+          ],
+          "colorCodes": [
+            "C48325"
+          ],
+          "colorText": "white(White to off-white)",
+          "shapeCode": "C48345",
+          "sizeMm": 19,
+          "scored": false,
+          "marketingStatus": "ACTIVE",
+          "active": true
+        },
+        {
+          "ndc9": "50742-156",
+          "productCode": "507420156",
+          "ndc10": "50742-156-01",
+          "rxcui": "861004",
+          "setId": "2b6e255e-cd05-4f9a-a144-bfe0344479c3",
+          "labeler": "Ingenus Pharmaceuticals LLC",
+          "title": "Metformin hydrochloride 1000 mg",
+          "imprintRaw": "G;12",
+          "imprintTokens": [
+            "G",
+            "12"
+          ],
+          "colorCodes": [
+            "C48325"
+          ],
+          "colorText": "WHITE(white to off-white)",
+          "shapeCode": "C48345",
+          "sizeMm": 19,
+          "scored": true,
+          "marketingStatus": "COMPLETED",
+          "active": false
+        },
+        {
+          "ndc9": "68645-546",
+          "productCode": "686450546",
+          "ndc10": "68645-546-59",
+          "rxcui": "861004",
+          "setId": "28de9dcf-cc8c-4c06-9fcc-6a1279f2523f",
+          "labeler": "Legacy Pharmaceutical Packaging, LLC",
+          "title": "Metformin hydrochloride 1000 mg",
+          "imprintRaw": "G;12",
+          "imprintTokens": [
+            "G",
+            "12"
+          ],
+          "colorCodes": [
+            "C48325"
+          ],
+          "colorText": "WHITE(white to off-white)",
+          "shapeCode": "C48345",
+          "sizeMm": 19,
+          "scored": true,
+          "marketingStatus": "COMPLETED",
+          "active": false
+        },
+        {
+          "ndc9": "60760-497",
+          "productCode": "607600497",
+          "ndc10": "60760-497-60",
+          "rxcui": "861004",
+          "setId": "c50c4847-4f5e-317f-e053-2995a90ae2ea",
+          "labeler": "St. Mary's Medical Park Pharmacy",
+          "title": "Metformin hydrochloride 1000 mg",
+          "imprintRaw": "G;12",
+          "imprintTokens": [
+            "G",
+            "12"
+          ],
+          "colorCodes": [
+            "C48325"
+          ],
+          "colorText": "white(White to off-white)",
+          "shapeCode": "C48345",
+          "sizeMm": 19,
+          "scored": false,
+          "marketingStatus": "COMPLETED",
+          "active": false
+        }
+      ],
+      "sellers": [
+        "Granules Pharmaceuticals Inc.",
+        "A-S Medication Solutions",
+        "Aphena Pharma Solutions - Tennessee, LLC",
+        "Denton Pharma, Inc. DBA Northwind Pharmaceuticals",
+        "Granules India Ltd",
+        "Legacy Pharmaceutical Packaging, LLC",
+        "Major Pharmaceuticals",
+        "Metcure Pharmaceuticals, Inc.",
+        "Northwind Health Company, LLC",
+        "Preferred Pharmaceuticals Inc.",
+        "Proficient Rx LP",
+        "Quallent Pharmaceuticals Health LLC",
+        "REMEDYREPACK INC.",
+        "Unit Dose Solutions, Inc.",
+        "Ingenus Pharmaceuticals LLC",
+        "St. Mary's Medical Park Pharmacy"
+      ],
+      "unknownSellerCount": 0
+    },
+    "identifiedListings": null,
+    "label": {
+      "ndc": "70010-065",
+      "drugName": "Metformin HCl",
+      "strength": "1,000 mg",
+      "form": "tablet",
+      "pharmacyName": "Maple Street Pharmacy",
+      "directions": "Use only as directed on the original package.",
+      "isPrescriptionLabel": true,
+      "confidence": {
+        "drugName": 0.97,
+        "strength": 0.96,
+        "ndc": 0.95,
+        "dosageForm": 0.96,
+        "form": 0.96
+      }
+    },
+    "pill": {
+      "imprintSides": [
+        "G 12"
+      ],
+      "imprintConfidence": 0.8,
+      "colors": [
+        "white"
+      ],
+      "colorConfidence": 0.9,
+      "shape": "oval",
+      "shapeConfidence": 0.9,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [],
+      "scored": true,
+      "guess": null
+    },
+    "labelProduct": {
+      "ndc9": "70010-065",
+      "productCode": "700100065",
+      "ndc10": "70010-065-01",
+      "rxcui": "861004",
+      "setId": "2387a618-24d8-4813-aa83-9114edb35374",
+      "labeler": "Granules Pharmaceuticals Inc.",
+      "imprintRaw": "G;12",
+      "imprintTokens": [
+        "G",
+        "12"
+      ],
+      "colorCodes": [
+        "C48325"
+      ],
+      "colorText": "white(White to off-white)",
+      "shapeCode": "C48345",
+      "sizeMm": 19,
+      "scored": false,
+      "marketingStatus": "ACTIVE",
+      "active": true,
+      "title": "Metformin hydrochloride 1000 mg"
+    },
+    "labels": {
+      "2387a618-24d8-4813-aa83-9114edb35374": {
+        "setId": "2387a618-24d8-4813-aa83-9114edb35374",
+        "title": "METFORMIN HYDROCHLORIDE TABLET [GRANULES PHARMACEUTICALS INC.]",
+        "publishedDate": "2026-06-18",
+        "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=2387a618-24d8-4813-aa83-9114edb35374",
+        "current": true
+      }
+    },
+    "checkedAt": "2026-11-11T06:30:46.676Z",
+    "timings": {
+      "label": 418,
+      "drug": 257,
+      "guess": 0,
+      "dailymed": 77,
+      "total": 768
+    }
+  },
+  "explanation": {
+    "summary": "The visible pill matches the FDA record we checked for your label.",
+    "pharmacyScript": "The pill in my bottle matches the FDA record for my label."
+  },
+  "recordedAt": "2026-11-11T06:30:49.173Z",
+  "photos": {
+    "label": "/samples/match/label-92bd21ce21d8.jpg",
+    "pill": "/samples/match/pill-9c5aaa9b17b7.jpg"
+  }
+}

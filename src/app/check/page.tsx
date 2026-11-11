@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { CheckMode } from "./check-mode";
 import Link from "next/link";
 
-export const metadata: Metadata = { title: "Check a bottle" };
+export const metadata: Metadata = { title: "Check your pills" };
 
 export default function CheckPage() {
   return (

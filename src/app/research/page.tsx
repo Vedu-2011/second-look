@@ -119,7 +119,8 @@ export default function ResearchPage() {
       </div>
       <section className="mt-10 max-w-3xl rounded-[var(--radius-card)] bg-foil p-6">
         <h2 className="text-2xl font-bold">Whole-bottle photos: a separate feature</h2>
-        <p className="mt-3 text-lg">The whole-bottle check is not part of this benchmark. Code finds separate pills on a plain, contrasting surface, AI reads each crop, and the same rules compare each reading with FDA records. Touching pills or clutter require a retake.</p>
+        <p className="mt-3 text-lg">The whole-bottle check is not part of this benchmark. Code finds separate pills on a plain, contrasting surface, AI reads each crop, and the same rules compare each reading with FDA records. Touching pills are circled and never counted as checked.</p>
+        <p className="mt-3 text-lg">The look-alike check (a pill that differs in size, shape or color from the others in the same photo) and the face-down state are bottle-level rules. Their thresholds were set from drawn test scenes and development composites, not from the demo photos, and they are separate from this benchmark.</p>
         <p className="mt-3 text-lg">Development-only composites reuse selected NIH consumer photographs to test the pipeline. They are functional demonstrations, not fresh accuracy evidence or a test of real bottle photos. No holdout photos or frozen benchmark results were changed. Only detected pills are checked; inspect the numbering for missed pills.</p>
       </section>
       {h && (

@@ -1,6 +1,6 @@
 # Second Look
 
-Photograph a pharmacy label and one pill to check whether the pill matches the FDA record for that medicine. Second Look shows the evidence, draws the expected pill, and gives you words to use when calling your pharmacist.
+Photograph a pharmacy label, then pour your pills onto a towel and snap one photo. Second Look checks every pill against the FDA records for that medicine, shows the evidence, and gives you words to use when calling your pharmacist. If a pill's writing is face-down or it looks different from the rest, it circles just that pill: flip it where it is and snap again, and only the flipped pills are read again.
 
 [Open the app](https://getsecondlook.vercel.app) · [Try a sample](https://getsecondlook.vercel.app/samples) · [Type a check](https://getsecondlook.vercel.app/type)
 
@@ -69,13 +69,19 @@ npm run samples:build
 
 The builder applies orientation, resizes to 1600px, strips EXIF, runs the same live pipeline as `/api/check`, and saves public photos plus dated JSON results. Empty folders keep the saved FDA example. Failed reads keep the previous result. Commit generated files to publish. The sample's live button reruns the stored photos through the rate-limited API and falls back to the saved check if unavailable.
 
-## Whole-bottle check (phase 9 preview)
+## Pour and snap (whole-bottle check)
 
-Choose **Check the whole bottle** on `/check`. Photograph the label, then spread up to 20 pills on plain paper whose color contrasts with the pills. Keep the pills apart, letters facing up. Code finds the pills and crops each one from the uploaded image; the existing Sonnet reader transcribes each crop, and the deterministic FDA engine checks each pill.
+`/check` opens on **Check my pills**. Photograph the label, then pour the pills onto something dark, like a towel or plate, and spread them out. Code finds and numbers every pill (no AI), the Sonnet reader transcribes each crop, and the deterministic FDA engine checks each one.
 
-The photo gets a numbered marker for each detected pill. Select a marker to jump to its reading and result. Check that every visible pill has a number. This checks the pills detected in the photo, not medicine left in the bottle. A mismatch makes the bottle result red. A confident appearance difference with unreadable text remains **UNSURE for that pill**, with a bottle warning; it never becomes an invented imprint-based mismatch. The bottle can be green only when every detected pill matches or is the same medicine from another listed seller. Unreadable pills lead to a retake. Touching pills, clutter, a varied background, zero pills or more than 20 call for a clearer photo.
+- **Red** if any pill doesn't match, read from either side ("93" alone or "2263" alone is enough). Naming what the wrong pill is needs both sides.
+- **Looks different**: code compares each pill's size, shape and color with the other pills in the same photo. An odd one out is never green and is the first pill we ask about.
+- **Writing face-down**: a pill that looks like the confirmed ones but shows no writing isn't confirmed. We ask you to flip just that pill, at most 3 at a time.
+- **Touching or cut-off pills** are circled and never counted as checked.
+- **Green** only when every pill we found is confirmed by its imprint. We only check the pills we can see.
 
-The one-pill path remains available. Shared bottle results contain readings, FDA evidence and numbered boxes on a neutral surface, **no uploaded photograph or crop**.
+**Flip and snap again** matches the second photo to the first by pill positions, reads only the flipped (or newly separated) pills, and keeps the other readings. If the pills moved too much to match, it checks every pill again and says so. One check covers up to 5 re-read pills.
+
+Shared bottle results contain readings, FDA evidence and numbered boxes on a neutral surface, **no uploaded photograph or crop**. These bottle rules are separate from the frozen single-pill benchmark.
 
 `npm run bottle:composites` prepares three functional composites made from real NIH **development-cohort** consumer photographs on plain backgrounds, without AI calls. The first `npm run smoke:bottle -- --live` reads them with the production Sonnet reader under a durable $1 total cap; later `npm run smoke:bottle` replays cached readings without spending again. The smoke uses declared FDA labels, not AI label-photo readings. These examples are not part of the frozen benchmark and are not evidence of whole-bottle accuracy. Original benchmark results remain unchanged. Exact inputs, observed outcomes, spend and limitations are recorded in `HANDOFF.md`.
 
