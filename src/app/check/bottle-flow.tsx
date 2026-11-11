@@ -6,6 +6,7 @@ import { Button } from "@/components/button";
 import { BottleResultView } from "@/components/bottle-result";
 import { CheckingSteps, type StepState } from "@/components/checking-steps";
 import type { BottleEvent, BottleResult } from "@/lib/bottle/types";
+import { pillRingPosition } from "@/lib/bottle/overlay";
 import { BOTTLE_BODY_BYTES, prepareBottlePhoto } from "@/lib/bottle/upload";
 
 type Photo = Awaited<ReturnType<typeof prepareBottlePhoto>>;
@@ -102,6 +103,6 @@ function AskedPills({ result, photo }: { result: BottleResult; photo: string }) 
   return <div className="relative w-full overflow-hidden rounded-[var(--radius-photo)] bg-foil" style={{ aspectRatio: `${result.image.width} / ${result.image.height}` }}>
     <img src={photo} alt="Your first photo, with the pills to flip ringed" className="absolute inset-0 h-full w-full" />
     {(result.clumps ?? []).map((c, i) => <div key={i} aria-hidden className="absolute rounded-full border-[3px] border-dashed border-amber" style={{ left: `${(c.box.x - c.box.width * 0.12) * 100}%`, top: `${(c.box.y - c.box.height * 0.12) * 100}%`, width: `${c.box.width * 124}%`, height: `${c.box.height * 124}%` }} />)}
-    {result.pills.filter((p) => asks.has(p.number)).map((p) => <div key={p.number} className="absolute grid place-items-center rounded-full shadow-[0_0_0_4px_var(--amber),0_0_0_7px_white]" style={{ left: `${p.box.x * 100}%`, top: `${p.box.y * 100}%`, width: `${p.box.width * 100}%`, height: `${p.box.height * 100}%` }}><span className="grid min-h-11 min-w-11 place-items-center rounded-full bg-amber font-mono text-lg font-bold text-ink"><RotateCcw aria-hidden className="mr-0.5 inline size-4" />{p.number}</span></div>)}
+    {result.pills.filter((p) => asks.has(p.number)).map((p) => <div key={p.number} className="absolute grid place-items-center rounded-full shadow-[0_0_0_4px_var(--amber),0_0_0_7px_white]" style={pillRingPosition(p.box, true)}><span className="grid min-h-11 min-w-11 place-items-center rounded-full bg-amber font-mono text-lg font-bold text-ink"><RotateCcw aria-hidden className="mr-0.5 inline size-4" />{p.number}</span></div>)}
   </div>;
 }

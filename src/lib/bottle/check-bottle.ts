@@ -92,7 +92,7 @@ async function readAndCheck(label: LabelReading, segmented: SegmentedBottle, rea
       : await runResolvedCheck(label, combined ?? unreadablePill(), resolved);
     // A reverse view cannot erase an already confident mismatch (including an unreadable/conflicting reverse).
     if (before?.result.verdict === "MISMATCH" && result.verdict !== "MISMATCH") result = { ...result, verdict: "MISMATCH", identifiedAs: null, reasons: [...result.reasons, "The first view already showed an imprint that does not match your label. That mismatch still stands."] };
-    const pill: BottlePill = { number: i + 1, box, result, features: segmented.features[i], ...(reading && followUp ? { reread: true } : {}), ...(kept && !reading ? { carried: true } : {}) };
+    const pill: BottlePill = { number: i + 1, box, result, features: segmented.features[i], ...(reading && followUp ? { reread: true } : {}), ...(kept && !reading ? { carried: true, previousVerdict: kept.previousVerdict ?? kept.result.verdict } : {}) };
     pill.appearanceWarning = appearanceWarning(pill);
     return pill;
   });

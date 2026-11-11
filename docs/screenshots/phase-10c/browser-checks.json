@@ -1,0 +1,156 @@
+{
+  "base": "http://localhost:3001",
+  "note": "Saved real readings; live bottle API intercepted, shares read actual stored results. Zero paid calls.",
+  "reports": [
+    {
+      "kind": "share-before",
+      "width": 375,
+      "summary": "8 match · 1 doesn't match · 1 can't tell",
+      "geometry": {
+        "dx": 0,
+        "dy": 0,
+        "ringWidth": 56,
+        "dotWidth": 44
+      },
+      "collapsedGroups": true,
+      "selectionFocus": true,
+      "keyboardEvidence": true,
+      "photo": false
+    },
+    {
+      "kind": "share-after",
+      "width": 375,
+      "summary": "1 mismatch · 8 matched earlier · 1 unsure",
+      "geometry": null,
+      "collapsedGroups": true,
+      "selectionFocus": true,
+      "keyboardEvidence": true,
+      "photo": false
+    },
+    {
+      "kind": "live-before",
+      "width": 375,
+      "summary": "8 match · 1 doesn't match · 1 can't tell",
+      "geometry": {
+        "dx": -0.01450892857141639,
+        "dy": -0.004960317460245278,
+        "ringWidth": 68.671875,
+        "dotWidth": 44
+      },
+      "collapsedGroups": true,
+      "selectionFocus": true,
+      "keyboardEvidence": true,
+      "photo": true
+    },
+    {
+      "kind": "live-after",
+      "width": 375,
+      "summary": "1 mismatch · 8 matched earlier · 1 unsure",
+      "geometry": null,
+      "collapsedGroups": true,
+      "selectionFocus": true,
+      "keyboardEvidence": true,
+      "photo": true
+    },
+    {
+      "kind": "share-before",
+      "width": 1440,
+      "summary": "8 match · 1 doesn't match · 1 can't tell",
+      "geometry": {
+        "dx": 0,
+        "dy": 0,
+        "ringWidth": 56,
+        "dotWidth": 44
+      },
+      "collapsedGroups": true,
+      "selectionFocus": true,
+      "keyboardEvidence": true,
+      "photo": false
+    },
+    {
+      "kind": "share-after",
+      "width": 1440,
+      "summary": "1 mismatch · 8 matched earlier · 1 unsure",
+      "geometry": null,
+      "collapsedGroups": true,
+      "selectionFocus": true,
+      "keyboardEvidence": true,
+      "photo": false
+    },
+    {
+      "kind": "live-before",
+      "width": 1440,
+      "summary": "8 match · 1 doesn't match · 1 can't tell",
+      "geometry": {
+        "dx": -0.021205357142889625,
+        "dy": -0.005084325396865097,
+        "ringWidth": 134.484375,
+        "dotWidth": 44
+      },
+      "collapsedGroups": true,
+      "selectionFocus": true,
+      "keyboardEvidence": true,
+      "photo": true
+    },
+    {
+      "kind": "live-after",
+      "width": 1440,
+      "summary": "1 mismatch · 8 matched earlier · 1 unsure",
+      "geometry": null,
+      "collapsedGroups": true,
+      "selectionFocus": true,
+      "keyboardEvidence": true,
+      "photo": true
+    },
+    {
+      "kind": "share-before",
+      "width": 1920,
+      "summary": "8 match · 1 doesn't match · 1 can't tell",
+      "geometry": {
+        "dx": 0,
+        "dy": 0,
+        "ringWidth": 56,
+        "dotWidth": 44
+      },
+      "collapsedGroups": true,
+      "selectionFocus": true,
+      "keyboardEvidence": true,
+      "photo": false
+    },
+    {
+      "kind": "share-after",
+      "width": 1920,
+      "summary": "1 mismatch · 8 matched earlier · 1 unsure",
+      "geometry": null,
+      "collapsedGroups": true,
+      "selectionFocus": true,
+      "keyboardEvidence": true,
+      "photo": false
+    },
+    {
+      "kind": "live-before",
+      "width": 1920,
+      "summary": "8 match · 1 doesn't match · 1 can't tell",
+      "geometry": {
+        "dx": -0.021205357142889625,
+        "dy": -0.005084325396865097,
+        "ringWidth": 134.484375,
+        "dotWidth": 44
+      },
+      "collapsedGroups": true,
+      "selectionFocus": true,
+      "keyboardEvidence": true,
+      "photo": true
+    },
+    {
+      "kind": "live-after",
+      "width": 1920,
+      "summary": "1 mismatch · 8 matched earlier · 1 unsure",
+      "geometry": null,
+      "collapsedGroups": true,
+      "selectionFocus": true,
+      "keyboardEvidence": true,
+      "photo": true
+    }
+  ]
+}

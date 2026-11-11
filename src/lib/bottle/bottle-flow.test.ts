@@ -132,7 +132,7 @@ describe("fresh review regressions", () => {
     expect(second!.pills[4].result.pill.imprintSides).toEqual(["93", "2263"]);
     expect(second!.pills[4].result.identifiedAs?.title).toContain("Amoxicillin");
     expect(second!.decision.verdict).toBe("MISMATCH");
-    expect(second!.pills[0]).toMatchObject({ carried: true, result: { verdict: "UNSURE" } });
+    expect(second!.pills[0]).toMatchObject({ carried: true, previousVerdict: "MATCH", result: { verdict: "UNSURE" } });
   });
 });
 

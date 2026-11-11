@@ -18,6 +18,8 @@ export type BottlePill = {
   reread?: boolean;
   /** History only: position matching cannot confirm the current pill. */
   carried?: boolean;
+  /** Display provenance only; never current confirmation. */
+  previousVerdict?: CheckResult["verdict"];
 };
 export type BottleDecision = {
   /** FACE_DOWN: the only open question is pills with their writing face-down (calm, not a warning). */

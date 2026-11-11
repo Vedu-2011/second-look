@@ -198,3 +198,17 @@ Repo: github.com/Vedu-2011/second-look — PUBLIC (DSH requires a public repo).
 - The historical pill-v2 benchmark does not establish current reader/color/identification performance. Look-alike
   sensitivity/false-warning rates on independent real bottle photos remain unmeasured. No thresholds were tuned
   on the phase 10b photos.
+
+## Decisions after phase 10c display polish (Codex, Nov 11)
+- Approved phases 9–10b merged to main before this separate preview branch. This polish changes presentation only.
+- A carried reading records previousVerdict as display provenance. Its actual result remains UNSURE and cannot
+  contribute to current bottle confirmation. A first-photo match is outlined softly and labeled "Matched in your
+  first photo"; unknown/uncertain provenance stays a question mark. No inference from confidence or appearance.
+- The saved phase-10b demo's provenance was backfilled from its recorded before/after pair, with exact reading
+  correspondence checked. Only previousVerdict added; a compare-and-set preserves existing data and remaining TTL.
+- Shared dots and flip rings use the same center/clamp anchor. Live rings surround the original normalized pill
+  crop; live badges stay outside the imprint. Warning/uncertain rows appear first; unflagged matches and earlier
+  matches expand on demand. A summary's current and earlier counts are explicitly separate.
+- Pill 10 in the saved before photo is still an engine MATCH with a photo-only SHAPE outlier warning: aspect
+  1.553 vs median 1.851, log deviation 0.17534 > tolerance 0.15839. Size and color did not trigger. No threshold,
+  prompt, engine, segmentation, quota or follow-up planning rule changed.

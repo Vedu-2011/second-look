@@ -67,7 +67,7 @@ export async function saveBottleResult(value: import("./bottle/types").BottleRes
     pills: value.pills.map((p) => ({ number: p.number, box: safeBox(p.box), result: safeCheck(p.result), ...(p.appearanceWarning ? { appearanceWarning: p.appearanceWarning } : {}),
       // Silhouette numbers only (size, shape, average color): needed to match pills after "Flip and snap again".
       ...(p.features ? { features: { length: p.features.length, width: p.features.width, aspect: p.features.aspect, area: p.features.area, relativeArea: p.features.relativeArea, lab: [p.features.lab[0], p.features.lab[1], p.features.lab[2]] as [number, number, number] } } : {}),
-      ...(p.carried ? { carried: true } : {}), ...(p.odd ? { odd: p.odd } : {}), ...(p.faceDown ? { faceDown: true } : {}), ...(p.reread ? { reread: true } : {}) })),
+      ...(p.carried ? { carried: true } : {}), ...(p.previousVerdict ? { previousVerdict: p.previousVerdict } : {}), ...(p.odd ? { odd: p.odd } : {}), ...(p.faceDown ? { faceDown: true } : {}), ...(p.reread ? { reread: true } : {}) })),
     checkedAt: value.checkedAt, elapsedMs: value.elapsedMs, usage: value.usage.map((u) => ({ model: u.model, inputTokens: u.inputTokens, outputTokens: u.outputTokens, estimatedUsd: u.estimatedUsd })),
   };
   const stored: StoredBottleResult = JSON.parse(JSON.stringify({ kind: "bottle", result, createdAt: new Date().toISOString(), ...(continuationToken ? { continuationHash: createHash("sha256").update(continuationToken).digest("hex") } : {}) }));

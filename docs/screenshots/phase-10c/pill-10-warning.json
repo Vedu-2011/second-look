@@ -1,0 +1,43 @@
+{
+  "pill": 10,
+  "imprint": [
+    "G 12"
+  ],
+  "verdict": "MATCH",
+  "flag": "a different shape",
+  "features": {
+    "length": 185.83342822867465,
+    "width": 119.6344318898635,
+    "aspect": 1.5533440105249507,
+    "area": 0.016130555555555554,
+    "lab": [
+      88.6,
+      1.7,
+      16.3
+    ],
+    "relativeArea": 1.219787144657611
+  },
+  "reference": {
+    "relativeArea": 0.9998949726929002,
+    "aspect": 1.8510453672530411,
+    "lab": [
+      92.15,
+      1.15,
+      17.700000000000003
+    ]
+  },
+  "tolerance": {
+    "shape": 0.1583944733312603,
+    "size": 0.33647223662121284,
+    "color": 8.856202578388249
+  },
+  "deviations": {
+    "size": 0.1987814047539578,
+    "shape": 0.17534050970772946,
+    "color": 2.3266123441605018
+  },
+  "triggered": [
+    "shape"
+  ],
+  "note": "Measured with unchanged existing lookalike rules; no calibration or tuning."
+}
