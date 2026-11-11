@@ -18,6 +18,8 @@ async function verify(page,kind,width,result,photo){
   if(!photo){assert.equal(await page.locator('[data-bottle-overlay] img').count(),0);await page.getByText('Each dot is a pill, in the spot it was in your photo. We never save photos.',{exact:true}).waitFor();}
   const summary=await page.getByLabel('Bottle summary',{exact:true}).innerText();
   assert.equal(summary,result===before?"8 match · 1 doesn't match · 1 can't tell":"1 mismatch · 8 matched earlier · 1 unsure");
+  const summaryLines=await page.getByLabel('Bottle summary',{exact:true}).evaluate(e=>{const r=document.createRange();r.selectNodeContents(e);return r.getClientRects().length;});
+  assert.equal(summaryLines,1,'summary remains one line at the requested width');
   assert.equal(await page.locator('#bottle-pill-2').isVisible(),false,'matches start collapsed');
   assert.equal(await page.locator('#bottle-pill-5').isVisible(),true);
   let geometry=null;
@@ -40,7 +42,7 @@ async function verify(page,kind,width,result,photo){
   assert.equal(await page.locator('#bottle-pill-2').isVisible(),true,'dot expands its containing group');
   await page.keyboard.press('Tab');await page.keyboard.press('Enter');
   assert.equal(await page.locator('#bottle-pill-2 details').getAttribute('open'),'');
-  reports.push({kind,width,summary,geometry,collapsedGroups:true,selectionFocus:true,keyboardEvidence:true,photo});
+  reports.push({kind,width,summary,summaryLines,geometry,collapsedGroups:true,selectionFocus:true,keyboardEvidence:true,photo});
 }
 try{
  for(const width of [375,1440,1920]){

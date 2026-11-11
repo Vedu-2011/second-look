@@ -1,11 +1,12 @@
 {
-  "base": "http://localhost:3001",
+  "base": "https://second-look-git-feat-phase-10c-polish-vedhanth.vercel.app",
   "note": "Saved real readings; live bottle API intercepted, shares read actual stored results. Zero paid calls.",
   "reports": [
     {
       "kind": "share-before",
       "width": 375,
       "summary": "8 match · 1 doesn't match · 1 can't tell",
+      "summaryLines": 1,
       "geometry": {
         "dx": 0,
         "dy": 0,
@@ -21,6 +22,7 @@
       "kind": "share-after",
       "width": 375,
       "summary": "1 mismatch · 8 matched earlier · 1 unsure",
+      "summaryLines": 1,
       "geometry": null,
       "collapsedGroups": true,
       "selectionFocus": true,
@@ -31,6 +33,7 @@
       "kind": "live-before",
       "width": 375,
       "summary": "8 match · 1 doesn't match · 1 can't tell",
+      "summaryLines": 1,
       "geometry": {
         "dx": -0.01450892857141639,
         "dy": -0.004960317460245278,
@@ -46,6 +49,7 @@
       "kind": "live-after",
       "width": 375,
       "summary": "1 mismatch · 8 matched earlier · 1 unsure",
+      "summaryLines": 1,
       "geometry": null,
       "collapsedGroups": true,
       "selectionFocus": true,
@@ -56,6 +60,7 @@
       "kind": "share-before",
       "width": 1440,
       "summary": "8 match · 1 doesn't match · 1 can't tell",
+      "summaryLines": 1,
       "geometry": {
         "dx": 0,
         "dy": 0,
@@ -71,6 +76,7 @@
       "kind": "share-after",
       "width": 1440,
       "summary": "1 mismatch · 8 matched earlier · 1 unsure",
+      "summaryLines": 1,
       "geometry": null,
       "collapsedGroups": true,
       "selectionFocus": true,
@@ -81,6 +87,7 @@
       "kind": "live-before",
       "width": 1440,
       "summary": "8 match · 1 doesn't match · 1 can't tell",
+      "summaryLines": 1,
       "geometry": {
         "dx": -0.021205357142889625,
         "dy": -0.005084325396865097,
@@ -96,6 +103,7 @@
       "kind": "live-after",
       "width": 1440,
       "summary": "1 mismatch · 8 matched earlier · 1 unsure",
+      "summaryLines": 1,
       "geometry": null,
       "collapsedGroups": true,
       "selectionFocus": true,
@@ -106,6 +114,7 @@
       "kind": "share-before",
       "width": 1920,
       "summary": "8 match · 1 doesn't match · 1 can't tell",
+      "summaryLines": 1,
       "geometry": {
         "dx": 0,
         "dy": 0,
@@ -121,6 +130,7 @@
       "kind": "share-after",
       "width": 1920,
       "summary": "1 mismatch · 8 matched earlier · 1 unsure",
+      "summaryLines": 1,
       "geometry": null,
       "collapsedGroups": true,
       "selectionFocus": true,
@@ -131,6 +141,7 @@
       "kind": "live-before",
       "width": 1920,
       "summary": "8 match · 1 doesn't match · 1 can't tell",
+      "summaryLines": 1,
       "geometry": {
         "dx": -0.021205357142889625,
         "dy": -0.005084325396865097,
@@ -146,6 +157,7 @@
       "kind": "live-after",
       "width": 1920,
       "summary": "1 mismatch · 8 matched earlier · 1 unsure",
+      "summaryLines": 1,
       "geometry": null,
       "collapsedGroups": true,
       "selectionFocus": true,
