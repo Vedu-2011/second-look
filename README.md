@@ -77,11 +77,11 @@ The photo gets a numbered marker for each detected pill. Select a marker to jump
 
 The one-pill path remains available. Shared bottle results contain readings, FDA evidence and numbered boxes on a neutral surface, **no uploaded photograph or crop**.
 
-`npm run smoke:bottle` runs three functional composites made from real NIH **development-cohort** consumer photographs on plain backgrounds, with cached readings and a $1 total cap. These examples are not part of the frozen benchmark and are not evidence of whole-bottle accuracy. Original benchmark results remain unchanged. Exact inputs, observed outcomes, spend and limitations are recorded in `HANDOFF.md`.
+`npm run bottle:composites` prepares three functional composites made from real NIH **development-cohort** consumer photographs on plain backgrounds, without AI calls. The first `npm run smoke:bottle -- --live` reads them with the production Sonnet reader under a durable $1 total cap; later `npm run smoke:bottle` replays cached readings without spending again. The smoke uses declared FDA labels, not AI label-photo readings. These examples are not part of the frozen benchmark and are not evidence of whole-bottle accuracy. Original benchmark results remain unchanged. Exact inputs, observed outcomes, spend and limitations are recorded in `HANDOFF.md`.
 
 ## Tests and limits
 
-209 network-free tests cover NDC formats, FDA parsing/cache/retries, imprint confusables, color/shape comparisons, deterministic verdicts, explanation checks, streamed steps, quotas, result expiry, editable labels, typed input, the sample builder, benchmark sampling/metrics/results validation, two-view conflicts, bounded transcription cleanup, continuation input/expiry and budget bounds. Live smoke checks are separate from unit tests.
+The network-free tests cover NDC formats, FDA parsing/cache/retries, imprint confusables, color/shape comparisons, deterministic verdicts, explanation checks, streamed steps, quotas, result expiry, editable labels, typed input, the sample builder, benchmark sampling/metrics/results validation, two-view conflicts, bounded transcription cleanup, continuation input/expiry and budget bounds. Live smoke checks are separate from unit tests.
 
 ## Another side, without rereading the first
 
