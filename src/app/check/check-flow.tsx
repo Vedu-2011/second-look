@@ -560,7 +560,7 @@ function Capture({
   );
 }
 function Brackets() {
-  const corner = "absolute size-10 border-amber sm:size-12";
+  const corner = "hidden";
   return (
     <div
       aria-hidden

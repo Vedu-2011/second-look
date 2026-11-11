@@ -9,6 +9,7 @@ import {
   shade,
 } from "@/lib/pill";
 import { cn } from "@/lib/utils";
+import type { CSSProperties } from "react";
 
 export type PillHighlight = "imprint" | "color" | "shape";
 
@@ -83,7 +84,7 @@ export function PillDrawing({
   const textWidth = front.length * fontSize * 0.62;
 
   return (
-    <figure className={cn("inline-flex flex-col items-center", className)}>
+    <figure className={cn("pill-stage inline-flex flex-col items-center", className)} style={{"--pill-color": faceFill} as CSSProperties}>
       <svg
         role="img"
         aria-label={label}
@@ -108,8 +109,8 @@ export function PillDrawing({
             <stop offset="100%" stopColor="#000" stopOpacity={light ? 0.12 : 0.2} />
           </linearGradient>
           <filter id={`${id}-shadow`} x="-30%" y="-30%" width="160%" height="170%">
-            <feDropShadow dx="0" dy={0.35} stdDeviation={0.4} floodColor="#17202B" floodOpacity={0.22} />
-            <feDropShadow dx="0" dy={1.1} stdDeviation={1.2} floodColor="#17202B" floodOpacity={0.12} />
+            <feDropShadow dx="0" dy={0.4} stdDeviation={0.5} floodColor="#1D1D1F" floodOpacity={0.16} />
+            <feDropShadow dx="0" dy={1.0} stdDeviation={1.25} floodColor="#1D1D1F" floodOpacity={0.10} />
           </filter>
         </defs>
 
@@ -151,7 +152,7 @@ export function PillDrawing({
             <rect x={-geo.width} y={-geo.height} width={geo.width * 2} height={geo.height * 2} fill={`url(#${id}-shade)`} />
             <rect x={-geo.width} y={-geo.height} width={geo.width * 2} height={geo.height * 2} fill={`url(#${id}-gloss)`} />
             {/* inner edge: makes the pill read as a solid object, not a flat sticker */}
-            <path d={geo.path} fill="none" stroke="#000" strokeOpacity={light ? 0.14 : 0.2} strokeWidth={0.5} />
+            <path d={geo.path} fill="none" stroke="#000" strokeOpacity={light ? 0.08 : 0.13} strokeWidth={0.4} />
             {geo.drawn !== "capsule" && (
               // the bevel "land" just inside the edge of a pressed tablet
               <path

@@ -22,7 +22,7 @@ function PillSlot({ caption, p }: { caption: string; p: Product | null | undefin
   return (
     <figure className="flex flex-col gap-2">
       <figcaption className="text-sm font-semibold text-ink-soft">{caption}</figcaption>
-      <div className="grid min-h-32 place-items-center rounded-[var(--radius-card)] bg-foil px-2 py-4">
+      <div className="grid min-h-40 place-items-center rounded-[var(--radius-card)] bg-white px-2 py-6">
         {p ? (
           <PillDrawing
             shapeCode={p.shapeCode ?? ""}
@@ -51,7 +51,7 @@ export default function SamplesPage() {
         </p>
       </div>
 
-      <ul className="mt-10 grid gap-6 lg:grid-cols-3">
+      <ul className="sample-grid mt-12 grid gap-8 lg:grid-cols-3">
         {SAMPLES.map(({ scenario: s, result: r, photos, recordedAt }) => {
           const labelSays = r.labelProduct ?? r.expected;
           const inBottle = r.verdict === "MISMATCH" ? r.identifiedAs : r.matchedProduct;

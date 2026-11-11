@@ -12,7 +12,7 @@ const RESULT = {
 // Imprint, color, shape, size: what the FDA record says vs what we saw. The failing row is tinted.
 export function FeatureTable({ rows, className }: { rows: FeatureRow[]; className?: string }) {
   return (
-    <table className={cn("w-full border-separate border-spacing-y-1.5 text-left", className)}>
+    <table className={cn("feature-list w-full border-separate border-spacing-y-2 text-left", className)}>
       <caption className="sr-only">How your pill compares with the FDA record</caption>
       <thead>
         <tr className="text-sm text-ink-soft">
@@ -41,7 +41,7 @@ export function FeatureTable({ rows, className }: { rows: FeatureRow[]; classNam
                 ? "bg-[color-mix(in_srgb,var(--unsure)_9%,white)]"
                 : "bg-white";
           return (
-            <tr key={row.name} data-result={row.result} className="shadow-[var(--shadow-soft)]">
+            <tr key={row.name} data-result={row.result}>
               <th
                 scope="row"
                 className={cn("rounded-l-[var(--radius-row)] px-3 py-3.5 font-semibold text-ink sm:px-4", tint)}

@@ -1,11 +1,11 @@
 import type { Metadata, Viewport } from "next";
-import { Atkinson_Hyperlegible_Mono, Atkinson_Hyperlegible_Next } from "next/font/google";
+import { Atkinson_Hyperlegible_Mono, Inter } from "next/font/google";
 import { SiteFooter, SiteHeader } from "@/components/site-chrome";
 import "./globals.css";
+import "./home.css";
 
-// Atkinson Hyperlegible was designed by the Braille Institute for readers with low vision.
-const atkinson = Atkinson_Hyperlegible_Next({
-  variable: "--font-atkinson",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
   display: "swap",
 });
@@ -30,12 +30,12 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#FAFBFC",
+  themeColor: "#FFFFFF",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${atkinson.variable} ${atkinsonMono.variable} h-full antialiased`}>
+    <html lang="en" className={`${inter.variable} ${atkinsonMono.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col">
         <a
           href="#main"

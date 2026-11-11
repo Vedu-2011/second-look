@@ -1,142 +1,41 @@
-import { Camera, Pill, ScanSearch } from "lucide-react";
+import { Camera, ScanText, Database, CircleCheck, CircleHelp, Eye, ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { HOLDOUT_RESULTS as RESEARCH_RESULTS, holdoutHeadline as researchHeadline } from "@/lib/research-holdout-results";
+import { Suspense } from "react";
+import { connection } from "next/server";
 import { ButtonLink } from "@/components/button";
 import { PillDrawing } from "@/components/pill-drawing";
-import { SourceBadge } from "@/components/source-badge";
-import { colorNames, shapeName } from "@/lib/fda/codes";
-import { IBUPROFEN_I2_OVAL as example } from "@/lib/fda/fixtures";
-
-const FLYNN_URL = "https://pubmed.ncbi.nlm.nih.gov/12688437/";
-const KESSELHEIM_URL = "https://pubmed.ncbi.nlm.nih.gov/25023248/";
-
-const steps = [
-  { Icon: Camera, title: "Photo of your label", body: "The sticker your pharmacy put on the bottle." },
-  { Icon: Pill, title: "Photo of one pill", body: "On a plain surface, letters facing up." },
-  {
-    Icon: ScanSearch,
-    title: "We check it against the FDA",
-    body: "Imprint, color and shape, compared with the FDA record. Size is shown for reference.",
-  },
-];
-
+import { ResultView } from "@/components/result-view";
+import { VerdictField } from "@/components/verdict-field";
+import { SAMPLE_RESULTS } from "@/lib/sample-results";
+import { drugGroup } from "@/lib/fda/rxnav";
+import { IBUPROFEN_I2_OVAL, ADVIL_OVAL, ACETAMINOPHEN_L484 } from "@/lib/fda/fixtures";
+import type { FdaProduct } from "@/lib/fda/fixtures";
+const mismatch=SAMPLE_RESULTS.find(s=>s.scenario.id==="mismatch")!.result;
+const maker=SAMPLE_RESULTS.find(s=>s.scenario.id==="different-maker")!.result;
+function Draw({pill,scale=15}:{pill:FdaProduct;scale?:number}) { return <PillDrawing shapeCode={pill.shapeCode} colorCodes={pill.colorCodes} sizeMm={pill.sizeMm} imprintSides={pill.imprintSides} score={pill.score} pxPerMm={scale}/>; }
+async function VersionCount() {
+  await connection();
+  const group=await drugGroup("310965").catch(()=>null);
+  return <><strong className="version-number">{group ? group.products.length.toLocaleString("en-US") : "Many"}</strong><p>versions of ibuprofen 200 mg,<br/>from every maker.</p></>;
+}
 export default function Home() {
-  return (
-    <div className="mx-auto w-full max-w-6xl px-5 sm:px-8">
-      <section className="grid grid-cols-1 items-center gap-12 pt-10 pb-6 sm:pt-16 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16 lg:pt-20">
-        <div className="min-w-0 max-w-[38rem]">
-          <h1 className="text-4xl font-bold tracking-[-0.025em] text-balance text-ink sm:text-[3.5rem] sm:leading-[1.04]">
-            Is this the right pill?
-          </h1>
-          <p className="mt-5 text-xl text-pretty text-ink sm:text-2xl sm:leading-snug">
-            US pharmacies fill about 1.7% of prescriptions with an error. That&apos;s around{" "}
-            <strong className="font-bold">51.5 million mistakes a year</strong>.{" "}
-            <a
-              href={FLYNN_URL}
-              target="_blank"
-              rel="noreferrer"
-              className="text-lg whitespace-nowrap text-ink-soft underline decoration-amber decoration-2 underline-offset-4 hover:text-ink"
-            >
-              Flynn et al., 2003
-            </a>
-          </p>
-          <p className="mt-4 text-lg text-pretty text-ink-soft">
-            Take a photo of your label and one pill. Second Look tells you if the pill matches the FDA record for
-            your medicine.
-          </p>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <ButtonLink href="/check" size="lg">
-              <Camera aria-hidden />
-              Check a bottle
-            </ButtonLink>
-            <ButtonLink href="/samples" size="lg" variant="secondary">
-              Try a sample bottle
-            </ButtonLink>
-          </div>
-          <Link href="/type" className="mt-4 inline-flex min-h-12 items-center rounded-full text-base font-semibold text-ink-soft underline decoration-amber decoration-2 underline-offset-4">No camera? Type what&apos;s on your pill</Link>
-        </div>
-
-        {/* The product itself: what a real FDA record looks like, drawn to scale. */}
-        <figure className="min-w-0 rounded-[var(--radius-photo)] bg-white p-6 shadow-[var(--shadow-lift)] sm:p-8">
-          <figcaption className="text-xl font-bold text-ink">Try a sample bottle</figcaption>
-          <p className="mt-2 text-base text-ink-soft">Follow a pill from its label to the FDA evidence.</p>
-          <div className="mt-2 grid place-items-center rounded-[var(--radius-card)] bg-foil px-4 py-10">
-            <PillDrawing
-              shapeCode={example.shapeCode}
-              colorCodes={example.colorCodes}
-              sizeMm={example.sizeMm}
-              imprintSides={example.imprintSides}
-              score={example.score}
-              pxPerMm={14}
-              ruler
-            />
-          </div>
-          <div className="mt-5 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-            <p className="text-xl font-bold text-ink">
-              {example.drug} <span className="font-mono whitespace-nowrap">{example.strength}</span>
-            </p>
-            <p className="text-base text-ink-soft">{example.labeler}</p>
-          </div>
-          <dl className="mt-4 grid grid-cols-2 gap-2 text-center sm:grid-cols-4">
-            {[
-              ["Imprint", example.imprintSides.join(" / "), true],
-              ["Color", colorNames(example.colorCodes), false],
-              ["Shape", shapeName(example.shapeCode), false],
-              ["Size", `${example.sizeMm} mm`, true],
-            ].map(([k, v, mono]) => (
-              <div key={String(k)} className="rounded-[var(--radius-row)] bg-label px-1 py-2.5">
-                <dt className="text-sm text-ink-soft">{k}</dt>
-                <dd className={mono ? "font-mono text-lg font-bold whitespace-nowrap text-ink" : "text-lg font-bold text-ink"}>{v}</dd>
-              </div>
-            ))}
-          </dl>
-          <SourceBadge setid={example.setid} publishedDate={example.publishedDate} className="mt-5" />
-          <ButtonLink href="/samples/match?live=1" size="lg" className="mt-6 w-full px-4 whitespace-normal text-center">Run the sample check</ButtonLink>
-          <Link href="/samples" className="mt-3 flex min-h-12 items-center justify-center rounded-full text-base font-semibold text-ink-soft underline underline-offset-4">See all three bottles</Link>
-        </figure>
-      </section>
-
-      {RESEARCH_RESULTS && <p className="mt-10 max-w-3xl text-base text-ink-soft"><Link href="/research" className="rounded-md underline decoration-amber decoration-2 underline-offset-4">{researchHeadline(RESEARCH_RESULTS)} Read the test.</Link></p>}
-
-      <section aria-labelledby="how" className="mt-16 sm:mt-24">
-        <h2 id="how" className="text-2xl font-bold tracking-[-0.01em] text-ink">
-          How a check works
-        </h2>
-        <ol className="mt-6 grid gap-4 md:grid-cols-3">
-          {steps.map(({ Icon, title, body }, i) => (
-            <li key={title} className="flex gap-4 rounded-[var(--radius-card)] bg-foil p-5 sm:p-6 md:flex-col">
-              <span className="grid size-12 shrink-0 place-items-center rounded-full bg-white text-ink shadow-[var(--shadow-soft)]">
-                <Icon className="size-6" aria-hidden />
-              </span>
-              <div>
-                <p className="text-sm font-semibold text-ink-soft">{i + 1}</p>
-                <p className="text-lg font-bold text-ink">{title}</p>
-                <p className="mt-1 text-base text-ink-soft">{body}</p>
-              </div>
-            </li>
-          ))}
-        </ol>
-      </section>
-
-      <section className="mt-16 max-w-[44rem] sm:mt-20">
-        <h2 className="text-2xl font-bold tracking-[-0.01em] text-ink">When a refill looks different</h2>
-        <p className="mt-3 text-lg text-pretty text-ink">
-          After a heart attack, people whose pills changed color had 34% higher odds of stopping their medicine. A
-          change in shape: 66%.{" "}
-          <a
-            href={KESSELHEIM_URL}
-            target="_blank"
-            rel="noreferrer"
-            className="whitespace-nowrap text-ink-soft underline decoration-amber decoration-2 underline-offset-4 hover:text-ink"
-          >
-            Kesselheim et al., 2014
-          </a>
-        </p>
-        <p className="mt-3 text-lg text-pretty text-ink-soft">
-          Often it&apos;s the same medicine from a different company. Second Look tells you when that&apos;s the case,
-          so you don&apos;t have to guess.
-        </p>
-      </section>
-    </div>
-  );
+  return <div className="home-page">
+    <section className="home-hero">
+      <div className="hero-copy"><h1>Is this the<br className="sm:hidden"/> right pill?</h1><p>Snap the label and one pill. Get the answer, with the FDA&apos;s proof, in about 10 seconds.</p><div className="home-actions"><ButtonLink href="/check">Check a pill</ButtonLink><ButtonLink href="/samples/match?live=1" variant="secondary">Try a sample</ButtonLink></div><Link href="/type" className="home-text-link">No camera? Type what&apos;s on your pill <span aria-hidden>›</span></Link></div>
+      <div className="hero-object"><div className="floating-pill float-one" aria-hidden><Draw pill={IBUPROFEN_I2_OVAL} scale={18}/></div><div className="floating-pill float-two" aria-hidden><Draw pill={ACETAMINOPHEN_L484} scale={14}/></div><div className="floating-pill float-three" aria-hidden><Draw pill={ADVIL_OVAL} scale={13}/></div>
+        <figure className="phone"><div className="phone-island" aria-hidden/><div className="phone-status" aria-hidden><span>9:41</span><span>● ▰</span></div><div className="phone-app-name">Second Look <span>Here is your result</span></div><div className="phone-screen" aria-hidden inert><div className="phone-canvas"><ResultView result={mismatch}/></div></div><figcaption className="phone-caption">Real FDA-record example · typed pill details</figcaption><div className="phone-home-bar" aria-hidden/></figure>
+      </div>
+    </section>
+    <section className="home-band stat-band"><div className="home-container"><h2><span>51.5 million</span> pharmacy dispensing errors a year in the US.</h2><a href="https://pubmed.ncbi.nlm.nih.gov/12688437/" className="home-text-link">Flynn et al., 2003 <span aria-hidden>›</span></a><p>A refill that looks different can change more than your routine. Color changes were linked to <strong>34%</strong> higher odds of stopping heart medicine; shape changes, <strong>66%</strong>. <a href="https://pubmed.ncbi.nlm.nih.gov/25023248/" className="home-text-link">Kesselheim et al., 2014 <span aria-hidden>›</span></a></p></div></section>
+    <section className="home-section home-container"><h2 className="section-title">AI reads.<br/>Code decides.</h2><ol className="home-flow">{[{Icon:Camera,title:"Photograph",body:"Your pharmacy label and one pill."},{Icon:ScanText,title:"Read",body:"Claude reads the visible text and appearance."},{Icon:Database,title:"Check",body:"Compare with every maker’s FDA record."},{Icon:CircleCheck,title:"Answer",body:"A clear result, with the record behind it."}].map(({Icon,title,body},i)=><li key={title}><div className="flow-symbol"><Icon aria-hidden strokeWidth={1.6}/>{i<3&&<ArrowRight className="flow-arrow" aria-hidden/>}</div><h3>{title}</h3><p>{body}</p></li>)}</ol><p className="flow-guard">The AI reads the photos. Plain code makes the decision. Explanations are checked against the facts.</p></section>
+    <section className="home-band"><div className="home-container home-section"><h2 className="section-title">See the difference.<br/>Know what it means.</h2><div className="home-bento">
+      <article className="bento-tile bento-compare"><h3>The FDA&apos;s picture,<br/>next to yours.</h3><p>Imprint, color and shape.<br/>The details that make a difference.</p><div className="bento-pills"><figure><Draw pill={IBUPROFEN_I2_OVAL}/><figcaption>FDA record</figcaption></figure><figure><Draw pill={ACETAMINOPHEN_L484}/><figcaption>Pill details supplied</figcaption></figure></div><Link href="/samples/mismatch" className="home-text-link">Explore this recorded example <span aria-hidden>›</span></Link></article>
+      <article className="bento-tile bento-versions"><Database aria-hidden size={36} strokeWidth={1.5}/><h3>Every maker.<br/>Every version.</h3><Suspense fallback={<p className="version-number">Every one.</p>}><VersionCount/></Suspense><Link href="/sources" className="home-text-link">Live record counts <span aria-hidden>›</span></Link></article>
+      <article className="bento-tile bento-same"><h3>Same medicine,<br/>new look.</h3><VerdictField verdict={maker.verdict} compact instruction="Another maker. Same medicine and strength."/><p>Refills can change appearance. The FDA record helps explain why.</p></article>
+      <article className="bento-tile bento-unsure"><CircleHelp aria-hidden size={42} strokeWidth={1.5}/><h3>“Can&apos;t tell”<br/>beats guessing.</h3><p>If the photo or the records aren&apos;t clear, we say so. Your pharmacist is the next step.</p></article>
+      <article className="bento-tile bento-eyes"><Eye aria-hidden size={42} strokeWidth={1.5}/><h3>Built for<br/>older eyes.</h3><p>Big type. Clear words. Distinctive imprint characters.</p><span className="accessibility-note">Lighthouse accessibility: 100</span></article>
+    </div></div></section>
+    <section className="home-section home-container home-tested"><h2 className="section-title">Tested on 150 photos<br/>it had never seen.</h2><div className="tested-numbers"><div><strong>83 of 88</strong><p>right when it answered</p></div><div><strong>4 vs 9</strong><p>false alarms versus asking AI directly</p></div></div><Link href="/research" className="home-text-link">Read the research <span aria-hidden>›</span></Link></section>
+    <section className="home-band home-section home-final"><h2 className="section-title">Take a second look.</h2><p>A little clarity before you take it.</p><div className="home-actions"><ButtonLink href="/check">Check a pill</ButtonLink><ButtonLink href="/samples/match?live=1" variant="secondary">Try a sample</ButtonLink></div></section>
+  </div>;
 }

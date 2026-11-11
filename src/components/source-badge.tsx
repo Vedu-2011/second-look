@@ -19,7 +19,7 @@ export function SourceBadge({
       target="_blank"
       rel="noreferrer"
       className={cn(
-        "group inline-flex min-h-12 items-center gap-2 rounded-[24px] bg-foil py-2 pr-4 pl-2 text-base text-ink transition-colors hover:bg-foil-deep",
+        "source-chip group inline-flex min-h-12 items-center gap-2 rounded-full bg-foil py-2 pr-4 pl-3 text-sm text-ink transition-colors hover:bg-foil-deep",
         className,
       )}
     >
@@ -42,7 +42,7 @@ export function RxNormBadge({ href, text, className }: { href: string; text: str
       target="_blank"
       rel="noreferrer"
       className={cn(
-        "group inline-flex min-h-12 items-center gap-2 rounded-[24px] bg-foil py-2 pr-4 pl-2 text-base text-ink transition-colors hover:bg-foil-deep",
+        "source-chip group inline-flex min-h-12 items-center gap-2 rounded-full bg-foil py-2 pr-4 pl-3 text-sm text-ink transition-colors hover:bg-foil-deep",
         className,
       )}
     >

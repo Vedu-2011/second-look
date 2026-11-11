@@ -61,7 +61,7 @@ function Panel({
 
 function Well({ children }: { children: ReactNode }) {
   return (
-    <div className="mt-3 grid min-h-44 place-items-center rounded-[var(--radius-card)] bg-foil px-3 py-6 sm:min-h-52">
+    <div className="result-well mt-3 grid min-h-44 place-items-center rounded-[var(--radius-card)] px-3 py-6 sm:min-h-52">
       {children}
     </div>
   );
@@ -138,12 +138,12 @@ export function ResultView({
   };
 
   return (
-    <article className="flex flex-col gap-5 sm:gap-6" aria-label="Check result">
+    <article className="result-view flex flex-col gap-5 sm:gap-6" aria-label="Check result">
       <VerdictField verdict={r.verdict} instruction={instructionFor(r)} />
 
       {explanation && (
         <section
-          className="rounded-[var(--radius-photo)] bg-white p-5 shadow-[var(--shadow-soft)] sm:p-6"
+          className="result-script order-last rounded-[var(--radius-photo)] p-6 sm:p-8"
           aria-labelledby="explanation-h"
         >
           <h2 id="explanation-h" className="text-xl font-bold text-ink">
@@ -163,7 +163,7 @@ export function ResultView({
         </section>
       )}
 
-      <div className="grid gap-4 sm:grid-cols-2">
+      <div className="result-comparison grid gap-4 sm:grid-cols-2">
         <Panel title="What the FDA says it should look like">
           <Well>
             {reference ? (
@@ -251,7 +251,7 @@ export function ResultView({
       {r.verdict === "SAME_MEDICINE_DIFFERENT_MAKER" &&
         r.labelProduct &&
         r.matchedProduct && (
-          <section className="flex flex-col gap-4 rounded-[var(--radius-photo)] bg-[color-mix(in_srgb,var(--match)_8%,white)] p-5 sm:flex-row sm:items-center sm:p-6">
+          <section className="flex flex-col gap-4 rounded-[var(--radius-photo)] bg-[#eef9fb] p-5 sm:flex-row sm:items-center sm:p-6">
             <div className="grid shrink-0 place-items-center rounded-[var(--radius-card)] bg-white px-4 py-4 shadow-[var(--shadow-soft)]">
               <ProductPill p={r.labelProduct} px={7} />
             </div>

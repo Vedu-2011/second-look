@@ -9,14 +9,14 @@ const ICONS = {
   UNSURE: CircleHelp,
 } as const;
 
-const TONE_BG = {
-  match: "bg-match",
-  mismatch: "bg-mismatch",
-  unsure: "bg-unsure",
+const TONES = {
+  MATCH: "verdict-match",
+  SAME_MEDICINE_DIFFERENT_MAKER: "verdict-same",
+  MISMATCH: "verdict-mismatch",
+  UNSURE: "verdict-unsure",
 } as const;
 
-// The loudest thing on screen. Color + icon + word + instruction, so it works without color vision.
-// All text is bold and ≥ 20px: white on --match is 4.35:1, which passes WCAG only as large text.
+// Tint + dark title + icon + instruction, readable without color vision.
 export function VerdictField({
   verdict,
   instruction,
@@ -37,17 +37,17 @@ export function VerdictField({
       aria-label={`Result: ${copy.word}`}
       data-verdict={verdict}
       className={cn(
-        "relative overflow-hidden rounded-[var(--radius-photo)] text-white shadow-[var(--shadow-lift)]",
-        TONE_BG[copy.tone],
+        "verdict-field relative overflow-hidden rounded-[var(--radius-photo)]",
+        TONES[verdict],
         compact ? "px-5 py-5" : "px-6 py-7 sm:px-9 sm:py-9",
         className,
       )}
     >
-      <div className={cn("flex flex-col items-start sm:flex-row", compact ? "gap-3" : "gap-4 sm:gap-5")}>
+      <div className={cn("verdict-body flex items-start", compact ? "gap-3" : "gap-4 sm:gap-5")}>
         <span
           aria-hidden
           className={cn(
-            "grid shrink-0 place-items-center rounded-full bg-white/18 ring-1 ring-white/25",
+            "verdict-icon grid shrink-0 place-items-center rounded-full",
             compact ? "size-11" : "size-14 sm:size-16",
           )}
         >
@@ -56,13 +56,13 @@ export function VerdictField({
         <div className="min-w-0">
           <p
             className={cn(
-              "font-bold tracking-[-0.02em] text-balance [overflow-wrap:anywhere]",
-              compact ? "text-[2rem] leading-[1.08]" : "text-[clamp(2.5rem,8vw,4.5rem)] leading-[1.04]",
+              "verdict-title font-bold tracking-[-0.03em] text-balance [overflow-wrap:anywhere]",
+              compact ? "text-[1.5rem] leading-[1.08]" : "text-[clamp(2rem,6vw,3.5rem)] leading-[1.04]",
             )}
           >
             {copy.word}
           </p>
-          <p className={cn("font-bold text-pretty text-white", compact ? "mt-1.5 text-lg" : "mt-3 text-xl sm:text-2xl")}>
+          <p className={cn("verdict-instruction text-pretty", compact ? "mt-2 text-sm" : "mt-4 text-base sm:text-lg")}>
             {instruction ?? copy.instruction}
           </p>
         </div>

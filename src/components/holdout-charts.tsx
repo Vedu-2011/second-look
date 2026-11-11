@@ -45,7 +45,7 @@ export function HoldoutCharts({
       ].map((chart) => (
         <section
           key={chart.title}
-          className="rounded-[var(--radius-photo)] bg-foil p-4 sm:p-6"
+          className="rounded-[var(--radius-photo)] bg-foil p-5 sm:p-8"
         >
           <h2 className="text-2xl font-bold">{chart.title}</h2>
           <p className="mt-2 text-lg text-ink-soft">{chart.tip}</p>
@@ -62,7 +62,7 @@ export function HoldoutCharts({
               >
                 <XAxis
                   dataKey="name"
-                  tick={{ fontSize: 13, fill: "#17202B" }}
+                  tick={{ fontSize: 13, fill: "#1D1D1F" }}
                   axisLine={false}
                   tickLine={false}
                 />
@@ -85,8 +85,8 @@ export function HoldoutCharts({
                   <Bar
                     key={key}
                     dataKey={key}
-                    fill={i === 0 ? "#17202B" : "#9A5F0C"}
-                    radius={[5, 5, 0, 0]}
+                    fill={i === 0 ? "#0071E3" : "#C93400"}
+                    radius={[10, 10, 0, 0]}
                     isAnimationActive={false}
                   />
                 ))}

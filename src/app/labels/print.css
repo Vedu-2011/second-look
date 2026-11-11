@@ -8,6 +8,7 @@
 .label-directions { margin: 7px 0 4px; }
 .label-disclaimer { font-size: 7pt; margin-top: auto; padding-top: 4px; }
 .print-help code { overflow-wrap: anywhere; }
+@media screen { .label-workspace { padding-top:48px; } .label-item { border-radius:18px; box-shadow:var(--shadow-lift); } .label-sheet { padding:32px; background:var(--bg-soft); border-radius:28px; margin-top:32px; } }
 @media screen and (max-width: 374px) { .label-item { transform: scale(.9); transform-origin: top center; margin-bottom: -.2in; } }
 @page { size: letter; margin: .5in; }
 @media print {

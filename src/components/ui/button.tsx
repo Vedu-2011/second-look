@@ -10,15 +10,15 @@ const buttonVariants = cva(
     variants: {
       variant: {
         primary:
-          "bg-amber text-ink shadow-[0_1px_0_rgb(255_255_255/0.35)_inset,0_6px_16px_-8px_rgb(154_95_12/0.7)] hover:bg-[#d6871a]",
+          "bg-amber text-ink hover:bg-[#f58b00]",
         secondary: "bg-foil text-ink hover:bg-foil-deep",
         ghost: "text-ink hover:bg-foil",
         ink: "bg-ink text-label hover:bg-[#232e3c]",
       },
       size: {
-        default: "min-h-14 px-7 text-lg",
-        sm: "min-h-12 px-5 text-base",
-        lg: "min-h-16 px-9 text-xl",
+        default: "min-h-[52px] px-7 text-base active:scale-[.98]",
+        sm: "min-h-12 px-5 text-sm active:scale-[.98]",
+        lg: "min-h-[52px] px-8 text-base active:scale-[.98]",
         icon: "size-12",
       },
     },

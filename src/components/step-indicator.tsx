@@ -18,10 +18,10 @@ export function StepIndicator({
           <span
             key={i}
             className={cn(
-              "h-1.5 rounded-full transition-[width,background-color] duration-300",
-              i + 1 < step && "w-8 bg-ink",
-              i + 1 === step && "w-12 bg-amber",
-              i + 1 > step && "w-8 bg-foil-deep",
+              "size-2 rounded-full transition-colors duration-300",
+              i + 1 < step && "bg-ink",
+              i + 1 === step && "bg-amber",
+              i + 1 > step && "bg-foil-deep",
             )}
           />
         ))}

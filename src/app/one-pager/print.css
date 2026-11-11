@@ -1,6 +1,6 @@
 .one-pager-tools { max-width: 7.5in; margin: 24px auto; padding: 0 16px; font-size: 18px; }
 .one-pager-tools a { display: inline-flex; align-items: center; min-height: 48px; font-weight: 700; text-decoration: underline; text-underline-offset: 4px; }
-.one-pager { box-sizing: border-box; width: 7.5in; margin: 24px auto; padding: .32in; color: var(--ink); background: var(--label); font: 11pt/1.28 var(--font-atkinson), sans-serif; box-shadow: var(--shadow-lift); }
+.one-pager { box-sizing: border-box; width: 7.5in; margin: 24px auto; padding: .32in; color: var(--ink); background: var(--label); font: 11pt/1.28 var(--font-ui); box-shadow: var(--shadow-lift); }
 .one-pager h1 { font-size: 31pt; line-height: 1; font-weight: 800; letter-spacing: -.025em; }
 .one-pager h2 { font-size: 13.5pt; line-height: 1.15; font-weight: 750; margin-bottom: 5px; }
 .one-pager section { margin-top: 15px; }

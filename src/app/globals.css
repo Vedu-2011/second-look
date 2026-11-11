@@ -2,18 +2,26 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
-/* Second Look design tokens — docs/DESIGN.md is the source of truth. Light theme only. */
+/* Design v2. Legacy aliases keep the existing forms and behavior unchanged. */
 :root {
-  --ink: #17202b; /* deep slate ink — text, icons */
-  --ink-soft: #4d5867; /* secondary text (5.99:1 on foil, 6.9:1 on label) */
-  --label: #fafbfc; /* label white — page background */
-  --foil: #e7eaef; /* blister-foil silver — surfaces, wells, photo frames */
-  --foil-deep: #dce0e7;
-  --amber: #e0901e; /* prescription-bottle amber — brand, camera frame, primary button */
-  --amber-deep: #9a5f0c; /* amber for text on white (5.05:1) */
-  --match: #1c8a57;
-  --mismatch: #c42f2a;
-  --unsure: #4a5a85;
+  --bg: #ffffff;
+  --bg-soft: #f5f5f7;
+  --ink: #1d1d1f;
+  --ink-2: #6e6e73;
+  --brand: #ff9500;
+  --brand-deep: #c93400;
+  --blue: #0071e3;
+  --ink-soft: var(--ink-2);
+  --label: var(--bg);
+  --foil: var(--bg-soft);
+  --foil-deep: #e8e8ed;
+  --amber: var(--brand);
+  --amber-deep: var(--brand-deep);
+  --match: #1f7a3a;
+  --same: #0e6f80;
+  --mismatch: #c9241a;
+  --unsure: #3a3a3c;
+  --font-ui: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", var(--font-inter), system-ui, sans-serif;
 
   /* shadcn tokens mapped onto ours */
   --background: var(--label);
@@ -68,32 +76,32 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
 
-  --font-sans: var(--font-atkinson), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-ui);
   --font-mono: var(--font-atkinson-mono), ui-monospace, monospace;
   --font-heading: var(--font-sans);
 
   /* Type scale: body 18px on mobile, 20px on desktop (see body below). */
-  --text-sm: 1rem;
+  --text-sm: .875rem;
   --text-sm--line-height: 1.45;
-  --text-base: 1.125rem;
+  --text-base: 1.0625rem;
   --text-base--line-height: 1.55;
-  --text-lg: 1.25rem;
+  --text-lg: 1.1875rem;
   --text-lg--line-height: 1.5;
-  --text-xl: 1.5rem;
+  --text-xl: 1.375rem;
   --text-xl--line-height: 1.3;
-  --text-2xl: 1.875rem;
+  --text-2xl: 1.5rem;
   --text-2xl--line-height: 1.2;
-  --text-3xl: 2.375rem;
+  --text-3xl: 2.25rem;
   --text-3xl--line-height: 1.12;
-  --text-4xl: 3rem;
+  --text-4xl: 2.25rem;
   --text-4xl--line-height: 1.05;
   --text-verdict: clamp(3.5rem, 2.6rem + 3.6vw, 4.5rem);
   --text-verdict--line-height: 0.98;
 
   /* Radius hierarchy: photos + verdict 20px, table rows 12px, buttons fully round. */
-  --radius-row: 12px;
-  --radius-card: 16px;
-  --radius-photo: 20px;
+  --radius-row: 16px;
+  --radius-card: 24px;
+  --radius-photo: 24px;
   --radius-sm: 8px;
   --radius-md: 10px;
   --radius-lg: 12px;
@@ -101,8 +109,8 @@
   --radius-2xl: 20px;
 
   /* Soft, low shadows instead of borders. */
-  --shadow-soft: 0 1px 2px rgb(23 32 43 / 0.05), 0 4px 14px -4px rgb(23 32 43 / 0.08);
-  --shadow-lift: 0 1px 2px rgb(23 32 43 / 0.06), 0 12px 32px -12px rgb(23 32 43 / 0.18);
+  --shadow-soft: 0 1px 2px rgb(0 0 0 / .04), 0 12px 32px rgb(0 0 0 / .06);
+  --shadow-lift: 0 1px 2px rgb(0 0 0 / .04), 0 12px 32px rgb(0 0 0 / .08);
 }
 
 @layer base {
@@ -120,7 +128,7 @@
   }
   @media (min-width: 1024px) {
     body {
-      font-size: 1.25rem;
+      font-size: 1.1875rem;
     }
   }
   /* Focus is always visible: a thick ink ring with a white gap, readable on every surface. */
@@ -133,6 +141,31 @@
     background: color-mix(in srgb, var(--amber) 35%, transparent);
   }
 }
+
+@media (min-width: 768px) {
+  :root { --radius-card: 28px; --radius-photo: 28px; --text-4xl: 3.5rem; }
+}
+.max-w-6xl { max-width: 1080px; }
+main > div:not(.home-page) { padding-top: 48px; }
+main > div:not(.home-page) > h1 { letter-spacing: -.03em; }
+main a:not([data-slot="button"]):not(.action-link) { text-decoration-line: none; }
+main p a:not([data-slot="button"]), main li > a:not([data-slot="button"]) { color: var(--blue); }
+main a:not([data-slot="button"]):hover { text-decoration-line: underline; text-underline-offset: 4px; }
+.pill-stage { position: relative; isolation: isolate; }
+.pill-stage::before { content: ""; position: absolute; inset: -14% -8%; z-index: -1; background: radial-gradient(ellipse, color-mix(in srgb, var(--pill-color) 16%, transparent) 0, transparent 68%); }
+.result-comparison > figure { min-width: 0; }
+.result-well { background: white; min-height: 230px; }
+.source-chip { box-shadow: none; font-size: 14px; }
+.result-script { background: var(--bg-soft); }
+.verdict-match { --v-title:#1f7a3a; --v-icon:#34c759; background:linear-gradient(135deg,#f2fbf4,#e3f6e8); }
+.verdict-same { --v-title:#0e6f80; --v-icon:#30b0c7; background:linear-gradient(135deg,#eef9fb,#ddf2f6); }
+.verdict-mismatch { --v-title:#c9241a; --v-icon:#ff3b30; background:linear-gradient(135deg,#fff4f3,#ffe3e0); }
+.verdict-unsure { --v-title:#3a3a3c; --v-icon:#8e8e93; background:linear-gradient(135deg,#f7f7f8,#ececef); }
+.verdict-title { color:var(--v-title); }
+.verdict-icon { background:color-mix(in srgb,var(--v-icon) 14%,transparent); color:var(--v-title); }
+.verdict-instruction { color:var(--ink); font-weight:500; line-height:1.5; }
+@keyframes verdict-reveal { from { opacity: 0; transform: scale(.96); } to { opacity: 1; transform: scale(1); } }
+@media (prefers-reduced-motion: no-preference) { .verdict-field { animation: verdict-reveal 420ms cubic-bezier(.2,.8,.2,1) both; } }
 
 @media (prefers-reduced-motion: reduce) {
   *,
