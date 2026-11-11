@@ -6,7 +6,9 @@ export type DemoLabel = { id: LabelId; scenario: string; pharmacy: string; patie
 /** Global params affect all labels; match.ndc etc. override one label. Text is rendered by React, never HTML. */
 export function demoLabels(params: LabelParams = {}): DemoLabel[] {
   return LABEL_IDS.map((id, i) => {
-    const defaults: DemoLabel = { id, scenario: ["The right pill", "Same medicine, new look", "The wrong pill"][i], pharmacy: "Maple Street Pharmacy", patient: "Alex Rivera", rx: `20481${i + 1}`, drug: id === "different-maker" ? "Advil Liqui-Gels (ibuprofen)" : "Ibuprofen", strength: "200 mg", form: "capsule", directions: "Use only as directed on the original package.", qty: "30", ndc: id === "different-maker" ? "0573-0169" : "63981-598", mfr: id === "different-maker" ? "Haleon" : "Costco", date: "11/10/2026", initials: "JL" };
+    // Addendum 3: match + mismatch (and the whole-bottle demo) use the metformin label; same-medicine uses Advil.
+    const advil = id === "different-maker";
+    const defaults: DemoLabel = { id, scenario: ["The right pill", "Same medicine, new look", "The wrong pill"][i], pharmacy: "Maple Street Pharmacy", patient: "Alex Rivera", rx: `20481${i + 1}`, drug: advil ? "Advil Liqui-Gels (ibuprofen)" : "Metformin", strength: advil ? "200 mg" : "1,000 mg", form: advil ? "capsule" : "tablet", directions: advil ? "Use only as directed on the original package." : "Take as directed by your prescriber.", qty: "30", ndc: advil ? "0573-0169" : "70010-065", mfr: advil ? "Haleon" : "Granules", date: "11/10/2026", initials: "JL" };
     for (const field of Object.keys(defaults) as (keyof DemoLabel)[]) {
       if (field === "id" || field === "scenario") continue;
       const value = params[`${id}.${field}`] ?? params[field];

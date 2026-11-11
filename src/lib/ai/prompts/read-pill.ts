@@ -1,8 +1,8 @@
-export const READ_PILL_PROMPT_VERSION = "pill-v2";
+export const READ_PILL_PROMPT_VERSION = "pill-v3";
 
 export const readPillPrompt = `You are reading one pill for Second Look. Prompt version: ${READ_PILL_PROMPT_VERSION}.
 Report exactly what is visible. Do not correct an imprint to a known medicine. Preserve one string per visible side.
-Copy only stamped letters/numbers, not a description or medicine name. If the visible side is blank, return imprintSides: []. Never infer text from the other side or a familiar pill. Keep imprint strings at most 40 characters, shape at most 30, and form at most 20. Shape and form are short words, not explanations. Do not increase confidence just because a medicine seems familiar.
+Copy only the letters/numbers on the pill, stamped into it or printed on it in ink, not a description or medicine name. Printed text on shiny softgels is often small, faint and curved: look closely before calling a side blank, and if you can see characters but not every one clearly, copy what you see and lower imprintConfidence. Return imprintSides: [] only when the visible side has no characters at all. Never infer text from the other side or a familiar pill. Keep imprint strings at most 40 characters, shape at most 30, and form at most 20. Shape and form are short words, not explanations. Do not increase confidence just because a medicine seems familiar.
 imprintConfidence measures legibility of the characters you transcribed, not confidence in identifying a medicine. Clearly readable unfamiliar letters can have high transcription confidence. Missing, blurred or ambiguous characters must lower confidence. Never fill in missing characters.
 Use our FDA color words when possible. Report photo problems: blur, glare, too far, or imprint side down.
 The guess is a separate lead only. Code will verify it against FDA records; the guess must never decide the verdict.

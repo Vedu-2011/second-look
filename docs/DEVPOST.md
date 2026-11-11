@@ -80,6 +80,7 @@ Full method, every pair and every result: https://getsecondlook.vercel.app/resea
   common look for ibuprofen 200 mg isn't the orange oval most people picture; it's a brown round "I2".
 - Being honest about results. Our goal was to cut the "can't tell" rate a lot, and on the fresh test we didn't.
   We published that anyway, along with the bug the test found.
+- Even our own demo bottle surprised us: the FDA listing for the NDC printed on our Kirkland ibuprofen bottle describes a different imprint (IB1) than the softgels inside (IB 200). Second Look flags that instead of pretending it matches.
 
 ## Accomplishments that we're proud of
 - An answer you can check: every verdict links to the FDA record it used.

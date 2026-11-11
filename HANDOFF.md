@@ -1,6 +1,7 @@
-# HANDOFF log — newest entry on top
-Claude Code adds a new entry at the top after every task (format in ~/Hackathons/CLAUDE.md).
-The planner reads this file when Vedhanth says "handoffs". Never delete old entries.
+# HANDOFF log — history only (newest entry on top)
+New handoffs no longer go here. Each builder writes its handoff as a new file in ~/Hackathons/_coord/handoffs/
+(format and file name in ~/Hackathons/CLAUDE.md), and the planner reads them there. Keep this file as history;
+never delete old entries.
 
 ## 2026-11-10 8:17 PM PST — Whole-bottle check preview — prompts/phase-9.md
 

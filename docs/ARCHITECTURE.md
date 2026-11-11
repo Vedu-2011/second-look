@@ -129,7 +129,27 @@ Repo: github.com/Vedu-2011/second-look — PUBLIC (DSH requires a public repo).
   get confused (Kesselheim). Use with the exact counts from the app.
 
 ## Decisions after phase 8 (planner-authorized addendum, Nov 10)
-- Current real demo bottles: Kirkland ibuprofen 200 mg blue capsule IB1, NDC 63981-598, Costco; Advil Liqui-Gels label NDC 0573-0169, green capsule Advil; mismatched pill Tylenol Extra Strength white oval TYLENOL / 500, NDC 50580-937. Labels use capsule form for ibuprofen. These replace the earlier tablet demos, retained as regression fixtures.
+- (Superseded by addendum 3 below.) Earlier real demo bottles: Kirkland ibuprofen 200 mg blue capsule IB1, NDC 63981-598, Costco; Advil Liqui-Gels label NDC 0573-0169, green capsule Advil; mismatched pill Tylenol Extra Strength white oval TYLENOL / 500, NDC 50580-937. Labels use capsule form for ibuprofen. These replace the earlier tablet demos, retained as regression fixtures.
 - Live RxNav verified 310964 (generic capsule) and 731533 (Advil capsule) in the same group, 211 deduplicated products on Nov 10. Kirkland exact package is COMPLETED: keep MATCH and add a calm no-longer-marketed note.
 - A pill appearance can be shared by many sellers. Report every FDA-listed product with the selected record's complete imprint, color and shape; deduplicate by product code and sellers by normalized name; put the label NDC first. Do not infer a unique manufacturer or use this presentation grouping to change the verdict. Unknown sellers are disclosed.
 - Demo patient/pharmacy details remain fictional. Photos are optional and must never be fabricated. Printed IB1 needs close, angled light; TYLENOL / 500 demonstrates the flip step.
+
+## Decisions after phase 8 addenda 2 and 3 (planner, Nov 10)
+- Final demo set (live RxNav verified Nov 10):
+  - MATCH: Metformin 1,000 mg tablet label, NDC 70010-065, Granules; pill "G" / "12" (white oval, 19 mm).
+  - SAME_MEDICINE_DIFFERENT_MAKER: Advil Liqui-Gels (ibuprofen) 200 mg capsule label, NDC 0573-0169, Haleon; pill is
+    a Kirkland softgel printed "IB 200". Result says "sold by N companies"; it never names one maker.
+  - MISMATCH: Metformin label; pill amoxicillin "93". "93" alone never names a medicine: it says MISMATCH and asks
+    for a flip. After the flip ("93" / "2263") it is identified as amoxicillin 500 mg; Teva's own record
+    (0093-2263) is DROPPED, Chartwell RX (62135-084) is active with the same imprint, and Teva is in the seller list.
+  - Bottle (phase 9): Metformin label, 9 × "G 12" + 1 amoxicillin; bottle RED, amoxicillin flagged.
+- Identification needs a whole imprint (every side). It still works when the only FDA record is DROPPED, with the
+  calm "no longer marketed" note.
+- Color: blue, turquoise and green are CLOSE (translucent softgels). FDA color text in parentheses, such as
+  "blue(green)" or "green(Transparent green to blue green)", adds allowed shades. Color alone never turns a
+  mismatch into a match; it can only move an imprint match between MATCH and UNSURE.
+- Pill reading prompt pill-v3: printed ink counts as an imprint; faint print on softgels is never treated as blank.
+  If it can't be read, the result stays UNSURE. Research numbers are from the frozen pill-v2 run.
+- Finding: the FDA record for the NDC on our Kirkland bottle (63981-598) lists imprint "IB1", but the softgels inside
+  say "IB 200". Second Look flags this (SAME_MEDICINE, different listing) instead of calling it a match.
+- Earlier demo NDCs (Kirkland 63981-598, Tylenol 50580-937, older tablet fixtures) stay as regression fixtures.

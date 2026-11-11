@@ -1,4 +1,4 @@
-import { colorsFromCodes, compareColors, normalizeColor } from "@/lib/match/color";
+import { colorsFromCodes, compareFdaColors, normalizeColor } from "@/lib/match/color";
 import { compareShapes, normalizeShape, shapeFromCode } from "@/lib/match/shape";
 import { COLOR_MIN_CONFIDENCE, SHAPE_MIN_CONFIDENCE } from "@/lib/verdict-engine";
 import type { BottleDecision, BottlePill } from "./types";
@@ -9,7 +9,7 @@ export function appearanceWarning({ result }: BottlePill): string | undefined {
   const p = result.pill, expected = result.labelProduct;
   const colors = p.colors.map(normalizeColor).filter((c): c is NonNullable<typeof c> => Boolean(c));
   const expectedColors = colorsFromCodes(expected.colorCodes), expectedShape = shapeFromCode(expected.shapeCode), shape = normalizeShape(p.shape);
-  const colorDiffers = p.colorConfidence >= COLOR_MIN_CONFIDENCE && compareColors(expectedColors, colors) === "different";
+  const colorDiffers = p.colorConfidence >= COLOR_MIN_CONFIDENCE && compareFdaColors(expected, colors) === "different";
   const shapeDiffers = p.shapeConfidence >= SHAPE_MIN_CONFIDENCE && compareShapes(expectedShape, shape) === "different";
   if (!colorDiffers && !shapeDiffers) return;
   const found = [p.colorConfidence >= COLOR_MIN_CONFIDENCE ? colors.join(" / ") : "", p.shapeConfidence >= SHAPE_MIN_CONFIDENCE ? shape : ""].filter(Boolean).join(" ");

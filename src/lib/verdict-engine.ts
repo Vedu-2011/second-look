@@ -3,7 +3,7 @@
 import { colorNames, shapeName } from "@/lib/fda/codes";
 import { describeConcept, productName } from "@/lib/fda/concept";
 import type { DrugConcept, Product } from "@/lib/fda/types";
-import { colorsFromCodes, compareColors, normalizeColor, type ColorMatch } from "@/lib/match/color";
+import { compareFdaColors, normalizeColor, type ColorMatch } from "@/lib/match/color";
 import { compareImprint, displayImprint, tokenizeImprint, type ImprintComparison } from "@/lib/match/imprint";
 import { compareShapes, normalizeShape, shapeFromCode, type ShapeMatch } from "@/lib/match/shape";
 import type { FeatureRow, Verdict } from "@/lib/verdict";
@@ -101,7 +101,7 @@ function score(product: Product, pill: PillReading, fold = true): Scored {
   return {
     product,
     imprint: compareImprint(product.imprintRaw, pill.imprintSides, fold),
-    color: colorTrusted ? compareColors(colorsFromCodes(product.colorCodes), pillColors) : "skipped",
+    color: colorTrusted ? compareFdaColors(product, pillColors) : "skipped",
     shape: shapeTrusted ? compareShapes(shapeFromCode(product.shapeCode), normalizeShape(pill.shape)) : "skipped",
   };
 }
@@ -335,12 +335,22 @@ export function decide(label: LabelReading, pillInput: PillReading | readonly Pi
   }
   reasons.push(`No ${labelTitle ?? "version of your medicine"} the FDA lists has "${pillText}" on it. We checked ${sameDrug.length || 1} products from every maker.`);
 
+  // Name the pill only from its WHOLE imprint. One side ("93") can be a maker's mark shared by hundreds of
+  // medicines, so a partial match still says MISMATCH but asks for the other side instead of naming anything.
   const guessHits = (data.guessProducts ?? [])
     .map((p) => score(p, pill, fold))
     .filter((s) => s.imprint.result === "exact");
-  const identified = best(guessHits.filter(usable)) ?? best(guessHits.filter(appearanceOk)) ?? best(guessHits);
+  const wholeHits = guessHits.filter((s) => !s.imprint.partial);
+  const identified = best(wholeHits.filter(usable)) ?? best(wholeHits.filter(appearanceOk)) ?? best(wholeHits);
   if (identified) {
     reasons.push(`"${pillText}" is listed for ${titleOf(identified.product, null)} (FDA record).`);
+    if (!identified.product.active) {
+      reasons.push("The FDA lists this version as no longer marketed; the imprint is still on its record.");
+    }
+  } else if (guessHits.length) {
+    reasons.push(
+      `"${pillText}" is only part of this pill's imprint, and many medicines share part of an imprint. Turn the pill over and check the other side so we can tell what it is.`,
+    );
   } else {
     reasons.push("We couldn't confirm what this pill is from FDA records.");
   }

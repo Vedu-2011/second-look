@@ -23,5 +23,7 @@ export function listingSummary(e: ListingEvidence, identified = false) {
   const lead=identified ? `Listed in ${count} FDA-listed ${count===1?'version':'versions'}` : `Matches ${count} FDA-listed ${count===1?'version':'versions'}`;
   const names=e.sellers.slice(0,3).join(', ');
   const rest=e.sellers.length-3;
-  return `${lead}${names ? `, sold by ${names}${rest>0?` and ${rest} others`:''}` : '; sellers not listed'}.${e.unknownSellerCount ? ' Some records do not list a seller.' : ''}`;
+  const sentence=`${lead}${names ? `, sold by ${names}${rest>0?` and ${rest} others`:''}` : '; sellers not listed'}`;
+  // Seller names like "Inc." already end with a period; don't add a second one.
+  return `${sentence}${sentence.endsWith('.')?'':'.'}${e.unknownSellerCount ? ' Some records do not list a seller.' : ''}`;
 }

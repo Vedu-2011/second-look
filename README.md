@@ -59,7 +59,7 @@ The AI smoke script requires a production build and a live API key. It starts a 
 
 ## Demo photos and labels
 
-Open `/labels` to print three 3.5 × 2 inch labels on US Letter paper at 100% scale, browser headers/footers off. Query parameters edit all fields: `?ndc=63981-598&mfr=Costco`; prefix a field with `match.`, `different-maker.`, or `mismatch.` to edit one label.
+Open `/labels` to print three 3.5 × 2 inch labels on US Letter paper at 100% scale, browser headers/footers off. Query parameters edit all fields: `?ndc=70010-065&mfr=Granules`; prefix a field with `match.`, `different-maker.`, or `mismatch.` to edit one label.
 
 Put `label.jpg` and `pill.jpg` in each applicable `test-images/real/{match,different-maker,mismatch}/` folder. Read its README for the intended medicine. Use only fictional patient details: these demo images become public.
 

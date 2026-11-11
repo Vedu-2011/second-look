@@ -10,6 +10,8 @@ export function recordedLead(pill: PillReading) {
     { products: [...RECORDED.acetaminophen500Products, ...real.groups["209459"].products], concept: CONCEPTS.acetaminophen500 },
     { products: RECORDED.ibuprofen200Products, concept: CONCEPTS.ibuprofen200 },
     { products: real.groups["310964"].products, concept: real.groups["310964"].generic },
+    { products: real.groups["861004"].products, concept: real.groups["861004"].generic },
+    { products: real.groups["308192"].products, concept: real.groups["308192"].generic },
   ];
   const matches = groups.filter(g => g.products.some(p => compareImprint(p.imprintRaw, pill.imprintSides).result === "exact"));
   if (matches.length !== 1) return null;

@@ -1,7 +1,7 @@
 # The right pill
 
-Add `label.jpg`: the whole fictional ibuprofen 200 mg CAPSULE label from `/labels`, NDC 63981-598, sold by Costco. Add `pill.jpg`: one real blue Kirkland softgel with PRINTED IB1.
+Add `label.jpg`: the whole fictional Metformin 1,000 mg TABLET label from `/labels`, NDC 70010-065, made by Granules. Add `pill.jpg`: one real white oval metformin tablet stamped G on one side and 12 on the other.
 
-The IB1 is small on a shiny capsule. Shoot close, with angled light and no glare, on a plain contrasting surface, letters up. The exact package is listed as no longer marketed; a match still remains MATCH.
+Shoot close, with angled light so the stamped letters cast a shadow, on a plain dark surface, no glare. The result should be MATCH, with the shared sellers disclosed.
 
 Use the fictional patient Alex Rivera and the fictional pharmacy from `/labels`; exclude real patient information. Photos will be published. Run `npm run samples:build` after adding both photos to orient, resize, remove EXIF and run the live check. An empty folder retains the recorded FDA example. Never generate or edit pill photos.

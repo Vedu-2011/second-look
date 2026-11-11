@@ -84,10 +84,11 @@ describe("optional second-side flow", () => {
     });
   });
   it("conflicting second-side appearance remains unsure", async () => {
+    // The sample pill is a white metformin oval; a blue second side can't be the same pill.
     mocks.pill.mockResolvedValue({
       ...sample.pill,
       pillVisible: true,
-      colors: ["white"],
+      colors: ["blue"],
     });
     expect((await finishPhotoCheck(sample, image)).result.verdict).toBe(
       "UNSURE",

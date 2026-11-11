@@ -73,7 +73,38 @@ const CLOSE_PAIRS: [ColorWord, ColorWord][] = [
   ["purple", "pink"],
   ["green", "turquoise"],
   ["blue", "turquoise"],
+  // Translucent softgels: the FDA itself says "blue(green)" or "transparent green to blue green", and phones and
+  // readers call the same gel teal. Close, never exact; the imprint still decides.
+  ["blue", "green"],
 ];
+
+/**
+ * The colors an FDA record accepts. The color codes come first. A single-color record's text can add accepted
+ * shades in parentheses: "blue(green)", "white(White to off-white)", "green(Transparent green to blue green)".
+ * Each shade is an alternative to the coded color, not a second half of a two-tone pill.
+ */
+export function fdaColorOptions(product: { colorCodes: readonly string[]; colorText?: string | null }): ColorWord[][] {
+  const coded = colorsFromCodes(product.colorCodes);
+  if (coded.length !== 1) return [coded];
+  const inside = product.colorText?.match(/\(([^)]*)\)/)?.[1] ?? "";
+  const shades = inside
+    .split(/\s+to\s+|\s+or\s+|\s+and\s+|[,/;]/i)
+    .map((phrase) => normalizeColor(phrase.replace(/\b(transparent|translucent|clear|opaque)\b/gi, "")))
+    .filter((c): c is ColorWord => Boolean(c) && c !== coded[0]);
+  return [coded, ...[...new Set(shades)].map((c) => [c])];
+}
+
+const COLOR_RANK = { exact: 3, close: 2, different: 1, unknown: 0 } as const;
+
+/** Best comparison of the pill's colors against any color the FDA record accepts. */
+export function compareFdaColors(
+  product: { colorCodes: readonly string[]; colorText?: string | null },
+  pill: readonly ColorWord[],
+): ColorMatch | "unknown" {
+  return fdaColorOptions(product)
+    .map((fda) => compareColors(fda, pill))
+    .reduce<ColorMatch | "unknown">((a, b) => (COLOR_RANK[b] > COLOR_RANK[a] ? b : a), "unknown");
+}
 
 export function colorPair(a: ColorWord, b: ColorWord): ColorMatch {
   if (a === b) return "exact";

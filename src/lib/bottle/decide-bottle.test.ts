@@ -18,17 +18,18 @@ describe("whole-bottle rules preserve single-pill verdicts", () => {
     expect(result.verdict).toBe("MATCH"); expect(result.title).toContain("2 detected pills"); expect(result.instruction).toContain("every pill");
   });
   it("a confident color-only outlier stays UNSURE per pill with a bottle warning", () => {
-    const p = pill(7, "UNSURE"); p.result.pill = { ...p.result.pill, imprintSides: [], imprintConfidence: 0, colors: ["white"], colorConfidence: .99, shape: "capsule", shapeConfidence: .9 };
-    expect(appearanceWarning(p)).toContain("white");
+    const p = pill(7, "UNSURE"); p.result.pill = { ...p.result.pill, imprintSides: [], imprintConfidence: 0, colors: ["blue"], colorConfidence: .99, shape: "oval", shapeConfidence: .9 };
+    expect(appearanceWarning(p)).toContain("blue");
     const result = decideBottle([pill(1), p]); expect(result.verdict).toBe("WARNING"); expect(result.title).toContain("Pill 7"); expect(p.result.verdict).toBe("UNSURE");
   });
   it("a shape-only outlier warns, unknown/low confidence and close appearances don't", () => {
-    const p = pill(2, "UNSURE"); p.result.pill = { ...p.result.pill, colors: ["blue"], colorConfidence: .9, shape: "round", shapeConfidence: .99 };
+    // Label product: white metformin oval (sample 0).
+    const p = pill(2, "UNSURE"); p.result.pill = { ...p.result.pill, colors: ["white"], colorConfidence: .9, shape: "round", shapeConfidence: .99 };
     expect(decideBottle([p]).verdict).toBe("WARNING");
     p.result.pill.shapeConfidence = .2; expect(appearanceWarning(p)).toBeUndefined();
-    p.result.pill.shape = "oval"; p.result.pill.shapeConfidence = .9; expect(appearanceWarning(p)).toBeUndefined();
-    p.result.pill.colors = ["purple"]; expect(appearanceWarning(p)).toBeUndefined();
-    p.result.pill.colors = ["white"]; p.result.pill.colorConfidence = .1; expect(appearanceWarning(p)).toBeUndefined();
+    p.result.pill.shape = "capsule"; p.result.pill.shapeConfidence = .9; expect(appearanceWarning(p)).toBeUndefined();
+    p.result.pill.colors = ["off-white"]; expect(appearanceWarning(p)).toBeUndefined();
+    p.result.pill.colors = ["blue"]; p.result.pill.colorConfidence = .1; expect(appearanceWarning(p)).toBeUndefined();
   });
   it("does not compare a no-NDC typical look as if it were the label's exact product", () => {
     const p = pill(1, "UNSURE"); p.result.labelProduct = null; p.result.pill.colors = ["white"];

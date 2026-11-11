@@ -1,8 +1,10 @@
 import {describe,it,expect} from 'vitest';
 import {listingEvidence,listingSummary} from './listing-evidence';
-import {SAMPLE_RESULTS,REAL_DEMO} from './sample-results';
+import {SAMPLE_RESULTS,REAL_DEMO,sampleResult} from './sample-results';
 import {SCENARIOS} from './demo-scenarios';
 import {recordedLead} from './recorded-lead';
+import {decide} from './verdict-engine';
+import type {Product} from './fda/types';
 const reference=REAL_DEMO.products['63981-598'];
 describe('FDA listing evidence, presentation only',()=>{
  it('handles a single seller without claiming a unique manufacturer',()=>{const e=listingEvidence(reference,[reference])!;expect(e.products).toHaveLength(1);expect(listingSummary(e)).toBe('Matches 1 FDA-listed version, sold by Costco Wholesale.');});
@@ -11,11 +13,19 @@ describe('FDA listing evidence, presentation only',()=>{
  it('excludes different imprint, color and shape',()=>{for(const change of [{imprintRaw:'ZZZ'},{colorCodes:['C48325']},{shapeCode:'C48348'}])expect(listingEvidence(reference,[{...reference,...change,productCode:'222222222'}])!.products).toHaveLength(1);});
  it('discloses missing sellers without inventing names',()=>{const e=listingEvidence({...reference,labeler:undefined},[])!;expect(e.unknownSellerCount).toBe(1);expect(listingSummary(e)).toContain('sellers not listed');});
  it('returns no evidence without a matched record',()=>expect(listingEvidence(null,[reference])).toBeNull());
- it('describes mismatch identification as listed, not a unique seller',()=>expect(listingSummary(SAMPLE_RESULTS[2].result.identifiedListings!,true)).toMatch(/^Listed in 16 FDA-listed versions/));
+ it('never ends with a double period when a seller name ends in Inc.',()=>expect(listingSummary({products:[{} as never],sellers:['Teva Pharmaceuticals USA, Inc.'],unknownSellerCount:0},true)).toBe('Listed in 1 FDA-listed version, sold by Teva Pharmaceuticals USA, Inc.'));
+ it('describes mismatch identification as listed, not a unique seller',()=>expect(listingSummary(SAMPLE_RESULTS[2].result.identifiedListings!,true)).toMatch(/^Listed in \d+ FDA-listed versions?, sold by /));
 });
-describe('real demo bottle fixtures',()=>{
+describe('real demo bottle fixtures (addendum 3)',()=>{
+ const groups=REAL_DEMO.groups as Record<string,typeof REAL_DEMO.groups['310964']>;
+ const products=REAL_DEMO.products as Record<string,Product>;
  it.each(SAMPLE_RESULTS.map(s=>[s.scenario.id,s] as const))('%s returns its required verdict',(_id,s)=>expect(s.result.verdict).toBe(s.scenario.expect));
  it('verifies generic and Advil capsules really share the same group',()=>{expect(REAL_DEMO.groups['731533'].generic.rxcui).toBe('310964');expect(REAL_DEMO.groups['310964'].members.map(m=>m.rxcui)).toContain('731533');});
- it('keeps an exact discontinued package MATCH with the calm note',()=>{expect(SAMPLE_RESULTS[0].result.matchedProduct?.active).toBe(false);expect(SAMPLE_RESULTS[0].result.reasons.join(' ')).toContain('The FDA lists this exact package as no longer marketed; the pill matches its record.');});
- it('identifies TYLENOL / 500 as Tylenol from recorded FDA data',()=>{expect(SAMPLE_RESULTS[2].result.identifiedAs?.brand).toBe('Tylenol');expect(SAMPLE_RESULTS[2].result.identifiedAs?.title).toBe('Acetaminophen 500 mg');expect(recordedLead(SCENARIOS[2].pill)?.drugName.toLowerCase()).toContain('acetaminophen');});
+ it('matches the metformin G / 12 against its own label record',()=>{const r=SAMPLE_RESULTS[0].result;expect(r.matchedProduct?.ndc9).toBe('70010-065');expect(r.matchedProduct?.labeler).toMatch(/Granules/);expect(r.matchingListings!.products.length).toBeGreaterThan(1);});
+ it('calls the Kirkland IB 200 softgel the same medicine, sold by many companies',()=>{const r=SAMPLE_RESULTS[1].result;expect(r.matchedProduct?.imprintTokens).toEqual(['IB200']);expect(r.matchingListings!.sellers.length).toBeGreaterThan(3);expect(listingSummary(r.matchingListings!)).toMatch(/^Matches \d+ FDA-listed versions, sold by .* and \d+ others\.$/);});
+ it('identifies 93 / 2263 as amoxicillin 500 mg, listed by Teva too',()=>{const r=SAMPLE_RESULTS[2].result;expect(r.identifiedAs?.title).toBe('Amoxicillin 500 mg');expect(r.identifiedAs?.imprintRaw).toBe('93;2263');expect(r.identifiedListings!.sellers.some(s=>/Teva/.test(s))).toBe(true);expect(listingSummary(r.identifiedListings!,true)).toMatch(/^Listed in 2 FDA-listed versions/);expect(recordedLead(SCENARIOS[2].pill)?.drugName.toLowerCase()).toContain('amoxicillin');});
+ it('never names a medicine from the "93" side alone, and asks for the other side',()=>{const s=SCENARIOS[2];const r=sampleResult({...s,pill:{...s.pill,imprintSides:['93']}});expect(r.verdict).toBe('MISMATCH');expect(r.identifiedAs).toBeNull();expect(r.reasons.join(' ')).toMatch(/Turn the pill over/);});
+ it('still names the pill when its only FDA record is no longer marketed, with the calm note',()=>{const s=SCENARIOS[2];const teva=products['0093-2263'];expect(teva.active).toBe(false);const group=groups['861004'];const r=decide(s.label,s.pill,{labelProduct:products['70010-065'],labelDrug:group.generic,sameDrugProducts:group.products,guessProducts:[teva]});expect(r.identifiedAs?.ndc9).toBe('0093-2263');expect(r.reasons.join(' ')).toContain('The FDA lists this version as no longer marketed');});
+ it('keeps an exact discontinued package MATCH with the calm note (the IB1 record on the Kirkland bottle)',()=>{const s=SCENARIOS[1];const kirkland=products['63981-598'];const group=groups['310964'];const r=decide({ndc:'63981-598'},{...s.pill,imprintSides:['IB1'],colors:['blue']},{labelProduct:kirkland,labelDrug:group.generic,sameDrugProducts:group.products});expect(r.verdict).toBe('MATCH');expect(r.reasons.join(' ')).toContain('The FDA lists this exact package as no longer marketed; the pill matches its record.');});
+ it('flags the real finding: the Kirkland bottle record says IB1, the softgels inside say IB 200',()=>{const s=SCENARIOS[1];const kirkland=products['63981-598'];expect(kirkland.imprintRaw).toBe('IB1');const group=groups['310964'];const r=decide({ndc:'63981-598'},s.pill,{labelProduct:kirkland,labelDrug:group.generic,sameDrugProducts:group.products});expect(r.verdict).toBe('SAME_MEDICINE_DIFFERENT_MAKER');expect(r.matchedProduct?.ndc9).not.toBe('63981-598');});
 });
