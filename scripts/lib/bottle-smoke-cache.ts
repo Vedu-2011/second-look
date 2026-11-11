@@ -24,7 +24,13 @@ export class SmokeLedger {
     mkdirSync(path.dirname(file), { recursive: true });
     try { this.ledger = JSON.parse(readFileSync(file, "utf8")); }
     catch (e) { if ((e as NodeJS.ErrnoException).code !== "ENOENT") throw new Error("Cannot read usage ledger; refusing paid calls."); this.ledger = { version: 1, budgetUsd, entries: [] }; }
-    if (this.ledger.version !== 1 || !Array.isArray(this.ledger.entries)) throw new Error("Invalid usage ledger");
+    const nonnegative = (n: number) => Number.isFinite(n) && n >= 0;
+    const invalid = this.ledger.version !== 1 || !Number.isFinite(this.ledger.budgetUsd) || this.ledger.budgetUsd <= 0 || this.ledger.budgetUsd > 1 || !Array.isArray(this.ledger.entries)
+      || this.ledger.entries.some((e) => !e || typeof e.key !== "string" || !e.key || !Number.isFinite(e.reserved) || e.reserved <= 0 || !["pending", "done", "failed"].includes(e.status) || !Array.isArray(e.usage)
+        || e.usage.some((u) => !u || u.model !== "claude-sonnet-5-5" || !nonnegative(u.inputTokens) || !nonnegative(u.outputTokens) || !nonnegative(u.usd) || Math.abs(u.usd - (u.inputTokens * 2 + u.outputTokens * 10) / 1e6) > 1e-10)
+        || (e.status === "done" && !e.reading))
+      || new Set(this.ledger.entries.map((e) => e.key)).size !== this.ledger.entries.length;
+    if (invalid) throw new Error("Invalid usage ledger; refusing paid calls.");
     this.ledger.budgetUsd = Math.min(this.ledger.budgetUsd, budgetUsd);
   }
   private save() { const temp = this.file + ".tmp"; writeFileSync(temp, JSON.stringify(this.ledger, null, 2) + "\n"); renameSync(temp, this.file); }

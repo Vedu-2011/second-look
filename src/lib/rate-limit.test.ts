@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { clearRateLimitForTests, consumeCheckLimit } from "@/lib/rate-limit";
+import { bottleCheckUnits, clearRateLimitForTests, consumeCheckLimit } from "@/lib/rate-limit";
 
 describe("check rate limit fallback", () => {
   it("allows thirty checks and blocks the thirty-first", async () => {
@@ -37,4 +37,8 @@ it("a failed weighted reservation doesn't partially spend the hourly allowance",
   expect((await consumeCheckLimit("no-partial", 2)).allowed).toBe(false);
   expect((await consumeCheckLimit("no-partial")).allowed).toBe(true);
   clearRateLimitForTests();
+});
+
+it.each([[1,1],[5,1],[6,2],[9,2],[20,4]])("conservatively rounds %i detected pills to %i check units", (count, expected) => {
+  expect(bottleCheckUnits(count)).toBe(expected);
 });

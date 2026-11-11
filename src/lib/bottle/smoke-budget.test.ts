@@ -1,4 +1,4 @@
-import { mkdtempSync } from "node:fs";
+import { mkdtempSync, writeFileSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
@@ -24,6 +24,12 @@ describe("bottle smoke durable budget and cache", () => {
   it("retains incomplete reservations across crashes and refuses duplicate paid retry", () => {
     const filename = file(); const ledger = new SmokeLedger(filename); ledger.reserve("in-flight", .6);
     const retry = new SmokeLedger(filename); expect(() => retry.cached("in-flight")).toThrow("No automatic paid retry"); expect(() => retry.reserve("new", .5)).toThrow("before calling AI"); expect(retry.spent()).toBe(0);
+  });
+  it("fails closed on a corrupted persisted cap or counter", () => {
+    const filename = file(); writeFileSync(filename, JSON.stringify({ version: 1, entries: [], budgetUsd: "bad" }));
+    expect(() => new SmokeLedger(filename)).toThrow("refusing paid calls");
+    writeFileSync(filename, JSON.stringify({ version: 1, entries: [{ key: "x", reserved: null, status: "pending", usage: [] }], budgetUsd: 1 }));
+    expect(() => new SmokeLedger(filename)).toThrow("refusing paid calls");
   });
   it("never allows a cap above $1, treats unknown failures as reserved, and supports lower caps", () => {
     expect(() => new SmokeLedger(file(), 1.01)).toThrow("at most $1");

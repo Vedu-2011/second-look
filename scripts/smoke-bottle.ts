@@ -32,10 +32,10 @@ async function main() {
       const prompt = kind === "pill" ? readPillPrompt : readLabelPrompt;
       const tool = kind === "pill" ? readPillTool : readLabelTool;
       const key = smokeKey(Buffer.from(image.base64, "base64"), DEFAULT_VISION_MODEL, JSON.stringify({ prompt, tool, cleaningVersion, maxTokens: 1200, mediaType: image.mediaType }));
-      const cached = ledger.cached(key);
-      if (cached) { cacheHits++; return cached; }
       const inFlight = pending.get(key);
       if (inFlight) { cacheHits++; return inFlight; }
+      const cached = ledger.cached(key);
+      if (cached) { cacheHits++; return cached; }
       const task = (async () => {
         if (!live) throw new Error(`No cached ${kind} reading for ${key.slice(0, 12)}. Re-run with --live to authorize this script's budgeted calls. No paid call was made.`);
         if (!process.env.ANTHROPIC_API_KEY) throw new Error("ANTHROPIC_API_KEY is not set.");
