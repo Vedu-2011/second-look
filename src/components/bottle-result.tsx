@@ -15,11 +15,11 @@ export const NEXT_ACTION: Record<NonNullable<BottleDecision["next"]>, string> = 
   nudge: "Nudge apart and snap again",
   pour_again: "Pour again and snap",
 };
-const state = (p: BottlePill) => p.result.verdict === "MISMATCH" ? "mismatch" : p.faceDown ? "faceDown" : p.odd && p.result.verdict === "UNSURE" ? "odd" : p.result.verdict === "UNSURE" ? "unsure" : p.odd ? "odd" : "match";
+const state = (p: BottlePill) => p.carried ? "unsure" : p.result.verdict === "MISMATCH" ? "mismatch" : p.faceDown ? "faceDown" : p.odd && p.result.verdict === "UNSURE" ? "odd" : p.result.verdict === "UNSURE" ? "unsure" : p.odd ? "odd" : "match";
 const TONE = { mismatch: "bg-mismatch text-white", faceDown: "bg-ink text-white", odd: "bg-amber text-ink", unsure: "bg-ink-soft text-white", match: "bg-match text-white" } as const;
 const SYMBOL = { mismatch: "×", faceDown: "↻", odd: "!", unsure: "?", match: "✓" } as const;
 const WORD = { mismatch: VERDICT_COPY.MISMATCH.word, faceDown: "Writing face-down", odd: "Looks different", unsure: VERDICT_COPY.UNSURE.word, match: "" } as const;
-const word = (p: BottlePill) => WORD[state(p)] || VERDICT_COPY[p.result.verdict].word;
+const word = (p: BottlePill) => p.carried ? "Earlier photo only" : WORD[state(p)] || VERDICT_COPY[p.result.verdict].word;
 
 function MiniCrop({ photo, pill }: { photo: string; pill: BottlePill }) {
   const canvas = useRef<HTMLCanvasElement>(null);

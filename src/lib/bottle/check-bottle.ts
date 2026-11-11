@@ -1,3 +1,4 @@
+import { mergePillViews } from "@/lib/pill-views";
 import { DEFAULT_VISION_MODEL, type ImageInput, type ReadOptions } from "@/lib/ai/client";
 import { readLabel, readPill } from "@/lib/ai/readers";
 import { earlyExit } from "@/lib/check-input";
@@ -70,7 +71,7 @@ export async function runBottleCheck(
 }
 
 /** Reads only the crops in `read`; every other pill keeps the reading it had in the first photo. */
-async function readAndCheck(label: LabelReading, segmented: SegmentedBottle, read: number[], reused: Map<number, BottlePill>, resolved: ResolvedLabelData, send: Send, dependencies: BottleDependencies, onUsage: ReadOptions["onUsage"], followUp = false) {
+async function readAndCheck(label: LabelReading, segmented: SegmentedBottle, read: number[], reused: Map<number, BottlePill>, resolved: ResolvedLabelData, send: Send, dependencies: BottleDependencies, onUsage: ReadOptions["onUsage"], followUp = false, prior = new Map<number, BottlePill>()) {
   send({ type: "step", step: 2, state: "working" });
   let completed = 0;
   send({ type: "progress", completed, total: read.length });
@@ -84,9 +85,14 @@ async function readAndCheck(label: LabelReading, segmented: SegmentedBottle, rea
   send({ type: "step", step: 2, state: "done" });
   send({ type: "step", step: 3, state: "working" });
   const pills = await mapFive(segmented.boxes, async (box, i): Promise<BottlePill> => {
-    const kept = reused.get(i), reading = readings.get(i);
-    const result = kept && !reading ? kept.result : await runResolvedCheck(label, reading ?? unreadablePill(), resolved);
-    const pill: BottlePill = { number: i + 1, box, result, features: segmented.features[i], ...(reading && followUp ? { reread: true } : {}) };
+    const kept = reused.get(i), reading = readings.get(i), before = prior.get(i);
+    const combined = reading && before && followUp ? mergePillViews([before.result.pill, reading]) : reading;
+    let result = kept && !reading ? { ...kept.result, verdict: "UNSURE" as const, matchedProduct: null, identifiedAs: null,
+      reasons: ["Earlier photo only. Position cannot confirm the pill in this photo; a new green result requires reading it again."] }
+      : await runResolvedCheck(label, combined ?? unreadablePill(), resolved);
+    // A reverse view cannot erase an already confident mismatch (including an unreadable/conflicting reverse).
+    if (before?.result.verdict === "MISMATCH" && result.verdict !== "MISMATCH") result = { ...result, verdict: "MISMATCH", identifiedAs: null, reasons: [...result.reasons, "The first view already showed an imprint that does not match your label. That mismatch still stands."] };
+    const pill: BottlePill = { number: i + 1, box, result, features: segmented.features[i], ...(reading && followUp ? { reread: true } : {}), ...(kept && !reading ? { carried: true } : {}) };
     pill.appearanceWarning = appearanceWarning(pill);
     return pill;
   });
@@ -128,10 +134,20 @@ export async function runBottleFollowUp(
   const read = plan.mode === "fresh" ? segmented.crops.map((_, i) => i) : plan.reread;
   await reserveRemaining(read.length);
   const resolved = await resolveLabelData(previous.label);
-  const pills = await readAndCheck(previous.label, segmented, read, plan.mode === "fresh" ? new Map() : plan.reused, resolved, send, dependencies, onUsage, plan.mode === "reread");
-  const reread = read.map((i) => i + 1), reused = segmented.boxes.length - read.length;
+  let pills = await readAndCheck(previous.label, segmented, read, plan.mode === "fresh" ? new Map() : plan.reused, resolved, send, dependencies, onUsage, plan.mode === "reread", plan.mode === "reread" ? plan.prior : new Map());
+  const unresolvedRegions = plan.mode === "reread" ? plan.unresolvedRegions : (previous.unresolvedRegions ?? 0) + (previous.clumps?.length ?? 0);
+  // Geometry is enough to guide a flip, never to certify a new green bottle. Read all carried pills before green.
+  const carriedIndices = pills.flatMap((p, i) => p.carried ? [i] : []);
+  if (carriedIndices.length && !unresolvedRegions && !segmented.clumps.length && pills.filter(p => !p.carried).every(p => p.result.verdict === "MATCH" || p.result.verdict === "SAME_MEDICINE_DIFFERENT_MAKER")) {
+    await reserveRemaining(segmented.crops.length);
+    const kept = new Map(pills.flatMap((p, i) => p.carried ? [] : [[i, p] as [number, BottlePill]]));
+    const verified = await readAndCheck(previous.label, segmented, carriedIndices, new Map(), resolved, send, dependencies, onUsage);
+    pills = annotatePills(verified.map((p, i) => kept.get(i) ?? { ...p, reread: true }));
+    read.push(...carriedIndices);
+  }
+  const reread = [...new Set(read)].sort((a, b) => a - b).map((i) => i + 1), reused = segmented.boxes.length - reread.length;
   const note = plan.mode === "fresh" ? plan.reason
-    : !reread.length ? `Nothing needed reading again, so we kept all ${reused} readings from your first photo.`
-    : `We read ${reread.length === 1 ? "pill" : "pills"} ${listNumbers(reread)} again and kept the other ${reused} ${reused === 1 ? "reading" : "readings"} from your first photo.`;
-  return { kind: "bottle", label: previous.label, pills, clumps: segmented.clumps, decision: decideBottle(pills, segmented.clumps), image: segmented.image, checkedAt: new Date().toISOString(), elapsedMs: Math.round(performance.now() - started), usage, followUp: { mode: plan.mode, reread, reused, note } };
+    : !reread.length ? `No new readings were made. All ${reused} earlier readings remain unconfirmed in this photo.`
+    : `We read ${reread.length === 1 ? "pill" : "pills"} ${listNumbers(reread)} again and kept the other ${reused} ${reused === 1 ? "reading" : "readings"} as unconfirmed history from your first photo.`;
+  return { kind: "bottle", label: previous.label, pills, clumps: segmented.clumps, decision: unresolvedRegions && decideBottle(pills, segmented.clumps).verdict !== "MISMATCH" ? { ...decideBottle(pills, segmented.clumps), verdict: "UNSURE", title: "A circled region from an earlier photo is still unaccounted for.", instruction: "We cannot finish this bottle check. Put every pill back in view and start a new check.", asks: [], next: undefined } : decideBottle(pills, segmented.clumps), unresolvedRegions, image: segmented.image, checkedAt: new Date().toISOString(), elapsedMs: Math.round(performance.now() - started), usage, followUp: { mode: plan.mode, reread, reused, note } };
 }

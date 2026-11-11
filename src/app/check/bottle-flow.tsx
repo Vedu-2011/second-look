@@ -26,6 +26,7 @@ export function BottleFlow() {
   const [again, setAgain] = useState<Photo>();
   const [result, setResult] = useState<BottleResult>();
   const [shareId, setShareId] = useState<string>();
+  const [continuationToken, setContinuationToken] = useState<string>();
   const [error, setError] = useState("");
   const [busyPhoto, setBusyPhoto] = useState(false);
   const [steps, setSteps] = useState<StepState[]>(["waiting", "waiting", "waiting", "waiting"]);
@@ -47,7 +48,7 @@ export function BottleFlow() {
   async function check(previousId?: string) {
     const pills = previousId ? again : bottle;
     if ((!previousId && !label) || !pills || controllerRef.current) return;
-    setError(""); setResult(undefined); setShareId(undefined); setPhase("checking");
+    setError(""); if (!previousId) { setResult(undefined); setShareId(undefined); setContinuationToken(undefined); } setPhase("checking");
     setSteps(["waiting", "waiting", "waiting", "waiting"]); setProgress({ completed: 0, total: 0 });
     const controller = new AbortController(); controllerRef.current = controller;
     const timer = setTimeout(() => controller.abort(), 125_000);
@@ -57,11 +58,11 @@ export function BottleFlow() {
       if (event.type === "progress") setProgress({ completed: event.completed, total: event.total });
       if (event.type === "segmented") setProgress({ completed: 0, total: event.boxes.length });
       if (event.type === "retake" || event.type === "error") { terminal = true; setError(event.message); setPhase("error"); }
-      if (event.type === "result") { terminal = true; if (previousId) { setBottle(pills); setAgain(undefined); } setResult(event.result); setShareId(event.shareId); setPhase("result"); }
+      if (event.type === "result") { terminal = true; if (previousId) { setBottle(pills); setAgain(undefined); } setResult(event.result); setShareId(event.shareId); setContinuationToken(event.continuationToken); setPhase("result"); }
     }
     try {
       const form = new FormData(); form.set("bottleImage", pills!.blob, "pills.jpg");
-      if (previousId) form.set("previousId", previousId); else form.set("labelImage", label!.blob, "label.jpg");
+      if (previousId) { form.set("previousId", previousId); form.set("continuationToken", continuationToken ?? ""); } else form.set("labelImage", label!.blob, "label.jpg");
       // Browser-generated multipart overhead is bounded before sending, under the platform's cap.
       if ((await new Response(form).blob()).size > BOTTLE_BODY_BYTES) throw new Error("Those photos are too large together. Please choose them again.");
       const response = await fetch("/api/check-bottle", { method: "POST", body: form, signal: controller.signal });
@@ -87,11 +88,11 @@ export function BottleFlow() {
       <div className="flex flex-col gap-3 sm:flex-row"><Button variant="ink" disabled={busyPhoto} onClick={() => camera.current?.click()}><Camera aria-hidden />{photo ? "Retake photo" : phase === "label" ? "Take label photo" : "Take pills photo"}</Button><Button variant="secondary" disabled={busyPhoto} onClick={() => upload.current?.click()}><ImageUp aria-hidden />Upload a photo</Button></div>
       {busyPhoto && <p role="status">Preparing your photo at full resolution…</p>}
       <div className="flex flex-col gap-3 sm:flex-row">{phase === "bottle" && <Button variant="ghost" onClick={() => setPhase("label")}>Back to label</Button>}{phase === "again" && <Button variant="ghost" onClick={() => setPhase("result")}>Back to my result</Button>}{photo && <Button disabled={busyPhoto} size="lg" className="text-lg" onClick={() => phase === "label" ? setPhase("bottle") : phase === "again" ? void check(shareId) : void check()}>{phase === "label" ? "Next: photo of the pills" : phase === "again" ? "Check again" : "Check my pills"}</Button>}</div>
-      <p className="text-lg text-ink-soft">{phase === "again" ? "We only read the pills you flipped or moved apart again; the rest keep their first reading. If the pills moved, we check them all again." : "Photos stay in this check only. Shared results keep readings and positions, never photos. Every five pills count as one check (minimum one)."}</p>
+      <p className="text-lg text-ink-soft">{phase === "again" ? "We read the requested pills first. Earlier readings stay marked as history. Before a new green result, we read every pill again. If the layout changed, we start a full check." : "Photos stay in this check only. Shared results keep readings and positions, never photos. Every five pills count as one check (minimum one)."}</p>
     </>}
     {phase === "checking" && <CheckingSteps states={steps} labels={["Reading your label", "Finding the pills", `Reading each pill (${progress.completed} of ${progress.total || "…"})`, "Checking with FDA records"]} className="rounded-[var(--radius-photo)] bg-foil p-3" />}
     {error && <div role="alert" className="rounded-[var(--radius-card)] bg-foil p-5"><p className="text-lg font-semibold">{error}</p>{phase === "error" && <div className="mt-4 flex flex-col gap-3"><Button variant="secondary" onClick={() => setPhase(again ? "again" : "bottle")}>Retake pills photo</Button><Button variant="ghost" onClick={() => setPhase("label")}>Retake label photo</Button></div>}</div>}
-    {phase === "result" && result && <BottleResultView result={result} photo={bottle?.preview} shareId={shareId} onNext={result.decision.next && shareId ? () => { setAgain(undefined); setError(""); setPhase("again"); } : undefined} onRetake={() => { setResult(undefined); setBottle(undefined); setPhase("bottle"); }} />}
+    {phase === "result" && result && <BottleResultView result={result} photo={bottle?.preview} shareId={shareId} onNext={result.decision.next && shareId && continuationToken ? () => { setAgain(undefined); setError(""); setPhase("again"); } : undefined} onRetake={() => { setResult(undefined); setBottle(undefined); setPhase("bottle"); }} />}
   </div>;
 }
 

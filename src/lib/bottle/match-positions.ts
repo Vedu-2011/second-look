@@ -54,7 +54,7 @@ export function matchLayouts(prev: Point[], next: Point[], typicalPillSize: numb
 }
 
 export type FollowUpPlan =
-  | { mode: "reread"; reused: Map<number, BottlePill>; reread: number[] }
+  | { mode: "reread"; reused: Map<number, BottlePill>; prior: Map<number, BottlePill>; reread: number[]; unresolvedRegions: number }
   | { mode: "fresh"; reason: string };
 type NextPhoto = { image: Size; boxes: NormalizedBox[]; features: PillFeatures[]; clumps: BottleClump[] };
 
@@ -76,13 +76,22 @@ export function planFollowUp(previous: BottleResult, next: NextPhoto): FollowUpP
   // Every kept reading must still look like the same pill: a swapped pill is not "the same position".
   const tolerance = next.features.length >= 3 ? toleranceOf(next.features) : FLOORS;
   const asked = new Set(previous.decision.asks ?? []);
-  const reused = new Map<number, BottlePill>(), reread: number[] = [...unmatchedNext];
+  const reused = new Map<number, BottlePill>(), prior = new Map<number, BottlePill>(), reread: number[] = [...unmatchedNext];
   for (const [i, j] of pairs) {
     const before = previous.pills[j], after = next.features[i];
     if (!before.features || !after) return moved;
     const ref = { relativeArea: before.features.relativeArea, aspect: before.features.aspect, lab: before.features.lab };
     if (differencesFrom(after, ref, tolerance).some((k) => k !== "color" || !asked.has(before.number))) return moved;
+    prior.set(i, before);
     if (asked.has(before.number)) reread.push(i); else reused.set(i, before);
   }
-  return { mode: "reread", reused, reread: reread.sort((a, b) => a - b) };
+  // A missing circled object is not evidence that it was checked. Count only newly separated candidates there.
+  let unresolvedRegions = previous.unresolvedRegions ?? 0;
+  for (const clump of previous.clumps ?? []) {
+    const contains = (p: Point) => p.x >= clump.box.x * previous.image.width && p.x <= (clump.box.x + clump.box.width) * previous.image.width && p.y >= clump.box.y * previous.image.height && p.y <= (clump.box.y + clump.box.height) * previous.image.height;
+    const separated = unmatchedNext.filter(i => contains(toPrev(nextCenters[i]))).length;
+    const stillCircled = next.clumps.some(c => contains(toPrev(centerOf(c.box, next.image))));
+    if (!stillCircled && separated < (clump.kind === "touching" ? 2 : 1)) unresolvedRegions++;
+  }
+  return { mode: "reread", reused, prior, reread: reread.sort((a, b) => a - b), unresolvedRegions };
 }

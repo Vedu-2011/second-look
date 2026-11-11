@@ -16,6 +16,8 @@ export type BottlePill = {
   faceDown?: boolean;
   /** Re-read after "Flip and snap again". */
   reread?: boolean;
+  /** History only: position matching cannot confirm the current pill. */
+  carried?: boolean;
 };
 export type BottleDecision = {
   /** FACE_DOWN: the only open question is pills with their writing face-down (calm, not a warning). */
@@ -41,6 +43,7 @@ export type BottleResult = {
   image: { width: number; height: number };
   checkedAt: string;
   elapsedMs: number;
+  unresolvedRegions?: number;
   usage: { model: string; inputTokens: number; outputTokens: number; estimatedUsd: number | null }[];
 };
 export type BottleEvent =
@@ -49,4 +52,4 @@ export type BottleEvent =
   | { type: "progress"; completed: number; total: number }
   | { type: "retake"; message: string; code: string }
   | { type: "error"; message: string }
-  | { type: "result"; result: BottleResult; shareId: string };
+  | { type: "result"; result: BottleResult; shareId: string; continuationToken?: string };

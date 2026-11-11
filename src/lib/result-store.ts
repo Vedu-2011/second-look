@@ -1,3 +1,4 @@
+import { createHash, timingSafeEqual } from "node:crypto";
 import { getRedis, key } from "@/lib/redis";
 import type { CheckResult } from "@/lib/check-service";
 import type { Explanation } from "@/lib/ai/guard";
@@ -34,10 +35,16 @@ export async function getResult(id: string) {
 export function clearResultMemoryForTests() { memory.clear(); }
 
 // Bottle results use a separate discriminator, preserving the original one-pill storage contract.
-export type StoredBottleResult = { kind: "bottle"; result: import("./bottle/types").BottleResult; createdAt: string };
+export type StoredBottleResult = { kind: "bottle"; result: import("./bottle/types").BottleResult; createdAt: string; continuationHash?: string };
 const bottleMemory = new Map<string, StoredBottleResult>();
 
-export async function saveBottleResult(value: import("./bottle/types").BottleResult) {
+export function canContinueBottle(stored: StoredBottleResult, token: string) {
+  if (!/^[a-f0-9]{64}$/.test(token) || !stored.continuationHash) return false;
+  const actual = createHash("sha256").update(token).digest();
+  const expected = Buffer.from(stored.continuationHash, "hex");
+  return expected.length === actual.length && timingSafeEqual(expected, actual);
+}
+export async function saveBottleResult(value: import("./bottle/types").BottleResult, continuationToken?: string) {
   const id = crypto.randomUUID();
   // Allow-list the serialized result. Request-local crop buffers/photos cannot enter the store.
   const safeLabel = (label: CheckResult["label"]) => ({ ndc: label.ndc, drugName: label.drugName, strength: label.strength, form: label.form, pharmacyName: label.pharmacyName, directions: label.directions, isPrescriptionLabel: label.isPrescriptionLabel, confidence: label.confidence ? { drugName: label.confidence.drugName, strength: label.confidence.strength, ndc: label.confidence.ndc, form: label.confidence.form } : undefined });
@@ -56,13 +63,14 @@ export async function saveBottleResult(value: import("./bottle/types").BottleRes
     ...(value.clumps ? { clumps: value.clumps.map((c) => ({ kind: c.kind, box: safeBox(c.box) })) } : {}),
     ...(value.followUp ? { followUp: { mode: value.followUp.mode, reread: value.followUp.reread, reused: value.followUp.reused, note: value.followUp.note } } : {}),
     image: { width: value.image.width, height: value.image.height },
+    ...(value.unresolvedRegions ? { unresolvedRegions: value.unresolvedRegions } : {}),
     pills: value.pills.map((p) => ({ number: p.number, box: safeBox(p.box), result: safeCheck(p.result), ...(p.appearanceWarning ? { appearanceWarning: p.appearanceWarning } : {}),
       // Silhouette numbers only (size, shape, average color): needed to match pills after "Flip and snap again".
       ...(p.features ? { features: { length: p.features.length, width: p.features.width, aspect: p.features.aspect, area: p.features.area, relativeArea: p.features.relativeArea, lab: [p.features.lab[0], p.features.lab[1], p.features.lab[2]] as [number, number, number] } } : {}),
-      ...(p.odd ? { odd: p.odd } : {}), ...(p.faceDown ? { faceDown: true } : {}), ...(p.reread ? { reread: true } : {}) })),
+      ...(p.carried ? { carried: true } : {}), ...(p.odd ? { odd: p.odd } : {}), ...(p.faceDown ? { faceDown: true } : {}), ...(p.reread ? { reread: true } : {}) })),
     checkedAt: value.checkedAt, elapsedMs: value.elapsedMs, usage: value.usage.map((u) => ({ model: u.model, inputTokens: u.inputTokens, outputTokens: u.outputTokens, estimatedUsd: u.estimatedUsd })),
   };
-  const stored: StoredBottleResult = JSON.parse(JSON.stringify({ kind: "bottle", result, createdAt: new Date().toISOString() }));
+  const stored: StoredBottleResult = JSON.parse(JSON.stringify({ kind: "bottle", result, createdAt: new Date().toISOString(), ...(continuationToken ? { continuationHash: createHash("sha256").update(continuationToken).digest("hex") } : {}) }));
   for (const [k, v] of bottleMemory) if (Date.now() - Date.parse(v.createdAt) >= RESULT_TTL_MS) bottleMemory.delete(k);
   bottleMemory.set(id, stored);
   const redis = getRedis();

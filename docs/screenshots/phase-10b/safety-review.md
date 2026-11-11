@@ -15,3 +15,18 @@ Verdict: REQUEST CHANGES. No paid calls, files changed or remote writes by revie
 Parent independently observed finding 5 in the first real handheld follow-up (zero rereads). All findings accepted for fixes/evidence clarification. Final disposition and tests will be recorded separately after implementation.
 
 Review gaps: no full tests/build/browser/deployed authorization, upload/load adversarial testing, independent real-bottle calibration or benchmark rescore. Parent supplies relevant verification separately.
+
+## Final dispositions (Codex)
+
+All seven concrete findings fixed; none dismissed as “not a bug”.
+
+1. **Fixed + tests:** carried rows become UNSURE/history. If requested reads could permit green, all carried crops must be read in the new photo first. `bottle-flow.test.ts` swaps an identical silhouette with a different imprint; it is read and stays red. Route tests verify quota expansion is incremental and denial emits no result.
+2. **Fixed + tests:** missing old circled regions persist as `unresolvedRegions`; green blocked across repeated follow-ups. Separated candidates must account for the former region (two for touching, one for cutoff). Uncertain/fresh matching retains obligations until an explicit new check.
+3. **Fixed + tests:** all detected edge foreground remains circled, including thin slivers and apparent surface strips. Synthetic cutoff regression passes. Two earlier tests deliberately changed: an edge strip now creates an unchecked region. This increases false warnings rather than silently accepting foreground.
+4. **Fixed + test:** bottle-only confirmation requires confident imprint/color/shape, recognizable appearance, visible single pill. Test with .1 appearance confidences/unknown shape stays UNSURE. Shared single-pill engine untouched.
+5. **Fixed + tests/live:** red returns flip-to-identify asks. Initial mismatch remains red; wording explains naming is optional, mismatch already stands. Actual new bottle flags pill 5 red.
+6. **Fixed + tests/live:** conservatively merge prior and reverse readings; minimum view confidence and conflict logic unchanged. A known mismatch cannot turn green through its reverse view. Actual handheld follow-up reread only pill 5 and identified Amoxicillin 500 mg. Other rows marked history. Two-view identification assumes the requested pill was flipped in place as instructed; positions alone cannot prove physical identity, and never certify carried matches.
+7. **Fixed + tests:** separate private random continuation token; only SHA256 stored outside public result. Missing/cross-check token returns 403 before quota/AI; expired ID 404. Public share remains read-only. Failed UI requests retain prior result/token for retry.
+8. **Clarified:** /research explicitly describes frozen pill-v2 results as historical, not current-release performance; independent real-bottle sensitivity/false-warning rates unmeasured. No benchmark rerun or new accuracy claim.
+
+341 network-free tests pass (41 files). Lint, TypeScript and optimized build recorded separately in the final handoff. Reader prompts, matcher thresholds, shared engine and research artifacts have zero diff from the phase-10 starting commit eb397b1.

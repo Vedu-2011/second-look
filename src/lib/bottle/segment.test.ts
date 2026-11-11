@@ -30,20 +30,20 @@ describe("deterministic whole-bottle segmentation", () => {
     expect(found.boxes).toHaveLength(n - 2);
     expect(found.crops).toHaveLength(n - 2);
   });
-  it("circles a pill cut off at the edge, but ignores a thin table edge", async () => {
+  it("retains both a cutoff pill and ambiguous table-edge foreground as unchecked", async () => {
     const found = await segmentBottle(await layout([...grid().slice(0, 4), { cx: 8, cy: 820 }], { strip: "#7a5a3a" }));
     expect(found.boxes).toHaveLength(4);
-    expect(found.clumps).toEqual([expect.objectContaining({ kind: "cutoff" })]);
+    expect(found.clumps).toEqual([expect.objectContaining({ kind: "cutoff" }), expect.objectContaining({ kind: "cutoff" })]);
   });
   it("rejects no pills and 25 pills, and accepts exactly 20", async () => {
     await expect(segmentBottle(await scene(0))).rejects.toMatchObject({ code: "none" });
     await expect(segmentBottle(await scene(25))).rejects.toMatchObject({ code: "too_many" });
     expect((await segmentBottle(await scene(20))).boxes).toHaveLength(20);
   });
-  it("works on a real-life counter: lighting gradient, fold lines and a strip of table along one edge", async () => {
+  it("finds pills through gradients and folds but conservatively circles foreground along the edge", async () => {
     const found = await segmentBottle(await layout(grid(), { gradient: true, folds: true, strip: "#7a5a3a" }));
     expect(found.boxes).toHaveLength(9);
-    expect(found.clumps).toHaveLength(0);
+    expect(found.clumps).toEqual([expect.objectContaining({ kind: "cutoff" })]);
   });
   it("finds pills on both halves of a two-tone surface", async () => {
     const twoTone = await sharp(Buffer.from(`<svg width="1200" height="1000"><rect width="600" height="1000" fill="white"/><rect x="600" width="600" height="1000" fill="#202024"/><ellipse cx="200" cy="300" rx="60" ry="32" fill="#3066b8"/><ellipse cx="300" cy="700" rx="60" ry="32" fill="#3066b8"/><ellipse cx="900" cy="300" rx="60" ry="32" fill="#f2f0ea"/><ellipse cx="950" cy="700" rx="60" ry="32" fill="#f2f0ea"/></svg>`)).png().toBuffer();
@@ -94,4 +94,10 @@ describe("deterministic whole-bottle segmentation", () => {
     const huge = await sharp({ create: { width: 6000, height: 6000, channels: 3, background: "white" } }).jpeg({ quality: 1 }).toBuffer();
     await expect(segmentBottle(huge)).rejects.toBeInstanceOf(Error);
   });
+});
+
+it("circles a visible thin cutoff instead of silently dropping it", async () => {
+  const found = await segmentBottle(await layout([...grid().slice(0, 4), { cx: -30, cy: 820 }]));
+  expect(found.boxes).toHaveLength(4);
+  expect(found.clumps.some(c => c.kind === "cutoff")).toBe(true);
 });

@@ -90,9 +90,10 @@ describe("POST /api/check-bottle", () => {
     expect(output.map((o) => o.at(-1).result.usage.length)).toEqual([3,3]);
   });
   describe("flip and snap again", () => {
-    async function again(previousId: string, count = 9) {
+    async function again(previousId: string, count = 9, token = "") {
       const form = new FormData();
       form.set("previousId", previousId);
+      form.set("continuationToken", token);
       form.set("bottleImage", new Blob([new Uint8Array(await scene(count))], { type: "image/png" }), "pills.jpg");
       return new Request("http://localhost/api/check-bottle", { method: "POST", body: form });
     }
@@ -101,22 +102,41 @@ describe("POST /api/check-bottle", () => {
       expect(response.status).toBe(404); expect((await response.json()).error).toContain("expired");
       expect(consumeCheckLimit).not.toHaveBeenCalled(); expect(readPill).not.toHaveBeenCalled();
     });
-    it("reuses the saved label, re-reads only the pills we asked about, and counts one check", async () => {
+    it("reuses the label but reads every pill before a new green result, charging only incremental quota", async () => {
       const first = (await events(await POST(await request()))).at(-1);
       const stored = await getBottleResult(first.shareId);
       stored!.result.decision.asks = [3]; // as if pill 3 had been face-down
       vi.clearAllMocks(); vi.mocked(consumeCheckLimit).mockResolvedValue({ allowed: true, count: 1 });
-      const terminal = (await events(await POST(await again(first.shareId)))).at(-1);
+      const terminal = (await events(await POST(await again(first.shareId, 9, first.continuationToken)))).at(-1);
       expect(terminal.type).toBe("result");
-      expect(readLabel).not.toHaveBeenCalled(); expect(readPill).toHaveBeenCalledTimes(1);
-      expect(terminal.result.followUp).toMatchObject({ mode: "reread", reread: [3], reused: 8 });
-      expect(consumeCheckLimit).toHaveBeenCalledTimes(1);
-      expect((await getBottleResult(terminal.shareId))?.result.followUp?.reread).toEqual([3]);
+      expect(readLabel).not.toHaveBeenCalled(); expect(readPill).toHaveBeenCalledTimes(9);
+      expect(terminal.result.followUp).toMatchObject({ mode: "reread", reread: [1,2,3,4,5,6,7,8,9], reused: 0 });
+      expect(consumeCheckLimit).toHaveBeenCalledTimes(2);
+      expect(consumeCheckLimit).toHaveBeenNthCalledWith(2, "unknown", 1);
+      expect((await getBottleResult(terminal.shareId))?.result.followUp?.reread).toEqual([1,2,3,4,5,6,7,8,9]);
+    });
+    it("a public share ID or a different check's private token cannot authorize continuation", async () => {
+      const first = (await events(await POST(await request()))).at(-1);
+      const other = (await events(await POST(await request(3)))).at(-1);
+      vi.clearAllMocks();
+      expect((await POST(await again(first.shareId))).status).toBe(403);
+      expect((await POST(await again(first.shareId, 9, other.continuationToken))).status).toBe(403);
+      expect(readPill).not.toHaveBeenCalled(); expect(consumeCheckLimit).not.toHaveBeenCalled();
+      expect(JSON.stringify(await getBottleResult(first.shareId))).not.toContain(first.continuationToken);
+    });
+    it("quota denial while expanding a follow-up never reads carried pills or emits green", async () => {
+      const first = (await events(await POST(await request()))).at(-1);
+      (await getBottleResult(first.shareId))!.result.decision.asks = [3];
+      vi.clearAllMocks();
+      vi.mocked(consumeCheckLimit).mockResolvedValueOnce({ allowed: true, count: 1 }).mockResolvedValueOnce({ allowed: false, count: 30, message: "Hourly limit" });
+      const out = await events(await POST(await again(first.shareId, 9, first.continuationToken)));
+      expect(readPill).toHaveBeenCalledTimes(1); expect(out.at(-1)).toEqual({ type: "error", message: "Hourly limit" });
+      expect(out.some(e => e.type === "result")).toBe(false);
     });
     it("checks every pill again when the count changed, and says so", async () => {
       const first = (await events(await POST(await request()))).at(-1);
       vi.clearAllMocks(); vi.mocked(consumeCheckLimit).mockResolvedValue({ allowed: true, count: 1 });
-      const terminal = (await events(await POST(await again(first.shareId, 11)))).at(-1);
+      const terminal = (await events(await POST(await again(first.shareId, 11, first.continuationToken)))).at(-1);
       expect(terminal.result.followUp.mode).toBe("fresh"); expect(readPill).toHaveBeenCalledTimes(11);
       expect(consumeCheckLimit).toHaveBeenNthCalledWith(2, "unknown", 2); // ceil(11 / 5) = 3 checks in all
     });

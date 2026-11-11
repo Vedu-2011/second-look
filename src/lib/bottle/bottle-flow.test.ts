@@ -62,15 +62,15 @@ describe("a wrong pill is caught from either side (recorded readings)", () => {
 });
 
 describe("flip and snap again", () => {
-  it("re-reads only the flipped pill, keeps the other nine readings, and finishes green", async () => {
+  it("reads the flipped pill first, then verifies every carried imprint before green", async () => {
     readings[FACE_DOWN] = { ...(recorded.g12 as PillReading), imprintSides: [], imprintConfidence: 0 };
     const first = await check(await spread({ 4: { color: FACE_DOWN } }));
     expect(first.decision).toMatchObject({ verdict: "FACE_DOWN", asks: [4] });
     reads.mockClear();
     // Same spread, phone a little closer and to the side; pill 4 flipped where it was.
     const second = await runBottleFollowUp(first, await spread({}, (p) => ({ ...p, cx: p.cx * 1.04 + 25, cy: p.cy * 1.04 - 30 })), async () => {}, () => {}, deps());
-    expect(reads).toHaveBeenCalledTimes(1);
-    expect(second!.followUp).toEqual({ mode: "reread", reread: [4], reused: 9, note: "We read pill 4 again and kept the other 9 readings from your first photo." });
+    expect(reads).toHaveBeenCalledTimes(10);
+    expect(second!.followUp).toMatchObject({ mode: "reread", reread: [1,2,3,4,5,6,7,8,9,10], reused: 0 });
     expect(second!.decision).toMatchObject({ verdict: "MATCH", title: "All 10 pills we found match your label." });
     expect(second!.pills[3].reread).toBe(true);
   });
@@ -83,7 +83,7 @@ describe("flip and snap again", () => {
     expect(second!.followUp).toMatchObject({ mode: "fresh", note: "The pills moved too much to match them with your first photo, so we checked every pill again." });
     expect(reads).toHaveBeenCalledTimes(10);
   });
-  it("reads pills that were touching once they're apart, and only those", async () => {
+  it("reads separated pills first, then verifies all imprints before green", async () => {
     const touching = await layout([...Array.from({ length: 8 }, (_, i) => ({ ...spot(i), rx: 60, ry: 33, color: WHITE })), { cx: 500, cy: 880, rx: 60, ry: 33, color: WHITE }, { cx: 590, cy: 880, rx: 60, ry: 33, color: WHITE }], { gradient: true });
     const first = await check(touching);
     expect(first.clumps).toEqual([expect.objectContaining({ kind: "touching" })]);
@@ -91,8 +91,47 @@ describe("flip and snap again", () => {
     reads.mockClear();
     const apart = await layout([...Array.from({ length: 8 }, (_, i) => ({ ...spot(i), rx: 60, ry: 33, color: WHITE })), { cx: 450, cy: 880, rx: 60, ry: 33, color: WHITE }, { cx: 640, cy: 880, rx: 60, ry: 33, color: WHITE }], { gradient: true });
     const second = await runBottleFollowUp(first, apart, async () => {}, () => {}, deps());
-    expect(reads).toHaveBeenCalledTimes(2);
-    expect(second!.followUp).toMatchObject({ mode: "reread", reread: [9, 10], reused: 8 });
+    expect(reads).toHaveBeenCalledTimes(10);
+    expect(second!.followUp).toMatchObject({ mode: "reread", reread: [1,2,3,4,5,6,7,8,9,10], reused: 0 });
     expect(second!.decision.verdict).toBe("MATCH");
+  });
+});
+
+
+describe("fresh review regressions", () => {
+  it("a same-looking replacement is read instead of inheriting an old MATCH", async () => {
+    readings[FACE_DOWN] = { ...(recorded.g12 as PillReading), imprintSides: [], imprintConfidence: 0 };
+    const first = await check(await spread({ 4: { color: FACE_DOWN } }));
+    reads.mockClear();
+    // Pill 1 replaced by an indistinguishable silhouette, but its actual imprint differs.
+    reads.mockImplementationOnce(async () => structuredClone(recorded.g12 as PillReading))
+      .mockImplementationOnce(async () => structuredClone(recorded.amoxicillin93 as PillReading));
+    const second = await runBottleFollowUp(first, await spread(), async () => {}, () => {}, deps());
+    expect(reads).toHaveBeenCalledTimes(10);
+    expect(second!.decision.verdict).toBe("MISMATCH");
+    expect(second!.pills[0].result.verdict).toBe("MISMATCH");
+  });
+  it("a removed circled cutoff never resolves the old bottle to green, even on another follow-up", async () => {
+    const first = await check(await spread());
+    first.clumps = [{ kind: "cutoff", box: { x: 0, y: .85, width: .04, height: .05 } }];
+    first.decision = { ...first.decision, verdict: "UNSURE", next: "nudge" };
+    const second = await runBottleFollowUp(first, await spread(), async () => {}, () => {}, deps());
+    expect(second!.unresolvedRegions).toBe(1); expect(second!.decision.verdict).toBe("UNSURE");
+    const third = await runBottleFollowUp(second!, await spread(), async () => {}, () => {}, deps());
+    expect(third!.unresolvedRegions).toBe(1); expect(third!.decision.verdict).not.toBe("MATCH");
+  });
+  it("keeps red while combining both sides to identify the requested pill only", async () => {
+    readings[AMOXICILLIN] = recorded.amoxicillin93 as PillReading;
+    const photo = await spread({ 5: { color: AMOXICILLIN, rx: 55, ry: 30 } });
+    const first = await check(photo);
+    expect(first.decision).toMatchObject({ verdict: "MISMATCH", asks: [5], next: "flip" });
+    reads.mockClear();
+    readings[AMOXICILLIN] = { ...(recorded.amoxicillin93 as PillReading), imprintSides: ["2263"], imprintConfidence: .9 };
+    const second = await runBottleFollowUp(first, photo, async () => {}, () => {}, deps());
+    expect(reads).toHaveBeenCalledTimes(1); expect(second!.followUp?.reread).toEqual([5]);
+    expect(second!.pills[4].result.pill.imprintSides).toEqual(["93", "2263"]);
+    expect(second!.pills[4].result.identifiedAs?.title).toContain("Amoxicillin");
+    expect(second!.decision.verdict).toBe("MISMATCH");
+    expect(second!.pills[0]).toMatchObject({ carried: true, result: { verdict: "UNSURE" } });
   });
 });

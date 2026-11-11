@@ -232,8 +232,8 @@ export async function segmentBottle(input: Buffer, options: { diagnostics?: (val
   const objects = components.filter((c) => !surfaces.includes(c) && c.area >= typical * 0.04);
   if (objects.some((c) => c.area > n * 0.18)) throw new SegmentationError("touching_clutter", "Something large is in the photo with the pills.");
   const thin = (c: Component) => Math.max(c.width / c.height, c.height / c.width) > 4.3 || c.area / (c.width * c.height) < 0.36;
-  // At the edge: a real cut-off pill is circled; a thin sliver (a table or paper edge) is not a pill.
-  const cutoffs = objects.filter((c) => c.edge && c.area >= typical * 0.25 && !thin(c));
+  // Every detected edge foreground remains unchecked, even if it resembles a surface or a thin sliver.
+  const cutoffs = components.filter((c) => c.edge);
   const inside = objects.filter((c) => !c.edge);
   const touching = inside.filter((c) => c.neck || c.area > typical * 2.2 || c.solidity < 0.91 || thin(c));
   const pills = inside.filter((c) => !touching.includes(c));

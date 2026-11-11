@@ -1,14 +1,23 @@
 import { colorsFromCodes, compareFdaColors, normalizeColor } from "@/lib/match/color";
 import { tokenizeImprint } from "@/lib/match/imprint";
 import { compareShapes, normalizeShape, shapeFromCode } from "@/lib/match/shape";
-import { COLOR_MIN_CONFIDENCE, SHAPE_MIN_CONFIDENCE } from "@/lib/verdict-engine";
+import { COLOR_MIN_CONFIDENCE, SHAPE_MIN_CONFIDENCE, IMPRINT_MIN_CONFIDENCE } from "@/lib/verdict-engine";
 import { describeDifferences, differencesFrom, FLOORS, oddOnesOut, referenceOf, toleranceOf } from "./lookalike";
 import type { BottleClump, BottleDecision, BottlePill } from "./types";
 
 /** Never ask anyone to flip more than this many pills; past it, a fresh pour is easier. */
 export const MAX_FLIP_ASKS = 3;
 const CONFIRMED = new Set(["MATCH", "SAME_MEDICINE_DIFFERENT_MAKER"]);
-export const isConfirmed = (p: BottlePill) => CONFIRMED.has(p.result.verdict);
+export const isConfirmed = (p: BottlePill) => CONFIRMED.has(p.result.verdict) && !p.carried &&
+  p.result.pill.imprintConfidence >= IMPRINT_MIN_CONFIDENCE && p.result.pill.pillVisible !== false && !p.result.pill.multiplePills &&
+  p.result.pill.colorConfidence >= COLOR_MIN_CONFIDENCE && p.result.pill.colors.some(c => normalizeColor(c)) &&
+  p.result.pill.shapeConfidence >= SHAPE_MIN_CONFIDENCE && Boolean(normalizeShape(p.result.pill.shape));
+/** Extra bottle safety gate; leaves the historically benchmarked single-pill engine alone. */
+function requireBottleEvidence(p: BottlePill): BottlePill {
+  if (!CONFIRMED.has(p.result.verdict) || isConfirmed(p)) return p;
+  return { ...p, result: { ...p.result, verdict: "UNSURE", matchedProduct: null, identifiedAs: null,
+    reasons: [p.carried ? "This reading is from the first photo. Position alone cannot confirm the pill in this photo." : "We need a clear imprint, color and shape before confirming this pill in a bottle."] } };
+}
 
 /** The engine still owns every pill verdict. Appearance alone can only add a bottle warning. */
 export function appearanceWarning({ result }: BottlePill): string | undefined {
@@ -35,7 +44,7 @@ const blankFace = ({ result }: BottlePill) =>
  * a blank face. A face-down pill must also look like the imprint-confirmed pills in this photo. It is never confirmed.
  */
 export function annotatePills(pills: readonly BottlePill[]): BottlePill[] {
-  const out = pills.map((p) => { const { odd: _odd, faceDown: _faceDown, ...rest } = p; void _odd; void _faceDown; return { ...rest } as BottlePill; });
+  const out = pills.map(requireBottleEvidence).map((p) => { const { odd: _odd, faceDown: _faceDown, ...rest } = p; void _odd; void _faceDown; return { ...rest } as BottlePill; });
   const groups = oddOnesOut(out.map((p) => p.features));
   if (groups) for (const [i, kinds] of groups.odd) out[i].odd = describeDifferences(kinds);
   const confirmed = out.filter((p) => isConfirmed(p) && p.features && !p.odd);
@@ -58,6 +67,7 @@ function nudgeText(clumps: readonly BottleClump[], joined: boolean) {
 }
 
 export function decideBottle(pills: readonly BottlePill[], clumps: readonly BottleClump[] = []): BottleDecision {
+  pills = pills.map(requireBottleEvidence);
   const mismatches = pills.filter((p) => p.result.verdict === "MISMATCH");
   const warnings = pills.filter((p) => appearanceWarning(p));
   const odd = pills.filter((p) => p.odd && p.result.verdict !== "MISMATCH");
@@ -66,7 +76,8 @@ export function decideBottle(pills: readonly BottlePill[], clumps: readonly Bott
   const base = { matched, unreadable, flagged: [...new Set([...mismatches, ...odd, ...warnings].map((p) => p.number))].sort((a, b) => a - b) };
   if (mismatches.length) {
     const first = mismatches[0], name = first.result.identifiedAs?.title;
-    return { ...base, verdict: "MISMATCH", title: `Pill ${first.number} doesn't match your label.`, instruction: `${name ? `Its imprint is listed for ${name}. ` : ""}Don't take any pills from this bottle; call your pharmacy.` };
+    const asks = mismatches.filter(p => !p.result.identifiedAs && !p.carried).slice(0, MAX_FLIP_ASKS).map(p => p.number);
+    return { ...base, verdict: "MISMATCH", title: `Pill ${first.number} doesn't match your label.`, instruction: `${name ? `Its imprint is listed for ${name}. ` : ""}Don't take any pills from this bottle; call your pharmacy.${asks.length ? ` Flip ${pillsWord(asks.length)} ${list(asks)} only if you want to identify ${asks.length === 1 ? "it" : "them"}. The mismatch already stands.` : ""}`, asks, ...(asks.length ? { next: "flip" as const } : {}) };
   }
   // Pills we could ask to flip where they are, odd ones first: they're the most important to see.
   const oddUnread = odd.filter((p) => !isConfirmed(p)), faceDown = pills.filter((p) => p.faceDown && !p.odd);

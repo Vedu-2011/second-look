@@ -178,3 +178,23 @@ Repo: github.com/Vedu-2011/second-look — PUBLIC (DSH requires a public repo).
   confidence 0.6 (below the engine's bar) so it stayed "can't tell", but the look-alike check singled it out as a
   different color and asked to flip it first. Three-pills-close photo with the metformin label → RED as expected.
   No thresholds were tuned to these photos.
+
+## Decisions after phase 10b safety review (Codex, Nov 11)
+- Position, size, shape and mean color cannot prove pill identity. A selective follow-up reads asked pills first;
+  other readings are explicitly unconfirmed history, with gray markers. Before a new green bottle, every carried
+  imprint is read again. Incremental quota is reserved before those extra readers. A red selective follow-up may
+  name the wrong pill from conservative combined views while the other positions remain history.
+- A confident mismatch stays red across its reverse view, even if that reverse is unreadable/conflicting. A flip
+  on red is for identification only. Both view confidences are retained through mergePillViews; never boosted.
+- Removed circled foreground remains an unresolved obligation across follow-ups. Detected edge foreground,
+  including thin slivers or apparent surface strips, stays unchecked rather than disappearing. This deliberately
+  increases false warnings on some backgrounds; use a plain surface fully in frame. Low-contrast objects can still
+  be missed: inspect numbering. Detection cannot prove that every physical pill was photographed.
+- Bottle confirmation additionally requires readable color/shape and imprint confidence. Single-pill engine,
+  matcher thresholds, AI prompts and frozen research artifacts are unchanged in this phase.
+- Public result IDs are read-only capabilities. API responses separately return a private continuation token;
+  only its SHA256 hash is stored outside the public result. The browser holds the token in current flow state;
+  no token is included in shared URLs or shared result data. Old links remain readable but cannot be continued.
+- The historical pill-v2 benchmark does not establish current reader/color/identification performance. Look-alike
+  sensitivity/false-warning rates on independent real bottle photos remain unmeasured. No thresholds were tuned
+  on the phase 10b photos.

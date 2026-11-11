@@ -97,3 +97,10 @@ describe("pour and snap: look-alikes, face-down pills and what we ask for (phase
     expect(decideBottle(pills, [{ kind: "touching", box: { x: .4, y: .4, width: .2, height: .1 } }])).toMatchObject({ verdict: "MISMATCH", title: "Pill 5 doesn't match your label." });
   });
 });
+
+it("unknown/low-confidence appearance or a carried match cannot confirm a bottle", () => {
+  const p = pill(1); p.result.pill = { ...p.result.pill, imprintConfidence: .9, colors: [], shape: "unknown", colorConfidence: .1, shapeConfidence: .1 };
+  expect(decideBottle([p]).verdict).not.toBe("MATCH");
+  expect(annotatePills([p])[0].result.verdict).toBe("UNSURE");
+  expect(decideBottle([{ ...pill(1), carried: true }]).verdict).not.toBe("MATCH");
+});
