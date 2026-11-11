@@ -141,28 +141,6 @@ export function ResultView({
     <article className="result-view flex flex-col gap-5 sm:gap-6" aria-label="Check result">
       <VerdictField verdict={r.verdict} instruction={instructionFor(r)} />
 
-      {explanation && (
-        <section
-          className="result-script order-last rounded-[var(--radius-photo)] p-6 sm:p-8"
-          aria-labelledby="explanation-h"
-        >
-          <h2 id="explanation-h" className="text-xl font-bold text-ink">
-            In plain words
-          </h2>
-          <p className="mt-2 text-lg leading-relaxed text-ink">
-            {explanation.summary}
-          </p>
-          <div className="mt-5 flex flex-col gap-3 rounded-[var(--radius-card)] bg-foil p-4 sm:flex-row sm:items-center sm:justify-between">
-            <p className="text-base text-ink">
-              <strong>What to say when you call your pharmacy:</strong>
-              <br />
-              {explanation.pharmacyScript}
-            </p>
-            <CopyScript text={explanation.pharmacyScript} />
-          </div>
-        </section>
-      )}
-
       <div className="result-comparison grid gap-4 sm:grid-cols-2">
         <Panel title="What the FDA says it should look like">
           <Well>
@@ -369,6 +347,16 @@ export function ResultView({
           Checked against FDA data on {formatDate(r.checkedAt.slice(0, 10))}.
         </p>
       </section>
+      {explanation && (
+        <section className="result-script rounded-[var(--radius-photo)] p-6 sm:p-8" aria-labelledby="explanation-h">
+          <h2 id="explanation-h" className="text-xl font-semibold text-ink">In plain words</h2>
+          <p className="mt-3 text-base text-ink-soft">{explanation.summary}</p>
+          <div className="mt-6 flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
+            <p className="text-base"><strong className="font-semibold">What to say when you call your pharmacy</strong><br/>{explanation.pharmacyScript}</p>
+            <CopyScript text={explanation.pharmacyScript}/>
+          </div>
+        </section>
+      )}
     </article>
   );
 }

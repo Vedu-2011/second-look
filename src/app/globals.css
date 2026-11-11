@@ -156,6 +156,15 @@ main a:not([data-slot="button"]):hover { text-decoration-line: underline; text-u
 .result-comparison > figure { min-width: 0; }
 .result-well { background: white; min-height: 230px; }
 .source-chip { box-shadow: none; font-size: 14px; }
+main a.source-chip { color:var(--ink); }
+.home-band .home-text-link, .bg-foil a:not([data-slot="button"]) { color:#0066cc; }
+[tabindex="-1"] { scroll-margin-top:100px; }
+@media (min-width:1024px) {
+ .sample-grid > li > h2 { min-height:58px; }
+ .sample-grid > li > p { min-height:104px; }
+ .sample-grid > li > .grid figure > p { min-height:72px; }
+ .sample-grid .verdict-field { min-height:190px; }
+}
 .result-script { background: var(--bg-soft); }
 .verdict-match { --v-title:#1f7a3a; --v-icon:#34c759; background:linear-gradient(135deg,#f2fbf4,#e3f6e8); }
 .verdict-same { --v-title:#0e6f80; --v-icon:#30b0c7; background:linear-gradient(135deg,#eef9fb,#ddf2f6); }

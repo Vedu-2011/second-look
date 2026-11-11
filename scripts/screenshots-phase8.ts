@@ -36,7 +36,7 @@ try {
       await verdict.waitFor();
       await page.evaluate(()=>document.fonts.ready);
       const article=page.getByRole("article",{name:"Check result"});
-      await article.screenshot({path:`${output}/result-${scenario.id}-${width}.png`});
+      await article.screenshot({path:`${output}/result-${scenario.id}-${width}.png`, style: ".site-header { visibility: hidden !important; }"});
       await page.unroute("**/api/verify");
     }
   }

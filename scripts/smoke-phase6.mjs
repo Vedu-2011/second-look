@@ -38,7 +38,7 @@ try {
   await page.getByRole("heading",{name:"We couldn’t find that page."}).waitFor();
   await visit("/");
   const sampleMs=timing();
-  await page.getByRole("link",{name:"Run the sample check"}).click();
+  await page.getByRole("link",{name:/^(Run the sample check|Try a sample)$/}).first().click();
   await page.locator('[data-verdict="MATCH"][aria-label]').waitFor();
   await page.getByText(/no photos|saved FDA example|recorded FDA example/i).first().waitFor();
   assert.equal(photoPosts,0,"the empty-photo fallback must not call AI");

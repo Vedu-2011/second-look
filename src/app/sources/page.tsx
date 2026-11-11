@@ -52,9 +52,9 @@ export default function SourcesPage() {
       <Suspense fallback={<p className="mt-7 rounded-[var(--radius-photo)] bg-foil p-5 text-lg">Loading FDA record counts…</p>}><LiveCounts /></Suspense>
       <Link href="/research" className="mt-5 inline-flex min-h-12 items-center rounded-full text-base font-semibold underline decoration-amber decoration-2 underline-offset-4">See our NIH photo benchmark →</Link>
 
-      <ol className="mt-10 flex flex-col gap-5">
+      <ol className="sources-list mt-14 flex flex-col gap-12">
         {SOURCES.map((s, i) => (
-          <li key={s.name} className="rounded-[var(--radius-photo)] bg-white p-6 shadow-[var(--shadow-soft)] sm:p-8">
+          <li key={s.name} className="bg-white py-4">
             <p className="text-sm font-semibold text-ink-soft">{i + 1}</p>
             <h2 className="text-2xl font-bold tracking-[-0.01em] text-ink">{s.name}</h2>
             <p className="mt-1 text-base text-ink-soft">{s.by}</p>
