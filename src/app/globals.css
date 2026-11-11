@@ -146,6 +146,8 @@
   :root { --radius-card: 28px; --radius-photo: 28px; --text-4xl: 3.5rem; }
 }
 .max-w-6xl { max-width: 1080px; }
+.text-4xl { font-size:36px; line-height:1.05; }
+@media (min-width:768px) { .text-4xl { font-size:56px; } }
 main > div:not(.home-page) { padding-top: 48px; }
 main > div:not(.home-page) > h1 { letter-spacing: -.03em; }
 main a:not([data-slot="button"]):not(.action-link) { text-decoration-line: none; }
@@ -188,5 +190,7 @@ main a.source-chip { color:var(--ink); }
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+    animation: none !important;
+    transition: none !important;
   }
 }

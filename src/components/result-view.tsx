@@ -352,7 +352,7 @@ export function ResultView({
           <h2 id="explanation-h" className="text-xl font-semibold text-ink">In plain words</h2>
           <p className="mt-3 text-base text-ink-soft">{explanation.summary}</p>
           <div className="mt-6 flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
-            <p className="text-base"><strong className="font-semibold">What to say when you call your pharmacy</strong><br/>{explanation.pharmacyScript}</p>
+            <p className="text-base"><strong className="font-semibold">What to say when you call your pharmacy:</strong><br/>{explanation.pharmacyScript}</p>
             <CopyScript text={explanation.pharmacyScript}/>
           </div>
         </section>
