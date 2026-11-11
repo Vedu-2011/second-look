@@ -106,7 +106,7 @@ export function instructionFor(r: CheckResult) {
     return `Same medicine and strength as your label. ${r.matchingListings?.sellers.length ? `Sold by ${r.matchingListings.sellers.length} listed ${r.matchingListings.sellers.length === 1 ? "company" : "companies"}.` : "Another FDA-listed version."}`;
   }
   if (r.verdict === "MISMATCH" && r.identifiedAs) {
-    return `This imprint is listed for ${productName(r.identifiedAs).toLowerCase()}. Don't take it. Call your pharmacy.`;
+    return `This imprint is listed for ${productName(r.identifiedAs)}. Don't take it. Call your pharmacy.`;
   }
   return undefined;
 }

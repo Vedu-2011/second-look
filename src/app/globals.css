@@ -164,7 +164,7 @@ main a.source-chip { color:var(--ink); }
 @media (min-width:1024px) {
  .sample-grid > li > h2 { min-height:58px; }
  .sample-grid > li > p { min-height:104px; }
- .sample-grid > li > .grid figure > p { min-height:72px; }
+ .sample-grid > li > .grid figure > p { min-height:96px; }
  .sample-grid .verdict-field { min-height:190px; }
 }
 .result-script { background: var(--bg-soft); }

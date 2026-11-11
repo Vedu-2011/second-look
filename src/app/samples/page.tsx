@@ -22,7 +22,7 @@ function PillSlot({ caption, p }: { caption: string; p: Product | null | undefin
   return (
     <figure className="flex flex-col gap-2">
       <figcaption className="text-sm font-semibold text-ink-soft">{caption}</figcaption>
-      <div className="grid min-h-40 place-items-center rounded-[var(--radius-card)] bg-white px-2 py-6">
+      <div className="grid min-h-48 place-items-center rounded-[var(--radius-card)] bg-white px-2 py-6">
         {p ? (
           <PillDrawing
             shapeCode={p.shapeCode ?? ""}
