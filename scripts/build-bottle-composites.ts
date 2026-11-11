@@ -3,7 +3,6 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 import sharp from "sharp";
-import { segmentBottle } from "@/lib/bottle/segment";
 import type { LabelReading } from "@/lib/verdict-engine";
 import type { Product } from "@/lib/fda/types";
 
@@ -11,20 +10,30 @@ export const BOTTLE_OUTPUT = "test-images/bottle/generated";
 export type CompositeScenario = { id: string; image: string; label: LabelReading; expectedCount: number; expectedMix: { file: string; count: number; productCode: string }[]; purpose: string };
 type CohortImage = { file: string; ndc: string; product: Product; sha256: string };
 const root = fileURLToPath(new URL("../", import.meta.url));
+// Visually inspected source bounds and silhouette masks. Only the fixture builder uses these.
+// Pixel colors/imprints are the original consumer photograph; no AI or synthetic pill artwork.
+const masks = [
+  { left: 677, top: 443, width: 304, height: 160, radius: 72 },
+  { left: 663, top: 480, width: 274, height: 278, radius: 0 },
+  { left: 218, top: 73, width: 211, height: 237, radius: 0 },
+];
 const selected = ["research/data/42043019205-1.jpg", "research/data/62037067410-1.jpg", "research/data/00591090030-1.jpg"];
 
 export async function buildBottleComposites() {
   const cohort = JSON.parse(await readFile(path.join(root, "research/out/cohort.json"), "utf8")) as { images: CohortImage[] };
   const holdout = JSON.parse(await readFile(path.join(root, "research/out/holdout-cohort.json"), "utf8")) as { images: CohortImage[] };
   const held = new Set(holdout.images.map((i) => i.product.productCode));
-  const sources = await Promise.all(selected.map(async (file) => {
+  const sources = await Promise.all(selected.map(async (file, index) => {
     const item = cohort.images.find((i) => i.file === file);
     if (!item || held.has(item.product.productCode)) throw new Error(`Ineligible development input: ${file}`);
     const bytes = await readFile(path.join(root, file));
     if (createHash("sha256").update(bytes).digest("hex") !== item.sha256) throw new Error(`Development source hash changed: ${file}`);
-    const found = await segmentBottle(bytes, { cutouts: true }).catch((e) => { throw new Error(`${file}: ${e.message}`); });
-    if (found.crops.length !== 1 || !found.cutouts?.[0]) throw new Error(`Expected one separate pill in development source: ${file}`);
-    const cutout = await sharp(found.cutouts[0]).resize({ width: 320, height: 260, fit: "inside" }).png().toBuffer();
+    const bounds = masks[index], { width, height } = bounds;
+    const outline = bounds.radius
+      ? `<rect width="${width}" height="${height}" rx="${bounds.radius}" fill="white"/>`
+      : `<ellipse cx="${width/2}" cy="${height/2}" rx="${width/2}" ry="${height/2}" fill="white"/>`;
+    const alpha = Buffer.from(`<svg width="${width}" height="${height}">${outline}</svg>`);
+    const cutout = await sharp(bytes).extract({ left: bounds.left, top: bounds.top, width, height }).ensureAlpha().composite([{ input: alpha, blend: "dest-in" }]).png().toBuffer();
     return { item, cutout, meta: await sharp(cutout).metadata() };
   }));
   await mkdir(path.join(root, BOTTLE_OUTPUT), { recursive: true });
@@ -43,7 +52,7 @@ export async function buildBottleComposites() {
     const expectedMix = [...new Set(spec.pills)].map((s) => ({ file: selected[s], count: spec.pills.filter((x) => x === s).length, productCode: sources[s].item.product.productCode }));
     scenarios.push({ id: spec.id, image, label: spec.label, expectedCount: 9, expectedMix, purpose: spec.purpose });
   }
-  const manifest = { scope: "Functional composites selected from DEVELOPMENT only. Not fresh benchmark evidence. Labels are declared FDA groundtruth, not live label readings.", sources: sources.map((s) => ({ file: s.item.file, sha256: s.item.sha256, productCode: s.item.product.productCode })), scenarios };
+  const manifest = { scope: "Functional composites selected from DEVELOPMENT only. Not fresh benchmark evidence. Labels are declared FDA groundtruth, not live label readings.", sources: sources.map((s, i) => ({ file: s.item.file, sha256: s.item.sha256, productCode: s.item.product.productCode, sourceBounds: masks[i], preparation: "Manually inspected crop bounds with elliptical/rounded silhouette masking; original pill pixels, repeated functional-demo composites only" })), scenarios };
   await writeFile(path.join(root, BOTTLE_OUTPUT, "manifest.json"), JSON.stringify(manifest, null, 2) + "\n");
   console.log(`Built 3 development-only composites in ${BOTTLE_OUTPUT}. No AI calls. Repeated crops are intentional; this is not an accuracy test.`);
   return manifest;

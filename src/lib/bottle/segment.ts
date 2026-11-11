@@ -13,8 +13,6 @@ export type SegmentedBottle = {
   boxes: NormalizedBox[];
   /** Request-local only. Never serialize or store this object. */
   crops: Buffer[];
-  /** Development composite builder only; never requested by the API. */
-  cutouts?: Buffer[];
 };
 const median = (a: number[]) => { const s = [...a].sort((x, y) => x - y); return s[Math.floor(s.length / 2)] ?? 0; };
 const quantile = (a: number[], q: number) => [...a].sort((x, y) => x - y)[Math.floor((a.length - 1) * q)] ?? 0;
@@ -85,7 +83,7 @@ function hasNeck(pixels: Int32Array, count: number, w: number) {
   return false;
 }
 /** Deterministic foreground finding only. No drug recognition, no splitting ambiguous blobs. */
-export async function segmentBottle(input: Buffer, options: { cutouts?: boolean; diagnostics?: (value: unknown) => void } = {}): Promise<SegmentedBottle> {
+export async function segmentBottle(input: Buffer, options: { diagnostics?: (value: unknown) => void } = {}): Promise<SegmentedBottle> {
   if (!input.length || input.length > MAX_BOTTLE_BYTES) throw new SegmentationError("bytes", "Choose a photograph under 12 MB.");
   const source = sharp(input, { limitInputPixels: MAX_BOTTLE_PIXELS, failOn: "warning" });
   let metadata;
@@ -141,8 +139,7 @@ export async function segmentBottle(input: Buffer, options: { cutouts?: boolean;
   if (pills.some((c) => c.edge || c.neck || c.area > typical * 2.2 || c.area > n * 0.18 || Math.max(c.width / c.height, c.height / c.width) > 4.3 || c.solidity < 0.91 || c.area / (c.width * c.height) < 0.36)) throw new SegmentationError("touching_clutter", "Some pills may be touching, cut off, or mixed with other objects.");
   // Stable row-major numbering. No shape/color assumptions influence which blobs are kept.
   pills.sort((a, b) => Math.abs(a.y - b.y) < Math.min(a.height, b.height) * 0.5 ? a.x - b.x : a.y - b.y);
-  const boxes: NormalizedBox[] = [], crops: Buffer[] = [], cutouts: Buffer[] = [];
-  const alpha = options.cutouts ? await sharp(Buffer.from(mask.map((v) => v * 255)), { raw: { width: w, height: h, channels: 1 } }).resize(image.width, image.height, { kernel: "nearest" }).png().toBuffer() : null;
+  const boxes: NormalizedBox[] = [], crops: Buffer[] = [];
   for (const p of pills) {
     const pad = Math.max(4, Math.round(Math.max(p.width, p.height) * 0.08));
     const left = Math.max(0, Math.floor((p.x - pad) * image.width / w));
@@ -152,10 +149,7 @@ export async function segmentBottle(input: Buffer, options: { cutouts?: boolean;
     const region = { left, top, width: right - left, height: bottom - top };
     boxes.push({ x: left / image.width, y: top / image.height, width: region.width / image.width, height: region.height / image.height });
     crops.push(await sharp(original.data).extract(region).png().toBuffer());
-    if (alpha) {
-      const cropAlpha = await sharp(alpha).extract(region).greyscale().raw().toBuffer();
-      cutouts.push(await sharp(original.data).extract(region).joinChannel(cropAlpha, { raw: { width: region.width, height: region.height, channels: 1 } }).png().toBuffer());
-    }
+
   }
-  return { image, boxes, crops, ...(options.cutouts ? { cutouts } : {}) };
+  return { image, boxes, crops };
 }

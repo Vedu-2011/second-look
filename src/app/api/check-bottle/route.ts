@@ -10,7 +10,6 @@ import { bottleCheckUnits, consumeCheckLimit } from "@/lib/rate-limit";
 import { saveBottleResult } from "@/lib/result-store";
 
 export const maxDuration = 120;
-export const runtime = "nodejs";
 const MAX_BODY = BOTTLE_BODY_BYTES;
 const supported = new Set(["image/jpeg", "image/png", "image/webp", "image/gif"]);
 const encoder = new TextEncoder();
