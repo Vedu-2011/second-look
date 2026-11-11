@@ -103,7 +103,7 @@ export function instructionFor(r: CheckResult) {
     return `This pill matches the FDA record for ${productName(r.matchedProduct)}.`;
   }
   if (r.verdict === "SAME_MEDICINE_DIFFERENT_MAKER" && r.matchedProduct) {
-    return `Same medicine and strength as your label. ${r.matchingListings ? `Sold by ${r.matchingListings.sellers.length} listed ${r.matchingListings.sellers.length === 1 ? "company" : "companies"}.` : "Another FDA-listed version."}`;
+    return `Same medicine and strength as your label. ${r.matchingListings?.sellers.length ? `Sold by ${r.matchingListings.sellers.length} listed ${r.matchingListings.sellers.length === 1 ? "company" : "companies"}.` : "Another FDA-listed version."}`;
   }
   if (r.verdict === "MISMATCH" && r.identifiedAs) {
     return `This imprint is listed for ${productName(r.identifiedAs).toLowerCase()}. Don't take it. Call your pharmacy.`;
@@ -123,6 +123,7 @@ export function ResultView({
   explanation?: { summary: string; pharmacyScript: string };
 }) {
   const reference = r.matchedProduct ?? r.expected;
+  const inactiveOwn = r.verdict === "MATCH" && r.labelProduct && !r.labelProduct.active;
   const look = readingAppearance(r.pill);
   const read = r.pill.imprintSides.map((s) => s.trim()).filter(Boolean);
   const labelMeta = (p: Product | null | undefined) =>
@@ -142,7 +143,7 @@ export function ResultView({
     <article className="result-view flex flex-col gap-5 sm:gap-6" aria-label="Check result">
       <VerdictField verdict={r.verdict} instruction={instructionFor(r)} />
 
-      {r.verdict === "MATCH" && r.labelProduct && !r.labelProduct.active && <p className="rounded-[var(--radius-row)] bg-foil p-4 text-sm text-ink-soft">The FDA lists this exact package as no longer marketed; the pill matches its record.</p>}
+      {inactiveOwn && <p className="rounded-[var(--radius-row)] bg-foil p-4 text-sm text-ink-soft">The FDA lists this exact package as no longer marketed; the pill matches its record.</p>}
       <div className="result-comparison grid gap-4 sm:grid-cols-2">
         <Panel title="What the FDA says it should look like">
           <Well>
@@ -164,7 +165,7 @@ export function ResultView({
                 {r.expectedIsTypical && !r.matchedProduct && (
                   <Chip>Most common look</Chip>
                 )}
-                {!reference.active && <Chip tone="amber">No longer marketed</Chip>}
+                {!reference.active && !inactiveOwn && <Chip tone="amber">No longer marketed</Chip>}
               </div>
             </div>
           )}
@@ -301,7 +302,7 @@ export function ResultView({
             Why we said this
           </h2>
           <ul className="mt-3 flex flex-col gap-2.5">
-            {r.reasons.map((reason) => (
+            {r.reasons.filter(reason => !inactiveOwn || reason !== "The FDA lists this exact package as no longer marketed; the pill matches its record.").map((reason) => (
               <li
                 key={reason}
                 className="flex gap-3 text-base text-pretty text-ink"
