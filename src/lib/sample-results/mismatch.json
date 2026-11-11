@@ -1,1 +1,157 @@
-null
+{
+  "result": {
+    "verdict": "UNSURE",
+    "expected": {
+      "ndc9": "70010-065",
+      "productCode": "700100065",
+      "ndc10": "70010-065-01",
+      "rxcui": "861004",
+      "setId": "2387a618-24d8-4813-aa83-9114edb35374",
+      "labeler": "Granules Pharmaceuticals Inc.",
+      "imprintRaw": "G;12",
+      "imprintTokens": [
+        "G",
+        "12"
+      ],
+      "colorCodes": [
+        "C48325"
+      ],
+      "colorText": "white(White to off-white)",
+      "shapeCode": "C48345",
+      "sizeMm": 19,
+      "scored": false,
+      "marketingStatus": "ACTIVE",
+      "active": true,
+      "title": "Metformin hydrochloride 1000 mg"
+    },
+    "expectedIsTypical": false,
+    "matchedProduct": null,
+    "identifiedAs": null,
+    "labelTitle": "Metformin hydrochloride 1000 mg",
+    "features": [
+      {
+        "name": "Imprint",
+        "expected": "G / 12",
+        "found": "93",
+        "result": "unsure"
+      },
+      {
+        "name": "Color",
+        "expected": "White",
+        "found": "Off-white",
+        "result": "match"
+      },
+      {
+        "name": "Shape",
+        "expected": "Oval",
+        "found": "Oblong",
+        "result": "match"
+      },
+      {
+        "name": "Size",
+        "expected": "19 mm",
+        "found": "Not measured",
+        "result": "not_measured"
+      }
+    ],
+    "evidence": [
+      {
+        "source": "FDA DailyMed",
+        "role": "label",
+        "setId": "2387a618-24d8-4813-aa83-9114edb35374",
+        "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=2387a618-24d8-4813-aa83-9114edb35374"
+      }
+    ],
+    "reasons": [
+      "We couldn't read the letters on the pill clearly enough to be sure (we think it says 93)."
+    ],
+    "productsCompared": 145,
+    "matchingListings": null,
+    "identifiedListings": null,
+    "label": {
+      "ndc": "70010-065",
+      "drugName": "Metformin HCl",
+      "strength": "1,000 mg",
+      "form": "tablet",
+      "pharmacyName": "Maple Street Pharmacy",
+      "directions": "Use only as directed on the original package.",
+      "isPrescriptionLabel": true,
+      "confidence": {
+        "drugName": 0.97,
+        "strength": 0.96,
+        "ndc": 0.95,
+        "dosageForm": 0.96,
+        "form": 0.96
+      }
+    },
+    "pill": {
+      "imprintSides": [
+        "93"
+      ],
+      "imprintConfidence": 0.6,
+      "colors": [
+        "off-white"
+      ],
+      "colorConfidence": 0.6,
+      "shape": "oblong",
+      "shapeConfidence": 0.8,
+      "form": "tablet",
+      "pillVisible": true,
+      "multiplePills": false,
+      "photoProblems": [
+        "too far"
+      ],
+      "scored": false,
+      "guess": null
+    },
+    "labelProduct": {
+      "ndc9": "70010-065",
+      "productCode": "700100065",
+      "ndc10": "70010-065-01",
+      "rxcui": "861004",
+      "setId": "2387a618-24d8-4813-aa83-9114edb35374",
+      "labeler": "Granules Pharmaceuticals Inc.",
+      "imprintRaw": "G;12",
+      "imprintTokens": [
+        "G",
+        "12"
+      ],
+      "colorCodes": [
+        "C48325"
+      ],
+      "colorText": "white(White to off-white)",
+      "shapeCode": "C48345",
+      "sizeMm": 19,
+      "scored": false,
+      "marketingStatus": "ACTIVE",
+      "active": true,
+      "title": "Metformin hydrochloride 1000 mg"
+    },
+    "labels": {
+      "2387a618-24d8-4813-aa83-9114edb35374": {
+        "setId": "2387a618-24d8-4813-aa83-9114edb35374",
+        "title": "METFORMIN HYDROCHLORIDE TABLET [GRANULES PHARMACEUTICALS INC.]",
+        "publishedDate": "2026-06-18",
+        "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=2387a618-24d8-4813-aa83-9114edb35374",
+        "current": true
+      }
+    },
+    "checkedAt": "2026-11-11T08:06:09.880Z",
+    "timings": {
+      "label": 450,
+      "drug": 274,
+      "guess": 0,
+      "dailymed": 89,
+      "total": 824
+    }
+  },
+  "explanation": {
+    "summary": "We couldn't confirm this pill from the photo and FDA records. Do not take it until your pharmacy confirms it.",
+    "pharmacyScript": "I couldn't confirm the pill from the photo. Can you check this bottle and pill with me?"
+  },
+  "recordedAt": "2026-11-11T08:06:09.882Z",
+  "photos": {
+    "label": "/samples/mismatch/label-d6683657de28.jpg",
+    "pill": "/samples/mismatch/pill-1be38f60dda5.jpg"
+  }
+}

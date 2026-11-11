@@ -1,0 +1,10 @@
+
+> second-look@0.1.0 check:flip
+> node --env-file-if-exists=.env.local --import tsx scripts/check-real-flip.ts
+
+side 1: label Metformin HCl NDC 70010-065 · pill "93" → UNSURE · flip asked: The imprint is not clear enough yet.
+  reasons: We couldn't read the letters on the pill clearly enough to be sure (we think it says 93).
+after flip: pill "93 / 2263" → UNSURE · identified: none ()
+  reasons: We couldn't read the letters on the pill clearly enough to be sure (we think it says 93 / 2263).
+{"phase10b":{"budgetUsd":0.5,"recordedSpendUsd":0.028555999999999998,"committedUsd":0.028555999999999998,"responses":3,"uniqueReadings":3},"cacheHits":2,"explanation":"deterministic template; no text-model spend"}
+AI calls 1 · 3889 input + 338 output tokens · at most $0.011 (Sonnet rate upper bound)

@@ -1,0 +1,10 @@
+
+> second-look@0.1.0 samples:build
+> node --env-file-if-exists=.env.local --import tsx scripts/build-samples.ts --only=mismatch
+
+{"phase10b":{"budgetUsd":0.5,"recordedSpendUsd":0.017398,"committedUsd":0.017398,"responses":2,"uniqueReadings":2},"cacheHits":0,"explanation":"deterministic template; no text-model spend"}
+match: no photos; keeping the saved FDA example
+different-maker: no photos; keeping the saved FDA example
+mismatch: UNSURE
+  read: label NDC 70010-065 · Metformin HCl · pill "93" off-white oblong
+AI calls 2 · 5544 input + 631 output tokens · at most $0.017

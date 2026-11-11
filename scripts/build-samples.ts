@@ -5,15 +5,19 @@ import { buildSamples } from "@/lib/samples-build";
 import { runPhotoCheck } from "@/lib/photo-check";
 import { setAiUsageObserver } from "@/lib/ai/client";
 
+import { phase10bReaders } from './lib/phase10b-readers';
+
 const root = new URL("../", import.meta.url);
 const missing = (error: unknown) => (error as NodeJS.ErrnoException).code === "ENOENT";
 async function main() {
+const budget = process.env.PHASE10B_MODE === '1' ? phase10bReaders() : undefined;
 // Token totals only (never images or text), so every paid run can report what it spent.
 const usage = { calls: 0, input: 0, output: 0 };
 setAiUsageObserver((_model, input, output) => { usage.calls++; usage.input += input; usage.output += output; });
 const readings: Record<string, string> = {};
 const outcomes = await buildSamples({
   async readPair(id) {
+    if (process.argv.includes("--only=mismatch") && id !== "mismatch") return null;
     const read = async (name: string) => readFile(new URL(`test-images/real/${id}/${name}.jpg`, root)).catch(error => { if (missing(error)) return null; throw error; });
     const [label, pill] = await Promise.all([read("label"), read("pill")]);
     if (!label && !pill) return null;
@@ -27,7 +31,7 @@ const outcomes = await buildSamples({
     return { bytes: output, image: { mediaType: "image/jpeg", base64: output.toString("base64") } };
   },
   async check(label, pill) {
-    const checked = await runPhotoCheck(label, pill);
+    const checked = await runPhotoCheck(label, pill, () => {}, false, budget);
     if (checked.ok) readings[checked.result.label.ndc ?? "label"] = `${checked.result.label.drugName ?? "?"} · pill "${checked.result.pill.imprintSides.join(" / ")}" ${checked.result.pill.colors.join("/")} ${checked.result.pill.shape}`;
     return checked;
   },
@@ -47,6 +51,7 @@ const outcomes = await buildSamples({
     await rename(temporary, target);
   },
 });
+budget?.report();
 for (const outcome of outcomes) console.log(`${outcome.id}: ${outcome.status === "kept" ? "no photos; keeping the saved FDA example" : outcome.status === "saved" ? outcome.verdict : `FAILED: ${outcome.error}`}`);
 for (const [ndc, reading] of Object.entries(readings)) console.log(`  read: label NDC ${ndc} · ${reading}`);
 // Upper bound: every call priced at the Sonnet vision rate used in check-bottle ($2 / $10 per million tokens).

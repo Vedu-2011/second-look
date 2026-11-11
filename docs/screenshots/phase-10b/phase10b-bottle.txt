@@ -1,0 +1,292 @@
+BEFORE {
+  "decision": {
+    "matched": 8,
+    "unreadable": 1,
+    "flagged": [
+      5,
+      10
+    ],
+    "verdict": "MISMATCH",
+    "title": "Pill 5 doesn't match your label.",
+    "instruction": "Don't take any pills from this bottle; call your pharmacy."
+  },
+  "pills": [
+    {
+      "number": 1,
+      "verdict": "UNSURE",
+      "imprint": [
+        "G 12"
+      ],
+      "confidence": 0.6
+    },
+    {
+      "number": 2,
+      "verdict": "MATCH",
+      "imprint": [
+        "G 12"
+      ],
+      "confidence": 0.85
+    },
+    {
+      "number": 3,
+      "verdict": "MATCH",
+      "imprint": [
+        "G 12"
+      ],
+      "confidence": 0.85
+    },
+    {
+      "number": 4,
+      "verdict": "MATCH",
+      "imprint": [
+        "G 12"
+      ],
+      "confidence": 0.85
+    },
+    {
+      "number": 5,
+      "verdict": "MISMATCH",
+      "imprint": [
+        "93"
+      ],
+      "confidence": 0.85
+    },
+    {
+      "number": 6,
+      "verdict": "MATCH",
+      "imprint": [
+        "G 12"
+      ],
+      "confidence": 0.85
+    },
+    {
+      "number": 7,
+      "verdict": "MATCH",
+      "imprint": [
+        "G 12"
+      ],
+      "confidence": 0.8
+    },
+    {
+      "number": 8,
+      "verdict": "MATCH",
+      "imprint": [
+        "G 12"
+      ],
+      "confidence": 0.8
+    },
+    {
+      "number": 9,
+      "verdict": "MATCH",
+      "imprint": [
+        "G 12"
+      ],
+      "confidence": 0.85
+    },
+    {
+      "number": 10,
+      "verdict": "MATCH",
+      "imprint": [
+        "G 12"
+      ],
+      "confidence": 0.85
+    }
+  ],
+  "elapsedMs": 9634
+}
+AFTER {
+  "decision": {
+    "matched": 8,
+    "unreadable": 1,
+    "flagged": [
+      5
+    ],
+    "verdict": "MISMATCH",
+    "title": "Pill 5 doesn't match your label.",
+    "instruction": "Don't take any pills from this bottle; call your pharmacy."
+  },
+  "followUp": {
+    "mode": "reread",
+    "reread": [],
+    "reused": 10,
+    "note": "Nothing needed reading again, so we kept all 10 readings from your first photo."
+  },
+  "pills": [
+    {
+      "number": 1,
+      "verdict": "UNSURE",
+      "imprint": [
+        "G 12"
+      ],
+      "confidence": 0.6
+    },
+    {
+      "number": 2,
+      "verdict": "MATCH",
+      "imprint": [
+        "G 12"
+      ],
+      "confidence": 0.85
+    },
+    {
+      "number": 3,
+      "verdict": "MATCH",
+      "imprint": [
+        "G 12"
+      ],
+      "confidence": 0.85
+    },
+    {
+      "number": 4,
+      "verdict": "MATCH",
+      "imprint": [
+        "G 12"
+      ],
+      "confidence": 0.85
+    },
+    {
+      "number": 5,
+      "verdict": "MISMATCH",
+      "imprint": [
+        "93"
+      ],
+      "confidence": 0.85
+    },
+    {
+      "number": 6,
+      "verdict": "MATCH",
+      "imprint": [
+        "G 12"
+      ],
+      "confidence": 0.85
+    },
+    {
+      "number": 7,
+      "verdict": "MATCH",
+      "imprint": [
+        "G 12"
+      ],
+      "confidence": 0.8
+    },
+    {
+      "number": 8,
+      "verdict": "MATCH",
+      "imprint": [
+        "G 12"
+      ],
+      "confidence": 0.8
+    },
+    {
+      "number": 9,
+      "verdict": "MATCH",
+      "imprint": [
+        "G 12"
+      ],
+      "confidence": 0.85
+    },
+    {
+      "number": 10,
+      "verdict": "MATCH",
+      "imprint": [
+        "G 12"
+      ],
+      "confidence": 0.85
+    }
+  ],
+  "elapsedMs": 1055
+}
+UPSIDE DOWN {
+  "decision": {
+    "matched": 6,
+    "unreadable": 3,
+    "flagged": [
+      5,
+      10
+    ],
+    "verdict": "MISMATCH",
+    "title": "Pill 5 doesn't match your label.",
+    "instruction": "Don't take any pills from this bottle; call your pharmacy."
+  },
+  "pills": [
+    {
+      "number": 1,
+      "verdict": "UNSURE",
+      "imprint": [
+        "G 12"
+      ],
+      "confidence": 0.6
+    },
+    {
+      "number": 2,
+      "verdict": "MATCH",
+      "imprint": [
+        "G 12"
+      ],
+      "confidence": 0.85
+    },
+    {
+      "number": 3,
+      "verdict": "UNSURE",
+      "imprint": [],
+      "confidence": 0
+    },
+    {
+      "number": 4,
+      "verdict": "MATCH",
+      "imprint": [
+        "G 12"
+      ],
+      "confidence": 0.85
+    },
+    {
+      "number": 5,
+      "verdict": "MISMATCH",
+      "imprint": [
+        "93"
+      ],
+      "confidence": 0.7
+    },
+    {
+      "number": 6,
+      "verdict": "MATCH",
+      "imprint": [
+        "G 12"
+      ],
+      "confidence": 0.8
+    },
+    {
+      "number": 7,
+      "verdict": "UNSURE",
+      "imprint": [
+        "G 12"
+      ],
+      "confidence": 0.6
+    },
+    {
+      "number": 8,
+      "verdict": "MATCH",
+      "imprint": [
+        "G 12"
+      ],
+      "confidence": 0.8
+    },
+    {
+      "number": 9,
+      "verdict": "MATCH",
+      "imprint": [
+        "G 12"
+      ],
+      "confidence": 0.9
+    },
+    {
+      "number": 10,
+      "verdict": "MATCH",
+      "imprint": [
+        "G 12"
+      ],
+      "confidence": 0.8
+    }
+  ],
+  "elapsedMs": 6418
+}
+{"phase10b":{"budgetUsd":0.5,"recordedSpendUsd":0.16225799999999996,"committedUsd":0.16225799999999996,"responses":23,"uniqueReadings":23},"cacheHits":0,"explanation":"deterministic template; no text-model spend"}
