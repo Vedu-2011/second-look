@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { SCENARIOS } from "@/lib/demo-scenarios";
+import { SCENARIOS } from "@/lib/fda/__fixtures__/tablet-scenarios";
 import { CONCEPTS, RECORDED } from "@/lib/fda/recorded";
 import type { Product } from "@/lib/fda/types";
 import { decide, mostCommonLook, type EngineData, type PillReading } from "@/lib/verdict-engine";
@@ -31,7 +31,7 @@ describe("the three demo bottles (recorded FDA data)", () => {
     expect(r.verdict).toBe("SAME_MEDICINE_DIFFERENT_MAKER");
     expect(r.matchedProduct?.imprintTokens).toEqual(["I2"]);
     expect(r.matchedProduct?.active).toBe(true);
-    expect(r.reasons.join(" ")).toContain("Advil (ibuprofen 200 mg) made by Haleon");
+    expect(r.reasons.join(" ")).toContain("Advil (ibuprofen 200 mg) sold by Haleon");
     expect(r.evidence.some((e) => e.source === "NLM RxNorm" && e.rxcui === "310965")).toBe(true);
   });
 
@@ -124,7 +124,7 @@ describe("verdict rules", () => {
     const onlyOld: Product = { ...ibuprofen.find((p) => !p.active && p.imprintRaw === "I2")!, shapeCode: "C48345" };
     const old = decide(makerS.label, makerS.pill, { ...advilData, sameDrugProducts: [RECORDED.advilOval, onlyOld] });
     expect(old.verdict).toBe("SAME_MEDICINE_DIFFERENT_MAKER");
-    expect(old.reasons.join(" ")).toMatch(/no longer made/);
+    expect(old.reasons.join(" ")).toMatch(/no longer marketed/);
   });
 
   it("a mismatch without a guess still says MISMATCH but doesn't name the pill", () => {

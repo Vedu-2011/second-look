@@ -234,7 +234,7 @@ export function decide(label: LabelReading, pillInput: PillReading | readonly Pi
     const matchedProduct = extra.matchedProduct ?? null;
     const identifiedAs = extra.identifiedAs ?? null;
     if (matchedProduct && !matchedProduct.active) {
-      reasons.push("This version is no longer made, but its FDA record still matches your pill.");
+      reasons.push("The FDA lists this exact package as no longer marketed; the pill matches its record.");
     }
     return {
       verdict,
@@ -289,7 +289,7 @@ export function decide(label: LabelReading, pillInput: PillReading | readonly Pi
         return result("UNSURE", { ref: own });
       }
       if (own.imprint.result === "close") reasons.push(closeReason(pillText, labelProduct));
-      reasons.push(`The letters, color and shape match the FDA record for ${titleOf(labelProduct, labelTitle)} by ${maker(labelProduct)}.`);
+      reasons.push(`The letters, color and shape match the FDA record for ${titleOf(labelProduct, labelTitle)}.`);
       return result("MATCH", { ref: own, matchedProduct: labelProduct });
     }
   }
@@ -310,21 +310,21 @@ export function decide(label: LabelReading, pillInput: PillReading | readonly Pi
       return result("UNSURE", { ref: hit });
     }
     if (!appearanceOk(hit)) {
-      reasons.push(`The letters match ${titleOf(hit.product, labelTitle)} by ${maker(hit.product)}, but the ${whatDiffers(hit)} doesn't.`);
+      reasons.push(`The letters match ${titleOf(hit.product, labelTitle)}, but the ${whatDiffers(hit)} doesn't.`);
       return result("UNSURE", { ref: hit });
     }
     if (!appearanceChecked(hit)) {
-      reasons.push(uncheckedReason(hit, `${titleOf(hit.product, labelTitle)} by ${maker(hit.product)}`));
+      reasons.push(uncheckedReason(hit, titleOf(hit.product, labelTitle)));
       return result("UNSURE", { ref: hit });
     }
     if (hit.imprint.result === "close") reasons.push(closeReason(pillText, hit.product));
     if (labelProduct) {
       reasons.push(
-        `Your label lists ${titleOf(labelProduct, labelTitle)} made by ${maker(labelProduct)}. Your pill matches the FDA record for the version made by ${maker(hit.product)}: same medicine, same strength.`,
+        `Your label lists ${titleOf(labelProduct, labelTitle)} sold by ${maker(labelProduct)}. Your pill matches another FDA-listed version: same medicine, same strength.`,
       );
       return result("SAME_MEDICINE_DIFFERENT_MAKER", { ref: hit, matchedProduct: hit.product });
     }
-    reasons.push(`The letters, color and shape match the FDA record for ${titleOf(hit.product, labelTitle)} by ${maker(hit.product)}.`);
+    reasons.push(`The letters, color and shape match the FDA record for ${titleOf(hit.product, labelTitle)}.`);
     return result("MATCH", { ref: hit, matchedProduct: hit.product });
   }
 
@@ -340,7 +340,7 @@ export function decide(label: LabelReading, pillInput: PillReading | readonly Pi
     .filter((s) => s.imprint.result === "exact");
   const identified = best(guessHits.filter(usable)) ?? best(guessHits.filter(appearanceOk)) ?? best(guessHits);
   if (identified) {
-    reasons.push(`"${pillText}" is on ${titleOf(identified.product, null)} made by ${maker(identified.product)} (FDA record).`);
+    reasons.push(`"${pillText}" is listed for ${titleOf(identified.product, null)} (FDA record).`);
   } else {
     reasons.push("We couldn't confirm what this pill is from FDA records.");
   }

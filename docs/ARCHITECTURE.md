@@ -127,3 +127,9 @@ Repo: github.com/Vedu-2011/second-look — PUBLIC (DSH requires a public repo).
 - Real finding for the deck/Devpost: among active ibuprofen 200 mg tablets, the most common look is a BROWN ROUND
   "I2" (38 products), not the orange oval — the same medicine comes in many looks, which is exactly why patients
   get confused (Kesselheim). Use with the exact counts from the app.
+
+## Decisions after phase 8 (planner-authorized addendum, Nov 10)
+- Current real demo bottles: Kirkland ibuprofen 200 mg blue capsule IB1, NDC 63981-598, Costco; Advil Liqui-Gels label NDC 0573-0169, green capsule Advil; mismatched pill Tylenol Extra Strength white oval TYLENOL / 500, NDC 50580-937. Labels use capsule form for ibuprofen. These replace the earlier tablet demos, retained as regression fixtures.
+- Live RxNav verified 310964 (generic capsule) and 731533 (Advil capsule) in the same group, 211 deduplicated products on Nov 10. Kirkland exact package is COMPLETED: keep MATCH and add a calm no-longer-marketed note.
+- A pill appearance can be shared by many sellers. Report every FDA-listed product with the selected record's complete imprint, color and shape; deduplicate by product code and sellers by normalized name; put the label NDC first. Do not infer a unique manufacturer or use this presentation grouping to change the verdict. Unknown sellers are disclosed.
+- Demo patient/pharmacy details remain fictional. Photos are optional and must never be fabricated. Printed IB1 needs close, angled light; TYLENOL / 500 demonstrates the flip step.

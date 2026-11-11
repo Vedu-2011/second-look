@@ -1,3 +1,4 @@
+import real from "./fda/__fixtures__/real-demo.json";
 import { CONCEPTS, RECORDED } from "@/lib/fda/recorded";
 import { compareImprint } from "@/lib/match/imprint";
 import type { PillReading } from "@/lib/verdict-engine";
@@ -6,8 +7,9 @@ import type { PillReading } from "@/lib/verdict-engine";
 export function recordedLead(pill: PillReading) {
   if (pill.imprintConfidence < 0.7) return null;
   const groups = [
-    { products: RECORDED.acetaminophen500Products, concept: CONCEPTS.acetaminophen500 },
+    { products: [...RECORDED.acetaminophen500Products, ...real.groups["209459"].products], concept: CONCEPTS.acetaminophen500 },
     { products: RECORDED.ibuprofen200Products, concept: CONCEPTS.ibuprofen200 },
+    { products: real.groups["310964"].products, concept: real.groups["310964"].generic },
   ];
   const matches = groups.filter(g => g.products.some(p => compareImprint(p.imprintRaw, pill.imprintSides).result === "exact"));
   if (matches.length !== 1) return null;

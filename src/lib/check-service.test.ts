@@ -2,7 +2,7 @@
 import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 import labels from "@/lib/fda/__fixtures__/dailymed-labels.json";
 import index from "@/lib/fda/__fixtures__/index.json";
-import { SCENARIOS } from "@/lib/demo-scenarios";
+import { SCENARIOS } from "@/lib/fda/__fixtures__/tablet-scenarios";
 
 vi.mock("@/lib/redis", async (orig) => ({ ...(await orig<typeof import("@/lib/redis")>()), getRedis: () => null }));
 

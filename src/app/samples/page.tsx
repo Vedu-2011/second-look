@@ -9,7 +9,7 @@ import { SourceBadge } from "@/components/source-badge";
 import { VerdictField } from "@/components/verdict-field";
 import { productName } from "@/lib/fda/concept";
 import { formatDate } from "@/lib/fda/fixtures";
-import { RECORDED_ON } from "@/lib/fda/recorded";
+import { DEMO_RECORDED_ON as RECORDED_ON } from "@/lib/sample-results";
 import type { Product } from "@/lib/fda/types";
 import { displayImprint } from "@/lib/match/imprint";
 import { SAMPLES } from "@/lib/samples";

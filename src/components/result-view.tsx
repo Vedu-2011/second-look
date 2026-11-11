@@ -11,6 +11,7 @@ import { formatDate } from "@/lib/fda/fixtures";
 import type { Product } from "@/lib/fda/types";
 import { displayImprint } from "@/lib/match/imprint";
 import { readingAppearance } from "@/lib/match/reading";
+import { listingSummary, type ListingEvidence } from "@/lib/listing-evidence";
 import { cn } from "@/lib/utils";
 
 const PX = 11; // px per mm, shared by both drawings so they compare to size
@@ -70,7 +71,7 @@ function Well({ children }: { children: ReactNode }) {
 function Maker({ p }: { p: Product }) {
   return (
     <p className="text-base text-ink-soft">
-      {p.labeler ?? "Maker not listed"} ·{" "}
+      FDA listing sold by {p.labeler ?? "seller not listed"} ·{" "}
       <span className="font-mono whitespace-nowrap">NDC {p.ndc9}</span>
     </p>
   );
@@ -102,10 +103,10 @@ export function instructionFor(r: CheckResult) {
     return `This pill matches the FDA record for ${productName(r.matchedProduct)}.`;
   }
   if (r.verdict === "SAME_MEDICINE_DIFFERENT_MAKER" && r.matchedProduct) {
-    return `Made by ${r.matchedProduct.labeler ?? "another company"}. Same medicine and strength as your label.`;
+    return `Same medicine and strength as your label. ${r.matchingListings ? `Sold by ${r.matchingListings.sellers.length} listed ${r.matchingListings.sellers.length === 1 ? "company" : "companies"}.` : "Another FDA-listed version."}`;
   }
   if (r.verdict === "MISMATCH" && r.identifiedAs) {
-    return `This imprint belongs to ${productName(r.identifiedAs).toLowerCase()}. Don't take it. Call your pharmacy.`;
+    return `This imprint is listed for ${productName(r.identifiedAs).toLowerCase()}. Don't take it. Call your pharmacy.`;
   }
   return undefined;
 }
@@ -141,6 +142,7 @@ export function ResultView({
     <article className="result-view flex flex-col gap-5 sm:gap-6" aria-label="Check result">
       <VerdictField verdict={r.verdict} instruction={instructionFor(r)} />
 
+      {r.verdict === "MATCH" && r.labelProduct && !r.labelProduct.active && <p className="rounded-[var(--radius-row)] bg-foil p-4 text-sm text-ink-soft">The FDA lists this exact package as no longer marketed; the pill matches its record.</p>}
       <div className="result-comparison grid gap-4 sm:grid-cols-2">
         <Panel title="What the FDA says it should look like">
           <Well>
@@ -157,12 +159,12 @@ export function ResultView({
               <p className="text-lg leading-snug font-bold text-ink">
                 {productName(reference)}
               </p>
-              <Maker p={reference} />
+              <p className="text-sm text-ink-soft">FDA reference record · <span className="font-mono">NDC {reference.ndc9}</span></p>
               <div className="mt-1 flex flex-wrap gap-2">
                 {r.expectedIsTypical && !r.matchedProduct && (
                   <Chip>Most common look</Chip>
                 )}
-                {!reference.active && <Chip tone="amber">No longer made</Chip>}
+                {!reference.active && <Chip tone="amber">No longer marketed</Chip>}
               </div>
             </div>
           )}
@@ -226,6 +228,8 @@ export function ResultView({
         </Panel>
       </div>
 
+      {r.matchingListings && <ListingDetails evidence={r.matchingListings} />}
+
       {r.verdict === "SAME_MEDICINE_DIFFERENT_MAKER" &&
         r.labelProduct &&
         r.matchedProduct && (
@@ -239,8 +243,8 @@ export function ResultView({
               </h2>
               <p className="mt-1 text-base text-pretty text-ink">
                 Your label lists <strong>{productName(r.labelProduct)}</strong>{" "}
-                by {r.labelProduct.labeler}, which looks like this. Your pill is
-                the version made by <strong>{r.matchedProduct.labeler}</strong>.
+                sold by {r.labelProduct.labeler}, which looks like this. Your pill matches
+                another FDA-listed version. Appearance alone does not identify its seller.
                 Pharmacies switch makers often. The medicine and strength are
                 the same.
               </p>
@@ -257,12 +261,12 @@ export function ResultView({
               </div>
               <div className="flex flex-col gap-1.5">
                 <p className="text-base font-semibold text-ink-soft">
-                  This imprint belongs to
+                  This imprint is listed for
                 </p>
                 <p className="text-2xl leading-tight font-bold text-ink">
                   {productName(r.identifiedAs)}
                 </p>
-                <Maker p={r.identifiedAs} />
+                {r.identifiedListings ? <ListingDetails evidence={r.identifiedListings} identified /> : <Maker p={r.identifiedAs} />}
                 {r.identifiedAs.setId && (
                   <SourceBadge
                     setid={r.identifiedAs.setId}
@@ -359,4 +363,14 @@ export function ResultView({
       )}
     </article>
   );
+}
+
+function ListingDetails({evidence, identified=false}: {evidence: ListingEvidence; identified?: boolean}) {
+ return <div className="rounded-[var(--radius-photo)] bg-foil p-5 text-base">
+  <p>{listingSummary(evidence, identified)}</p>
+  <details className="mt-2"><summary className="min-h-12 cursor-pointer py-3 font-semibold">See all FDA-listed versions and sellers</summary>
+   <p className="mb-3 text-sm text-ink-soft">FDA labelers are listed as sellers here. Appearance does not identify a unique manufacturer. Package sizes and duplicate records are counted once per product code.</p>
+   <ul className="space-y-3">{evidence.products.map(p=><li key={p.productCode}><a className="inline-block min-h-12 py-2" href={p.setId ? `https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=${encodeURIComponent(p.setId)}` : `https://mor.nlm.nih.gov/RxNav/search?searchBy=RXCUI&searchTerm=${encodeURIComponent(p.rxcui)}`} target="_blank" rel="noreferrer">{p.labeler ?? "Seller not listed"} · <span className="font-mono">{p.ndc9}</span>{!p.active?' · no longer marketed':''} ↗</a></li>)}</ul>
+  </details>
+ </div>;
 }

@@ -4,7 +4,11 @@ import { approximateTerm, drugGroup, drugTerm, lookupNdc } from "@/lib/fda/rxnav
 import type { DrugConcept, LabelMeta, Product } from "@/lib/fda/types";
 import { decide, type EngineData, type EngineResult, type LabelReading, type PillReading } from "@/lib/verdict-engine";
 
+import { listingEvidence, type ListingEvidence } from './listing-evidence';
+
 export type CheckResult = EngineResult & {
+  matchingListings?: ListingEvidence | null;
+  identifiedListings?: ListingEvidence | null;
   label: LabelReading;
   pill: PillReading;
   /** The exact product on the label, when it had an NDC we found */
@@ -48,6 +52,7 @@ export async function runCheck(label: LabelReading, pill: PillReading): Promise<
     labelNdcAmbiguous,
   };
   let result = decide(label, pill, data);
+  let guessProducts: Product[] = [];
 
   // 3. Doesn't match: check the reader's guess against FDA data to say what the pill really is.
   if (result.verdict === "MISMATCH" && pill.guess?.drugName) {
@@ -56,7 +61,8 @@ export async function runCheck(label: LabelReading, pill: PillReading): Promise<
     if (guessDrug) {
       const guessGroup = await drugGroup(guessDrug.rxcui);
       if (guessGroup && guessGroup.generic.rxcui !== group?.generic.rxcui) {
-        result = decide(label, pill, { ...data, guessProducts: guessGroup.products });
+        guessProducts = guessGroup.products;
+        result = decide(label, pill, { ...data, guessProducts });
       }
     }
     timings.guess = ms(t);
@@ -71,6 +77,8 @@ export async function runCheck(label: LabelReading, pill: PillReading): Promise<
 
   return {
     ...result,
+    matchingListings: listingEvidence(result.matchedProduct, data.sameDrugProducts, labelProduct?.productCode),
+    identifiedListings: listingEvidence(result.identifiedAs, guessProducts, labelProduct?.productCode),
     label,
     pill,
     labelProduct,

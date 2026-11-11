@@ -5,7 +5,7 @@ describe("printable demo labels", () => {
   it("defaults to three fictional labels with the intended product codes", () => {
     const labels = demoLabels();
     expect(labels).toHaveLength(3);
-    expect(labels.map(l => l.ndc)).toEqual(["0113-0517", "0573-0160", "0113-0517"]);
+    expect(labels.map(l => l.ndc)).toEqual(["63981-598", "0573-0169", "63981-598"]);
     expect(labels.every(l => l.patient === "Alex Rivera")).toBe(true);
   });
   it("supports shared query values and per-bottle overrides", () => {

@@ -1,51 +1,16 @@
-// Results for the three demo bottles, computed by the REAL verdict engine from FDA data recorded on RECORDED_ON.
-// No network at build time, so /samples always works, even if the FDA APIs are down during judging.
-import type { CheckResult } from "@/lib/check-service";
-import { SCENARIOS, type Scenario } from "@/lib/demo-scenarios";
-import labelsJson from "@/lib/fda/__fixtures__/dailymed-labels.json";
-import { parseDailyMedDate, dailyMedUrl } from "@/lib/fda/dailymed-parse";
-import { CONCEPTS, RECORDED, RECORDED_ON } from "@/lib/fda/recorded";
-import type { LabelMeta } from "@/lib/fda/types";
-import { decide, type EngineData } from "@/lib/verdict-engine";
-
-const LABELS: Record<string, LabelMeta> = Object.fromEntries(
-  Object.entries(labelsJson as Record<string, { title?: string; published_date?: string } | null>).map(([setId, l]) => [
-    setId,
-    { setId, title: l?.title ?? null, publishedDate: parseDailyMedDate(l?.published_date), url: dailyMedUrl(setId), current: Boolean(l) },
-  ]),
-);
-
-const DATA: Record<string, EngineData> = {
-  match: {
-    labelProduct: RECORDED.perrigoI2Oval,
-    labelDrug: CONCEPTS.ibuprofen200,
-    sameDrugProducts: RECORDED.ibuprofen200Products,
-  },
-  "different-maker": {
-    labelProduct: RECORDED.advilOval,
-    labelDrug: CONCEPTS.ibuprofen200,
-    sameDrugProducts: RECORDED.ibuprofen200Products,
-  },
-  mismatch: {
-    labelProduct: RECORDED.perrigoI2Oval,
-    labelDrug: CONCEPTS.ibuprofen200,
-    sameDrugProducts: RECORDED.ibuprofen200Products,
-    guessProducts: RECORDED.acetaminophen500Products,
-  },
-};
-
+// Network-free computed examples from live FDA metadata recorded for the real demo bottles.
+import type { CheckResult } from '@/lib/check-service';
+import { SCENARIOS, type Scenario } from '@/lib/demo-scenarios';
+import real from '@/lib/fda/__fixtures__/real-demo.json';
+import type { LabelMeta } from '@/lib/fda/types';
+import { decide, type EngineData } from '@/lib/verdict-engine';
+import { listingEvidence } from './listing-evidence';
+export const DEMO_RECORDED_ON = real.recordedAt.slice(0,10);
+export const REAL_DEMO = real;
 export function sampleResult(s: Scenario): CheckResult {
-  const data = DATA[s.id];
-  const result = decide(s.label, s.pill, data);
-  return {
-    ...result,
-    label: s.label,
-    pill: s.pill,
-    labelProduct: data.labelProduct ?? null,
-    labels: LABELS,
-    checkedAt: `${RECORDED_ON}T12:00:00.000Z`,
-    timings: { label: 0, drug: 0, guess: 0, dailymed: 0, total: 0 },
-  };
+ const generic=real.groups['310964'];
+ const data: EngineData={labelProduct:s.id==='different-maker'?real.products['0573-0169']:real.products['63981-598'],labelDrug:generic.generic,sameDrugProducts:generic.products,guessProducts:s.id==='mismatch'?real.groups['209459'].products:[]};
+ const result=decide(s.label,s.pill,data);
+ return {...result,matchingListings:listingEvidence(result.matchedProduct,data.sameDrugProducts,data.labelProduct?.productCode),identifiedListings:listingEvidence(result.identifiedAs,data.guessProducts??[]),label:s.label,pill:s.pill,labelProduct:data.labelProduct??null,labels:real.labels as Record<string,LabelMeta>,checkedAt:real.recordedAt,timings:{label:0,drug:0,guess:0,dailymed:0,total:0}};
 }
-
-export const SAMPLE_RESULTS = SCENARIOS.map((s) => ({ scenario: s, result: sampleResult(s) }));
+export const SAMPLE_RESULTS=SCENARIOS.map(s=>({scenario:s,result:sampleResult(s)}));
