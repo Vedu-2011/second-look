@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { AlertTriangle, Check, HelpCircle, X } from "lucide-react";
 import { ButtonLink } from "@/components/button";
-import { boxCenter, pixelCrop } from "@/lib/bottle/overlay";
+import { pixelCrop } from "@/lib/bottle/overlay";
 import type { BottlePill, BottleResult } from "@/lib/bottle/types";
 import { VERDICT_COPY } from "@/lib/verdict";
 import { cn } from "@/lib/utils";
@@ -51,8 +51,8 @@ export function BottleResultView({ result, photo, shareId, onRetake }: { result:
       <div className="relative mt-5 w-full overflow-hidden rounded-[var(--radius-photo)] bg-foil" style={{ aspectRatio: `${result.image.width} / ${result.image.height}` }} aria-describedby="bottle-photo-help">
         {photo && <img src={photo} alt="Your whole-bottle photograph with a numbered marker on each detected pill" className="absolute inset-0 h-full w-full" />}
         {result.pills.map((pill) => {
-          const center = boxCenter(pill.box);
-          return <button key={pill.number} type="button" onClick={() => selectPill(pill.number)} aria-label={`Pill ${pill.number}: ${VERDICT_COPY[pill.result.verdict].word}. See reading`} style={{ left: `${center.x}%`, top: `${center.y}%` }} className={cn("absolute grid min-h-11 min-w-11 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full shadow-[0_0_0_3px_white,0_2px_8px_#0004]", pillTone(pill))}><span className="font-mono text-base font-bold">{pill.number}<span className="ml-0.5 text-xs" aria-hidden>{pillSymbol(pill)}</span></span></button>;
+          const corner = { x: (pill.box.x + pill.box.width) * 100, y: pill.box.y * 100 };
+          return <button key={pill.number} type="button" onClick={() => selectPill(pill.number)} aria-label={`Pill ${pill.number}: ${VERDICT_COPY[pill.result.verdict].word}. See reading`} style={{ left: `clamp(22px, ${corner.x}%, calc(100% - 22px))`, top: `clamp(22px, ${corner.y}%, calc(100% - 22px))` }} className={cn("absolute grid min-h-11 min-w-11 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full shadow-[0_0_0_3px_white,0_2px_8px_#0004]", pillTone(pill))}><span className="font-mono text-base font-bold">{pill.number}<span className="ml-0.5 text-xs" aria-hidden>{pillSymbol(pill)}</span></span></button>;
         })}
       </div>
       <p className="mt-3 text-base text-ink-soft">✓ Matches / same medicine · × Doesn&apos;t match · ? Can&apos;t tell</p>
