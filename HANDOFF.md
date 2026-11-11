@@ -2,6 +2,370 @@
 Claude Code adds a new entry at the top after every task (format in ~/Hackathons/CLAUDE.md).
 The planner reads this file when Vedhanth says "handoffs". Never delete old entries.
 
+## 2026-11-10 8:17 PM PST — Whole-bottle check preview — prompts/phase-9.md
+
+BUILDER: Codex
+PREVIEW: https://second-look-git-feat-phase-9-bottle-vedhanth.vercel.app
+EXAMPLE SHARED RESULT: https://second-look-git-feat-phase-9-bottle-vedhanth.vercel.app/result/4bc892d8-b703-4d76-a3a1-83233d491655
+MODEL: GPT-6.1 Sol, High, via the explicitly authorized worker; parent Codex performed independent review, verification and deployment.
+HANDOFF — Phase 9
+STATUS: DONE — implementation and verification preview complete. NOT MERGED. Main/production remain 763b47f (phase 8 plus addendum 1). Awaiting Vedhanth's review of THIS preview and a new explicit “merge”.
+
+WHAT I DID / FILES
+- Added src/lib/bottle/segment.ts: Sharp raw pixels, EXIF orientation, ~1200px analysis, median Lab border color, Otsu distance threshold, morphology/hole filling, connected components, stable numbering and full-resolution padded crops. Rejects zero, over 20, varied background, edge/clutter/large blobs and suspicious touching shapes (including a neck test), with plain retake tips. Detection and cropping use no AI. Original decoded limit 32 MP.
+- Added pure decide-bottle.ts plus check-bottle.ts orchestration. Label reading first, deterministic finding, at most five concurrent existing Sonnet readers, then the existing engine per pill. Resolve label FDA data once per bottle; coalesce repeated drug guesses and DailyMed lookups. Per-pill UNSURE remains UNSURE; confident appearance differences against the exact label NDC add a bottle WARNING. Any engine MISMATCH makes the bottle red. All MATCH/SAME_MEDICINE can be green, explicitly qualified as detected pills only. Any uncertainty prevents a green bottle.
+- Added POST /api/check-bottle: bounded multipart upload, real NDJSON steps/progress, quota reservations before paid work/crop reads, friendly retake/errors and photo-free saved results. Weighted checks round UP: max(1, ceil(N/5)). Hourly and daily shared counters reserve atomically in Redis, always through sl: keys; configured-Redis failures now fail closed rather than bypassing the global cap. Initial one-unit reservation remains consumed for a failed/retake attempt. Existing one-pill capture UI, engine and matching rules are unchanged.
+- Added /check mode selector and bottle-flow.tsx, bottle-result.tsx, upload.ts and overlay.ts. Photo numbers link/focus the matching row; rows show local mini crop, reading, verdict, actual FDA comparison and linked evidence. Corner badges preserve the photograph with 44px targets; reduced-motion selection uses instant scrolling. Retake keeps the label selection. User must inspect that every visible pill has a number; unseen/undetected pills are explicitly not checked.
+- Full-size bottle pixels are retained while JPEG recompression bounds the actual request: bottle <=3,000,000 bytes, label <=700,000, total <=4,000,000. This respects the verified Vercel 4.5 MB platform limit; local file selection allows up to 12 MB/32 MP and asks for a simpler photograph if dimensions cannot be preserved within the upload cap. Source: https://vercel.com/docs/functions/limitations.
+- Extended request-scoped AI usage callbacks/options without changing default one-pill models, prompts or cleaning. Added normalized-box bottle storage under sl:bottle-result:, seven-day expiry and nested field allow-listing. /result/[id] renders original positions on a neutral surface, no photo/crop. One-pill stored results remain compatible.
+- Added development-only build-bottle-composites.ts, durable smoke ledger/cache and npm scripts bottle:composites / smoke:bottle. Updated README, DEVPOST What it does and a separate /research note. The research note explicitly excludes this feature from the frozen single-pill benchmark. Screenshot/audit/smoke evidence is under docs/screenshots/phase-9/.
+
+FROZEN BEHAVIOR / MODEL / REVIEW
+- Implementation commits: 52af40a, 7297f60, 4da0401, a4095a2; UI marker polish 6e22973. Requested model gpt-6.1-sol with reasoning_effort high was explicitly selected. Worker frozen/closed after checks. Parent docs/evidence commits are separate. No main push, merge, force-push or production alias change for phase 9.
+- PASS exact diff against main is empty for verdict-engine.ts, all matchers including imprint.ts, all AI prompts, research/, and the original check/check-flow.tsx. check-service.ts only extracts reusable resolution and deduplicates shared lookups; single-pill runCheck still uses the same engine. No engine/photo tuning, changed thresholds or rescore. The current benchmark headline and every frozen artifact remain unchanged.
+- Separate review caught the deployment body-size mismatch and mobile badges obscuring pills; corrected before final preview. Synthetic tests exposed touching-pill waists; fixed BEFORE live smoke. Unsupported Next cache-components runtime export and SDK integration types were corrected. Fixture masks were isolated from production detection instead of relaxing production checks for source-photo crops. No unresolved release-blocking code findings. Separate final handoff/evidence review found no additional issues; preserved the earlier handoff history and excluded unrelated planner prompts.
+
+TESTS / LIVE RESULTS / LIMITS
+- PASS: 296 network-free tests across 39 files, lint, optimized build and TypeScript at final implementation 6e22973. Same non-fatal Atkinson Mono fallback-font warning. New tests cover segmentation on white/black/yellow/low-amplitude wood-like texture, touching pairs, specks, zero/25/exactly20, EXIF and full-resolution crops; bottle rules, five-reader concurrency, scoped usage, upload limits, atomic quotas, privacy, overlay mapping and durable crash-safe budget/cache behavior.
+- Verified all 200 development image files against their stored SHA256 and no product-code overlap with holdout. Only three DEVELOPMENT images selected as functional examples: blue levetiracetam 750 mg (42043019205-1), white metformin 500 mg (62037067410-1), orange glipizide 2.5 mg (00591090030-1). Crops use inspected bounds and silhouette masks; pill pixels/imprints remain from the NIH consumer photos. Repetition and declared FDA labels are intentional. These are controlled composites, NOT fresh accuracy evidence or real-bottle validation.
+- All three live composites segmented into 9. Blue8+white: bottle MISMATCH, pill 9 MISMATCH, other 8 UNSURE (reader said gray vs FDA blue). Blue9 intended-all-right: bottle WARNING, all 9 UNSURE due the same gray/blue conflict. Orange8+blue: bottle MISMATCH, eight MATCH and pill 9 MISMATCH. The all-right case did NOT produce green; this failure is retained, not tuned away. Screenshot example is the actual orange8+blue replay with exactly one red marker.
+- LIVE times: 7074 /710 /6722 ms. Three unique crop responses, 24 within-run cache hits, exactly $0.018822 in the smoke ledger. Cache-only replay added zero calls/spend and 27 cache hits. First cold cache-only run had correctly refused an uncached reading without a paid call. Production reader functions are used in smoke; labels are supplied FDA groundtruth, NOT AI label-photo readings. Raw live output is pasted below and retained as smoke-live.txt; cache replay and structured summary are alongside it.
+- Additional API accounting: parent initially assumed a blank-bottle retake check was free. The specified pipeline reads the LABEL before segmentation, so two local API tests also read the same fictional label. Their token receipts were not retained. Free count_tokens measured 1037 input tokens for that exact prepared label/request. Conservatively reserving up to 12 generated attempts across both requests (2 manual attempts x 3 SDK transports per request), max 1200 output and 4096 extra input-token headroom yields $0.269688 for those checks. Combined conservative estimated verification bound: $0.288510, below the $1 cap; NOT an exact bill. No more paid calls were made. See usage-audit.json. Standard pricing verified at https://platform.claude.com/docs/en/about-claude/pricing; token-count endpoint is free per https://platform.claude.com/docs/en/build-with-claude/token-counting.
+- The real test-images/real/bottle/ label.jpg+pills.jpg pair is still absent, so that conditional live check was SKIPPED. No claim that Kirkland softgels/real mixed-bottle phone photos were validated. Segmentation can miss low-contrast objects, refuse benign clutter/touching/large pills and cannot prove all physical contents were photographed. Appearance outlier warnings require an exact label NDC; a typical no-NDC look is not treated as uniquely expected. These limitations are visible or documented.
+
+BROWSER / PREVIEW / HOW TO TEST
+- PASS local and Vercel preview at 375/1440: captured mode, upload and nine-pill result/overlay; eight green plus one red, selection moves focus to bottle-pill-9, evidence expands with Enter, no overflow or runtime errors. Test driver replayed actual smoke result events at the API boundary to avoid paying again. This validates UI wiring, NOT a second paid end-to-end HTTP nine-pill run. Browser JPEG retained full 1440x1180 dimensions and still segmented into 9 using the actual detector.
+- PASS actual local streamed API: valid fictional label read, empty bottle -> label steps, finding failed, friendly retake; no crop reading. Initial verifier wrongly asserted there would be no label step; corrected the expectation after observing the specified label-first behavior. No application change for that test assumption.
+- PASS preview: malformed JSON and invalid image multipart return friendly 400 before AI; deployed native image validation loads correctly. Shared nine-pill result HTTP 200 with 9 markers and zero photo images, backed by actual Redis. This example expires after 7 days. Its neutral background is intentional privacy behavior.
+- Lighthouse 13.6.0 accessibility: 100 default /check, 100 whole-bottle capture snapshot, 100 whole-bottle result snapshot, both locally and on PREVIEW. Automated scores are not a full accessibility certification. Reduced motion and keyboard row focus checked. Preview free legacy smoke passed: sample fallback MATCH 864 ms with 0 photo posts, typed MATCH 618 ms (server 148), typed MISMATCH 222 ms (server 57), identified Acetaminophen 500 mg. Existing one-pill behavior remains working.
+- Implementation deployment 78ba2bb: dpl_EbpNgb1w6HUQKhfwd65CM2nejGqy, Ready, preview only. Handoff/evidence-only push follows. To review without any AI call, open the shared result link above. To try capture, /check -> Check the whole bottle. Verify every pill is numbered before relying on the photo's result. npm run smoke:bottle replays the local cache for free; use --live only with a new explicit budget/need and inspect the existing ledger first.
+
+CURRENT STATE / NEXT STEP
+- Review the preview, screenshot evidence and honest smoke outcomes; merge ONLY after Vedhanth explicitly says “merge” after reviewing THIS phase. Main remains the approved phase-8/addendum-1 release 763b47f.
+- New untracked planner files prompts/phase-8-addendum-2.md and phase-8-addendum-3.md appeared while phase 9 was underway. They are preserved, NOT executed or committed. They request new demo mappings, color matching/prompt fixes and a different final real-pill set; addendum 3 supersedes their scenario tables while retaining their fixes. Those are separate scope, not silently folded into this frozen-engine feature. No real photographs accompanied them. Run them only when instructed.
+- Planner was not contacted. No code work remains for the original phase 9 preview task; next step is Vedhanth's visual/product review, including whether to do the new addenda before a phase 9 merge.
+
+LIVE SMOKE OUTPUT (verbatim; no credentials)
+```text
+
+> second-look@0.1.0 smoke:bottle
+> node --env-file-if-exists=.env.local --import tsx scripts/smoke-bottle.ts --live
+
+Mode: LIVE, budget reserved before every unique reading. Model claude-sonnet-5-5; standard $2 input / $10 output per million. Ledger test-images/bottle/generated/usage-ledger.json
+{
+  "scenario": "blue-eight-plus-white",
+  "scope": "Functional demo, not benchmark evidence",
+  "perPill": [
+    {
+      "number": 1,
+      "verdict": "UNSURE",
+      "imprint": [
+        "L | 750"
+      ],
+      "appearanceWarning": "gray oval vs blue oval"
+    },
+    {
+      "number": 2,
+      "verdict": "UNSURE",
+      "imprint": [
+        "L | 750"
+      ],
+      "appearanceWarning": "gray oval vs blue oval"
+    },
+    {
+      "number": 3,
+      "verdict": "UNSURE",
+      "imprint": [
+        "L | 750"
+      ],
+      "appearanceWarning": "gray oval vs blue oval"
+    },
+    {
+      "number": 4,
+      "verdict": "UNSURE",
+      "imprint": [
+        "L | 750"
+      ],
+      "appearanceWarning": "gray oval vs blue oval"
+    },
+    {
+      "number": 5,
+      "verdict": "UNSURE",
+      "imprint": [
+        "L | 750"
+      ],
+      "appearanceWarning": "gray oval vs blue oval"
+    },
+    {
+      "number": 6,
+      "verdict": "UNSURE",
+      "imprint": [
+        "L | 750"
+      ],
+      "appearanceWarning": "gray oval vs blue oval"
+    },
+    {
+      "number": 7,
+      "verdict": "UNSURE",
+      "imprint": [
+        "L | 750"
+      ],
+      "appearanceWarning": "gray oval vs blue oval"
+    },
+    {
+      "number": 8,
+      "verdict": "UNSURE",
+      "imprint": [
+        "L | 750"
+      ],
+      "appearanceWarning": "gray oval vs blue oval"
+    },
+    {
+      "number": 9,
+      "verdict": "MISMATCH",
+      "imprint": [
+        "500"
+      ],
+      "appearanceWarning": null
+    }
+  ],
+  "bottle": {
+    "matched": 0,
+    "unreadable": 8,
+    "flagged": [
+      9,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "verdict": "MISMATCH",
+    "title": "Pill 9 doesn't match your label.",
+    "instruction": "Don't take any pills from this bottle; call your pharmacy."
+  },
+  "elapsedMs": 7074,
+  "newSpendUsd": 0.01265,
+  "totalUsage": {
+    "budgetUsd": 1,
+    "recordedSpendUsd": 0.01265,
+    "committedUsd": 0.01265,
+    "responses": 2,
+    "uniqueReadings": 2
+  },
+  "cacheHits": 7
+}
+{
+  "scenario": "blue-nine",
+  "scope": "Functional demo, not benchmark evidence",
+  "perPill": [
+    {
+      "number": 1,
+      "verdict": "UNSURE",
+      "imprint": [
+        "L | 750"
+      ],
+      "appearanceWarning": "gray oval vs blue oval"
+    },
+    {
+      "number": 2,
+      "verdict": "UNSURE",
+      "imprint": [
+        "L | 750"
+      ],
+      "appearanceWarning": "gray oval vs blue oval"
+    },
+    {
+      "number": 3,
+      "verdict": "UNSURE",
+      "imprint": [
+        "L | 750"
+      ],
+      "appearanceWarning": "gray oval vs blue oval"
+    },
+    {
+      "number": 4,
+      "verdict": "UNSURE",
+      "imprint": [
+        "L | 750"
+      ],
+      "appearanceWarning": "gray oval vs blue oval"
+    },
+    {
+      "number": 5,
+      "verdict": "UNSURE",
+      "imprint": [
+        "L | 750"
+      ],
+      "appearanceWarning": "gray oval vs blue oval"
+    },
+    {
+      "number": 6,
+      "verdict": "UNSURE",
+      "imprint": [
+        "L | 750"
+      ],
+      "appearanceWarning": "gray oval vs blue oval"
+    },
+    {
+      "number": 7,
+      "verdict": "UNSURE",
+      "imprint": [
+        "L | 750"
+      ],
+      "appearanceWarning": "gray oval vs blue oval"
+    },
+    {
+      "number": 8,
+      "verdict": "UNSURE",
+      "imprint": [
+        "L | 750"
+      ],
+      "appearanceWarning": "gray oval vs blue oval"
+    },
+    {
+      "number": 9,
+      "verdict": "UNSURE",
+      "imprint": [
+        "L | 750"
+      ],
+      "appearanceWarning": "gray oval vs blue oval"
+    }
+  ],
+  "bottle": {
+    "matched": 0,
+    "unreadable": 9,
+    "flagged": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "verdict": "WARNING",
+    "title": "Pill 1 looks different from your label's medicine.",
+    "instruction": "gray oval vs blue oval. Don't take it; check with your pharmacist. We couldn't confirm its identity."
+  },
+  "elapsedMs": 710,
+  "newSpendUsd": 0,
+  "totalUsage": {
+    "budgetUsd": 1,
+    "recordedSpendUsd": 0.01265,
+    "committedUsd": 0.01265,
+    "responses": 2,
+    "uniqueReadings": 2
+  },
+  "cacheHits": 16
+}
+{
+  "scenario": "orange-eight-plus-blue",
+  "scope": "Functional demo, not benchmark evidence",
+  "perPill": [
+    {
+      "number": 1,
+      "verdict": "MATCH",
+      "imprint": [
+        "WPI 900"
+      ],
+      "appearanceWarning": null
+    },
+    {
+      "number": 2,
+      "verdict": "MATCH",
+      "imprint": [
+        "WPI 900"
+      ],
+      "appearanceWarning": null
+    },
+    {
+      "number": 3,
+      "verdict": "MATCH",
+      "imprint": [
+        "WPI 900"
+      ],
+      "appearanceWarning": null
+    },
+    {
+      "number": 4,
+      "verdict": "MATCH",
+      "imprint": [
+        "WPI 900"
+      ],
+      "appearanceWarning": null
+    },
+    {
+      "number": 5,
+      "verdict": "MATCH",
+      "imprint": [
+        "WPI 900"
+      ],
+      "appearanceWarning": null
+    },
+    {
+      "number": 6,
+      "verdict": "MATCH",
+      "imprint": [
+        "WPI 900"
+      ],
+      "appearanceWarning": null
+    },
+    {
+      "number": 7,
+      "verdict": "MATCH",
+      "imprint": [
+        "WPI 900"
+      ],
+      "appearanceWarning": null
+    },
+    {
+      "number": 8,
+      "verdict": "MATCH",
+      "imprint": [
+        "WPI 900"
+      ],
+      "appearanceWarning": null
+    },
+    {
+      "number": 9,
+      "verdict": "MISMATCH",
+      "imprint": [
+        "L | 750"
+      ],
+      "appearanceWarning": null
+    }
+  ],
+  "bottle": {
+    "matched": 8,
+    "unreadable": 0,
+    "flagged": [
+      9
+    ],
+    "verdict": "MISMATCH",
+    "title": "Pill 9 doesn't match your label.",
+    "instruction": "Don't take any pills from this bottle; call your pharmacy."
+  },
+  "elapsedMs": 6722,
+  "newSpendUsd": 0.006171999999999999,
+  "totalUsage": {
+    "budgetUsd": 1,
+    "recordedSpendUsd": 0.018822,
+    "committedUsd": 0.018822,
+    "responses": 3,
+    "uniqueReadings": 3
+  },
+  "cacheHits": 24
+}
+Real bottle pair absent: skipped. Composites are not real-bottle validation.
+{"final":{"budgetUsd":1,"recordedSpendUsd":0.018822,"committedUsd":0.018822,"responses":3,"uniqueReadings":3},"cacheHits":24}
+```
+
 ## 2026-11-10 7:18 PM PST — Phase 9 preparation, exact model permission pending — prompts/phase-9.md
 
 BUILDER: Codex

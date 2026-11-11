@@ -1,0 +1,21 @@
+{
+  "base": "https://second-look-git-feat-phase-9-bottle-vedhanth.vercel.app",
+  "implementationCommit": "6e22973",
+  "results": [
+    {
+      "state": "check-default",
+      "score": 100,
+      "failed": []
+    },
+    {
+      "state": "bottle-capture",
+      "score": 100,
+      "failed": []
+    },
+    {
+      "state": "bottle-result-live-smoke-replay",
+      "score": 100,
+      "failed": []
+    }
+  ]
+}
