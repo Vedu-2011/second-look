@@ -85,6 +85,20 @@ describe("POST /api/check-bottle", () => {
     expect(terminal.result.clumps[0].pile).toBeUndefined();
     expect(terminal.result.decision).toMatchObject({ verdict: "UNSURE", matched: 7, next: "nudge" });
   });
+  it("an empty pile read leaves the region unread (codex P1)", async () => {
+    vi.mocked(readPillGroup).mockResolvedValueOnce({ pills: [], pileCount: 0, countConfidence: 0.9, somePillsMayBeHidden: false });
+    const terminal = (await events(await POST(await request(9, true)))).at(-1);
+    expect(terminal.result.clumps[0].pile).toBeUndefined();
+    expect(["MATCH", "LOOKS_RIGHT"]).not.toContain(terminal.result.decision.verdict);
+  });
+  it("pile pills never take the photo past the 20-pill limit, and a cut-short pile is UNSURE (codex P2)", async () => {
+    const entry = (x: number) => ({ center: { x, y: 0.5 }, box: { x: x - 0.01, y: 0.49, width: 0.02, height: 0.02 }, imprintSides: source.pill.imprintSides, imprintConfidence: 0.9, colors: source.pill.colors as never, colorConfidence: 0.9, shape: source.pill.shape, shapeConfidence: 0.9, form: "tablet", partlyHidden: false, photoProblems: [] });
+    vi.mocked(readPillGroup).mockResolvedValueOnce({ pills: Array.from({ length: 20 }, (_, k) => entry(0.025 + k * 0.045)), pileCount: 20, countConfidence: 0.9, somePillsMayBeHidden: false });
+    const terminal = (await events(await POST(await request(9, true)))).at(-1);
+    expect(terminal.result.pills).toHaveLength(20);
+    expect(terminal.result.clumps[0].pile.read).toBe(terminal.result.pills.length - 7);
+    expect(terminal.result.decision.verdict).toBe("UNSURE");
+  });
   it("rejects an unreadable label without crop calls", async () => {
     vi.mocked(readLabel).mockResolvedValueOnce({ isPrescriptionLabel: false });
     expect((await events(await POST(await request()))).at(-1).code).toBe("not_label"); expect(readPill).not.toHaveBeenCalled();

@@ -10,7 +10,7 @@ import type { LabelReading, PillReading } from "@/lib/verdict-engine";
 import { annotatePills, appearanceWarning, decideBottle } from "./decide-bottle";
 import { planFollowUp } from "./match-positions";
 import { pileCrop, pilePills, pilesToRead, PILE_READ_UNITS, readingOrder, type PilePill, type PileReader } from "./pile";
-import { segmentBottle, SegmentationError, type SegmentedBottle } from "./segment";
+import { MAX_BOTTLE_PILLS, segmentBottle, SegmentationError, type SegmentedBottle } from "./segment";
 import type { BottleClump, BottleEvent, BottlePill, BottleResult } from "./types";
 
 export class BottleQuotaError extends Error {}
@@ -171,8 +171,12 @@ async function readPiles(photo: Buffer, label: LabelReading, segmented: Segmente
   order.forEach((i, k) => {
     const group = groups[k];
     if (!group) return;
-    const { pills, pile } = pilePills(group, i, clumps[i].box, taken);
-    clumps[i] = { ...clumps[i], pile };
+    const mapped = pilePills(group, i, clumps[i].box, taken);
+    // Never more than the 20-pill bottle limit in all; a pile cut short counts as not fully read (UNSURE).
+    const pills = mapped.pills.slice(0, Math.max(0, MAX_BOTTLE_PILLS - firstNumber - found.length));
+    // A pile read that found no new pill leaves the region "Not read".
+    if (!pills.length) return;
+    clumps[i] = { ...clumps[i], pile: { ...mapped.pile, read: pills.length } };
     taken.push(...pills.map((p) => p.box)); found.push(...pills);
   });
   found.sort(readingOrder);
