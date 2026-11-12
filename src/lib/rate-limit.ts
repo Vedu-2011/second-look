@@ -21,7 +21,9 @@ redis.call('EXPIRE', KEYS[2], 172800)
 return {1,h,0}
 `;
 export async function consumeCheckLimit(ip: string, units = 1): Promise<LimitResult> {
-  if (!Number.isInteger(units) || units < 1 || units > 4) throw new Error("Invalid check reservation");
+  // A bottle can reserve 20 single reads + three 5-unit piles + five second reads = 8 check units.
+  // The previous four-unit guard predated pile reads and threw before the shared counters were checked.
+  if (!Number.isInteger(units) || units < 1 || units > 8) throw new Error("Invalid check reservation");
   const now = Date.now(), hour = Math.floor(now / 3_600_000), daily = new Date(now).toISOString().slice(0, 10);
   const safeIp = ip.replace(/[^a-zA-Z0-9:._-]/g, "_").slice(0, 100) || "unknown";
   const cap = Number(process.env.DAILY_CHECK_CAP || 500);

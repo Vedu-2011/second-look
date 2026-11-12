@@ -94,6 +94,10 @@ export async function POST(request: Request) {
             send({ type: "result", result, shareId: await saveBottleResult(result, continuationToken), continuationToken });
           }
         } catch (error) {
+          // Keep the real exception, but never log request bodies, photos, label readings or SDK headers.
+          console.error("Bottle check failed", error instanceof Error
+            ? { name: error.name, message: error.message, stack: error.stack }
+            : { name: "UnknownError", message: "Non-Error thrown" });
           send({ type: "error", message: error instanceof BottleQuotaError ? error.message : error instanceof AiUnavailableError ? "Photo reading is unavailable right now. Try one pill or a saved sample." : friendlyFdaMessage(error) });
         } finally { if (!canceled) controller.close(); }
       })();

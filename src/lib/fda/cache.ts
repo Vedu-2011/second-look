@@ -7,6 +7,7 @@ const MEMORY_MAX = 300;
 
 type Entry = { value: unknown; expires: number };
 const memory = new Map<string, Entry>();
+const pending = new Map<string, Promise<unknown>>();
 
 export type CacheStats = { memoryHits: number; redisHits: number; misses: number };
 export const cacheStats: CacheStats = { memoryHits: 0, redisHits: 0, misses: 0 };
@@ -36,7 +37,16 @@ export async function cached<T>(url: string, load: () => Promise<T>, { useRedis 
     cacheStats.memoryHits++;
     return hit.value as T;
   }
+  // Coalesce the Redis miss AND the network work, including simultaneous NDC/rxcui lookups across pills.
+  const running = pending.get(k);
+  if (running) return running as Promise<T>;
+  const task = loadCached(k, load, useRedis);
+  pending.set(k, task);
+  try { return await task; }
+  finally { if (pending.get(k) === task) pending.delete(k); }
+}
 
+async function loadCached<T>(k: string, load: () => Promise<T>, useRedis: boolean): Promise<T> {
   const redis = useRedis ? getRedis() : null;
   if (redis) {
     try {
