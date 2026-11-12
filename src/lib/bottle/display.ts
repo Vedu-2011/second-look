@@ -9,6 +9,16 @@ export function bottleDisplayState(p: BottlePill): BottleDisplayState {
   if (p.odd) return 'odd';
   return p.result.verdict === 'UNSURE' ? 'unsure' : 'match';
 }
+/** A wrong pill's row leads with what its print says (phase 11b). Words only; the verdict is the engine's. */
+export function mismatchLead(p: BottlePill): string | null {
+  const print = p.result.pill.imprintSides.join(' / ');
+  if (p.result.verdict !== 'MISMATCH' || !print) return null;
+  const drug = (p.result.label.drugName ?? '').split(/\s+/)[0] ?? '';
+  const named = drug ? drug[0].toUpperCase() + drug.slice(1).toLowerCase() : '';
+  if (p.result.identifiedAs?.title) return `Its print says ${print} — that's ${p.result.identifiedAs.title}, not your ${named || 'medicine'}.`;
+  if (!named) return `Its print says ${print} — that's not on any version of your medicine.`;
+  return `Its print says ${print} — that's not on any ${named.toLowerCase()}${p.result.label.strength ? ` ${p.result.label.strength}` : ''}.`;
+}
 export const BOTTLE_SYMBOL = { match: '✓', matchedEarlier: '✓', mismatch: '×', faceDown: '↻', odd: '!', unsure: '?', looksLike: '≈' } as const;
 export const BOTTLE_WORD = { match: 'Matches', matchedEarlier: 'Matched in your first photo', mismatch: "Doesn't match", faceDown: 'Writing face-down', odd: 'Looks different', unsure: "Can't tell", looksLike: "Looks like the confirmed ones" } as const;
 export const BOTTLE_LEGEND = { ...BOTTLE_WORD, matchedEarlier: 'Matched earlier' } as const;

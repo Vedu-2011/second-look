@@ -28,8 +28,10 @@ describe('independent borderline agreement',()=>{
  it('creates a different, enlarged image for the independent call',async()=>{const original=await sharp({create:{width:80,height:40,channels:3,background:'white'}}).png().toBuffer();const other=await secondReadImage(original);expect((await sharp(other).metadata()).width).toBe(160);expect(other.equals(original)).toBe(false);});
 });
 describe('synthetic softgels, split conservatism and coaching',()=>{
- it.each([.15,.25])('finds faint translucent teal on dark gray at alpha %s',async alpha=>{const svg=`<svg width="1200" height="1000"><rect width="1200" height="1000" fill="#2f2f33"/>${grid().map(p=>`<ellipse cx="${p.cx}" cy="${p.cy}" rx="60" ry="32" fill="#148f91" fill-opacity="${alpha}"/>`).join('')}</svg>`;const r=await segmentBottle(await sharp(Buffer.from(svg)).png().toBuffer());expect(r.boxes).toHaveLength(9);});
- it('splits a narrow-neck pair into two convex similar parts',async()=>{const r=await segmentBottle(await layout([{cx:450,cy:400},{cx:556,cy:400}]));expect(r.boxes).toHaveLength(2);expect(r.clumps).toHaveLength(0);});
+ // Phase 11b: the chroma cue and touching-pill split were reverted (they regressed on a real photo). split-touching.ts
+ // stays in the repo, unwired. Alpha .15 teal is no longer found; .25 still is.
+ it.each([.25])('finds faint translucent teal on dark gray at alpha %s',async alpha=>{const svg=`<svg width="1200" height="1000"><rect width="1200" height="1000" fill="#2f2f33"/>${grid().map(p=>`<ellipse cx="${p.cx}" cy="${p.cy}" rx="60" ry="32" fill="#148f91" fill-opacity="${alpha}"/>`).join('')}</svg>`;const r=await segmentBottle(await sharp(Buffer.from(svg)).png().toBuffer());expect(r.boxes).toHaveLength(9);});
+ it('keeps a narrow-neck pair circled instead of guessing it apart',async()=>{const r=await segmentBottle(await layout([{cx:450,cy:400},{cx:556,cy:400}]));expect(r.boxes).toHaveLength(0);expect(r.clumps).toEqual([expect.objectContaining({kind:'touching'})]);});
  it('refuses three touching pills and keeps an ambiguous pair circled',async()=>{const three=await segmentBottle(await layout([{cx:350,cy:400},{cx:456,cy:400},{cx:562,cy:400}]));expect(three.clumps.length).toBeGreaterThan(0);const uneven=await segmentBottle(await layout([{cx:450,cy:400},{cx:530,cy:400,rx:35,ry:20}]));expect(uneven.clumps.length).toBeGreaterThan(0);});
  it('coaches tiny pills and multiple clumps, but not normal frame sizes',()=>{const base={image:{width:1200,height:1000},features:[{...feature,length:24}],clumps:[]};expect(captureCoaching(base)[0]).toContain('Move closer');expect(captureCoaching({...base,features:[{...feature,length:48}]})).toEqual([]);expect(captureCoaching({...base,features:[],clumps:[{kind:'touching',box:pill(1).box},{kind:'touching',box:pill(2).box}]}).join(' ')).toContain('Spread them out');});
 });
@@ -40,14 +42,27 @@ it('agreement on an expected fragment is distinguished from complete-print agree
  expect(expectedFragment(reading('IB1'),{imprintRaw:'IB200'})).toBe(false);
  expect(expectedFragment(reading('IB200'),{imprintRaw:'IB200'})).toBe(false);
 });
-it.each([30,60,90])('splits only a narrow-neck pair rotated %s degrees',async angle=>{
+it.each([30,60,90])('keeps a narrow-neck pair rotated %s degrees circled',async angle=>{
  const t=angle*Math.PI/180;
  const found=await segmentBottle(await layout([{cx:450,cy:400,angle},{cx:450+106*Math.cos(t),cy:400+106*Math.sin(t),angle}]));
- expect(found.boxes).toHaveLength(2);expect(found.clumps).toHaveLength(0);
+ expect(found.boxes).toHaveLength(0);expect(found.clumps).toEqual([expect.objectContaining({kind:'touching'})]);
 });
 it('does not turn dark gray color noise into foreground pills',async()=>{
  const w=500,h=400,data=Buffer.alloc(w*h*3);
  for(let i=0;i<data.length;i++)data[i]=42+((i*17)%7)-3;
  const image=await sharp(data,{raw:{width:w,height:h,channels:3}}).png().toBuffer();
  await expect(segmentBottle(image)).rejects.toMatchObject({code:'none'});
+});
+// Phase 11b: lock the real-photo detection counts (free, deterministic). These photos are no longer held-out.
+it.each([['bottle/pills.jpg',10,0],['extra/user-test-ibuprofen-tylenol.jpg',6,4]] as const)('real photo %s: %i numbered, %i circled',async(photo,numbered,circled)=>{
+ const {readFile}=await import('node:fs/promises');
+ const r=await segmentBottle(await readFile(`test-images/real/${photo}`));
+ expect(r.boxes).toHaveLength(numbered);expect(r.clumps).toHaveLength(circled);
+ expect(captureCoaching(r).some(t=>t.includes('Spread them out'))).toBe(circled>=2);
+},20000);
+describe('phase 11b: a wrong pill leads with its print',()=>{
+ const wrong=(sides:string[],identified:string|null)=>{const p=pill(5);p.result.verdict='MISMATCH';p.result.pill=reading(sides[0]??'',.9);p.result.pill.imprintSides=sides;p.result.label={...p.result.label,drugName:'Metformin HCl',strength:'1,000 mg'};p.result.identifiedAs=identified?{...p.result.identifiedAs!,title:identified}:null;return p;};
+ it('names the medicine when both sides were read',async()=>{const {mismatchLead}=await import('./display');expect(mismatchLead(wrong(['93','2263'],'Amoxicillin 500 mg'))).toBe("Its print says 93 / 2263 — that's Amoxicillin 500 mg, not your Metformin.");});
+ it('says what it is not when one side was read',async()=>{const {mismatchLead}=await import('./display');expect(mismatchLead(wrong(['93'],null))).toBe("Its print says 93 — that's not on any metformin 1,000 mg.");});
+ it('leaves other verdicts alone',async()=>{const {mismatchLead}=await import('./display');expect(mismatchLead(pill(1,true,'G 12'))).toBeNull();});
 });

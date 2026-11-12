@@ -5,7 +5,7 @@ import { AlertTriangle, Check, EqualApproximately, HelpCircle, RotateCcw, X } fr
 import { Button, ButtonLink } from "@/components/button";
 import { markerPosition, pillRingPosition, pixelCrop } from "@/lib/bottle/overlay";
 import type { BottleDecision, BottlePill, BottleResult } from "@/lib/bottle/types";
-import { BOTTLE_LEGEND, BOTTLE_SYMBOL as SYMBOL, BOTTLE_WORD, bottleDisplayState as state, bottleSummary, followUpDisplayNote, needsAttention, type BottleDisplayState } from "@/lib/bottle/display";
+import { BOTTLE_LEGEND, BOTTLE_SYMBOL as SYMBOL, BOTTLE_WORD, bottleDisplayState as state, bottleSummary, followUpDisplayNote, mismatchLead, needsAttention, type BottleDisplayState } from "@/lib/bottle/display";
 import { VERDICT_COPY } from "@/lib/verdict";
 import { cn } from "@/lib/utils";
 
@@ -68,10 +68,11 @@ export function BottleResultView({ result, photo, shareId, onRetake, onNext }: {
       {state(pill) === "looksLike" ? <p className="mt-4 text-lg">Its appearance matches the pills whose print we read. We haven&apos;t confirmed this pill&apos;s imprint.</p> : state(pill) === "matchedEarlier" ? <p className="mt-4 text-lg">We didn&apos;t read it again.</p>
         : pill.carried ? <p className="mt-4 text-lg">We couldn&apos;t confirm it in your first photo. We didn&apos;t read it again.</p>
         : pill.faceDown ? <p className="mt-4 text-lg">Flip it where it is so we can read the writing.</p>
+        : mismatchLead(pill) ? <><p className="mt-4 text-lg font-semibold">{mismatchLead(pill)}</p>{pill.odd && <p className="mt-3 text-lg">It also has {pill.odd} from the others.</p>}</>
         : pill.odd ? <p className="mt-4 text-lg">{pill.result.verdict === "MATCH" || pill.result.verdict === "SAME_MEDICINE_DIFFERENT_MAKER" ? "Its imprint matches, but it has " : "It has "}{pill.odd} from the others. Check with your pharmacist.</p>
         : <p className="mt-4 text-lg">{pill.result.reasons[0]}</p>}
       {pill.appearanceWarning && <p className="mt-3 text-lg font-semibold">Looks different: {pill.appearanceWarning}. Check with your pharmacist.</p>}
-      {pill.result.identifiedAs?.title && <p className="mt-3 text-lg font-semibold">FDA-listed imprint for {pill.result.identifiedAs.title}</p>}
+      {pill.result.identifiedAs?.title && !mismatchLead(pill) && <p className="mt-3 text-lg font-semibold">FDA-listed imprint for {pill.result.identifiedAs.title}</p>}
       <details className="mt-4"><summary className="min-h-11 cursor-pointer py-2 text-lg font-semibold text-blue">FDA evidence and comparison</summary>
         <p className="mt-2 text-lg">{pill.result.reasons.join(" ")}</p>
         {pill.doubleRead && <p className="mt-3 text-lg">{pill.doubleRead.partial ? "Read twice, same fragment" : pill.doubleRead.agreed ? "Read twice, same result" : "The two reads did not agree"}. First: {pill.doubleRead.firstImprint.join(" / ")} ({pill.doubleRead.firstConfidence}); second: {pill.doubleRead.secondImprint.join(" / ")} ({pill.doubleRead.secondConfidence}).</p>}

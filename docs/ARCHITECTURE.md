@@ -240,3 +240,18 @@ Repo: github.com/Vedu-2011/second-look — PUBLIC (DSH requires a public repo).
 - Freeze before looking at or running the supplied real user photo. One new live run under .30 durable cap; no
   threshold or prompt tuning on that photo. Known Bionpharma NDC69452-212 label is supplied, not AI label reading.
   Frozen single-pill engine, matcher constants, AI prompts and benchmark files stay unchanged.
+
+## Decisions in phase 11b (Claude Code, Nov 11) — segmentation revert, then feature freeze
+- segment.ts is back to the pre-phase-11 behavior (78bfa98). The phase 11 low-light chroma cue and the touching-pill
+  split are NOT shipped: they passed synthetic tests but regressed on the only real hard photo (user test: 6 numbered
+  + 4 circled before → 4 + 5 with phase 11). split-touching.ts stays in the repo, unwired ("not shipped: regressed on
+  real photo"). Touching pills stay circled and unchecked; we never guess them apart.
+- Everything else from phase 11 stays: consensus / "Looks right", double-read, free coaching, quota, display.
+- Free segmenter check on every real photo (scripts/segment-real.ts), phase 11 → after revert: metformin bottle
+  10+0 → 10+0; flipped 10+0 → 10+0; bottle-93-upside-down 10+0 → 10+0; three-pills-close 3+0 → 3+0;
+  tylenol-close 1+1 cutoff → same; user test 4+5 → 6+4 (coaching "Spread them out so none touch." both times;
+  metformin bottle gets no coaching). Locked by a test. These photos are not held-out anymore.
+- Wording (display only): a wrong pill's row leads with its print — "Its print says 93 / 2263 — that's Amoxicillin
+  500 mg, not your Metformin." / "Its print says 93 — that's not on any metformin 1,000 mg." — and the "different
+  from the others" line comes after.
+- Feature freeze after this phase: only bug fixes, video, Devpost and deck.
