@@ -7,7 +7,7 @@ import type { ImageInput, ReadOptions } from "@/lib/ai/client";
 import type { AiPillGroupReading } from "@/lib/ai/schemas";
 import type { PillReading } from "@/lib/verdict-engine";
 import type { BottleClump, BottlePile, NormalizedBox } from "./types";
-import { ONE_PILL_REGION_MIN, oneSizedRegion } from "./segment";
+import { MAX_BOTTLE_PILLS, ONE_PILL_REGION_MIN, oneSizedRegion } from "./segment";
 
 /** At most this many pile reads per photo; any other touching region stays "Not read". */
 export const MAX_PILES = 3;
@@ -22,15 +22,18 @@ const CROP_PAD = 0.15, MAX_CROP_EDGE = 2000;
 export type PileReader = (image: ImageInput, options: ReadOptions) => Promise<AiPillGroupReading>;
 export type PilePill = { box: NormalizedBox; reading: PillReading; partlyHidden: boolean; clump: number; guessed?: boolean };
 
-/** "Touching" regions about one pill in size (0.5–1.3 typical pills): read with the single-pill reader (1 unit), not as a pile. */
-export const oneRegionsToRead = (clumps: readonly BottleClump[]) =>
-  clumps.flatMap((c, i) => c.kind === "touching" && oneSizedRegion(c.relativeArea) ? [i] : []);
+/**
+ * "Touching" regions about one pill in size (0.5–1.3 typical pills): read with the single-pill reader (1 unit), not as
+ * a pile. Never past the 20-pill bottle limit: `before` pills are already numbered.
+ */
+export const oneRegionsToRead = (clumps: readonly BottleClump[], before = 0) =>
+  clumps.flatMap((c, i) => c.kind === "touching" && oneSizedRegion(c.relativeArea) ? [i] : []).slice(0, Math.max(0, MAX_BOTTLE_PILLS - before));
 /**
  * The touching regions we read, largest first; cutoffs at the edge are never read as piles, and neither is a speck
  * under half a pill (it can't hold a pile; it stays "Not read").
  */
 export function pilesToRead(clumps: readonly BottleClump[]) {
-  const one = new Set(oneRegionsToRead(clumps));
+  const one = new Set(clumps.flatMap((c, i) => c.kind === "touching" && oneSizedRegion(c.relativeArea) ? [i] : []));
   const speck = (c: BottleClump) => c.relativeArea !== undefined && c.relativeArea < ONE_PILL_REGION_MIN;
   return clumps.map((c, i) => ({ c, i })).filter(({ c, i }) => c.kind === "touching" && !one.has(i) && !c.readAsOne && !speck(c))
     .sort((a, b) => b.c.box.width * b.c.box.height - a.c.box.width * a.c.box.height).slice(0, MAX_PILES).map(({ i }) => i);

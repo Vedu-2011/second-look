@@ -87,7 +87,8 @@ export function planFollowUp(previous: BottleResult, next: NextPhoto): FollowUpP
   }
   // A missing circled object is not evidence that it was checked. Count only newly separated candidates there.
   let unresolvedRegions = previous.unresolvedRegions ?? 0;
-  for (const clump of previous.clumps ?? []) {
+  // A region read as one pill is that pill, matched above like any other; it isn't an open question.
+  for (const clump of (previous.clumps ?? []).filter(c => !c.readAsOne)) {
     const contains = (p: Point) => p.x >= clump.box.x * previous.image.width && p.x <= (clump.box.x + clump.box.width) * previous.image.width && p.y >= clump.box.y * previous.image.height && p.y <= (clump.box.y + clump.box.height) * previous.image.height;
     const separated = unmatchedNext.filter(i => contains(toPrev(nextCenters[i]))).length;
     const stillCircled = next.clumps.some(c => contains(toPrev(centerOf(c.box, next.image))));

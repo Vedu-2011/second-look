@@ -78,7 +78,7 @@ export async function runBottleCheck(
   send({ type: "step", step: 0, state: "done" });
   // Initial quota was reserved by the API. Reserve all remaining units before ANY crop reads.
   // Each pile read counts like PILE_READ_UNITS pill reads.
-  const planned = segmented.crops.length + oneRegionsToRead(segmented.clumps).length + PILE_READ_UNITS * pilesToRead(segmented.clumps).length;
+  const planned = segmented.crops.length + oneRegionsToRead(segmented.clumps, segmented.crops.length).length + PILE_READ_UNITS * pilesToRead(segmented.clumps).length;
   await reserveRemaining(planned);
   // Fetch expected records ONCE, and deduplicate simultaneous mismatch leads/DailyMed requests.
   const resolved = await resolveLabelData(label);
@@ -203,7 +203,7 @@ async function confirmNearMiss(pill: BottlePill, crop: () => Promise<Buffer>, re
  */
 async function readOneRegions(label: LabelReading, segmented: SegmentedBottle, firstNumber: number, resolved: ResolvedLabelData, dependencies: BottleDependencies, onUsage: ReadOptions["onUsage"], budget: ReadingBudget): Promise<{ pills: BottlePill[]; segmented: SegmentedBottle }> {
   const clumps = segmented.clumps.map((c) => ({ ...c })), reader = dependencies.readPill ?? readPill;
-  const read = await mapFive(oneRegionsToRead(clumps), async (i) => {
+  const read = await mapFive(oneRegionsToRead(clumps, firstNumber), async (i) => {
     const crop = segmented.clumpCrops?.[i];
     if (!crop) return null;
     try {
@@ -300,7 +300,7 @@ export async function runBottleFollowUp(
   const plan = planFollowUp(previous, segmented);
   const read = plan.mode === "fresh" ? segmented.crops.map((_, i) => i) : plan.reread;
   // A fresh full check reads piles too; a targeted re-read leaves touching pills circled (never green).
-  const planned = read.length + (plan.mode === "fresh" ? oneRegionsToRead(segmented.clumps).length + PILE_READ_UNITS * pilesToRead(segmented.clumps).length : 0);
+  const planned = read.length + (plan.mode === "fresh" ? oneRegionsToRead(segmented.clumps, read.length).length + PILE_READ_UNITS * pilesToRead(segmented.clumps).length : 0);
   await reserveRemaining(planned);
   const budget = readingBudget(planned, reserveRemaining);
   const resolved = await resolveLabelData(previous.label);
@@ -311,10 +311,10 @@ export async function runBottleFollowUp(
     const piled = await readPiles(bottleImage, previous.label, regions.segmented, pills.length + regions.pills.length, resolved, dependencies, onUsage, budget);
     pills = annotatePills([...pills, ...regions.pills, ...piled.pills]); clumps = piled.clumps;
   }
-  const unresolvedRegions = plan.mode === "reread" ? plan.unresolvedRegions : (previous.unresolvedRegions ?? 0) + (previous.clumps?.length ?? 0);
+  const unresolvedRegions = plan.mode === "reread" ? plan.unresolvedRegions : (previous.unresolvedRegions ?? 0) + (previous.clumps?.filter(c => !c.readAsOne).length ?? 0);
   // Geometry is enough to guide a flip, never to certify a new green bottle. Read all carried pills before green.
   const carriedIndices = pills.flatMap((p, i) => p.carried ? [i] : []);
-  if (carriedIndices.length && !unresolvedRegions && !clumps.length && pills.filter(p => !p.carried).every(p => p.result.verdict === "MATCH" || p.result.verdict === "SAME_MEDICINE_DIFFERENT_MAKER")) {
+  if (carriedIndices.length && !unresolvedRegions && !clumps.some(c => !c.readAsOne) && pills.filter(p => !p.carried).every(p => p.result.verdict === "MATCH" || p.result.verdict === "SAME_MEDICINE_DIFFERENT_MAKER")) {
     budget.planned += carriedIndices.length;
     await budget.reserve(budget.planned + budget.extras);
     const kept = new Map(pills.flatMap((p, i) => p.carried ? [] : [[i, p] as [number, BottlePill]]));

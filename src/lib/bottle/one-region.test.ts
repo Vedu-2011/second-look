@@ -4,13 +4,15 @@ import { readFile } from "node:fs/promises";
 import { SAMPLE_RESULTS } from "@/lib/sample-results";
 import type { LabelReading, PillReading } from "@/lib/verdict-engine";
 import { scene } from "./test-scenes";
-import type { BottleClump } from "./types";
+import type { BottleClump, BottleResult } from "./types";
 
 vi.mock("@/lib/check-service", () => ({ resolveLabelData: vi.fn(async () => ({})), runResolvedCheck: vi.fn() }));
 const { runResolvedCheck } = await import("@/lib/check-service");
 const { runBottleCheck } = await import("./check-bottle");
 const { segmentBottle, ONE_PILL_REGION, oneSizedRegion } = await import("./segment");
 const { oneRegionsToRead, pilesToRead } = await import("./pile");
+const { planFollowUp } = await import("./match-positions");
+const { applyConsensus } = await import("./consensus");
 const source = SAMPLE_RESULTS[0].result;
 const read = (extra: Partial<PillReading> = {}): PillReading => ({ ...source.pill, imprintConfidence: 0.9, multiplePills: false, pillVisible: true, ...extra });
 
@@ -65,4 +67,28 @@ describe("one-pill 'touching' regions", () => {
       expect(oneSizedRegion(c.relativeArea)).toBe(c.relativeArea! >= 0.5 && c.relativeArea! <= ONE_PILL_REGION);
     });
   }, 20000);
+});
+
+describe("codex review fixes", () => {
+  it("never reads regions past the 20-pill bottle limit", () => {
+    const clumps: BottleClump[] = [1, 1.1, 0.9].map((relativeArea, i) => ({ kind: "touching", box: { x: i * 0.2, y: 0, width: 0.1, height: 0.1 }, relativeArea }));
+    expect(oneRegionsToRead(clumps, 0)).toEqual([0, 1, 2]);
+    expect(oneRegionsToRead(clumps, 19)).toEqual([0]);
+    expect(oneRegionsToRead(clumps, 20)).toEqual([]);
+    expect(pilesToRead(clumps)).toEqual([]); // capped regions still never take a pile slot
+  });
+  it("a region read as one pill is not an open question in the next photo, and doesn't block consensus", () => {
+    const pills = Array.from({ length: 3 }, (_, i) => ({ number: i + 1, box: { x: 0.1 + i * 0.3, y: 0.4, width: 0.1, height: 0.07 }, result: source, features: { length: 120, width: 60, aspect: 2, area: 0.007, relativeArea: 1, lab: [91, 2.6, 17] as [number, number, number] } }));
+    const readAsOne: BottleClump = { kind: "touching", box: pills[2].box, relativeArea: 1, readAsOne: true };
+    const previous: BottleResult = { kind: "bottle", label: source.label, image: { width: 1200, height: 1000 }, checkedAt: "", elapsedMs: 0, usage: [], pills, clumps: [readAsOne],
+      decision: { verdict: "FACE_DOWN", title: "", instruction: "", matched: 2, unreadable: 1, flagged: [], asks: [1], next: "flip" } };
+    const plan = planFollowUp(previous, { image: previous.image, boxes: pills.map((p) => p.box), features: pills.map((p) => p.features), clumps: [] });
+    expect(plan.mode).toBe("reread");
+    if (plan.mode === "reread") expect(plan.unresolvedRegions).toBe(0);
+    const unread: BottleClump = { ...readAsOne, readAsOne: undefined };
+    const blocked = planFollowUp({ ...previous, clumps: [unread] }, { image: previous.image, boxes: pills.map((p) => p.box), features: pills.map((p) => p.features), clumps: [] });
+    expect(blocked.mode).toBe("reread"); if (blocked.mode === "reread") expect(blocked.unresolvedRegions).toBe(1);
+    const consensusInput = pills.map((p) => ({ ...p, result: { ...p.result, verdict: "UNSURE" as const } }));
+    expect(applyConsensus(consensusInput, [readAsOne])).toEqual(applyConsensus(consensusInput, []));
+  });
 });

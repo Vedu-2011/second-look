@@ -112,7 +112,7 @@ function AskedPills({ result, photo }: { result: BottleResult; photo: string }) 
   const asks = new Set(result.decision.asks ?? []);
   return <div className="relative w-full overflow-hidden rounded-[var(--radius-photo)] bg-foil" style={{ aspectRatio: `${result.image.width} / ${result.image.height}` }}>
     <img src={photo} alt="Your first photo, with the pills to flip ringed" className="absolute inset-0 h-full w-full" />
-    {(result.clumps ?? []).map((c, i) => <div key={i} aria-hidden className="absolute rounded-full border-[3px] border-dashed border-amber" style={{ left: `${(c.box.x - c.box.width * 0.12) * 100}%`, top: `${(c.box.y - c.box.height * 0.12) * 100}%`, width: `${c.box.width * 124}%`, height: `${c.box.height * 124}%` }} />)}
+    {(result.clumps ?? []).filter(c => !c.readAsOne).map((c, i) => <div key={i} aria-hidden className="absolute rounded-full border-[3px] border-dashed border-amber" style={{ left: `${(c.box.x - c.box.width * 0.12) * 100}%`, top: `${(c.box.y - c.box.height * 0.12) * 100}%`, width: `${c.box.width * 124}%`, height: `${c.box.height * 124}%` }} />)}
     {result.pills.filter((p) => asks.has(p.number)).map((p) => <div key={p.number} className="absolute grid place-items-center rounded-full shadow-[0_0_0_4px_var(--amber),0_0_0_7px_white]" style={pillRingPosition(p.box, true)}><span className="grid min-h-11 min-w-11 place-items-center rounded-full bg-amber font-mono text-lg font-bold text-ink"><RotateCcw aria-hidden className="mr-0.5 inline size-4" />{p.number}</span></div>)}
   </div>;
 }

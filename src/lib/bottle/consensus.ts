@@ -6,7 +6,7 @@ import type { BottleClump, BottlePill } from './types';
 /** Appearance support, never a new engine MATCH. All references must be current imprint confirmations. */
 export function applyConsensus(input: readonly BottlePill[], clumps: readonly BottleClump[] = [], unresolved = 0): BottlePill[] {
   const pills = input.map(p => { const { consensus: _old, ...rest } = p; void _old; return rest as BottlePill; });
-  if (clumps.length || unresolved || pills.some(p => p.result.verdict === 'MISMATCH' || p.odd || p.appearanceWarning)) return pills;
+  if (clumps.some(c => !c.readAsOne) || unresolved || pills.some(p => p.result.verdict === 'MISMATCH' || p.odd || p.appearanceWarning)) return pills;
   if (pills.some(p => !p.features)) return pills;
   const group = oddOnesOut(pills.map(p => p.features));
   if (!group || group.odd.size) return pills;
