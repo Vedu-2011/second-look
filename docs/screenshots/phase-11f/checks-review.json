@@ -1,0 +1,35 @@
+{
+  "tests": {
+    "passed": 478,
+    "files": 49
+  },
+  "lint": "PASS",
+  "typescript": "PASS",
+  "build": "PASS",
+  "codexReview": {
+    "base": "origin/main (18231c8)",
+    "head": "05557ff",
+    "findings": [],
+    "summary": "The changes address quota reservation, FDA request handling, cache coalescing, error classification, and coaching behavior without identifying a definite regression.",
+    "limitation": "Read-only reviewer could not write Vitest temp files; parent ran all478 tests successfully."
+  },
+  "separateParentSelfReview": "No remaining actionable findings. Atomic quota caps preserved; pending cache cleanup on success/failure; semaphore drains slots; error details stay server-side; no pill-matching changes.",
+  "cacheOnlyReplay": {
+    "metforminRedWith93": true,
+    "userPourVerdict": "MISMATCH",
+    "cacheMisses": [
+      "pill",
+      "pill"
+    ],
+    "note": "Two newly single-read touching regions are not cached and remain unread. No new AI calls; the old ledger total$0.017256 is historical."
+  },
+  "paidAiSpendUsd": 0,
+  "unchangedFromMain": [
+    "verdict-engine.ts",
+    "matchers",
+    "AI prompts",
+    "research/",
+    "bottle segmentation",
+    "bottle matching/decisions"
+  ]
+}
