@@ -4,6 +4,9 @@ import type { BottleClump, NormalizedBox, PillFeatures, PillOutline } from "./ty
 export const MAX_BOTTLE_PILLS = 20;
 /** Edge cutoff shown as a note: under this share of a typical pill's area, and this many L* units darker than every pill. */
 export const MINOR_CUTOFF_AREA = 0.5, MINOR_CUTOFF_DARKER = 20;
+/** A "touching" region between these sizes (in typical pills) can only be one pill: it gets a single-pill read. */
+export const ONE_PILL_REGION = 1.3, ONE_PILL_REGION_MIN = 0.5;
+export const oneSizedRegion = (relativeArea?: number) => relativeArea !== undefined && relativeArea >= ONE_PILL_REGION_MIN && relativeArea <= ONE_PILL_REGION;
 export const MAX_BOTTLE_BYTES = 12 * 1024 * 1024;
 export const MAX_BOTTLE_PIXELS = 32_000_000;
 export const RETAKE_TIPS = "Use a plain surface in a different color from the pills. Spread them apart, keep every pill inside the frame, and photograph at most 20 at a time.";
@@ -17,6 +20,9 @@ export type SegmentedBottle = {
   features: PillFeatures[];
   /** Each pill's own silhouette as a rotated outline, for drawing its ring; same order as boxes. */
   outlines?: PillOutline[];
+  /** Same order as clumps: a crop and outline only for "touching" regions about one pill in size (else null). */
+  clumpCrops?: (Buffer | null)[];
+  clumpOutlines?: (PillOutline | null)[];
   /** Touching pills and pills cut off at the edge: circled, never read, never green. */
   clumps: BottleClump[];
   /** Request-local only. Never serialize or store this object. */
@@ -269,7 +275,13 @@ export async function segmentBottle(input: Buffer, options: { diagnostics?: (val
   const lightness = (c: Component) => median(Array.from(c.pixels, (i) => labs[i * 3]));
   const darkestPill = pills.length ? Math.min(...pills.map(lightness)) : -Infinity;
   const minor = (c: Component) => pills.length > 0 && c.area < pillArea * MINOR_CUTOFF_AREA && lightness(c) < darkestPill - MINOR_CUTOFF_DARKER;
-  const clumps: BottleClump[] = [...touching.map((c) => ({ c, kind: "touching" as const })), ...cutoffs.map((c) => ({ c, kind: "cutoff" as const }))]
-    .sort((a, b) => rowMajor(a.c, b.c)).map(({ c, kind }) => ({ kind, box: toBox(c, w, h, image).box, ...(kind === "cutoff" && minor(c) ? { minor: true } : {}) }));
-  return { image, boxes, features, outlines, clumps, crops };
+  const ordered = [...touching.map((c) => ({ c, kind: "touching" as const })), ...cutoffs.map((c) => ({ c, kind: "cutoff" as const }))].sort((a, b) => rowMajor(a.c, b.c));
+  const relative = (c: Component) => Math.round(c.area / pillArea * 100) / 100;
+  const clumps: BottleClump[] = ordered.map(({ c, kind }) => ({ kind, box: toBox(c, w, h, image).box, ...(kind === "cutoff" && minor(c) ? { minor: true } : {}), ...(kind === "touching" ? { relativeArea: relative(c) } : {}) }));
+  // Detection is unchanged. A "touching" region about one pill in size (a shiny softgel's broken outline, say) gets a
+  // crop so it can be read as one pill; the single-pill reader decides whether it really is one.
+  const oneSized = ordered.map(({ c, kind }) => kind === "touching" && oneSizedRegion(relative(c)));
+  const clumpCrops = await Promise.all(ordered.map(({ c }, i) => oneSized[i] ? sharp(original.data).extract(toBox(c, w, h, image).region).png().toBuffer() : null));
+  const clumpOutlines = ordered.map(({ c }, i) => oneSized[i] ? outlineOf(c.pixels, w, h) : null);
+  return { image, boxes, features, outlines, clumps, crops, clumpCrops, clumpOutlines };
 }

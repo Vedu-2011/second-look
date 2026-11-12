@@ -309,3 +309,14 @@ Repo: github.com/Vedu-2011/second-look — PUBLIC (DSH requires a public repo).
 - Pile pills whose box can't be trusted (the reader's box missed its own center, > 3× a separate pill's box, or mostly
   on top of another pill's box) get no mark at all; the summary says how many weren't marked.
 - Tapping a ring (the labelled button) or its chip opens that pill's row. The share page draws the same shapes.
+
+## Decisions in phase 11e option (a) (Claude Code, Nov 12) — one-pill "touching" regions get a single read
+- Cause (Vedhanth's 4 AM check): the segmenter flags a region as "touching" by shape (low solidity, a neck, or thin),
+  not size, so a single softgel can be flagged. With 5 such regions and the 3-pile cap, two single softgels stayed
+  dashed "Not read".
+- A touching region of 0.5–1.3 typical separate pills (`oneSizedRegion`, `ONE_PILL_REGION` 1.3,
+  `ONE_PILL_REGION_MIN` 0.5) is cropped like a separate pill and read with the single-pill reader (1 quota unit), then
+  goes through the same second read / engine / near-miss check. It never uses a pile slot.
+- If that reader says multiplePills, no pill, or fails, the region stays "Not read" (dashed, blocks green). A region
+  read as one is `readAsOne`; its pill is `fromRegion`.
+- Specks under half a pill are never single-read or pile-read; they stay "Not read", as before.

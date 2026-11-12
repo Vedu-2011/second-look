@@ -10,7 +10,7 @@ import { resolveLabelData, runResolvedCheck, type ResolvedLabelData } from "@/li
 import type { LabelReading, PillReading } from "@/lib/verdict-engine";
 import { annotatePills, appearanceWarning, decideBottle } from "./decide-bottle";
 import { planFollowUp } from "./match-positions";
-import { pileCrop, pilePills, pilesToRead, PILE_READ_UNITS, readingOrder, type PilePill, type PileReader } from "./pile";
+import { oneRegionsToRead, pileCrop, pilePills, pilesToRead, PILE_READ_UNITS, readingOrder, type PilePill, type PileReader } from "./pile";
 import { MAX_BOTTLE_PILLS, segmentBottle, SegmentationError, type SegmentedBottle } from "./segment";
 import type { BottleClump, BottleEvent, BottlePill, BottleResult } from "./types";
 
@@ -78,14 +78,15 @@ export async function runBottleCheck(
   send({ type: "step", step: 0, state: "done" });
   // Initial quota was reserved by the API. Reserve all remaining units before ANY crop reads.
   // Each pile read counts like PILE_READ_UNITS pill reads.
-  const planned = segmented.crops.length + PILE_READ_UNITS * pilesToRead(segmented.clumps).length;
+  const planned = segmented.crops.length + oneRegionsToRead(segmented.clumps).length + PILE_READ_UNITS * pilesToRead(segmented.clumps).length;
   await reserveRemaining(planned);
   // Fetch expected records ONCE, and deduplicate simultaneous mismatch leads/DailyMed requests.
   const resolved = await resolveLabelData(label);
   const budget = readingBudget(planned, reserveRemaining);
   const separate = await readAndCheck(label, segmented, segmented.crops.map((_, i) => i), new Map(), resolved, send, dependencies, onUsage, budget);
-  const piled = await readPiles(bottleImage, label, segmented, separate.length, resolved, dependencies, onUsage, budget);
-  const pills = applyConsensus(annotatePills([...separate, ...piled.pills]), piled.clumps);
+  const regions = await readOneRegions(label, segmented, separate.length, resolved, dependencies, onUsage, budget);
+  const piled = await readPiles(bottleImage, label, regions.segmented, separate.length + regions.pills.length, resolved, dependencies, onUsage, budget);
+  const pills = applyConsensus(annotatePills([...separate, ...regions.pills, ...piled.pills]), piled.clumps);
   return { kind: "bottle", label, pills, clumps: piled.clumps, decision: decideBottle(pills, piled.clumps), image: segmented.image, checkedAt: new Date().toISOString(), elapsedMs: Math.round(performance.now() - started), usage };
 }
 
@@ -195,6 +196,37 @@ async function confirmNearMiss(pill: BottlePill, crop: () => Promise<Buffer>, re
 }
 
 /**
+ * A "touching" region about one pill in size (0.5–1.3 typical pills) is read with the single-pill reader,
+ * 1 unit, like any separate pill (borderline double-read and the near-miss rule included). If the reader says it sees
+ * several pills or no pill, or the read fails, the region stays "Not read". Returns the photo with those regions
+ * marked as read and their boxes taken, so the pile reader skips them.
+ */
+async function readOneRegions(label: LabelReading, segmented: SegmentedBottle, firstNumber: number, resolved: ResolvedLabelData, dependencies: BottleDependencies, onUsage: ReadOptions["onUsage"], budget: ReadingBudget): Promise<{ pills: BottlePill[]; segmented: SegmentedBottle }> {
+  const clumps = segmented.clumps.map((c) => ({ ...c })), reader = dependencies.readPill ?? readPill;
+  const read = await mapFive(oneRegionsToRead(clumps), async (i) => {
+    const crop = segmented.clumpCrops?.[i];
+    if (!crop) return null;
+    try {
+      let reading = await reader({ mediaType: "image/png", base64: crop.toString("base64") }, { model: DEFAULT_VISION_MODEL, onUsage });
+      if (reading.multiplePills || reading.pillVisible === false) return null; // Really touching pills, or nothing: stays "Not read".
+      const second = await secondRead(reading, crop, reader, budget, resolved, onUsage);
+      let doubleRead: DoubleRead | undefined;
+      if (second) { reading = second.reading; doubleRead = second.evidence; }
+      return { i, crop, reading, doubleRead };
+    } catch (error) { if (error instanceof BottleQuotaError) throw error; return null; }
+  });
+  const pills: BottlePill[] = [];
+  for (const r of read) {
+    if (!r) continue;
+    const result = await runResolvedCheck(label, r.reading, resolved), outline = segmented.clumpOutlines?.[r.i];
+    const pill = withDoubleRead({ number: firstNumber + pills.length + 1, box: clumps[r.i].box, result, fromRegion: true, ...(outline ? { outline } : {}) }, r.doubleRead);
+    pills.push(await confirmNearMiss(pill, async () => r.crop, reader, budget, onUsage));
+    clumps[r.i] = { ...clumps[r.i], readAsOne: true };
+  }
+  return { pills, segmented: { ...segmented, clumps, boxes: [...segmented.boxes, ...pills.map((p) => p.box)] } };
+}
+
+/**
  * Reads up to MAX_PILES touching regions with the pile reader and checks every pill it reports with the same engine.
  * A failed pile read leaves that region "Not read". Pile pills are numbered after the separate pills.
  */
@@ -268,13 +300,17 @@ export async function runBottleFollowUp(
   const plan = planFollowUp(previous, segmented);
   const read = plan.mode === "fresh" ? segmented.crops.map((_, i) => i) : plan.reread;
   // A fresh full check reads piles too; a targeted re-read leaves touching pills circled (never green).
-  const planned = read.length + (plan.mode === "fresh" ? PILE_READ_UNITS * pilesToRead(segmented.clumps).length : 0);
+  const planned = read.length + (plan.mode === "fresh" ? oneRegionsToRead(segmented.clumps).length + PILE_READ_UNITS * pilesToRead(segmented.clumps).length : 0);
   await reserveRemaining(planned);
   const budget = readingBudget(planned, reserveRemaining);
   const resolved = await resolveLabelData(previous.label);
   let pills = await readAndCheck(previous.label, segmented, read, plan.mode === "fresh" ? new Map() : plan.reused, resolved, send, dependencies, onUsage, budget, plan.mode === "reread", plan.mode === "reread" ? plan.prior : new Map());
   let clumps = segmented.clumps;
-  if (plan.mode === "fresh") { const piled = await readPiles(bottleImage, previous.label, segmented, pills.length, resolved, dependencies, onUsage, budget); pills = annotatePills([...pills, ...piled.pills]); clumps = piled.clumps; }
+  if (plan.mode === "fresh") {
+    const regions = await readOneRegions(previous.label, segmented, pills.length, resolved, dependencies, onUsage, budget);
+    const piled = await readPiles(bottleImage, previous.label, regions.segmented, pills.length + regions.pills.length, resolved, dependencies, onUsage, budget);
+    pills = annotatePills([...pills, ...regions.pills, ...piled.pills]); clumps = piled.clumps;
+  }
   const unresolvedRegions = plan.mode === "reread" ? plan.unresolvedRegions : (previous.unresolvedRegions ?? 0) + (previous.clumps?.length ?? 0);
   // Geometry is enough to guide a flip, never to certify a new green bottle. Read all carried pills before green.
   const carriedIndices = pills.flatMap((p, i) => p.carried ? [i] : []);

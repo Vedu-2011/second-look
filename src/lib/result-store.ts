@@ -60,7 +60,7 @@ export async function saveBottleResult(value: import("./bottle/types").BottleRes
   });
   const result: import("./bottle/types").BottleResult = {
     kind: "bottle", label: safeLabel(value.label), decision: { verdict: value.decision.verdict, title: value.decision.title, instruction: value.decision.instruction, matched: value.decision.matched, unreadable: value.decision.unreadable, flagged: value.decision.flagged, ...(value.decision.asks ? { asks: value.decision.asks } : {}), ...(value.decision.next ? { next: value.decision.next } : {}) },
-    ...(value.clumps ? { clumps: value.clumps.map((c) => ({ kind: c.kind, box: safeBox(c.box), ...(c.minor ? { minor: true } : {}), ...(c.pile ? { pile: { read: Number(c.pile.read), count: Number(c.pile.count), countConfidence: Number(c.pile.countConfidence), mayBeHidden: Boolean(c.pile.mayBeHidden) } } : {}) })) } : {}),
+    ...(value.clumps ? { clumps: value.clumps.map((c) => ({ kind: c.kind, box: safeBox(c.box), ...(c.minor ? { minor: true } : {}), ...(c.readAsOne ? { readAsOne: true } : {}), ...(typeof c.relativeArea === "number" ? { relativeArea: Number(c.relativeArea) } : {}), ...(c.pile ? { pile: { read: Number(c.pile.read), count: Number(c.pile.count), countConfidence: Number(c.pile.countConfidence), mayBeHidden: Boolean(c.pile.mayBeHidden) } } : {}) })) } : {}),
     ...(value.followUp ? { followUp: { mode: value.followUp.mode, reread: value.followUp.reread, reused: value.followUp.reused, note: value.followUp.note } } : {}),
     image: { width: value.image.width, height: value.image.height },
     ...(value.unresolvedRegions ? { unresolvedRegions: value.unresolvedRegions } : {}),
@@ -68,6 +68,7 @@ export async function saveBottleResult(value: import("./bottle/types").BottleRes
       // Silhouette numbers only (size, shape, average color): needed to match pills after "Flip and snap again".
       ...(p.outline ? { outline: { cx: Number(p.outline.cx), cy: Number(p.outline.cy), angle: Number(p.outline.angle), length: Number(p.outline.length), width: Number(p.outline.width) } } : {}),
       ...(p.boxGuessed ? { boxGuessed: true } : {}),
+      ...(p.fromRegion ? { fromRegion: true } : {}),
       ...(p.features ? { features: { length: p.features.length, width: p.features.width, aspect: p.features.aspect, area: p.features.area, relativeArea: p.features.relativeArea, lab: [p.features.lab[0], p.features.lab[1], p.features.lab[2]] as [number, number, number] } } : {}),
       ...(p.consensus ? { consensus: { confirmedNumbers: p.consensus.confirmedNumbers, partialConsistent: p.consensus.partialConsistent } } : {}),
       ...(p.doubleRead ? { doubleRead: { agreed: p.doubleRead.agreed, ...(p.doubleRead.partial ? { partial: true } : {}), ...(p.doubleRead.failed ? { failed: true } : {}), firstConfidence: p.doubleRead.firstConfidence, secondConfidence: p.doubleRead.secondConfidence, firstImprint: p.doubleRead.firstImprint, secondImprint: p.doubleRead.secondImprint } } : {}),

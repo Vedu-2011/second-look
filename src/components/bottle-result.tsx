@@ -53,7 +53,7 @@ export function BottleResultView({ result, photo, shareId, onRetake, onNext }: {
   const { decision } = result;
   const allClumps = result.clumps ?? [], asks = new Set(decision.asks ?? []);
   // Dashed circles are only for regions nobody read. A pile we read has numbered pills; a small dark thing at the edge is a note.
-  const clumps = allClumps.filter(c => !c.pile && !c.minor), edgeNote = allClumps.some(c => c.minor), piled = result.pills.filter(p => p.fromPile).length;
+  const clumps = allClumps.filter(c => !c.pile && !c.minor && !c.readAsOne), edgeNote = allClumps.some(c => c.minor), piled = result.pills.filter(p => p.fromPile).length;
   const red = isRedMode(result.pills);
   const size = measured && measured.width > 0 ? measured : { width: 375, height: 375 * result.image.height / result.image.width };
   const chipPx = size.width < 560 ? 24 : 28;

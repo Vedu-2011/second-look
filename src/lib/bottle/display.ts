@@ -65,6 +65,6 @@ export function bottleLegend(pills: readonly BottlePill[], clumps: readonly Bott
   const words: Record<MarkerState, string> = { ...BOTTLE_LEGEND, dimMatch: 'Matches', dim: 'Not fully checked' };
   const present = new Set(pills.map(p => markerState(p, red)));
   const items: { key: MarkerState | 'notRead'; symbol: string; label: string }[] = order.filter(s => present.has(s)).map(s => ({ key: s, symbol: MARKER_SYMBOL[s], label: words[s] }));
-  if (clumps.some(c => !c.pile && !c.minor)) items.push({ key: 'notRead', symbol: '◌', label: 'Not read' });
+  if (clumps.some(c => !c.pile && !c.minor && !c.readAsOne)) items.push({ key: 'notRead', symbol: '◌', label: 'Not read' });
   return items;
 }

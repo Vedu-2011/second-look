@@ -17,6 +17,10 @@ export type BottleClump = {
   pile?: BottlePile;
   /** Cutoff only: small and much darker than every pill, mostly outside the photo. Shown as a note, still never green. */
   minor?: boolean;
+  /** Touching only: the region's area divided by a typical separate pill's area. */
+  relativeArea?: number;
+  /** A "touching" region about one pill in size that the single-pill reader read as ONE pill (it is that pill now). */
+  readAsOne?: boolean;
 };
 /** What the pile reader saw in one touching region. `read` pills became numbered pills (fromPile). */
 export type BottlePile = { read: number; count: number; countConfidence: number; mayBeHidden: boolean };
@@ -25,6 +29,8 @@ export type BottlePill = {
   features?: PillFeatures;
   /** The pill's own measured silhouette (separate pills only). Older results don't have it. */
   outline?: PillOutline;
+  /** A "touching" region about one pill in size, read as one pill by the single-pill reader. */
+  fromRegion?: boolean;
   /** Pile pills: the group reader's box couldn't be trusted, so we don't draw a mark on a guessed spot. */
   boxGuessed?: boolean;
   /** Unlike the main group in this photo, e.g. "a different shape and size". */
