@@ -168,8 +168,9 @@ function withDoubleRead(pill: BottlePill, doubleRead?: DoubleRead): BottlePill {
  */
 async function confirmNearMiss(pill: BottlePill, crop: () => Promise<Buffer>, reader: NonNullable<BottleDependencies["readPill"]>, budget: ReadingBudget, onUsage: ReadOptions["onUsage"]): Promise<BottlePill> {
   const { result } = pill, expectedRaw = result.expected?.imprintRaw;
-  const side = !pill.doubleRead?.agreed ? nearMissSide(result.pill, expectedRaw) : null;
-  if (!side || !expectedRaw || !["MISMATCH", "UNSURE"].includes(result.verdict)) return pill;
+  const side = nearMissSide(result.pill, expectedRaw);
+  // A red pill whose borderline reread already agreed has had its second opinion.
+  if (!side || !expectedRaw || !["MISMATCH", "UNSURE"].includes(result.verdict) || (result.verdict === "MISMATCH" && pill.doubleRead?.agreed)) return pill;
   const might = `This might say ${spacedImprint(expectedRaw)}, but we couldn't read it clearly. Check it with your pharmacist.`;
   // Already unsure (e.g. a borderline read whose reread disagreed or failed): just say what it might be. No extra read.
   if (result.verdict === "UNSURE") return { ...pill, result: { ...result, reasons: [might, ...result.reasons] } };

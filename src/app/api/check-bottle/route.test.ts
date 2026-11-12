@@ -264,6 +264,13 @@ describe("one letter off the label's imprint", () => {
     expect(secondReads()).toBe(3);
     for (const p of terminal.result.pills) { expect(p.result.verdict).toBe("UNSURE"); expect(p.result.reasons[0]).toBe(MIGHT); }
   });
+  it("a partial double read of a near-miss ('IB 20' twice) still gets the 'might say' line (codex P2)", async () => {
+    readers("IB 20", "IB 20", 0.6);
+    vi.mocked(resolveLabelData).mockResolvedValue({ data: { labelProduct: { imprintRaw: "IB200" } } } as never);
+    const terminal = await run();
+    for (const p of terminal.result.pills) { expect(p.doubleRead.partial).toBe(true); expect(p.result.verdict).toBe("UNSURE"); expect(p.result.reasons[0]).toBe(MIGHT); }
+    vi.mocked(resolveLabelData).mockResolvedValue({} as never);
+  });
   it("a low-confidence near-miss gets the 'might say' line with no extra read", async () => {
     readers("JB 200", "IB 200", 0.4);
     const terminal = await run();
