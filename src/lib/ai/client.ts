@@ -55,6 +55,8 @@ export type ReadOptions = {
   /** Smoke-only durable reservation before each billable attempt. */
   beforeAttempt?: () => Promise<void>;
   maxRetries?: number;
+  /** Longer structured answers (a whole pile); single readers keep the 1200 default. */
+  maxTokens?: number;
 };
 
 export async function toolRead<T>({
@@ -66,6 +68,7 @@ export async function toolRead<T>({
   onUsage,
   beforeAttempt,
   maxRetries,
+  maxTokens = 1200,
 }: {
   image: ImageInput;
   system: string;
@@ -80,7 +83,7 @@ export async function toolRead<T>({
     try {
       const response = await client.messages.create({
         model,
-        max_tokens: 1200,
+        max_tokens: maxTokens,
         system,
         tools: [tool as Anthropic.Tool],
         tool_choice: { type: "auto" },

@@ -255,3 +255,27 @@ Repo: github.com/Vedu-2011/second-look — PUBLIC (DSH requires a public repo).
   500 mg, not your Metformin." / "Its print says 93 — that's not on any metformin 1,000 mg." — and the "different
   from the others" line comes after.
 - Feature freeze after this phase: only bug fixes, video, Devpost and deck.
+
+## Decisions in phase 11c (Claude Code, Nov 12) — piles are read, and a clean result screen
+- Separate pills: the proven segmenter, unchanged. Each touching region (largest first, at most 3 per photo) is cropped
+  with padding at full resolution and read ONCE by a new prompt, `pill-group-v1` (src/lib/ai/prompts/read-pill-group.ts;
+  read-pill / pill-v3 untouched). It returns one entry per visible pill (center, box, the usual fields, `partlyHidden`)
+  plus `pileCount`, `countConfidence`, `somePillsMayBeHidden`. Each entry becomes an ordinary numbered pill
+  (`fromPile: true`) through the same engine. A pile read costs 5 units of quota. A failed pile read leaves the region
+  circled "Not read".
+- Partly hidden pills are capped at 0.6 imprint confidence (below the engine's 0.7), so they are never confirmed or
+  contradicted alone. Borderline pile pills get the usual second read with the single-pill reader.
+- Never green with a pile: at best "Looks right" plus "a pill hidden under another can't be seen". Hidden pills,
+  count confidence < 0.6, or a count above what was read → UNSURE "give the pile a shake and snap again". A MISMATCH
+  from a pile pill is red like any other.
+- When unread regions are most of the photo, the title leads with it: "We could read N of about M pills."
+- The "Spread them out" pre-check is gone; "Move closer" stays. A small, much-darker cutoff at the edge is a note
+  ("Something at the edge of the photo wasn't checked"), not a circle, and still blocks green.
+- Shape-only "looks different" on a confirmed imprint is a ✓ with "probably the angle", not "!".
+- Result screen: 28/32 px pins placed just outside each pill and pushed apart (`layoutPins`); tapping the pin or the
+  pill opens its row. The legend lists every mark on screen, including the dashed "Not read" circle. Red mode (any
+  MISMATCH) shows only the wrong pill's row plus one line about the others; other markers become small gray dots (✓
+  kept); the rest sit in a collapsed "See the other pills".
+- Real check (scripts/check-phase11c.ts): the metformin bottle stays red on "93". On the user-test pour, the group
+  reader read 3 piles (1 of ~2, 2 of 2, 1 of ~2). It also read one Ibuprofen softgel as "TB 200" at 0.8, giving a false
+  "doesn't match" on top of the real Tylenol mismatch. Pile readings of small printed softgels are not reliable.

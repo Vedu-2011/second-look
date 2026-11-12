@@ -6,7 +6,15 @@ export type NormalizedBox = { x: number; y: number; width: number; height: numbe
 /** Measured from the pill's silhouette (no AI). Lengths are working-image pixels; compare pills only within a photo. */
 export type PillFeatures = { length: number; width: number; aspect: number; area: number; relativeArea: number; lab: [number, number, number] };
 /** Something we circle but don't read: pills touching each other, or a pill cut off at the photo's edge. */
-export type BottleClump = { kind: "touching" | "cutoff"; box: NormalizedBox };
+export type BottleClump = {
+  kind: "touching" | "cutoff"; box: NormalizedBox;
+  /** Touching pills read together by the pile reader. Absent = never read (a dashed "Not read" circle). */
+  pile?: BottlePile;
+  /** Cutoff only: small and much darker than every pill, mostly outside the photo. Shown as a note, still never green. */
+  minor?: boolean;
+};
+/** What the pile reader saw in one touching region. `read` pills became numbered pills (fromPile). */
+export type BottlePile = { read: number; count: number; countConfidence: number; mayBeHidden: boolean };
 export type BottlePill = {
   number: number; box: NormalizedBox; result: CheckResult; appearanceWarning?: string;
   features?: PillFeatures;
@@ -21,6 +29,10 @@ export type BottlePill = {
   /** Display provenance only; never current confirmation. */
   previousVerdict?: CheckResult["verdict"];
   consensus?: { confirmedNumbers: number[]; partialConsistent: boolean };
+  /** Read by the pile reader from a crop of touching pills (no silhouette features). */
+  fromPile?: boolean;
+  /** Imprint confirmed; only its 2-D shape looked different (a tilted capsule). A note, not a warning. */
+  shapeNote?: boolean;
   doubleRead?: { agreed: boolean; partial?: boolean; firstConfidence: number; secondConfidence: number; firstImprint: string[]; secondImprint: string[] };
 };
 export type BottleDecision = {

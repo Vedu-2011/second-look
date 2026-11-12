@@ -33,7 +33,7 @@ describe('synthetic softgels, split conservatism and coaching',()=>{
  it.each([.25])('finds faint translucent teal on dark gray at alpha %s',async alpha=>{const svg=`<svg width="1200" height="1000"><rect width="1200" height="1000" fill="#2f2f33"/>${grid().map(p=>`<ellipse cx="${p.cx}" cy="${p.cy}" rx="60" ry="32" fill="#148f91" fill-opacity="${alpha}"/>`).join('')}</svg>`;const r=await segmentBottle(await sharp(Buffer.from(svg)).png().toBuffer());expect(r.boxes).toHaveLength(9);});
  it('keeps a narrow-neck pair circled instead of guessing it apart',async()=>{const r=await segmentBottle(await layout([{cx:450,cy:400},{cx:556,cy:400}]));expect(r.boxes).toHaveLength(0);expect(r.clumps).toEqual([expect.objectContaining({kind:'touching'})]);});
  it('refuses three touching pills and keeps an ambiguous pair circled',async()=>{const three=await segmentBottle(await layout([{cx:350,cy:400},{cx:456,cy:400},{cx:562,cy:400}]));expect(three.clumps.length).toBeGreaterThan(0);const uneven=await segmentBottle(await layout([{cx:450,cy:400},{cx:530,cy:400,rx:35,ry:20}]));expect(uneven.clumps.length).toBeGreaterThan(0);});
- it('coaches tiny pills and multiple clumps, but not normal frame sizes',()=>{const base={image:{width:1200,height:1000},features:[{...feature,length:24}],clumps:[]};expect(captureCoaching(base)[0]).toContain('Move closer');expect(captureCoaching({...base,features:[{...feature,length:48}]})).toEqual([]);expect(captureCoaching({...base,features:[],clumps:[{kind:'touching',box:pill(1).box},{kind:'touching',box:pill(2).box}]}).join(' ')).toContain('Spread them out');});
+ it('coaches tiny pills only; touching pills are not coached away',()=>{const base={image:{width:1200,height:1000},features:[{...feature,length:24}],clumps:[]};expect(captureCoaching(base)[0]).toContain('Move closer');expect(captureCoaching({...base,features:[{...feature,length:48}]})).toEqual([]);expect(captureCoaching({...base,features:[],clumps:[{kind:'touching',box:pill(1).box},{kind:'touching',box:pill(2).box}]})).toEqual([]);}); // Phase 11c: piles are read, not coached away.
 });
 it('agreement on an expected fragment is distinguished from complete-print agreement', async()=>{
  const {expectedFragment}=await import('./double-read');
@@ -58,7 +58,7 @@ it.each([['bottle/pills.jpg',10,0],['extra/user-test-ibuprofen-tylenol.jpg',6,4]
  const {readFile}=await import('node:fs/promises');
  const r=await segmentBottle(await readFile(`test-images/real/${photo}`));
  expect(r.boxes).toHaveLength(numbered);expect(r.clumps).toHaveLength(circled);
- expect(captureCoaching(r).some(t=>t.includes('Spread them out'))).toBe(circled>=2);
+ expect(captureCoaching(r)).toEqual([]); // Phase 11c: no "spread them out" pre-check.
 },20000);
 describe('phase 11b: a wrong pill leads with its print',()=>{
  const wrong=(sides:string[],identified:string|null)=>{const p=pill(5);p.result.verdict='MISMATCH';p.result.pill=reading(sides[0]??'',.9);p.result.pill.imprintSides=sides;p.result.label={...p.result.label,drugName:'Metformin HCl',strength:'1,000 mg'};p.result.identifiedAs=identified?{...p.result.identifiedAs!,title:identified}:null;return p;};

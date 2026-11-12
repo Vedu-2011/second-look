@@ -62,3 +62,25 @@ export function toPillReading(value: AiPillReading): PillReading {
     scored: value.scored ?? undefined,
   };
 }
+
+// Bottle mode: one reading per pill visible in a pile crop (prompt pill-group-v1). Boxes are fractions of the crop.
+const fraction = z.number().min(0).max(1);
+export const pillGroupReadingSchema = z.object({
+  pills: z.array(z.object({
+    center: z.object({ x: fraction, y: fraction }),
+    box: z.object({ x: fraction, y: fraction, width: fraction, height: fraction }),
+    imprintSides: z.array(z.string().trim().max(40)).max(4),
+    imprintConfidence: confidence,
+    colors: z.array(color).max(3),
+    colorConfidence: confidence,
+    shape: z.string().trim().max(30),
+    shapeConfidence: confidence,
+    form: z.string().trim().max(20),
+    partlyHidden: z.boolean(),
+    photoProblems: z.array(z.enum(["blur", "glare", "too far", "imprint side down"])).max(4),
+  })).max(20),
+  pileCount: z.number().int().min(0).max(40),
+  countConfidence: confidence,
+  somePillsMayBeHidden: z.boolean(),
+});
+export type AiPillGroupReading = z.infer<typeof pillGroupReadingSchema>;

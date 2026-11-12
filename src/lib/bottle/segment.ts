@@ -2,6 +2,8 @@ import sharp from "sharp";
 import type { BottleClump, NormalizedBox, PillFeatures } from "./types";
 
 export const MAX_BOTTLE_PILLS = 20;
+/** Edge cutoff shown as a note: under this share of a typical pill's area, and this many L* units darker than every pill. */
+export const MINOR_CUTOFF_AREA = 0.5, MINOR_CUTOFF_DARKER = 20;
 export const MAX_BOTTLE_BYTES = 12 * 1024 * 1024;
 export const MAX_BOTTLE_PIXELS = 32_000_000;
 export const RETAKE_TIPS = "Use a plain surface in a different color from the pills. Spread them apart, keep every pill inside the frame, and photograph at most 20 at a time.";
@@ -250,7 +252,12 @@ export async function segmentBottle(input: Buffer, options: { diagnostics?: (val
     features.push({ ...measure(p.pixels, w, labs, n), relativeArea: p.area / pillArea });
     crops.push(await sharp(original.data).extract(region).png().toBuffer());
   }
+  // A cutoff that is small (mostly outside the photo) and much darker than every pill we found is shown as a note,
+  // not a big circle. Detection is unchanged and it still blocks green.
+  const lightness = (c: Component) => median(Array.from(c.pixels, (i) => labs[i * 3]));
+  const darkestPill = pills.length ? Math.min(...pills.map(lightness)) : -Infinity;
+  const minor = (c: Component) => pills.length > 0 && c.area < pillArea * MINOR_CUTOFF_AREA && lightness(c) < darkestPill - MINOR_CUTOFF_DARKER;
   const clumps: BottleClump[] = [...touching.map((c) => ({ c, kind: "touching" as const })), ...cutoffs.map((c) => ({ c, kind: "cutoff" as const }))]
-    .sort((a, b) => rowMajor(a.c, b.c)).map(({ c, kind }) => ({ kind, box: toBox(c, w, h, image).box }));
+    .sort((a, b) => rowMajor(a.c, b.c)).map(({ c, kind }) => ({ kind, box: toBox(c, w, h, image).box, ...(kind === "cutoff" && minor(c) ? { minor: true } : {}) }));
   return { image, boxes, features, clumps, crops };
 }

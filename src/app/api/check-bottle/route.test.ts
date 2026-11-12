@@ -7,11 +7,11 @@ import type { LabelReading, PillReading } from "@/lib/verdict-engine";
 vi.mock("next/server", () => ({ connection: async () => {} }));
 vi.mock("@/lib/redis", () => ({ getRedis: () => null, key: (v: string) => "sl:" + v }));
 vi.mock("@/lib/rate-limit", async (original) => ({ ...(await original<typeof import("@/lib/rate-limit")>()), consumePreparationLimit: vi.fn(async () => ({ allowed: true, count: 1 })), consumeCheckLimit: vi.fn(async () => ({ allowed: true, count: 1 })) }));
-vi.mock("@/lib/ai/readers", () => ({ readLabel: vi.fn(), readPill: vi.fn() }));
+vi.mock("@/lib/ai/readers", () => ({ readLabel: vi.fn(), readPill: vi.fn(), readPillGroup: vi.fn() }));
 vi.mock("@/lib/check-service", () => ({ resolveLabelData: vi.fn(async () => ({})), runResolvedCheck: vi.fn() }));
 
 const { POST } = await import("./route");
-const { readLabel, readPill } = await import("@/lib/ai/readers");
+const { readLabel, readPill, readPillGroup } = await import("@/lib/ai/readers");
 const { resolveLabelData, runResolvedCheck } = await import("@/lib/check-service");
 const { consumeCheckLimit } = await import("@/lib/rate-limit");
 const { getBottleResult } = await import("@/lib/result-store");
@@ -63,12 +63,27 @@ describe("POST /api/check-bottle", () => {
   it.each([0,25])("rejects %i detected pills before pill AI", async (n) => {
     const output = await events(await POST(await request(n))); expect(output.at(-1).type).toBe("retake"); expect(readPill).not.toHaveBeenCalled();
   });
-  it("checks the separate pills, circles touching ones without reading them, and is never green", async () => {
+  it("reads a touching pair with ONE pile read, counts it as five reads, and is never solid green", async () => {
+    const entry = (x: number) => ({ center: { x, y: 0.5 }, box: { x: x - 0.12, y: 0.35, width: 0.24, height: 0.3 }, imprintSides: source.pill.imprintSides, imprintConfidence: 0.9, colors: source.pill.colors as never, colorConfidence: 0.9, shape: source.pill.shape, shapeConfidence: 0.9, form: "tablet", partlyHidden: false, photoProblems: [] });
+    vi.mocked(readPillGroup).mockResolvedValueOnce({ pills: [entry(0.38), entry(0.62)], pileCount: 2, countConfidence: 0.9, somePillsMayBeHidden: false });
     const terminal = (await events(await POST(await request(9, true)))).at(-1);
-    expect(terminal.type).toBe("result"); expect(readPill).toHaveBeenCalledTimes(7);
+    expect(terminal.type).toBe("result"); expect(readPill).toHaveBeenCalledTimes(7); expect(readPillGroup).toHaveBeenCalledTimes(1);
+    expect(terminal.result.pills).toHaveLength(9);
+    expect(terminal.result.pills.slice(7).every((p: { fromPile?: boolean }) => p.fromPile)).toBe(true);
+    expect(terminal.result.clumps).toEqual([expect.objectContaining({ kind: "touching", pile: { read: 2, count: 2, countConfidence: 0.9, mayBeHidden: false } })]);
+    expect(terminal.result.decision).toMatchObject({ verdict: "LOOKS_RIGHT", title: "The 9 pills we read match your label." });
+    expect(terminal.result.decision.instruction).toContain("We read 2 in the pile; a pill hidden under another can't be seen.");
+    // 7 pill reads + 5 for the pile = 12 → 3 check units, reserved before reading.
+    expect(vi.mocked(consumeCheckLimit).mock.calls.at(-1)?.[1]).toBe(2);
+    expect((await getBottleResult(terminal.shareId))?.result.clumps?.[0].pile).toEqual({ read: 2, count: 2, countConfidence: 0.9, mayBeHidden: false });
+  });
+  it("a failed pile read leaves the region circled and unread, never green", async () => {
+    vi.mocked(readPillGroup).mockRejectedValueOnce(new Error("bad reading"));
+    const terminal = (await events(await POST(await request(9, true)))).at(-1);
+    expect(terminal.type).toBe("result"); expect(terminal.result.pills).toHaveLength(7);
     expect(terminal.result.clumps).toEqual([expect.objectContaining({ kind: "touching" })]);
+    expect(terminal.result.clumps[0].pile).toBeUndefined();
     expect(terminal.result.decision).toMatchObject({ verdict: "UNSURE", matched: 7, next: "nudge" });
-    expect((await getBottleResult(terminal.shareId))?.result.clumps).toHaveLength(1);
   });
   it("rejects an unreadable label without crop calls", async () => {
     vi.mocked(readLabel).mockResolvedValueOnce({ isPrescriptionLabel: false });

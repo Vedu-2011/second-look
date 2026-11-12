@@ -2,18 +2,20 @@ import { createHash } from "node:crypto";
 import { mkdirSync, readFileSync, renameSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import type { PillReading, LabelReading } from "@/lib/verdict-engine";
+import type { AiPillGroupReading } from "@/lib/ai/schemas";
+type Reading = PillReading | LabelReading | AiPillGroupReading;
 
 export const SONNET_INPUT_USD_PER_M = 2, SONNET_OUTPUT_USD_PER_M = 10;
-export function smokeBound(inputTokens: number) {
+export function smokeBound(inputTokens: number, maxOutputTokens = 1200) {
   if (!Number.isFinite(inputTokens) || inputTokens < 0) throw new Error("Invalid token count");
   // Reserve BOTH production attempts, max output incl reasoning, and substantial input headroom.
-  return 2 * ((Math.ceil(inputTokens * 1.1) + 4096) * SONNET_INPUT_USD_PER_M + 1200 * SONNET_OUTPUT_USD_PER_M) / 1e6;
+  return 2 * ((Math.ceil(inputTokens * 1.1) + 4096) * SONNET_INPUT_USD_PER_M + maxOutputTokens * SONNET_OUTPUT_USD_PER_M) / 1e6;
 }
 export function smokeKey(bytes: Buffer, model: string, prompt: string) {
   return createHash("sha256").update(bytes).update("\0" + model + "\0" + prompt).digest("hex");
 }
 type Usage = { inputTokens: number; outputTokens: number; model: string; usd: number };
-type Entry = { key: string; reserved: number; status: "pending" | "done" | "failed"; usage: Usage[]; reading?: PillReading | LabelReading };
+type Entry = { key: string; reserved: number; status: "pending" | "done" | "failed"; usage: Usage[]; reading?: Reading };
 type Ledger = { version: 1; budgetUsd: number; entries: Entry[] };
 
 /** One process owns this ledger (caller holds a filesystem lock). Writes are synchronous and atomic. */
@@ -41,6 +43,8 @@ export class SmokeLedger {
     if (entry && entry.status !== "done") throw new Error(`Crop ${key.slice(0, 12)} has an incomplete/failed reservation. No automatic paid retry; inspect ${this.file}.`);
     return entry?.reading;
   }
+  /** Read-only lookup in an older ledger: only finished readings count. */
+  done(key: string) { return this.ledger.entries.find((e) => e.key === key && e.status === "done")?.reading; }
   reserve(key: string, bound: number) {
     if (this.ledger.entries.some((e) => e.key === key)) throw new Error("Crop already reserved");
     if (!(bound > 0) || this.committed() + bound > this.ledger.budgetUsd) throw new Error("Stopped before calling AI: the conservative smoke budget would exceed $1 (or the configured lower cap).");
@@ -52,7 +56,7 @@ export class SmokeLedger {
     entry.usage.push({ model, inputTokens, outputTokens, usd: (inputTokens * 2 + outputTokens * 10) / 1e6 }); this.save();
     if (entry.usage.reduce((n, u) => n + u.usd, 0) > entry.reserved) throw new Error("AI response exceeded reserved bound; stop and inspect ledger.");
   }
-  finish(key: string, reading: PillReading | LabelReading) { const entry = this.ledger.entries.find((e) => e.key === key)!; entry.reading = reading; entry.status = "done"; this.save(); }
+  finish(key: string, reading: Reading) { const entry = this.ledger.entries.find((e) => e.key === key)!; entry.reading = reading; entry.status = "done"; this.save(); }
   fail(key: string) { const entry = this.ledger.entries.find((e) => e.key === key); if (entry) { entry.status = "failed"; this.save(); } }
   summary() { return { budgetUsd: this.ledger.budgetUsd, recordedSpendUsd: this.spent(), committedUsd: this.committed(), responses: this.ledger.entries.reduce((n, e) => n + e.usage.length, 0), uniqueReadings: this.ledger.entries.filter((e) => e.status === "done").length }; }
 }

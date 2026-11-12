@@ -3,14 +3,15 @@ import { applyConsensus } from "./consensus";
 import { agreeReadings, borderline, expectedFragment, MAX_EXTRA_READS, secondReadImage } from "./double-read";
 import { mergePillViews } from "@/lib/pill-views";
 import { DEFAULT_VISION_MODEL, type ImageInput, type ReadOptions } from "@/lib/ai/client";
-import { readLabel, readPill } from "@/lib/ai/readers";
+import { readLabel, readPill, readPillGroup } from "@/lib/ai/readers";
 import { earlyExit } from "@/lib/check-input";
 import { resolveLabelData, runResolvedCheck, type ResolvedLabelData } from "@/lib/check-service";
 import type { LabelReading, PillReading } from "@/lib/verdict-engine";
 import { annotatePills, appearanceWarning, decideBottle } from "./decide-bottle";
 import { planFollowUp } from "./match-positions";
+import { pileCrop, pilePills, pilesToRead, PILE_READ_UNITS, readingOrder, type PilePill, type PileReader } from "./pile";
 import { segmentBottle, SegmentationError, type SegmentedBottle } from "./segment";
-import type { BottleEvent, BottlePill, BottleResult } from "./types";
+import type { BottleClump, BottleEvent, BottlePill, BottleResult } from "./types";
 
 export class BottleQuotaError extends Error {}
 export const unreadablePill = (): PillReading => ({ imprintSides: [], imprintConfidence: 0, colors: [], colorConfidence: 0, shape: "unknown", shapeConfidence: 0, pillVisible: false });
@@ -31,6 +32,8 @@ export async function mapFive<T, R>(items: readonly T[], work: (item: T, index: 
 type Send = (event: BottleEvent) => void;
 export type BottleDependencies = {
   readPill?: (image: ImageInput, options: ReadOptions) => Promise<PillReading>;
+  /** Pile reader for touching pills (bottle mode only). */
+  readPillGroup?: PileReader;
   /** For the development-only smoke with a declared label, never a browser request. */
   label?: LabelReading;
   onUsage?: ReadOptions["onUsage"];
@@ -73,12 +76,16 @@ export async function runBottleCheck(
   }
   send({ type: "step", step: 0, state: "done" });
   // Initial quota was reserved by the API. Reserve all remaining units before ANY crop reads.
-  await reserveRemaining(segmented.crops.length);
+  // Each pile read counts like PILE_READ_UNITS pill reads.
+  const planned = segmented.crops.length + PILE_READ_UNITS * pilesToRead(segmented.clumps).length;
+  await reserveRemaining(planned);
   // Fetch expected records ONCE, and deduplicate simultaneous mismatch leads/DailyMed requests.
   const resolved = await resolveLabelData(label);
-  const budget = readingBudget(segmented.crops.length, reserveRemaining);
-  const pills = applyConsensus(await readAndCheck(label, segmented, segmented.crops.map((_, i) => i), new Map(), resolved, send, dependencies, onUsage, budget), segmented.clumps);
-  return { kind: "bottle", label, pills, clumps: segmented.clumps, decision: decideBottle(pills, segmented.clumps), image: segmented.image, checkedAt: new Date().toISOString(), elapsedMs: Math.round(performance.now() - started), usage };
+  const budget = readingBudget(planned, reserveRemaining);
+  const separate = await readAndCheck(label, segmented, segmented.crops.map((_, i) => i), new Map(), resolved, send, dependencies, onUsage, budget);
+  const piled = await readPiles(bottleImage, label, segmented, separate.length, resolved, dependencies, onUsage, budget);
+  const pills = applyConsensus(annotatePills([...separate, ...piled.pills]), piled.clumps);
+  return { kind: "bottle", label, pills, clumps: piled.clumps, decision: decideBottle(pills, piled.clumps), image: segmented.image, checkedAt: new Date().toISOString(), elapsedMs: Math.round(performance.now() - started), usage };
 }
 
 type ReadingBudget = { planned: number; extras: number; reserve: (total: number) => Promise<void> };
@@ -98,18 +105,8 @@ async function readAndCheck(label: LabelReading, segmented: SegmentedBottle, rea
     try {
       const reader = dependencies.readPill ?? readPill;
       reading = await reader({ mediaType: "image/png", base64: segmented.crops[i].toString("base64") }, { model: DEFAULT_VISION_MODEL, onUsage });
-      if (borderline(reading) && budget.extras < MAX_EXTRA_READS) {
-        budget.extras++;
-        await budget.reserve(budget.planned + budget.extras);
-        let attempt = 0;
-        try {
-          const transformed = await secondReadImage(segmented.crops[i]);
-          const second = await reader({ mediaType: "image/png", base64: transformed.toString("base64") }, { model: DEFAULT_VISION_MODEL, onUsage, maxRetries: 0, beforeAttempt: async () => { if (++attempt > 1) throw new Error("One independent second read only"); } });
-          const agreed = agreeReadings(reading, second);
-          if (agreed.evidence.agreed && expectedFragment(reading, resolved.data?.labelProduct)) { agreed.reading.imprintConfidence = reading.imprintConfidence; agreed.evidence.partial = true; }
-          reading = agreed.reading; doubleReads.set(i, agreed.evidence);
-        } catch { doubleReads.set(i, { agreed: false, firstConfidence: reading.imprintConfidence, secondConfidence: 0, firstImprint: reading.imprintSides, secondImprint: [] }); }
-      }
+      const second = await secondRead(reading, segmented.crops[i], reader, budget, resolved, onUsage);
+      if (second) { reading = second.reading; doubleReads.set(i, second.evidence); }
     } catch (error) { if (error instanceof BottleQuotaError) throw error; reading = unreadablePill(); } // A failed reader abstains; never turns a partial bottle green.
     send({ type: "progress", completed: ++completed, total: read.length });
     return [i, reading];
@@ -125,16 +122,71 @@ async function readAndCheck(label: LabelReading, segmented: SegmentedBottle, rea
     // A reverse view cannot erase an already confident mismatch (including an unreadable/conflicting reverse).
     if (before?.result.verdict === "MISMATCH" && result.verdict !== "MISMATCH") result = { ...result, verdict: "MISMATCH", identifiedAs: null, reasons: [...result.reasons, "The first view already showed an imprint that does not match your label. That mismatch still stands."] };
     const pill: BottlePill = { number: i + 1, box, result, features: segmented.features[i], ...(reading && followUp ? { reread: true } : {}), ...(kept && !reading ? { carried: true, previousVerdict: kept.previousVerdict ?? kept.result.verdict } : {}) };
-    const doubleRead = doubleReads.get(i);
-    if (doubleRead) {
-      pill.doubleRead = doubleRead;
-      pill.result = { ...pill.result, reasons: [...pill.result.reasons, doubleRead.partial ? "Read twice, same expected fragment; this is not a complete imprint confirmation." : doubleRead.agreed ? "Read twice, same normalized imprint. The independent readings agreed." : "The independent second reading did not agree clearly enough; the imprint remains uncertain."] };
-    }
-    pill.appearanceWarning = appearanceWarning(pill);
-    return pill;
+    return withDoubleRead(pill, doubleReads.get(i));
   });
   send({ type: "step", step: 3, state: "done" });
   return annotatePills(pills);
+}
+
+type DoubleRead = NonNullable<BottlePill["doubleRead"]>;
+/** One independent second reading of a borderline crop (2x upscale), within the per-request extra-read cap. */
+async function secondRead(reading: PillReading, crop: Buffer, reader: NonNullable<BottleDependencies["readPill"]>, budget: ReadingBudget, resolved: ResolvedLabelData, onUsage: ReadOptions["onUsage"]): Promise<{ reading: PillReading; evidence: DoubleRead } | null> {
+  if (!borderline(reading) || budget.extras >= MAX_EXTRA_READS) return null;
+  budget.extras++;
+  await budget.reserve(budget.planned + budget.extras);
+  let attempt = 0;
+  try {
+    const transformed = await secondReadImage(crop);
+    const second = await reader({ mediaType: "image/png", base64: transformed.toString("base64") }, { model: DEFAULT_VISION_MODEL, onUsage, maxRetries: 0, beforeAttempt: async () => { if (++attempt > 1) throw new Error("One independent second read only"); } });
+    const agreed = agreeReadings(reading, second);
+    if (agreed.evidence.agreed && expectedFragment(reading, resolved.data?.labelProduct)) { agreed.reading.imprintConfidence = reading.imprintConfidence; agreed.evidence.partial = true; }
+    return agreed;
+  } catch (error) {
+    if (error instanceof BottleQuotaError) throw error;
+    return { reading, evidence: { agreed: false, firstConfidence: reading.imprintConfidence, secondConfidence: 0, firstImprint: reading.imprintSides, secondImprint: [] } };
+  }
+}
+function withDoubleRead(pill: BottlePill, doubleRead?: DoubleRead): BottlePill {
+  if (doubleRead) {
+    pill.doubleRead = doubleRead;
+    pill.result = { ...pill.result, reasons: [...pill.result.reasons, doubleRead.partial ? "Read twice, same expected fragment; this is not a complete imprint confirmation." : doubleRead.agreed ? "Read twice, same normalized imprint. The independent readings agreed." : "The independent second reading did not agree clearly enough; the imprint remains uncertain."] };
+  }
+  pill.appearanceWarning = appearanceWarning(pill);
+  return pill;
+}
+
+/**
+ * Reads up to MAX_PILES touching regions with the pile reader and checks every pill it reports with the same engine.
+ * A failed pile read leaves that region "Not read". Pile pills are numbered after the separate pills.
+ */
+async function readPiles(photo: Buffer, label: LabelReading, segmented: SegmentedBottle, firstNumber: number, resolved: ResolvedLabelData, dependencies: BottleDependencies, onUsage: ReadOptions["onUsage"], budget: ReadingBudget): Promise<{ pills: BottlePill[]; clumps: BottleClump[] }> {
+  const clumps = segmented.clumps.map((c) => ({ ...c })), order = pilesToRead(clumps);
+  if (!order.length) return { pills: [], clumps };
+  const reader = dependencies.readPillGroup ?? readPillGroup;
+  const groups = await Promise.all(order.map(async (i) => {
+    try { return await reader(await pileCrop(photo, clumps[i].box), { model: DEFAULT_VISION_MODEL, onUsage }); }
+    catch (error) { if (error instanceof BottleQuotaError) throw error; return null; } // That region stays "Not read".
+  }));
+  const taken = [...segmented.boxes], found: PilePill[] = [];
+  order.forEach((i, k) => {
+    const group = groups[k];
+    if (!group) return;
+    const { pills, pile } = pilePills(group, i, clumps[i].box, taken);
+    clumps[i] = { ...clumps[i], pile };
+    taken.push(...pills.map((p) => p.box)); found.push(...pills);
+  });
+  found.sort(readingOrder);
+  const single = dependencies.readPill ?? readPill;
+  const pills = await mapFive(found, async (p, k): Promise<BottlePill> => {
+    let reading = p.reading, doubleRead: DoubleRead | undefined;
+    if (!p.partlyHidden) {
+      const second = await secondRead(reading, Buffer.from((await pileCrop(photo, p.box)).base64, "base64"), single, budget, resolved, onUsage);
+      if (second) { reading = second.reading; doubleRead = second.evidence; }
+    }
+    const result = await runResolvedCheck(label, reading, resolved);
+    return withDoubleRead({ number: firstNumber + k + 1, box: p.box, result, fromPile: true }, doubleRead);
+  });
+  return { pills, clumps };
 }
 
 const listNumbers = (n: readonly number[]) => n.length > 1 ? `${n.slice(0, -1).join(", ")} and ${n.at(-1)}` : String(n[0]);
@@ -171,14 +223,18 @@ export async function runBottleFollowUp(
   if (tips.length && !dependencies.checkAnyway) { send({ type: "coaching", tips }); return null; }
   const plan = planFollowUp(previous, segmented);
   const read = plan.mode === "fresh" ? segmented.crops.map((_, i) => i) : plan.reread;
-  await reserveRemaining(read.length);
-  const budget = readingBudget(read.length, reserveRemaining);
+  // A fresh full check reads piles too; a targeted re-read leaves touching pills circled (never green).
+  const planned = read.length + (plan.mode === "fresh" ? PILE_READ_UNITS * pilesToRead(segmented.clumps).length : 0);
+  await reserveRemaining(planned);
+  const budget = readingBudget(planned, reserveRemaining);
   const resolved = await resolveLabelData(previous.label);
   let pills = await readAndCheck(previous.label, segmented, read, plan.mode === "fresh" ? new Map() : plan.reused, resolved, send, dependencies, onUsage, budget, plan.mode === "reread", plan.mode === "reread" ? plan.prior : new Map());
+  let clumps = segmented.clumps;
+  if (plan.mode === "fresh") { const piled = await readPiles(bottleImage, previous.label, segmented, pills.length, resolved, dependencies, onUsage, budget); pills = annotatePills([...pills, ...piled.pills]); clumps = piled.clumps; }
   const unresolvedRegions = plan.mode === "reread" ? plan.unresolvedRegions : (previous.unresolvedRegions ?? 0) + (previous.clumps?.length ?? 0);
   // Geometry is enough to guide a flip, never to certify a new green bottle. Read all carried pills before green.
   const carriedIndices = pills.flatMap((p, i) => p.carried ? [i] : []);
-  if (carriedIndices.length && !unresolvedRegions && !segmented.clumps.length && pills.filter(p => !p.carried).every(p => p.result.verdict === "MATCH" || p.result.verdict === "SAME_MEDICINE_DIFFERENT_MAKER")) {
+  if (carriedIndices.length && !unresolvedRegions && !clumps.length && pills.filter(p => !p.carried).every(p => p.result.verdict === "MATCH" || p.result.verdict === "SAME_MEDICINE_DIFFERENT_MAKER")) {
     budget.planned += carriedIndices.length;
     await budget.reserve(budget.planned + budget.extras);
     const kept = new Map(pills.flatMap((p, i) => p.carried ? [] : [[i, p] as [number, BottlePill]]));
@@ -186,10 +242,10 @@ export async function runBottleFollowUp(
     pills = annotatePills(verified.map((p, i) => kept.get(i) ?? { ...p, reread: true }));
     read.push(...carriedIndices);
   }
-  pills = applyConsensus(pills, segmented.clumps, unresolvedRegions);
+  pills = applyConsensus(pills, clumps, unresolvedRegions);
   const reread = [...new Set(read)].sort((a, b) => a - b).map((i) => i + 1), reused = segmented.boxes.length - reread.length;
   const note = plan.mode === "fresh" ? plan.reason
     : !reread.length ? `No new readings were made. All ${reused} earlier readings remain unconfirmed in this photo.`
     : `We read ${reread.length === 1 ? "pill" : "pills"} ${listNumbers(reread)} again and kept the other ${reused} ${reused === 1 ? "reading" : "readings"} as unconfirmed history from your first photo.`;
-  return { kind: "bottle", label: previous.label, pills, clumps: segmented.clumps, decision: unresolvedRegions && decideBottle(pills, segmented.clumps).verdict !== "MISMATCH" ? { ...decideBottle(pills, segmented.clumps), verdict: "UNSURE", title: "A circled region from an earlier photo is still unaccounted for.", instruction: "We cannot finish this bottle check. Put every pill back in view and start a new check.", asks: [], next: undefined } : decideBottle(pills, segmented.clumps), unresolvedRegions, image: segmented.image, checkedAt: new Date().toISOString(), elapsedMs: Math.round(performance.now() - started), usage, followUp: { mode: plan.mode, reread, reused, note } };
+  return { kind: "bottle", label: previous.label, pills, clumps: clumps, decision: unresolvedRegions && decideBottle(pills, clumps).verdict !== "MISMATCH" ? { ...decideBottle(pills, clumps), verdict: "UNSURE", title: "A circled region from an earlier photo is still unaccounted for.", instruction: "We cannot finish this bottle check. Put every pill back in view and start a new check.", asks: [], next: undefined } : decideBottle(pills, clumps), unresolvedRegions, image: segmented.image, checkedAt: new Date().toISOString(), elapsedMs: Math.round(performance.now() - started), usage, followUp: { mode: plan.mode, reread, reused, note } };
 }

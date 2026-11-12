@@ -15,7 +15,8 @@
     "research:dev": "node --import tsx scripts/diagnose-dev.ts",
     "bottle:composites": "tsx scripts/build-bottle-composites.ts",
     "smoke:bottle": "node --env-file-if-exists=.env.local --import tsx scripts/smoke-bottle.ts",
-    "check:flip": "node --env-file-if-exists=.env.local --import tsx scripts/check-real-flip.ts"
+    "check:flip": "node --env-file-if-exists=.env.local --import tsx scripts/check-real-flip.ts",
+    "smoke:piles": "node --env-file-if-exists=.env.local --import tsx scripts/check-phase11c.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^1.7.0",

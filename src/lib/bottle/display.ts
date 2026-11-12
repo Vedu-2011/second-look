@@ -1,5 +1,5 @@
 // Presentation only. None of these states participate in verdicts, quota or follow-up planning.
-import type { BottlePill, BottleResult } from './types';
+import type { BottleClump, BottlePill, BottleResult } from './types';
 export type BottleDisplayState = 'match' | 'matchedEarlier' | 'mismatch' | 'faceDown' | 'odd' | 'unsure' | 'looksLike';
 export function bottleDisplayState(p: BottlePill): BottleDisplayState {
   if (p.carried) return p.previousVerdict === 'MATCH' || p.previousVerdict === 'SAME_MEDICINE_DIFFERENT_MAKER' ? 'matchedEarlier' : 'unsure';
@@ -39,4 +39,32 @@ export function followUpDisplayNote(result: BottleResult) {
   if (!f.reread.length) return 'These readings are from your first photo. We did not read them again.';
   const read = f.reread.length === result.pills.length ? `We read all ${f.reread.length} pills again.` : `We read ${f.reread.length === 1 ? 'pill' : 'pills'} ${numbers(f.reread)} again.`;
   return `${read}${f.reused ? ` The other ${f.reused} ${f.reused === 1 ? 'is' : 'are'} from your first photo.` : ''}`;
+}
+
+const confirmedNow = (p: BottlePill) => !p.carried && ['MATCH', 'SAME_MEDICINE_DIFFERENT_MAKER'].includes(p.result.verdict);
+export const isRedMode = (pills: readonly BottlePill[]) => pills.some(p => !p.carried && p.result.verdict === 'MISMATCH');
+/** Red mode: the screen is about the wrong pill. Other pins dim; a confirmed match keeps its ✓. */
+export type MarkerState = BottleDisplayState | 'dimMatch' | 'dim';
+export function markerState(p: BottlePill, red: boolean): MarkerState {
+  const s = bottleDisplayState(p);
+  if (!red || s === 'mismatch') return s;
+  return confirmedNow(p) ? 'dimMatch' : 'dim';
+}
+export const MARKER_SYMBOL: Record<MarkerState, string> = { ...BOTTLE_SYMBOL, dimMatch: '✓', dim: '' };
+/** "The other 9 pills: 7 match, 2 not fully checked — it doesn't matter now, this bottle has a wrong pill." */
+export function otherPillsLine(pills: readonly BottlePill[]) {
+  const others = pills.filter(p => !(p.result.verdict === 'MISMATCH' && !p.carried));
+  if (!others.length) return null;
+  const match = others.filter(confirmedNow).length, rest = others.length - match;
+  const parts = [match ? `${match} match` : '', rest ? `${rest} not fully checked` : ''].filter(Boolean).join(', ');
+  return `The other ${others.length} ${others.length === 1 ? 'pill' : 'pills'}: ${parts} — it doesn't matter now, this bottle has a wrong pill.`;
+}
+/** Every mark that appears on screen, in a fixed order, including the dashed "Not read" circle. */
+export function bottleLegend(pills: readonly BottlePill[], clumps: readonly BottleClump[], red: boolean) {
+  const order: MarkerState[] = red ? ['mismatch', 'dimMatch', 'dim'] : ['match', 'mismatch', 'unsure', 'odd', 'faceDown', 'matchedEarlier', 'looksLike'];
+  const words: Record<MarkerState, string> = { ...BOTTLE_LEGEND, dimMatch: 'Matches', dim: 'Not fully checked' };
+  const present = new Set(pills.map(p => markerState(p, red)));
+  const items: { key: MarkerState | 'notRead'; symbol: string; label: string }[] = order.filter(s => present.has(s)).map(s => ({ key: s, symbol: MARKER_SYMBOL[s], label: words[s] }));
+  if (clumps.some(c => !c.pile && !c.minor)) items.push({ key: 'notRead', symbol: '◌', label: 'Not read' });
+  return items;
 }

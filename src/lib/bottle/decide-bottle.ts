@@ -3,6 +3,7 @@ import { tokenizeImprint } from "@/lib/match/imprint";
 import { compareShapes, normalizeShape, shapeFromCode } from "@/lib/match/shape";
 import { COLOR_MIN_CONFIDENCE, SHAPE_MIN_CONFIDENCE, IMPRINT_MIN_CONFIDENCE } from "@/lib/verdict-engine";
 import { describeDifferences, differencesFrom, FLOORS, oddOnesOut, referenceOf, toleranceOf } from "./lookalike";
+import { PILE_COUNT_MIN_CONFIDENCE } from "./pile";
 import type { BottleClump, BottleDecision, BottlePill } from "./types";
 
 /** Never ask anyone to flip more than this many pills; past it, a fresh pour is easier. */
@@ -44,9 +45,13 @@ const blankFace = ({ result }: BottlePill) =>
  * a blank face. A face-down pill must also look like the imprint-confirmed pills in this photo. It is never confirmed.
  */
 export function annotatePills(pills: readonly BottlePill[]): BottlePill[] {
-  const out = pills.map(requireBottleEvidence).map((p) => { const { odd: _odd, faceDown: _faceDown, ...rest } = p; void _odd; void _faceDown; return { ...rest } as BottlePill; });
+  const out = pills.map(requireBottleEvidence).map((p) => { const { odd: _odd, faceDown: _faceDown, shapeNote: _shapeNote, ...rest } = p; void _odd; void _faceDown; void _shapeNote; return { ...rest } as BottlePill; });
   const groups = oddOnesOut(out.map((p) => p.features));
-  if (groups) for (const [i, kinds] of groups.odd) out[i].odd = describeDifferences(kinds);
+  // A 2-D outline of a tilted, shiny capsule is unreliable: shape alone never flags a pill whose imprint is confirmed.
+  if (groups) for (const [i, kinds] of groups.odd) {
+    if (kinds.length === 1 && kinds[0] === "shape" && isConfirmed(out[i])) out[i].shapeNote = true;
+    else out[i].odd = describeDifferences(kinds);
+  }
   const confirmed = out.filter((p) => isConfirmed(p) && p.features && !p.odd);
   if (confirmed.length) {
     const all = out.flatMap((p) => (p.features ? [p.features] : []));
@@ -63,11 +68,25 @@ function nudgeText(clumps: readonly BottleClump[], joined: boolean) {
   const touching = clumps.some((c) => c.kind === "touching"), cutoff = clumps.some((c) => c.kind === "cutoff");
   if (touching && cutoff) return `${joined ? "n" : "N"}udge the circled pills apart and away from the edge`;
   if (touching) return joined ? "nudge the circled pills apart" : "Some pills are touching. Nudge the circled ones apart";
+  if (clumps.every((c) => c.minor)) return joined ? "keep everything away from the edge" : "Something at the edge of the photo wasn't checked. Keep everything away from the edge";
   return joined ? "move the circled pill into the middle" : "A pill is cut off at the edge. Move the circled one into the middle";
 }
 
-export function decideBottle(pills: readonly BottlePill[], clumps: readonly BottleClump[] = []): BottleDecision {
+/** Rough pill count for a region we couldn't read: its area over a typical pill's box. "About", never exact. */
+function regionEstimate(c: BottleClump, pills: readonly BottlePill[]) {
+  if (c.pile) return Math.max(0, c.pile.count - c.pile.read);
+  if (c.minor) return 0;
+  if (c.kind === "cutoff") return 1;
+  const areas = pills.filter((p) => !p.fromPile).map((p) => p.box.width * p.box.height).sort((a, b) => a - b);
+  const typical = areas[Math.floor(areas.length / 2)];
+  return typical ? Math.max(2, Math.round((c.box.width * c.box.height) / typical)) : 2;
+}
+const pileHidden = (c: BottleClump) => Boolean(c.pile && (c.pile.mayBeHidden || c.pile.countConfidence < PILE_COUNT_MIN_CONFIDENCE || c.pile.count > c.pile.read));
+
+export function decideBottle(pills: readonly BottlePill[], allClumps: readonly BottleClump[] = []): BottleDecision {
   pills = pills.map(requireBottleEvidence);
+  // Piles we read became numbered pills; only regions nobody read stay circled ("Not read").
+  const piles = allClumps.filter((c) => c.pile), clumps = allClumps.filter((c) => !c.pile);
   const mismatches = pills.filter((p) => p.result.verdict === "MISMATCH");
   const warnings = pills.filter((p) => appearanceWarning(p));
   const odd = pills.filter((p) => p.odd && p.result.verdict !== "MISMATCH");
@@ -106,10 +125,20 @@ export function decideBottle(pills: readonly BottlePill[], clumps: readonly Bott
     return { ...base, verdict: "WARNING", title: `Pill ${first.number} looks different from your label's medicine.`, instruction: `${appearanceWarning(first)}. Don't take it; check with your pharmacist. We couldn't confirm its identity.`, asks, next };
   }
   if (!pills.length) return { ...base, verdict: "UNSURE", title: "We couldn't check any pills yet.", instruction: `${nudgeText(clumps, false)} and snap again.`, asks, next };
-  if (pills.length && matched === pills.length && !clumps.length)
+  // Unread regions and possibly hidden pills: lead with what we couldn't read, never with "1 pill matches".
+  const unsure = pills.filter((p) => p.result.verdict === "UNSURE").length;
+  const regionUnread = allClumps.reduce((n, c) => n + regionEstimate(c, pills), 0);
+  const total = pills.length + regionUnread;
+  if (piles.some(pileHidden)) return { ...base, verdict: "UNSURE", title: `We could read ${matched} of about ${total} pills.`, instruction: "Some may be hidden under others — give the pile a shake and snap again.", asks: [], next: "pour_again" };
+  if (regionUnread && (unsure + regionUnread) * 2 > total) return { ...base, verdict: "UNSURE", title: `We could read ${matched} of about ${total} pills.`, instruction: clumps.some((c) => c.kind === "touching") ? "Some are touching and we couldn't read them — give them a shake and snap again." : `${nudgeText(clumps, false)} and snap again.`, asks: [], next: "pour_again" };
+  if (piles.length && !clumps.length && pills.length && matched === pills.length) {
+    const inPile = piles.reduce((n, c) => n + c.pile!.read, 0);
+    return { ...base, verdict: "LOOKS_RIGHT", title: `The ${pills.length} ${pillsWord(pills.length)} we read match your label.`, instruction: `Some pills were touching. We read ${inPile} in the pile; a pill hidden under another can't be seen. Ask your pharmacist if anything looks off.`, asks: [], next: undefined };
+  }
+  if (pills.length && matched === pills.length && !clumps.length && !piles.length)
     return { ...base, verdict: "MATCH", title: `All ${pills.length} ${pillsWord(pills.length)} we found match your label.`, instruction: "Check that every pill in your photo has a number. We only checked the pills we found." };
   const inferred = pills.filter(p => p.consensus && !p.carried && p.result.verdict === "UNSURE");
-  if (!clumps.length && !odd.length && !warnings.length && inferred.length && matched >= 2 && matched + inferred.length === pills.length) {
+  if (!allClumps.length && !odd.length && !warnings.length && inferred.length && matched >= 2 && matched + inferred.length === pills.length) {
     const label = pills[0].result.label.drugName || "label's medicine";
     return { ...base, verdict: "LOOKS_RIGHT", title: `These pills look like your ${label.toLowerCase()}.`, instruction: `We read the print on ${matched} of ${pills.length}. The other ${inferred.length} look the same as those. Ask your pharmacist if anything looks off.`, asks: [], next: undefined };
   }

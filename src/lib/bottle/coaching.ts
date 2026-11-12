@@ -7,6 +7,6 @@ export function captureCoaching(segmented: Pick<SegmentedBottle, 'image' | 'feat
   const median = sizes[Math.floor(sizes.length / 2)] ?? Infinity;
   const tips: string[] = [];
   if (median / workingLongEdge < MIN_PILL_FRAME_FRACTION) tips.push('Move closer — the pills should fill most of the photo.');
-  if (segmented.clumps.length >= 2) tips.push('Spread them out so none touch.');
+  // Phase 11c: no "spread them out" pre-check. People pour piles; the pile reader handles touching pills.
   return tips;
 }
