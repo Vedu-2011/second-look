@@ -1,0 +1,26 @@
+{
+  "status": "root cause reproduced without paid calls",
+  "productionIncidentWindowUtc": [
+    "2026-11-12T13:40:00Z",
+    "2026-11-12T13:46:59Z"
+  ],
+  "attemptedAroundUtc": "2026-11-12T15:21:00Z",
+  "historicalLogs": "exact window HTTP400; broader 3h/24h queries empty",
+  "verifiedTeamPlan": "hobby",
+  "runtimeRetention": "1 hour",
+  "documentation": "https://vercel.com/docs/logs/runtime",
+  "reproducer": {
+    "baseline": "18231c8",
+    "separatePills": 11,
+    "pileReads": 3,
+    "readerEquivalents": 26,
+    "checkUnits": 6,
+    "incrementAfterInitialUnit": 5,
+    "oldGuardMaximumIncrement": 4,
+    "exception": "Error: Invalid check reservation",
+    "oldUserMessage": "Something went wrong looking up FDA records. Please try again.",
+    "postFix": "result event, label resolved once, all11 mocked singles+3 mocked group calls completed"
+  },
+  "limitation": "Cannot prove this exact historical incident had the same exception: old catch did not log it and retention expired.",
+  "paidAiSpendUsd": 0
+}

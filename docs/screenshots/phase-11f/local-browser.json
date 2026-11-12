@@ -1,0 +1,18 @@
+{
+  "base": "http://localhost:3001",
+  "scope": "Actual local API, empty AI key and DAILY_CHECK_CAP=0: no generation can run.",
+  "reports": [
+    {
+      "width": 375,
+      "far": "actual free coaching",
+      "close": "passed coaching; intentional zero-paid-quota fuse returned429",
+      "errors": []
+    },
+    {
+      "width": 1440,
+      "far": "actual free coaching",
+      "close": "passed coaching; intentional zero-paid-quota fuse returned429",
+      "errors": []
+    }
+  ]
+}

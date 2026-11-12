@@ -1,0 +1,312 @@
+{
+  "scope": "Free functional coaching audit. No AI, drug-identification accuracy or threshold tuning on real photos.",
+  "frozenCommit": "7108417632ce78ef24ea72ff09138a571c3de4c8",
+  "rules": {
+    "maxObjectLength": 0.04,
+    "maxForegroundShare": 0.015,
+    "maxFrameSpan": 0.65,
+    "minRelativeArea": 0.3,
+    "minWorkingLength": 12,
+    "minWorkingArea": 64
+  },
+  "synthetic": [
+    {
+      "name": "far",
+      "pills": 6,
+      "regions": 0,
+      "tips": [
+        "Move closer — the pills should fill most of the photo."
+      ],
+      "facts": {
+        "objects": 6,
+        "ignored": 0,
+        "largestLengths": [
+          0.020032867729653344,
+          0.020032867729653344,
+          0.020032867729653344
+        ],
+        "foregroundShare": 0.0015199999999999999,
+        "frameSpan": 0.17666666666666664,
+        "moveCloser": true
+      }
+    },
+    {
+      "name": "close",
+      "pills": 9,
+      "regions": 0,
+      "tips": [],
+      "facts": {
+        "objects": 9,
+        "ignored": 0,
+        "largestLengths": [
+          0.09991170238133967,
+          0.09991170238133967,
+          0.09991170238133967
+        ],
+        "foregroundShare": 0.045262500000000004,
+        "frameSpan": 0.7333333333333334,
+        "moveCloser": false
+      }
+    },
+    {
+      "name": "close-pile",
+      "pills": 8,
+      "regions": 2,
+      "tips": [],
+      "facts": {
+        "objects": 2,
+        "ignored": 8,
+        "largestLengths": [
+          0.2990401310861136,
+          0.2990401310861136
+        ],
+        "foregroundShare": 0.07056000000000001,
+        "frameSpan": 0.5716666666666668,
+        "moveCloser": false
+      }
+    }
+  ],
+  "real": [
+    {
+      "name": "bottle/label.jpg",
+      "sha256": "82ac51a41985d45baf52cda355ce1ddb47f0081b238607f8424987fc51f87a91",
+      "status": "retake-before-coaching",
+      "code": "too_many",
+      "message": "We found 28 objects, more than the 20-pill limit. Use a plain surface in a different color from the pills. Spread them apart, keep every pill inside the frame, and photograph at most 20 at a time."
+    },
+    {
+      "name": "bottle/pills-flipped.jpg",
+      "sha256": "6c32b3f14ede5aa9181534d83be24de6757fc717124927cbb5ad426ff0a42013",
+      "status": "segmented",
+      "pills": 10,
+      "regions": 0,
+      "tips": [],
+      "facts": {
+        "objects": 10,
+        "ignored": 0,
+        "largestLengths": [
+          0.1308840961082564,
+          0.12819849022004712,
+          0.12790829666962317
+        ],
+        "foregroundShare": 0.08932592592592593,
+        "frameSpan": 0.5302579365079366,
+        "moveCloser": false
+      }
+    },
+    {
+      "name": "bottle/pills.jpg",
+      "sha256": "b0aa66f2e5054f4ebe490434536988ea331f8d1eebb99e4f806fe3df3667b9fd",
+      "status": "segmented",
+      "pills": 10,
+      "regions": 0,
+      "tips": [],
+      "facts": {
+        "objects": 10,
+        "ignored": 0,
+        "largestLengths": [
+          0.1605011859580483,
+          0.15486119019056221,
+          0.1547100535641036
+        ],
+        "foregroundShare": 0.1333574074074074,
+        "frameSpan": 0.6264880952380952,
+        "moveCloser": false
+      }
+    },
+    {
+      "name": "different-maker/label.jpg",
+      "sha256": "e31392936a31ff881c7e64108e6d0d044e3bf7fd627a02fe13bbed7fcefb24f6",
+      "status": "retake-before-coaching",
+      "code": "too_many",
+      "message": "We found 42 objects, more than the 20-pill limit. Use a plain surface in a different color from the pills. Spread them apart, keep every pill inside the frame, and photograph at most 20 at a time."
+    },
+    {
+      "name": "different-maker/pill.jpg",
+      "sha256": "29ac8cdcf83fca42e8e27273ef2f958eb327a951e83e49d23402494821b55138",
+      "status": "segmented",
+      "pills": 0,
+      "regions": 2,
+      "tips": [],
+      "facts": {
+        "objects": 2,
+        "ignored": 0,
+        "largestLengths": [
+          0.2528910726707417,
+          0.07165727550573643
+        ],
+        "foregroundShare": 0.038826950533299744,
+        "frameSpan": 0.5753968253968254,
+        "moveCloser": false
+      }
+    },
+    {
+      "name": "extra/bottle-93-upside-down.jpg",
+      "sha256": "9fdfb10a7eb7d3b244078cf2eb422a4a7a1f0688e5ba2066377f44d050212dc3",
+      "status": "segmented",
+      "pills": 10,
+      "regions": 0,
+      "tips": [],
+      "facts": {
+        "objects": 10,
+        "ignored": 0,
+        "largestLengths": [
+          0.14377123274096693,
+          0.14335061140722305,
+          0.1420620359936013
+        ],
+        "foregroundShare": 0.11130740740740741,
+        "frameSpan": 0.5674603174603174,
+        "moveCloser": false
+      }
+    },
+    {
+      "name": "extra/labels-sheet-photo.jpg",
+      "sha256": "82c18c07aaca3a4ec7e55f87e4733084e019092e0a485eafd5a3c02cd8bcab09",
+      "status": "segmented",
+      "pills": 20,
+      "regions": 53,
+      "tips": [],
+      "facts": {
+        "objects": 17,
+        "ignored": 56,
+        "largestLengths": [
+          1.004987562112089,
+          0.0897663464880105,
+          0.06743132437483669
+        ],
+        "foregroundShare": 0.20891251929012347,
+        "frameSpan": 1,
+        "moveCloser": false
+      }
+    },
+    {
+      "name": "extra/three-pills-close.jpg",
+      "sha256": "ccbbd24794f0a4f3ae5e3df604eae80fd5a0856f069f3f2da7a1050bc97e997c",
+      "status": "segmented",
+      "pills": 3,
+      "regions": 0,
+      "tips": [],
+      "facts": {
+        "objects": 3,
+        "ignored": 0,
+        "largestLengths": [
+          0.16761542844984284,
+          0.1619938869300502,
+          0.16129596289653195
+        ],
+        "foregroundShare": 0.042743518518518514,
+        "frameSpan": 0.44642857142857145,
+        "moveCloser": false
+      }
+    },
+    {
+      "name": "extra/tylenol-close.jpg",
+      "sha256": "17c1b2e381909ffa3e1cb55b67893289a9170b37a173d844dc9a3c6a2753e6d4",
+      "status": "segmented",
+      "pills": 1,
+      "regions": 1,
+      "tips": [],
+      "facts": {
+        "objects": 2,
+        "ignored": 0,
+        "largestLengths": [
+          0.16171623910744304,
+          0.11842218808477237
+        ],
+        "foregroundShare": 0.02013094188292601,
+        "frameSpan": 0.5952380952380952,
+        "moveCloser": false
+      }
+    },
+    {
+      "name": "extra/user-test-ibuprofen-tylenol.jpg",
+      "sha256": "1865d8c99b43fd49efabf12b47e58be14dc662b876b74dccfebd5589e3a6562b",
+      "status": "segmented",
+      "pills": 6,
+      "regions": 4,
+      "tips": [],
+      "facts": {
+        "objects": 9,
+        "ignored": 1,
+        "largestLengths": [
+          0.20691719181676851,
+          0.14822139068412699,
+          0.14489052489320922
+        ],
+        "foregroundShare": 0.08487862549340724,
+        "frameSpan": 0.6066468253968254,
+        "moveCloser": false
+      }
+    },
+    {
+      "name": "match/label.jpg",
+      "sha256": "75d323d1b3b5a2fdf73194191acbbfc49d7bc32934f8d9d573e4bcdabfb70eec",
+      "status": "retake-before-coaching",
+      "code": "too_many",
+      "message": "We found 28 objects, more than the 20-pill limit. Use a plain surface in a different color from the pills. Spread them apart, keep every pill inside the frame, and photograph at most 20 at a time."
+    },
+    {
+      "name": "match/pill.jpg",
+      "sha256": "43d6873d6f4aeb3541097c72577ca2fed428223dcef2df6341310866c16cddbd",
+      "status": "segmented",
+      "pills": 1,
+      "regions": 0,
+      "tips": [],
+      "facts": {
+        "objects": 1,
+        "ignored": 0,
+        "largestLengths": [
+          0.13152067629929953
+        ],
+        "foregroundShare": 0.009960185185185185,
+        "frameSpan": 0.13442460317460317,
+        "moveCloser": false
+      }
+    },
+    {
+      "name": "mismatch/label.jpg",
+      "sha256": "18f7ba54aaefd2f6b8302b756294c8e9c694a702bee3eb10a70cc9f5d83d40f0",
+      "status": "retake-before-coaching",
+      "code": "too_many",
+      "message": "We found 38 objects, more than the 20-pill limit. Use a plain surface in a different color from the pills. Spread them apart, keep every pill inside the frame, and photograph at most 20 at a time."
+    },
+    {
+      "name": "mismatch/pill-back.jpg",
+      "sha256": "845a72b994733b22acb37c47b11cb757d904cf386f040768b4dca93821859c63",
+      "status": "segmented",
+      "pills": 1,
+      "regions": 0,
+      "tips": [],
+      "facts": {
+        "objects": 1,
+        "ignored": 0,
+        "largestLengths": [
+          0.16380205903577882
+        ],
+        "foregroundShare": 0.01451574074074074,
+        "frameSpan": 0.1810515873015873,
+        "moveCloser": false
+      }
+    },
+    {
+      "name": "mismatch/pill.jpg",
+      "sha256": "ac0e93b5d470179e83153d511c8f1f2789315580931682f9592491685fc56508",
+      "status": "segmented",
+      "pills": 1,
+      "regions": 0,
+      "tips": [],
+      "facts": {
+        "objects": 1,
+        "ignored": 0,
+        "largestLengths": [
+          0.16191017242303896
+        ],
+        "foregroundShare": 0.013991666666666666,
+        "frameSpan": 0.1795634920634921,
+        "moveCloser": false
+      }
+    }
+  ],
+  "falseMoveCloser": []
+}

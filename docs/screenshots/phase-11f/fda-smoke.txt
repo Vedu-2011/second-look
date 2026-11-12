@@ -1,0 +1,26 @@
+
+> second-look@0.1.0 smoke:fda
+> tsx scripts/smoke-fda.ts
+
+
+== cold ==
+PASS match            MATCH                           1833 ms  (label 821, drug 501, guess 0, dailymed 488)  compared 145  → Metformin hydrochloride 1000 mg · Granules Pharmaceuticals Inc. · NDC 70010-065
+     - The letters, color and shape match the FDA record for Metformin hydrochloride 1000 mg.
+     · FDA DailyMed: https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=2387a618-24d8-4813-aa83-9114edb35374 (published 2026-06-18)
+     · NLM RxNorm: https://mor.nlm.nih.gov/RxNav/search?searchBy=RXCUI&searchTerm=861004
+PASS different-maker  SAME_MEDICINE_DIFFERENT_MAKER   1305 ms  (label 259, drug 618, guess 0, dailymed 415)  compared 211  → Ibuprofen 200 mg · Safeway, Inc. · NDC 21130-699
+     - Your label lists Advil (ibuprofen 200 mg) sold by Haleon US Holdings LLC. Your pill matches another FDA-listed version: same medicine, same strength.
+     · FDA DailyMed: https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=1f01c10a-9434-91a4-2ee4-352315a6b610 (published 2026-07-31)
+     · FDA DailyMed: https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=57f06daf-690d-44a7-95a5-468732949750 (published 2026-08-20)
+     · NLM RxNorm: https://mor.nlm.nih.gov/RxNav/search?searchBy=RXCUI&searchTerm=310964
+PASS mismatch         MISMATCH                         532 ms  (label 0, drug 0, guess 446, dailymed 85)  compared 145  → Amoxicillin 500 mg · Chartwell RX, LLC · NDC 62135-084
+     - No Metformin hydrochloride 1000 mg the FDA lists has "93 / 2263" on it. We checked 145 products from every maker.
+     - "93 / 2263" is listed for Amoxicillin 500 mg (FDA record).
+     · FDA DailyMed: https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=2387a618-24d8-4813-aa83-9114edb35374 (published 2026-06-18)
+     · FDA DailyMed: https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=b07b5ac4-253e-4c83-91c3-3fdc46e91a0f (published 2026-10-09)
+     · NLM RxNorm: https://mor.nlm.nih.gov/RxNav/search?searchBy=RXCUI&searchTerm=861004
+
+== warm ==
+PASS match            MATCH                              4 ms  (label 0, drug 0, guess 0, dailymed 0)  compared 145  → Metformin hydrochloride 1000 mg · Granules Pharmaceuticals Inc. · NDC 70010-065
+PASS different-maker  SAME_MEDICINE_DIFFERENT_MAKER      5 ms  (label 0, drug 0, guess 0, dailymed 0)  compared 211  → Ibuprofen 200 mg · Safeway, Inc. · NDC 21130-699
+PASS mismatch         MISMATCH                           2 ms  (label 0, drug 0, guess 1, dailymed 0)  compared 145  → Amoxicillin 500 mg · Chartwell RX, LLC · NDC 62135-084
