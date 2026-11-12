@@ -292,3 +292,20 @@ Repo: github.com/Vedu-2011/second-look — PUBLIC (DSH requires a public repo).
   couldn't…"); it never confirms a pill.
 - Real replay: the user-test pile pill "TB 200" → second read "IB 200" → UNSURE; Tylenol still red; metformin still
   red on "93". The earlier failed second read (metformin pill 1) worked on retry ("G 12" twice): a passing API error.
+
+## Decisions in phase 11e (Claude Code, Nov 12) — every mark sits ON its pill
+- Bug (Vedhanth's phone, Advil + Tylenol on wood): phase 11c's "pushed apart" pins could drift next to a different
+  pill (the red "5 ×" sat beside a dashed softgel) and gray dots floated in empty space. Pins are gone.
+- Each pill now gets a ring drawn ON it: a rotated rounded rectangle from the pill's own silhouette (segmenter
+  `outlines`: image-moment center, angle, length, width; detection unchanged) or, for pile pills and older saved
+  results, the capsule that fills its box. Colors: red = doesn't match (thick, soft red glow; nothing else is red),
+  soft green = matches, amber = looks different, gray = not fully checked, dashed orange = not read.
+- A small number chip (24/28 px) touches the ring on the side with the most open space. It is placed only where its
+  own pill is strictly the nearest pill, it covers no other pill, no unread region and no other chip; otherwise a
+  number-less dot on the ring, or nothing (the number stays in the list). Tested on the real metformin bottle, the
+  user-test pour, Vedhanth's stored 4 AM check (src/lib/bottle/fixtures/phase11e-real-marks.json) and 50 synthetic
+  crowded scenes, at phone and desktop widths, normal and red mode.
+- Red mode: only the wrong pill keeps its chip; other rings are dimmed, no chips.
+- Pile pills whose box can't be trusted (the reader's box missed its own center, > 3× a separate pill's box, or mostly
+  on top of another pill's box) get no mark at all; the summary says how many weren't marked.
+- Tapping a ring (the labelled button) or its chip opens that pill's row. The share page draws the same shapes.

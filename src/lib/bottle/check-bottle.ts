@@ -122,7 +122,7 @@ async function readAndCheck(label: LabelReading, segmented: SegmentedBottle, rea
       : await runResolvedCheck(label, combined ?? unreadablePill(), resolved);
     // A reverse view cannot erase an already confident mismatch (including an unreadable/conflicting reverse).
     if (before?.result.verdict === "MISMATCH" && result.verdict !== "MISMATCH") result = { ...result, verdict: "MISMATCH", identifiedAs: null, reasons: [...result.reasons, "The first view already showed an imprint that does not match your label. That mismatch still stands."] };
-    const pill: BottlePill = { number: i + 1, box, result, features: segmented.features[i], ...(reading && followUp ? { reread: true } : {}), ...(kept && !reading ? { carried: true, previousVerdict: kept.previousVerdict ?? kept.result.verdict } : {}) };
+    const pill: BottlePill = { number: i + 1, box, result, features: segmented.features[i], ...(segmented.outlines?.[i] ? { outline: segmented.outlines[i] } : {}), ...(reading && followUp ? { reread: true } : {}), ...(kept && !reading ? { carried: true, previousVerdict: kept.previousVerdict ?? kept.result.verdict } : {}) };
     const checked = withDoubleRead(pill, doubleReads.get(i));
     // A mismatch carried from the first photo stands; only a fresh reading gets the near-miss second opinion.
     return reading && before?.result.verdict !== "MISMATCH" ? confirmNearMiss(checked, async () => segmented.crops[i], dependencies.readPill ?? readPill, budget, onUsage) : checked;
@@ -227,7 +227,7 @@ async function readPiles(photo: Buffer, label: LabelReading, segmented: Segmente
       if (second) { reading = second.reading; doubleRead = second.evidence; }
     }
     const result = await runResolvedCheck(label, reading, resolved);
-    const pill = withDoubleRead({ number: firstNumber + k + 1, box: p.box, result, fromPile: true }, doubleRead);
+    const pill = withDoubleRead({ number: firstNumber + k + 1, box: p.box, result, fromPile: true, ...(p.guessed ? { boxGuessed: true } : {}) }, doubleRead);
     return confirmNearMiss(pill, async () => Buffer.from((await pileCrop(photo, p.box)).base64, "base64"), single, budget, onUsage);
   });
   return { pills, clumps };

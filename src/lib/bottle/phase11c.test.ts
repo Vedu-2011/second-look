@@ -4,7 +4,6 @@ import { SAMPLE_RESULTS } from "@/lib/sample-results";
 import type { AiPillGroupReading } from "@/lib/ai/schemas";
 import { annotatePills, decideBottle } from "./decide-bottle";
 import { bottleLegend, markerState, otherPillsLine } from "./display";
-import { layoutPins } from "./overlay";
 import { PARTLY_HIDDEN_CONFIDENCE_CAP, pileCropBox, pilePills, pilesToRead, MAX_PILES } from "./pile";
 import type { BottleClump, BottlePill, PillFeatures } from "./types";
 
@@ -75,14 +74,7 @@ describe("3. any region nobody read blocks green and Looks right", () => {
   });
 });
 
-describe("5. pins never overlap each other or cover a pill", () => {
-  it("spreads pins for a tight row of pills", () => {
-    const boxes = Array.from({ length: 10 }, (_, i) => ({ x: 0.1 + i * 0.07, y: 0.45, width: 0.06, height: 0.08 }));
-    const pins = layoutPins(boxes, { width: 375, height: 500 }, 28);
-    for (let i = 0; i < pins.length; i++) for (let j = i + 1; j < pins.length; j++) expect(Math.hypot((pins[i].x - pins[j].x) * 375, (pins[i].y - pins[j].y) * 500)).toBeGreaterThanOrEqual(28);
-    for (const p of pins) for (const b of boxes) expect(p.x * 375 > b.x * 375 - 14 && p.x * 375 < (b.x + b.width) * 375 + 14 && p.y * 500 > b.y * 500 - 14 && p.y * 500 < (b.y + b.height) * 500 + 14).toBe(false);
-  });
-});
+// 5. Pins were replaced by rings ON the pill in phase 11e: see phase11e.test.ts.
 
 describe("6. red mode is about the wrong pill only", () => {
   it("other pills dim, and one line sums them up", () => {

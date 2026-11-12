@@ -4,6 +4,11 @@ import type { LabelReading } from "@/lib/verdict-engine";
 /** Fractions of the EXIF-oriented original; independent of display size. */
 export type NormalizedBox = { x: number; y: number; width: number; height: number };
 /** Measured from the pill's silhouette (no AI). Lengths are working-image pixels; compare pills only within a photo. */
+/**
+ * Where the pill itself is, for drawing a ring ON it: center (fractions of the photo), long-axis angle (radians,
+ * y down) and length/width as fractions of the photo's WIDTH (the overlay keeps the photo's aspect ratio).
+ */
+export type PillOutline = { cx: number; cy: number; angle: number; length: number; width: number };
 export type PillFeatures = { length: number; width: number; aspect: number; area: number; relativeArea: number; lab: [number, number, number] };
 /** Something we circle but don't read: pills touching each other, or a pill cut off at the photo's edge. */
 export type BottleClump = {
@@ -18,6 +23,10 @@ export type BottlePile = { read: number; count: number; countConfidence: number;
 export type BottlePill = {
   number: number; box: NormalizedBox; result: CheckResult; appearanceWarning?: string;
   features?: PillFeatures;
+  /** The pill's own measured silhouette (separate pills only). Older results don't have it. */
+  outline?: PillOutline;
+  /** Pile pills: the group reader's box couldn't be trusted, so we don't draw a mark on a guessed spot. */
+  boxGuessed?: boolean;
   /** Unlike the main group in this photo, e.g. "a different shape and size". */
   odd?: string;
   /** Blank face up, label medicine has writing, and it looks like the imprint-confirmed pills. Not confirmed. */

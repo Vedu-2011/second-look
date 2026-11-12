@@ -1,5 +1,5 @@
 import sharp from "sharp";
-import type { BottleClump, NormalizedBox, PillFeatures } from "./types";
+import type { BottleClump, NormalizedBox, PillFeatures, PillOutline } from "./types";
 
 export const MAX_BOTTLE_PILLS = 20;
 /** Edge cutoff shown as a note: under this share of a typical pill's area, and this many L* units darker than every pill. */
@@ -15,6 +15,8 @@ export type SegmentedBottle = {
   boxes: NormalizedBox[];
   /** Measured from each pill's silhouette in the photo (no AI); same order as boxes. */
   features: PillFeatures[];
+  /** Each pill's own silhouette as a rotated outline, for drawing its ring; same order as boxes. */
+  outlines?: PillOutline[];
   /** Touching pills and pills cut off at the edge: circled, never read, never green. */
   clumps: BottleClump[];
   /** Request-local only. Never serialize or store this object. */
@@ -150,6 +152,15 @@ function localBackground(labs: Float32Array, w: number, h: number, threshold: (d
   }).out;
   return distances(smooth);
 }
+/** Center, long-axis angle and size of one silhouette (image moments), for drawing a ring on the pill itself. */
+function outlineOf(pixels: Int32Array, w: number, h: number): PillOutline {
+  let sx = 0, sy = 0, sxx = 0, syy = 0, sxy = 0;
+  for (let j = 0; j < pixels.length; j++) { const x = pixels[j] % w + 0.5, y = Math.floor(pixels[j] / w) + 0.5; sx += x; sy += y; sxx += x * x; syy += y * y; sxy += x * y; }
+  const c = pixels.length, mx = sx / c, my = sy / c, vxx = sxx / c - mx * mx, vyy = syy / c - my * my, vxy = sxy / c - mx * my;
+  const spread = Math.sqrt(((vxx - vyy) / 2) ** 2 + vxy ** 2), major = (vxx + vyy) / 2 + spread, minor = Math.max(0.25, (vxx + vyy) / 2 - spread);
+  const r = (v: number) => Math.round(v * 1e4) / 1e4;
+  return { cx: r(mx / w), cy: r(my / h), angle: r(Math.atan2(2 * vxy, vxx - vyy) / 2), length: r(4 * Math.sqrt(major) / w), width: r(4 * Math.sqrt(minor) / w) };
+}
 /** Size, shape and color of one silhouette, from its pixels only (no AI). Lengths are in working-image pixels. */
 function measure(pixels: Int32Array, w: number, labs: Float32Array, n: number): Omit<PillFeatures, "relativeArea"> {
   let sx = 0, sy = 0, sxx = 0, syy = 0, sxy = 0;
@@ -245,11 +256,12 @@ export async function segmentBottle(input: Buffer, options: { diagnostics?: (val
   // Stable row-major numbering. No shape/color assumptions influence which blobs are kept.
   pills.sort(rowMajor);
   const pillArea = median(pills.map((p) => p.area)) || typical;
-  const boxes: NormalizedBox[] = [], crops: Buffer[] = [], features: PillFeatures[] = [];
+  const boxes: NormalizedBox[] = [], crops: Buffer[] = [], features: PillFeatures[] = [], outlines: PillOutline[] = [];
   for (const p of pills) {
     const { region, box } = toBox(p, w, h, image);
     boxes.push(box);
     features.push({ ...measure(p.pixels, w, labs, n), relativeArea: p.area / pillArea });
+    outlines.push(outlineOf(p.pixels, w, h));
     crops.push(await sharp(original.data).extract(region).png().toBuffer());
   }
   // A cutoff that is small (mostly outside the photo) and much darker than every pill we found is shown as a note,
@@ -259,5 +271,5 @@ export async function segmentBottle(input: Buffer, options: { diagnostics?: (val
   const minor = (c: Component) => pills.length > 0 && c.area < pillArea * MINOR_CUTOFF_AREA && lightness(c) < darkestPill - MINOR_CUTOFF_DARKER;
   const clumps: BottleClump[] = [...touching.map((c) => ({ c, kind: "touching" as const })), ...cutoffs.map((c) => ({ c, kind: "cutoff" as const }))]
     .sort((a, b) => rowMajor(a.c, b.c)).map(({ c, kind }) => ({ kind, box: toBox(c, w, h, image).box, ...(kind === "cutoff" && minor(c) ? { minor: true } : {}) }));
-  return { image, boxes, features, clumps, crops };
+  return { image, boxes, features, outlines, clumps, crops };
 }

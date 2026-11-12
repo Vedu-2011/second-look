@@ -66,6 +66,8 @@ export async function saveBottleResult(value: import("./bottle/types").BottleRes
     ...(value.unresolvedRegions ? { unresolvedRegions: value.unresolvedRegions } : {}),
     pills: value.pills.map((p) => ({ number: p.number, box: safeBox(p.box), result: safeCheck(p.result), ...(p.appearanceWarning ? { appearanceWarning: p.appearanceWarning } : {}),
       // Silhouette numbers only (size, shape, average color): needed to match pills after "Flip and snap again".
+      ...(p.outline ? { outline: { cx: Number(p.outline.cx), cy: Number(p.outline.cy), angle: Number(p.outline.angle), length: Number(p.outline.length), width: Number(p.outline.width) } } : {}),
+      ...(p.boxGuessed ? { boxGuessed: true } : {}),
       ...(p.features ? { features: { length: p.features.length, width: p.features.width, aspect: p.features.aspect, area: p.features.area, relativeArea: p.features.relativeArea, lab: [p.features.lab[0], p.features.lab[1], p.features.lab[2]] as [number, number, number] } } : {}),
       ...(p.consensus ? { consensus: { confirmedNumbers: p.consensus.confirmedNumbers, partialConsistent: p.consensus.partialConsistent } } : {}),
       ...(p.doubleRead ? { doubleRead: { agreed: p.doubleRead.agreed, ...(p.doubleRead.partial ? { partial: true } : {}), ...(p.doubleRead.failed ? { failed: true } : {}), firstConfidence: p.doubleRead.firstConfidence, secondConfidence: p.doubleRead.secondConfidence, firstImprint: p.doubleRead.firstImprint, secondImprint: p.doubleRead.secondImprint } } : {}),

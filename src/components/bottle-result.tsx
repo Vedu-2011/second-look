@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { AlertTriangle, Check, EqualApproximately, HelpCircle, RotateCcw, X } from "lucide-react";
 import { Button, ButtonLink } from "@/components/button";
-import { layoutPins, pixelCrop } from "@/lib/bottle/overlay";
+import { layoutMarks, pixelCrop, RING_PAD, undrawable, type MarkShape } from "@/lib/bottle/overlay";
 import type { BottleDecision, BottlePill, BottleResult } from "@/lib/bottle/types";
 import { BOTTLE_SYMBOL as SYMBOL, BOTTLE_WORD, bottleDisplayState as state, bottleLegend, bottleSummary, followUpDisplayNote, isRedMode, MARKER_SYMBOL, markerState, mismatchLead, needsAttention, otherPillsLine, type MarkerState } from "@/lib/bottle/display";
 import { VERDICT_COPY } from "@/lib/verdict";
@@ -17,6 +17,10 @@ export const NEXT_ACTION: Record<NonNullable<BottleDecision["next"]>, string> = 
   pour_again: "Pour again and snap",
 };
 const TONE: Record<MarkerState, string> = { dimMatch: "bg-ink-soft/55 text-white", dim: "bg-[#a3a8b0]", mismatch: "bg-mismatch text-white", faceDown: "bg-ink text-white", odd: "bg-amber text-ink", unsure: "bg-ink-soft text-white", match: "bg-match text-white", looksLike: "border-2 border-match/45 bg-[#f2fbf4] text-match", matchedEarlier: "border-2 border-match/45 bg-[#f2fbf4] text-match" } as const;
+// Ring colors: red only for the wrong pill; soft green for matches; gray for not fully checked.
+const RING: Record<MarkerState, string> = { mismatch: "border-mismatch", match: "border-match/80", matchedEarlier: "border-match/80", looksLike: "border-match/80", odd: "border-amber", faceDown: "border-[#a3a8b0]", unsure: "border-[#a3a8b0]", dimMatch: "border-match/55", dim: "border-[#a3a8b0]/75" };
+/** A rotated rounded rectangle that follows the pill, grown by `grow` px on every side. */
+const capsule = (s: MarkShape, grow: number) => ({ left: s.cx, top: s.cy, width: s.length + 2 * grow, height: s.width + 2 * grow, transform: `translate(-50%, -50%) rotate(${s.angle}rad)` });
 const box = (b: { x: number; y: number; width: number; height: number }, grow = 0) => ({ left: `${(b.x - b.width * grow) * 100}%`, top: `${(b.y - b.height * grow) * 100}%`, width: `${b.width * (1 + 2 * grow) * 100}%`, height: `${b.height * (1 + 2 * grow) * 100}%` });
 const word = (p: BottlePill) => state(p) === "match" ? VERDICT_COPY[p.result.verdict].word : BOTTLE_WORD[state(p)];
 
@@ -52,8 +56,12 @@ export function BottleResultView({ result, photo, shareId, onRetake, onNext }: {
   const clumps = allClumps.filter(c => !c.pile && !c.minor), edgeNote = allClumps.some(c => c.minor), piled = result.pills.filter(p => p.fromPile).length;
   const red = isRedMode(result.pills);
   const size = measured && measured.width > 0 ? measured : { width: 375, height: 375 * result.image.height / result.image.width };
-  const pinPx = size.width < 560 ? 28 : 32;
-  const pins = useMemo(() => layoutPins(result.pills.map(p => p.box), size, pinPx), [result.pills, size.width, size.height, pinPx]); // eslint-disable-line react-hooks/exhaustive-deps
+  const chipPx = size.width < 560 ? 24 : 28;
+  // Pile pills on a box we can't trust get no mark at all: never draw on a guessed spot. They're counted below.
+  const hidden = useMemo(() => undrawable(result.pills), [result.pills]);
+  const marks = useMemo(() => layoutMarks(result.pills.map((p, i) => ({ box: p.box, outline: p.outline, draw: !hidden[i], chip: !red || markerState(p, red) === "mismatch" })), size, chipPx, clumps.map(c => c.box)),
+    [result.pills, hidden, red, size.width, size.height, chipPx, clumps]); // eslint-disable-line react-hooks/exhaustive-deps
+  const unmarked = hidden.filter(Boolean).length;
   const tone = decision.verdict === "LOOKS_RIGHT" ? "looksLike" : decision.verdict === "MATCH" ? "match" : decision.verdict === "MISMATCH" ? "mismatch" : decision.verdict === "WARNING" ? "warning" : decision.verdict === "FACE_DOWN" ? "calm" : "unsure";
   const Icon = tone === "looksLike" ? EqualApproximately : tone === "match" ? Check : tone === "mismatch" ? X : tone === "warning" ? AlertTriangle : tone === "calm" ? RotateCcw : HelpCircle;
   const attention = result.pills.filter(needsAttention).sort((a, b) => {
@@ -110,33 +118,37 @@ export function BottleResultView({ result, photo, shareId, onRetake, onNext }: {
       {nextLabel && onNext && <Button size="lg" className="mt-6 w-full text-lg sm:w-auto" variant={decision.verdict === "MISMATCH" ? "secondary" : "primary"} onClick={onNext}><RotateCcw aria-hidden />{nextLabel}</Button>}
       <p className="mt-5 text-lg text-ink-soft">This doesn&apos;t replace your pharmacist.</p>
     </section>
-    <p aria-label="Bottle summary" className="text-base font-semibold sm:text-lg">{bottleSummary(result.pills)}{piled ? ` · ${piled} read in a pile` : ""}{clumps.length ? ` · ${clumps.length} circled, not read` : ""}</p>
+    <p aria-label="Bottle summary" className="text-base font-semibold sm:text-lg">{bottleSummary(result.pills)}{piled ? ` · ${piled} read in a pile` : ""}{clumps.length ? ` · ${clumps.length} circled, not read` : ""}{unmarked ? ` · ${unmarked} in a pile not marked on the photo` : ""}</p>
     <section aria-label={photo ? "Your numbered pill photo" : "Pill positions from your photo"}>
-      {photo ? <><h2 className="text-2xl font-bold">Is every pill numbered?</h2><p id="bottle-photo-help" className="mt-2 text-lg text-ink-soft">Check that every pill has a number. {asks.size ? (red ? "Flip the ringed pill only if you want to identify it. " : "Flip the ringed pills. ") : ""}{clumps.length ? "Circled areas weren't read. " : ""}Tap a number or a pill for its reading.</p></>
-        : <p id="bottle-photo-help" className="text-lg text-ink-soft">Each dot is a pill, in the spot it was in your photo. We never save photos.</p>}
+      {photo ? <><h2 className="text-2xl font-bold">Is every pill numbered?</h2><p id="bottle-photo-help" className="mt-2 text-lg text-ink-soft">{red ? "The red ring is the pill that doesn't match. " : "Check that every pill has a ring. "}{asks.size ? (red ? `Flip pill ${[...asks].join(", ")} only if you want to identify it. ` : `Flip ${asks.size === 1 ? "pill" : "pills"} ${[...asks].join(", ")}. `) : ""}{clumps.length ? "Dashed areas weren't read. " : ""}Tap a pill for its reading.</p></>
+        : <p id="bottle-photo-help" className="text-lg text-ink-soft">Each shape is a pill, in the spot it was in your photo. We never save photos.</p>}
       <div ref={overlay} data-bottle-overlay className="relative mt-4 w-full overflow-hidden rounded-[var(--radius-photo)] bg-foil" style={{ aspectRatio: `${result.image.width} / ${result.image.height}` }} aria-describedby="bottle-photo-help">
-        {photo && <img src={photo} alt="Your photo of the pills, with a number beside each pill we found" className="absolute inset-0 h-full w-full" />}
-        {!photo && result.pills.map(p => <div key={`shape-${p.number}`} aria-hidden className={cn("pointer-events-none absolute rounded-full", red && markerState(p, red) !== "mismatch" ? "bg-ink/8" : "bg-ink/15")} style={box(p.box)} />)}
-        {clumps.map((c, i) => <div key={`clump-${i}`} role="img" aria-label={c.kind === "touching" ? "Circled: pills touching, not read" : "Circled: pill cut off at the edge, not read"} className="pointer-events-none absolute rounded-full border-[3px] border-dashed border-amber shadow-[0_0_0_3px_#fff8]" style={box(c.box, 0.12)} />)}
-        {result.pills.filter(p => asks.has(p.number)).map(p => <div key={`ring-${p.number}`} data-pill-ring={p.number} aria-hidden className="pointer-events-none absolute rounded-full shadow-[0_0_0_4px_var(--amber),0_0_0_7px_white]" style={box(p.box)} />)}
-        {/* The pill itself is a tap target too; the pin beside it is the labelled button. */}
-        {result.pills.map(p => <button key={`hit-${p.number}`} type="button" tabIndex={-1} aria-hidden onClick={() => selectPill(p.number)} className="absolute cursor-pointer rounded-full" style={box(p.box)} />)}
+        {photo && <img src={photo} alt="Your photo of the pills, with a ring on each pill we found" className="absolute inset-0 h-full w-full" />}
+        {!photo && result.pills.map((p, i) => marks[i].shape && <div key={`shape-${p.number}`} aria-hidden className={cn("pointer-events-none absolute rounded-full", red && markerState(p, red) !== "mismatch" ? "bg-ink/8" : "bg-ink/15")} style={capsule(marks[i].shape!, 0)} />)}
+        {clumps.map((c, i) => <div key={`clump-${i}`} role="img" aria-label={c.kind === "touching" ? "Dashed: pills touching, not read" : "Dashed: pill cut off at the edge, not read"} className="pointer-events-none absolute rounded-full border-[3px] border-dashed border-amber shadow-[0_0_0_2px_#fff8]" style={box(c.box, 0.08)} />)}
+        {/* The ring is ON the pill and is its button; tapping it opens the row. */}
         {result.pills.map((pill, i) => {
-          const m = markerState(pill, red), dim = m === "dim" || m === "dimMatch";
-          const px = dim ? (m === "dim" ? 14 : 18) : pinPx;
-          return <button key={pill.number} type="button" data-pill-number={pill.number} data-marker={m} onClick={() => selectPill(pill.number)} aria-label={`Pill ${pill.number}: ${word(pill)}${asks.has(pill.number) ? (red ? ", flip it to identify it" : ", flip this one") : ""}. See reading`}
-            style={{ left: `${pins[i].x * 100}%`, top: `${pins[i].y * 100}%`, width: px, height: px }}
-            className={cn("absolute grid -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full leading-none", dim ? "shadow-[0_0_0_2px_#fff9]" : "shadow-[0_0_0_2px_white,0_2px_6px_#0004]", TONE[m], selected === pill.number && "outline-2 outline-offset-2 outline-ink")}>
-            {m === "dim" ? null : m === "dimMatch" ? <span aria-hidden className="text-[11px] font-bold">✓</span>
-              : <span className={cn("font-mono font-bold tracking-tighter", pinPx < 30 ? "text-[11px]" : "text-[13px]")}>{pill.number}<span aria-hidden>{MARKER_SYMBOL[m]}</span></span>}
+          const shape = marks[i].shape, m = markerState(pill, red), wrong = m === "mismatch";
+          if (!shape) return null;
+          return <button key={`ring-${pill.number}`} type="button" data-pill-ring={pill.number} data-marker={m} onClick={() => selectPill(pill.number)} aria-label={`Pill ${pill.number}: ${word(pill)}${asks.has(pill.number) ? (red ? ", flip it to identify it" : ", flip this one") : ""}. See reading`}
+            style={capsule(shape, RING_PAD + (wrong ? 3 : 1.5))}
+            className={cn("absolute cursor-pointer rounded-full", wrong ? "border-[5px] shadow-[0_0_0_2px_white,0_0_18px_6px_rgb(214_40_40/0.45)]" : "border-[3px] shadow-[0_0_0_1.5px_#fff9]", RING[m], red && !wrong && "opacity-70", selected === pill.number && "outline-2 outline-offset-2 outline-ink")} />;
+        })}
+        {result.pills.map((pill, i) => {
+          const { chip, dot } = marks[i], m = markerState(pill, red), at = chip ?? dot;
+          if (!at) return null;
+          const px = chip ? chipPx : 10;
+          return <button key={pill.number} type="button" tabIndex={-1} aria-hidden data-pill-number={pill.number} data-marker={m} data-chip={chip ? "number" : "dot"} onClick={() => selectPill(pill.number)}
+            style={{ left: at.x, top: at.y, width: px, height: px }}
+            className={cn("absolute grid -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full leading-none shadow-[0_0_0_2px_white,0_1px_4px_#0004]", TONE[m])}>
+            {chip && <span className={cn("font-mono font-bold tracking-tighter", chipPx < 26 ? "text-[10px]" : "text-[12px]")}>{pill.number}<span aria-hidden>{MARKER_SYMBOL[m]}</span></span>}
           </button>;
         })}
       </div>
       <ul aria-label="Marker legend" className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-lg text-ink-soft">
         {legend.map(l => <li key={l.key} className="flex items-center gap-2 whitespace-nowrap">
-          {l.key === "notRead" ? <span aria-hidden className="inline-block size-4 rounded-full border-2 border-dashed border-amber" />
-            : l.key === "dim" ? <span aria-hidden className="inline-block size-3 rounded-full bg-[#a3a8b0]" />
-            : <span aria-hidden className={cn("grid h-5 min-w-5 place-items-center rounded-full px-1 text-[11px] font-bold", TONE[l.key])}>{l.symbol}</span>}
+          {l.key === "notRead" ? <span aria-hidden className="inline-block h-4 w-7 rounded-full border-[3px] border-dashed border-amber" />
+            : <span aria-hidden className={cn("inline-block h-4 w-7 rounded-full", RING[l.key], l.key === "mismatch" ? "border-[4px]" : "border-[3px]")} />}
           {l.label}</li>)}
       </ul>
       {edgeNote && <p className="mt-3 text-lg">Something at the edge of the photo wasn&apos;t checked.</p>}

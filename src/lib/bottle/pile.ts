@@ -19,7 +19,7 @@ export const PARTLY_HIDDEN_CONFIDENCE_CAP = 0.6;
 const CROP_PAD = 0.15, MAX_CROP_EDGE = 2000;
 
 export type PileReader = (image: ImageInput, options: ReadOptions) => Promise<AiPillGroupReading>;
-export type PilePill = { box: NormalizedBox; reading: PillReading; partlyHidden: boolean; clump: number };
+export type PilePill = { box: NormalizedBox; reading: PillReading; partlyHidden: boolean; clump: number; guessed?: boolean };
 
 /** The touching regions we read, largest first; cutoffs at the edge are never read as piles. */
 export function pilesToRead(clumps: readonly BottleClump[]) {
@@ -56,10 +56,12 @@ export function pilePills(group: AiPillGroupReading, clump: number, clumpBox: No
     if (seen.some((b) => inside(center, b))) continue;
     const x = clamp(crop.x + p.box.x * crop.width), y = clamp(crop.y + p.box.y * crop.height);
     let box = { x, y, width: clamp(crop.x + (p.box.x + p.box.width) * crop.width) - x, height: clamp(crop.y + (p.box.y + p.box.height) * crop.height) - y };
-    // A box that misses its own center is unusable; fall back to a small box around the center.
-    if (!inside(center, box) || box.width <= 0 || box.height <= 0) { const s = Math.min(crop.width, crop.height) * 0.12; box = { x: clamp(center.x - s / 2), y: clamp(center.y - s / 2), width: s, height: s }; }
+    // A box that misses its own center is unusable; fall back to a small box around the center (marked as guessed:
+    // it is used for de-duplication and the row's crop, but no ring is drawn on a guessed spot).
+    const guessed = !inside(center, box) || box.width <= 0 || box.height <= 0;
+    if (guessed) { const s = Math.min(crop.width, crop.height) * 0.12; box = { x: clamp(center.x - s / 2), y: clamp(center.y - s / 2), width: s, height: s }; }
     seen.push(box);
-    pills.push({ box, partlyHidden: p.partlyHidden, clump, reading: {
+    pills.push({ box, partlyHidden: p.partlyHidden, clump, ...(guessed ? { guessed: true } : {}), reading: {
       imprintSides: p.imprintSides,
       imprintConfidence: p.partlyHidden ? Math.min(p.imprintConfidence, PARTLY_HIDDEN_CONFIDENCE_CAP) : p.imprintConfidence,
       colors: p.colors, colorConfidence: p.colorConfidence, shape: p.shape, shapeConfidence: p.shapeConfidence, form: p.form,
