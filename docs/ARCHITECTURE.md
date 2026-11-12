@@ -279,3 +279,16 @@ Repo: github.com/Vedu-2011/second-look — PUBLIC (DSH requires a public repo).
 - Real check (scripts/check-phase11c.ts): the metformin bottle stays red on "93". On the user-test pour, the group
   reader read 3 piles (1 of ~2, 2 of 2, 1 of ~2). It also read one Ibuprofen softgel as "TB 200" at 0.8, giving a false
   "doesn't match" on top of the real Tylenol mismatch. Pile readings of small printed softgels are not reliable.
+
+## Decisions in phase 11d (Claude Code, Nov 12) — no false reds from a one-letter misread
+- A MISMATCH whose read print is exactly ONE character away from the label's own FDA imprint (spaces, case and
+  punctuation ignored; whole imprint or either side), e.g. TB 200 / JB 200 / IB 260 / ID 200 vs IB 200, gets one
+  independent second read before it can be red: same reader, 2× upscale of that pill's own crop (pile pills too).
+  Same near-miss text again (confidence ≥ 0.5) → stays red. Label imprint, other text, nothing, a failed read, or no
+  extra reads left (max 5 per photo, counted in quota) → UNSURE: "This might say IB 200, but we couldn't read it
+  clearly. Check it with your pharmacist." Never MATCH from this path. Clearly different prints (93, TYLENOL 500) are
+  red exactly as before, with no second read. A mismatch carried from the first photo of a follow-up still stands.
+- A second read that fails or is refused is now marked `failed` and says so ("We tried to read it a second time but
+  couldn't…"); it never confirms a pill.
+- Real replay: the user-test pile pill "TB 200" → second read "IB 200" → UNSURE; Tylenol still red; metformin still
+  red on "93". The earlier failed second read (metformin pill 1) worked on retry ("G 12" twice): a passing API error.

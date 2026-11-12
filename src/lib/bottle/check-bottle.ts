@@ -1,7 +1,8 @@
 import { captureCoaching } from "./coaching";
 import { applyConsensus } from "./consensus";
-import { agreeReadings, borderline, expectedFragment, MAX_EXTRA_READS, secondReadImage } from "./double-read";
+import { agreeReadings, borderline, expectedFragment, MAX_EXTRA_READS, nearMissSide, secondReadImage, spacedImprint } from "./double-read";
 import { mergePillViews } from "@/lib/pill-views";
+import { normalizeToken } from "@/lib/match/imprint";
 import { DEFAULT_VISION_MODEL, type ImageInput, type ReadOptions } from "@/lib/ai/client";
 import { readLabel, readPill, readPillGroup } from "@/lib/ai/readers";
 import { earlyExit } from "@/lib/check-input";
@@ -122,7 +123,9 @@ async function readAndCheck(label: LabelReading, segmented: SegmentedBottle, rea
     // A reverse view cannot erase an already confident mismatch (including an unreadable/conflicting reverse).
     if (before?.result.verdict === "MISMATCH" && result.verdict !== "MISMATCH") result = { ...result, verdict: "MISMATCH", identifiedAs: null, reasons: [...result.reasons, "The first view already showed an imprint that does not match your label. That mismatch still stands."] };
     const pill: BottlePill = { number: i + 1, box, result, features: segmented.features[i], ...(reading && followUp ? { reread: true } : {}), ...(kept && !reading ? { carried: true, previousVerdict: kept.previousVerdict ?? kept.result.verdict } : {}) };
-    return withDoubleRead(pill, doubleReads.get(i));
+    const checked = withDoubleRead(pill, doubleReads.get(i));
+    // A mismatch carried from the first photo stands; only a fresh reading gets the near-miss second opinion.
+    return reading && before?.result.verdict !== "MISMATCH" ? confirmNearMiss(checked, async () => segmented.crops[i], dependencies.readPill ?? readPill, budget, onUsage) : checked;
   });
   send({ type: "step", step: 3, state: "done" });
   return annotatePills(pills);
@@ -143,16 +146,47 @@ async function secondRead(reading: PillReading, crop: Buffer, reader: NonNullabl
     return agreed;
   } catch (error) {
     if (error instanceof BottleQuotaError) throw error;
-    return { reading, evidence: { agreed: false, firstConfidence: reading.imprintConfidence, secondConfidence: 0, firstImprint: reading.imprintSides, secondImprint: [] } };
+    // A refused or failed second read never confirms: capped below the engine's bar, and said plainly.
+    return { reading: { ...reading, imprintConfidence: Math.min(reading.imprintConfidence, .69) }, evidence: { agreed: false, failed: true, firstConfidence: reading.imprintConfidence, secondConfidence: 0, firstImprint: reading.imprintSides, secondImprint: [] } };
   }
 }
 function withDoubleRead(pill: BottlePill, doubleRead?: DoubleRead): BottlePill {
   if (doubleRead) {
     pill.doubleRead = doubleRead;
-    pill.result = { ...pill.result, reasons: [...pill.result.reasons, doubleRead.partial ? "Read twice, same expected fragment; this is not a complete imprint confirmation." : doubleRead.agreed ? "Read twice, same normalized imprint. The independent readings agreed." : "The independent second reading did not agree clearly enough; the imprint remains uncertain."] };
+    pill.result = { ...pill.result, reasons: [...pill.result.reasons, doubleRead.failed ? "We tried to read it a second time but couldn't, so this pill isn't confirmed." : doubleRead.partial ? "Read twice, same expected fragment; this is not a complete imprint confirmation." : doubleRead.agreed ? "Read twice, same normalized imprint. The independent readings agreed." : "The independent second reading did not agree clearly enough; the imprint remains uncertain."] };
   }
   pill.appearanceWarning = appearanceWarning(pill);
   return pill;
+}
+
+/**
+ * Phase 11d: a MISMATCH whose print is one character off the label's own imprint (TB 200 for IB 200) is most likely a
+ * misread. It stays red only if an independent second read (2x upscale of the pill's own crop) says the same thing.
+ * A second read that says the label imprint, says something else, fails, or can't run (extra-read budget used up)
+ * makes it UNSURE: never MATCH from this path. Prints clearly different from the label (93, TYLENOL 500) are untouched.
+ */
+async function confirmNearMiss(pill: BottlePill, crop: () => Promise<Buffer>, reader: NonNullable<BottleDependencies["readPill"]>, budget: ReadingBudget, onUsage: ReadOptions["onUsage"]): Promise<BottlePill> {
+  const { result } = pill, expectedRaw = result.expected?.imprintRaw;
+  const side = result.verdict === "MISMATCH" && !pill.doubleRead?.agreed ? nearMissSide(result.pill, expectedRaw) : null;
+  if (!side || !expectedRaw) return pill;
+  const first = { firstConfidence: result.pill.imprintConfidence, firstImprint: result.pill.imprintSides };
+  const unsure = (why: string, doubleRead?: DoubleRead): BottlePill => ({ ...pill, ...(doubleRead ? { doubleRead } : {}),
+    result: { ...result, verdict: "UNSURE", identifiedAs: null, matchedProduct: null, reasons: [`This might say ${spacedImprint(expectedRaw)}, but we couldn't read it clearly. Check it with your pharmacist.`, ...result.reasons, why] } });
+  if (budget.extras >= MAX_EXTRA_READS) return unsure("We couldn't double-check this print, so it isn't marked as wrong.");
+  budget.extras++;
+  await budget.reserve(budget.planned + budget.extras);
+  let second: PillReading, attempt = 0;
+  try {
+    const transformed = await secondReadImage(await crop());
+    second = await reader({ mediaType: "image/png", base64: transformed.toString("base64") }, { model: DEFAULT_VISION_MODEL, onUsage, maxRetries: 0, beforeAttempt: async () => { if (++attempt > 1) throw new Error("One independent second read only"); } });
+  } catch (error) {
+    if (error instanceof BottleQuotaError) throw error;
+    return unsure("We tried to read it a second time but couldn't, so it isn't marked as wrong.", { agreed: false, failed: true, ...first, secondConfidence: 0, secondImprint: [] });
+  }
+  const evidence = { ...first, secondConfidence: second.imprintConfidence, secondImprint: second.imprintSides };
+  if (second.imprintConfidence >= .5 && second.imprintSides.some((s) => normalizeToken(s) === normalizeToken(side)))
+    return { ...pill, doubleRead: { agreed: true, ...evidence }, result: { ...result, reasons: [...result.reasons, `Read twice: both reads say ${side}.`] } };
+  return unsure(`A second read said ${second.imprintSides.join(" / ") || "nothing clear"}.`, { agreed: false, ...evidence });
 }
 
 /**
@@ -188,7 +222,8 @@ async function readPiles(photo: Buffer, label: LabelReading, segmented: Segmente
       if (second) { reading = second.reading; doubleRead = second.evidence; }
     }
     const result = await runResolvedCheck(label, reading, resolved);
-    return withDoubleRead({ number: firstNumber + k + 1, box: p.box, result, fromPile: true }, doubleRead);
+    const pill = withDoubleRead({ number: firstNumber + k + 1, box: p.box, result, fromPile: true }, doubleRead);
+    return confirmNearMiss(pill, async () => Buffer.from((await pileCrop(photo, p.box)).base64, "base64"), single, budget, onUsage);
   });
   return { pills, clumps };
 }

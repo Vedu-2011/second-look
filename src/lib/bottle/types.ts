@@ -33,7 +33,7 @@ export type BottlePill = {
   fromPile?: boolean;
   /** Imprint confirmed; only its 2-D shape looked different (a tilted capsule). A note, not a warning. */
   shapeNote?: boolean;
-  doubleRead?: { agreed: boolean; partial?: boolean; firstConfidence: number; secondConfidence: number; firstImprint: string[]; secondImprint: string[] };
+  doubleRead?: { agreed: boolean; partial?: boolean; failed?: boolean; firstConfidence: number; secondConfidence: number; firstImprint: string[]; secondImprint: string[] };
 };
 export type BottleDecision = {
   /** FACE_DOWN: the only open question is pills with their writing face-down (calm, not a warning). */

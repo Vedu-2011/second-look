@@ -197,3 +197,75 @@ it('tiny-pill coaching is free, precedes label AI, and only explicit Check anywa
   expect(readLabel).not.toHaveBeenCalled();expect(readPill).not.toHaveBeenCalled();expect(consumeCheckLimit).not.toHaveBeenCalled();
   const second=await events(await POST(make(true)));expect(second.at(-1).type).toBe('result');expect(readLabel).toHaveBeenCalledTimes(1);expect(readPill).toHaveBeenCalledTimes(1);
 });
+
+// Phase 11d: a MISMATCH one letter off the label's imprint needs a second opinion before it can be red.
+describe("one letter off the label's imprint", () => {
+  const read = (imprint: string, imprintConfidence = 0.9): PillReading => ({ ...source.pill, imprintSides: imprint ? [imprint] : [], imprintConfidence, multiplePills: false, pillVisible: true });
+  const MIGHT = "This might say IB 200, but we couldn't read it clearly. Check it with your pharmacist.";
+  function readers(first: string, second: string | Error, firstConfidence = 0.9) {
+    vi.mocked(readPill).mockImplementation(async (_image, options) => {
+      if (options?.maxRetries !== 0) return read(first, firstConfidence);
+      if (second instanceof Error) throw second;
+      return read(second);
+    });
+  }
+  beforeEach(() => {
+    vi.mocked(runResolvedCheck).mockImplementation(async (label: LabelReading, pill: PillReading) => {
+      const text = pill.imprintSides.join("").replace(/[^A-Z0-9]/gi, "").toUpperCase();
+      const verdict = pill.imprintConfidence < 0.7 ? "UNSURE" : text === "IB200" ? "MATCH" : "MISMATCH";
+      return { ...structuredClone(source), expected: { ...source.expected!, imprintRaw: "IB200" }, label, pill, verdict };
+    });
+  });
+  const run = async (count = 3, touching = false) => (await events(await POST(await request(count, touching)))).at(-1);
+  const secondReads = () => vi.mocked(readPill).mock.calls.filter((c) => c[1]?.maxRetries === 0).length;
+
+  it("a second read that says the same near-miss text keeps it red", async () => {
+    readers("TB 200", "TB 200");
+    const terminal = await run();
+    expect(secondReads()).toBe(3);
+    expect(terminal.result.pills.every((p: { result: { verdict: string }; doubleRead?: { agreed: boolean } }) => p.result.verdict === "MISMATCH" && p.doubleRead?.agreed)).toBe(true);
+    expect(terminal.result.decision.verdict).toBe("MISMATCH");
+  });
+  it.each([["says the label imprint", "IB 200"], ["says something else", "XQ 77"], ["says nothing", ""]])("a second read that %s → UNSURE 'might say IB 200', never MATCH", async (_name, second) => {
+    readers("TB 200", second);
+    const terminal = await run();
+    for (const p of terminal.result.pills) { expect(p.result.verdict).toBe("UNSURE"); expect(p.result.reasons[0]).toBe(MIGHT); }
+    expect(["MATCH", "LOOKS_RIGHT", "MISMATCH"]).not.toContain(terminal.result.decision.verdict);
+  });
+  it("a print clearly different from the label stays red with no second read", async () => {
+    readers("TYLENOL 500", "IB 200");
+    const terminal = await run();
+    expect(secondReads()).toBe(0); expect(terminal.result.decision.verdict).toBe("MISMATCH");
+  });
+  it("when the extra-read budget is used up, the rest show UNSURE 'couldn't double-check', not red", async () => {
+    readers("TB 200", "TB 200");
+    const terminal = await run(8);
+    expect(secondReads()).toBe(5);
+    const verdicts = terminal.result.pills.map((p: { result: { verdict: string } }) => p.result.verdict);
+    expect(verdicts.filter((v: string) => v === "MISMATCH")).toHaveLength(5);
+    const unchecked = terminal.result.pills.filter((p: { result: { verdict: string } }) => p.result.verdict === "UNSURE");
+    expect(unchecked).toHaveLength(3);
+    for (const p of unchecked) { expect(p.result.reasons[0]).toBe(MIGHT); expect(p.result.reasons.at(-1)).toBe("We couldn't double-check this print, so it isn't marked as wrong."); }
+  });
+  it("a failed second read leaves the pill UNSURE and says so", async () => {
+    readers("TB 200", new Error("refused"));
+    const terminal = await run();
+    for (const p of terminal.result.pills) { expect(p.result.verdict).toBe("UNSURE"); expect(p.doubleRead.failed).toBe(true); expect(p.result.reasons.at(-1)).toBe("We tried to read it a second time but couldn't, so it isn't marked as wrong."); }
+    expect((await getBottleResult(terminal.shareId))?.result.pills[0].doubleRead?.failed).toBe(true);
+  });
+  it("a failed borderline second read is never silent and never green", async () => {
+    readers("IB 200", new Error("refused"), 0.6);
+    const terminal = await run();
+    for (const p of terminal.result.pills) { expect(p.result.verdict).toBe("UNSURE"); expect(p.doubleRead.failed).toBe(true); expect(p.result.reasons).toContain("We tried to read it a second time but couldn't, so this pill isn't confirmed."); }
+  });
+  it("a pile pill read one letter off gets its own second read", async () => {
+    readers("IB 200", "IB 200");
+    const entry = (x: number, imprint: string) => ({ center: { x, y: 0.5 }, box: { x: x - 0.12, y: 0.35, width: 0.24, height: 0.3 }, imprintSides: [imprint], imprintConfidence: 0.8, colors: source.pill.colors as never, colorConfidence: 0.9, shape: source.pill.shape, shapeConfidence: 0.9, form: "softgel", partlyHidden: false, photoProblems: [] });
+    vi.mocked(readPillGroup).mockResolvedValueOnce({ pills: [entry(0.38, "IB 200"), entry(0.62, "TB 200")], pileCount: 2, countConfidence: 0.9, somePillsMayBeHidden: false });
+    const terminal = await run(9, true);
+    const pile = terminal.result.pills.filter((p: { fromPile?: boolean }) => p.fromPile);
+    expect(pile.map((p: { result: { verdict: string } }) => p.result.verdict).sort()).toEqual(["MATCH", "UNSURE"]);
+    expect(secondReads()).toBe(1);
+    expect(terminal.result.decision.verdict).not.toBe("MISMATCH");
+  });
+});

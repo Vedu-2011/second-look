@@ -24,3 +24,28 @@ export function expectedFragment(reading: PillReading, expected?: { imprintRaw: 
   const full = normalizeToken(tokenizeImprint(expected?.imprintRaw).join(''));
   return Boolean(text && full && text.length < full.length && full.includes(text));
 }
+
+// Phase 11d: one letter off the label's own imprint (TB 200 / JB 200 / IB 260 for IB 200) is the classic misread.
+export function editDistance(a: string, b: string) {
+  let row = Array.from({ length: b.length + 1 }, (_, j) => j);
+  for (let i = 1; i <= a.length; i++) {
+    const next = [i];
+    for (let j = 1; j <= b.length; j++) next[j] = Math.min(row[j] + 1, next[j - 1] + 1, row[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+    row = next;
+  }
+  return row[b.length];
+}
+/**
+ * The read side that is exactly ONE character (after dropping spaces, case and punctuation) from the label's FDA
+ * imprint, whole or per side. Null when any side matches exactly or nothing is that close.
+ */
+export function nearMissSide(reading: PillReading, expectedRaw?: string | null): string | null {
+  if (!expectedRaw) return null;
+  const sides = expectedRaw.split(';').map(normalizeToken).filter(Boolean);
+  const expected = [...new Set([sides.join(''), ...sides])];
+  const read = reading.imprintSides.map((side) => ({ side, text: normalizeToken(side) })).filter((s) => s.text);
+  if (read.some((s) => expected.includes(s.text))) return null;
+  return read.find((s) => s.text.length >= 2 && expected.some((e) => editDistance(s.text, e) === 1))?.side ?? null;
+}
+/** "IB200" → "IB 200", "G;12" → "G 12" — the way people read a print out loud. */
+export const spacedImprint = (raw: string) => raw.split(';').map((s) => normalizeToken(s).replace(/(?<=[A-Z])(?=\d)|(?<=\d)(?=[A-Z])/g, ' ')).filter(Boolean).join(' ');

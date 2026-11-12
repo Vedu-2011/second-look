@@ -1,15 +1,16 @@
 // Phase 11c screenshots, no paid calls: the saved REAL phase 11c results (test-images/bottle/generated/phase11c-*.json,
 // from `npm run smoke:piles -- --live`) replayed at the API boundary into the real /check UI.
-// Usage: node scripts/phase11c-screens.mjs [base url]   (dev server running)
+// Usage: node scripts/phase11c-screens.mjs [base url] [11c|11d]   (dev server running)
 import assert from "node:assert/strict";
 import fs from "node:fs/promises";
 import {fileURLToPath} from "node:url";
 import {chromium} from "playwright-core";
-const root = fileURLToPath(new URL("../", import.meta.url)), out = root + "docs/screenshots/phase-11c";
+const phase = process.argv[3] || "11c";
+const root = fileURLToPath(new URL("../", import.meta.url)), out = root + `docs/screenshots/phase-${phase}`;
 const base = process.argv[2] || "http://localhost:3000";
-const saved = async name => JSON.parse(await fs.readFile(root + `test-images/bottle/generated/phase11c-${name}.json`, "utf8"));
+const saved = async name => JSON.parse(await fs.readFile(root + `test-images/bottle/generated/phase${phase}-${name}.json`, "utf8"));
 const scenes = [
-  {name: "pile-result", label: "test-images/real/different-maker/label.jpg", photo: "test-images/real/extra/user-test-ibuprofen-tylenol.jpg", result: await saved("pile")},
+  {name: "pile-result", label: "test-images/real/different-maker/label.jpg", photo: "test-images/real/extra/user-test-ibuprofen-tylenol.jpg", result: await saved("pile"), ...(phase === "11d" ? {focus: 9, expect: "This might say IB 200, but we couldn't read it clearly. Check it with your pharmacist."} : {})},
   {name: "red-mode-metformin", label: "test-images/real/bottle/label.jpg", photo: "test-images/real/bottle/pills.jpg", result: await saved("metformin")},
 ];
 await fs.mkdir(out, {recursive: true});
@@ -44,6 +45,12 @@ try {
     if ((s.result.clumps ?? []).some(c => !c.pile && !c.minor)) assert(legend.includes("Not read"), "legend lists Not read");
     await page.addStyleTag({content: "nextjs-portal{display:none!important}"});
     await page.screenshot({path: `${out}/${s.name}-${width}.png`, fullPage: true});
+    if (s.focus) {
+      await page.locator(`[data-pill-number='${s.focus}']`).click();
+      const row = page.locator(`#bottle-pill-${s.focus}`);
+      await row.getByText(s.expect, {exact: true}).waitFor();
+      await row.screenshot({path: `${out}/${s.name}-pill${s.focus}-${width}.png`});
+    }
     await page.locator("[data-bottle-overlay]").screenshot({path: `${out}/${s.name}-photo-${width}.png`});
     console.log("ok", s.name, width, `${full.length} pins`, legend.replaceAll("\n", " | "));
     await page.close();
