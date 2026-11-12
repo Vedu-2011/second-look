@@ -1,0 +1,16 @@
+{
+  "base": "https://second-look-enzmbnmkw-vedhanth.vercel.app",
+  "scope": "Actual deployed free pages/shares; photo endpoints blocked.",
+  "reports": [
+    {
+      "width": 375,
+      "freeRoutes": "samples,labels,both real metformin shares HTTP200; mismatches preserved",
+      "errors": []
+    },
+    {
+      "width": 1440,
+      "freeRoutes": "samples,labels,both real metformin shares HTTP200; mismatches preserved",
+      "errors": []
+    }
+  ]
+}
