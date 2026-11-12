@@ -52,6 +52,15 @@ it("a failed weighted reservation doesn't partially spend the hourly allowance",
   expect((await consumeCheckLimit("no-partial")).allowed).toBe(true);
   clearRateLimitForTests();
 });
+it("accepts the maximum eight-unit bottle but still atomically enforces the thirty-unit allowance", async()=>{
+  clearRateLimitForTests();
+  for(let i=0;i<3;i++)expect((await consumeCheckLimit('pile-budget',8)).allowed).toBe(true);
+  expect((await consumeCheckLimit('pile-budget',8)).allowed).toBe(false);
+  expect((await consumeCheckLimit('pile-budget',6)).allowed).toBe(true);
+  expect((await consumeCheckLimit('pile-budget')).allowed).toBe(false);
+  for(const n of [0,-1,1.2,9,NaN,Infinity])await expect(consumeCheckLimit('invalid',n)).rejects.toThrow('Invalid check reservation');
+  clearRateLimitForTests();
+});
 
 it.each([[1,1],[5,1],[6,2],[9,2],[20,4]])("conservatively rounds %i detected pills to %i check units", (count, expected) => {
   expect(bottleCheckUnits(count)).toBe(expected);

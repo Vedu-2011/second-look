@@ -74,7 +74,12 @@ export async function fetchJson(
     } catch (err) {
       if (!(err instanceof RetryableFdaError)) throw err;
       last = err;
-      if (attempt < retries) await sleepImpl(Math.min(2000, Math.max(250 * 2 ** attempt, err.retryAfterMs)));
+      if (attempt < retries) {
+        const delay = Math.max(250 * 2 ** attempt, err.retryAfterMs);
+        // A longer server cooldown belongs to a later user attempt; never retry earlier than Retry-After.
+        if (delay > 2000) throw err;
+        await sleepImpl(delay);
+      }
     }
   }
   throw last ?? new FdaError("network", "Unknown error", url);

@@ -6,7 +6,7 @@ import { SCENARIOS } from "@/lib/fda/__fixtures__/tablet-scenarios";
 
 vi.mock("@/lib/redis", async (orig) => ({ ...(await orig<typeof import("@/lib/redis")>()), getRedis: () => null }));
 
-const { runCheck } = await import("@/lib/check-service");
+const { runCheck, resolveLabelData, runResolvedCheck } = await import("@/lib/check-service");
 const { clearMemoryCache } = await import("@/lib/fda/cache");
 
 const byUrl = new Map(Object.entries(index.files).map(([name, url]) => [url, name]));
@@ -42,5 +42,14 @@ describe("runCheck (recorded FDA responses)", () => {
   it("names the wrong pill from the guess", async () => {
     const r = await runCheck(SCENARIOS[2].label, SCENARIOS[2].pill);
     expect(r.identifiedAs?.title).toBe("Acetaminophen 500 mg");
+  });
+  it("shares one label resolution and every evidence lookup across fifteen concurrent pills",async()=>{
+    clearMemoryCache();vi.mocked(fetch).mockClear();
+    const s=SCENARIOS[0], resolved=await resolveLabelData(s.label);
+    const results=await Promise.all(Array.from({length:15},()=>runResolvedCheck(s.label,s.pill,resolved)));
+    expect(results.every(r=>r.verdict===s.expect)).toBe(true);
+    const urls=vi.mocked(fetch).mock.calls.map(([url])=>String(url));
+    expect(urls.length).toBeGreaterThan(0);
+    expect(new Set(urls).size).toBe(urls.length);
   });
 });
