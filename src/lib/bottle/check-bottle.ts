@@ -164,14 +164,18 @@ function withDoubleRead(pill: BottlePill, doubleRead?: DoubleRead): BottlePill {
  * misread. It stays red only if an independent second read (2x upscale of the pill's own crop) says the same thing.
  * A second read that says the label imprint, says something else, fails, or can't run (extra-read budget used up)
  * makes it UNSURE: never MATCH from this path. Prints clearly different from the label (93, TYLENOL 500) are untouched.
+ * A near-miss print that is already UNSURE (low or borderline confidence) gets the same "might say" line, no extra read.
  */
 async function confirmNearMiss(pill: BottlePill, crop: () => Promise<Buffer>, reader: NonNullable<BottleDependencies["readPill"]>, budget: ReadingBudget, onUsage: ReadOptions["onUsage"]): Promise<BottlePill> {
   const { result } = pill, expectedRaw = result.expected?.imprintRaw;
-  const side = result.verdict === "MISMATCH" && !pill.doubleRead?.agreed ? nearMissSide(result.pill, expectedRaw) : null;
-  if (!side || !expectedRaw) return pill;
+  const side = !pill.doubleRead?.agreed ? nearMissSide(result.pill, expectedRaw) : null;
+  if (!side || !expectedRaw || !["MISMATCH", "UNSURE"].includes(result.verdict)) return pill;
+  const might = `This might say ${spacedImprint(expectedRaw)}, but we couldn't read it clearly. Check it with your pharmacist.`;
+  // Already unsure (e.g. a borderline read whose reread disagreed or failed): just say what it might be. No extra read.
+  if (result.verdict === "UNSURE") return { ...pill, result: { ...result, reasons: [might, ...result.reasons] } };
   const first = { firstConfidence: result.pill.imprintConfidence, firstImprint: result.pill.imprintSides };
   const unsure = (why: string, doubleRead?: DoubleRead): BottlePill => ({ ...pill, ...(doubleRead ? { doubleRead } : {}),
-    result: { ...result, verdict: "UNSURE", identifiedAs: null, matchedProduct: null, reasons: [`This might say ${spacedImprint(expectedRaw)}, but we couldn't read it clearly. Check it with your pharmacist.`, ...result.reasons, why] } });
+    result: { ...result, verdict: "UNSURE", identifiedAs: null, matchedProduct: null, reasons: [might, ...result.reasons, why] } });
   if (budget.extras >= MAX_EXTRA_READS) return unsure("We couldn't double-check this print, so it isn't marked as wrong.");
   budget.extras++;
   await budget.reserve(budget.planned + budget.extras);

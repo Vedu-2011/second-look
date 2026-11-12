@@ -258,6 +258,18 @@ describe("one letter off the label's imprint", () => {
     const terminal = await run();
     for (const p of terminal.result.pills) { expect(p.result.verdict).toBe("UNSURE"); expect(p.doubleRead.failed).toBe(true); expect(p.result.reasons).toContain("We tried to read it a second time but couldn't, so this pill isn't confirmed."); }
   });
+  it("a borderline near-miss whose reread disagrees is UNSURE with the 'might say' line, and no third read (codex P2)", async () => {
+    readers("TB 200", "XQ 77", 0.6);
+    const terminal = await run();
+    expect(secondReads()).toBe(3);
+    for (const p of terminal.result.pills) { expect(p.result.verdict).toBe("UNSURE"); expect(p.result.reasons[0]).toBe(MIGHT); }
+  });
+  it("a low-confidence near-miss gets the 'might say' line with no extra read", async () => {
+    readers("JB 200", "IB 200", 0.4);
+    const terminal = await run();
+    expect(secondReads()).toBe(0);
+    for (const p of terminal.result.pills) { expect(p.result.verdict).toBe("UNSURE"); expect(p.result.reasons[0]).toBe(MIGHT); }
+  });
   it("a pile pill read one letter off gets its own second read", async () => {
     readers("IB 200", "IB 200");
     const entry = (x: number, imprint: string) => ({ center: { x, y: 0.5 }, box: { x: x - 0.12, y: 0.35, width: 0.24, height: 0.3 }, imprintSides: [imprint], imprintConfidence: 0.8, colors: source.pill.colors as never, colorConfidence: 0.9, shape: source.pill.shape, shapeConfidence: 0.9, form: "softgel", partlyHidden: false, photoProblems: [] });
