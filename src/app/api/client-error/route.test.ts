@@ -20,3 +20,9 @@ it("garbage is fine, and more than 10 a minute from one IP aren't logged", async
   await POST(note({ why: "network" }, "5.6.7.8"));
   expect(warn).toHaveBeenCalledTimes(11);
 });
+it("a big body is never read past 2 KB or logged, even without a Content-Length", async () => {
+  const big = new ReadableStream<Uint8Array>({ start(c) { for (let i = 0; i < 50; i++) c.enqueue(new Uint8Array(1000).fill(65)); c.close(); } });
+  const request = new Request("http://localhost/api/client-error", { method: "POST", body: big, duplex: "half" } as RequestInit);
+  expect((await POST(request)).status).toBe(204);
+  expect(warn).not.toHaveBeenCalled();
+});
