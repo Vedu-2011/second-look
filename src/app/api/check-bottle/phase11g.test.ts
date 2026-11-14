@@ -21,8 +21,10 @@ const { consumeCheckLimit, clearPaidForTests } = await import("@/lib/rate-limit"
 const { clearReadCacheForTests } = await import("@/lib/ai/read-cache");
 const source = SAMPLE_RESULTS[0].result;
 const label = await scene(1), bottle = await scene(9), other = await scene(8);
-function request(pills = bottle) {
+const RETRY_ID = "a".repeat(32);
+function request(pills = bottle, checkId: string | null = RETRY_ID) {
   const form = new FormData();
+  if (checkId) form.set("checkId", checkId);
   form.set("labelImage", new Blob([new Uint8Array(label)], { type: "image/png" }), "label.png");
   form.set("bottleImage", new Blob([new Uint8Array(pills)], { type: "image/png" }), "bottle.png");
   return new Request("http://localhost/api/check-bottle", { method: "POST", body: form });
@@ -69,13 +71,28 @@ describe("phase 11g: retrying the same photos", () => {
     expect(vi.mocked(readPill).mock.calls.length).toBeLessThanOrEqual(9 - (firstReads - 1));
     if (first.type === "error") expect(first.retryable).toBe(true);
   });
-  it("only 3 free retries per set of photos; after that it's charged like a new check", async () => {
+  it("only 3 free retries per check; after that it's charged like a new check", async () => {
+    vi.mocked(runResolvedCheck).mockRejectedValue(new Error("socket hang up")); // every attempt fails on our side
     await events(await POST(request()));
     for (let i = 0; i < 3; i++) await events(await POST(request()));
     const before = vi.mocked(consumeCheckLimit).mock.calls.length;
     expect(before).toBe(2);
     await events(await POST(request()));
     expect(vi.mocked(consumeCheckLimit).mock.calls.length).toBeGreaterThan(before);
+  });
+  it("the same photos as a NEW check (new id, or none) are charged and read again: no free re-checks", async () => {
+    for (const id of ["b".repeat(32), null]) {
+      await events(await POST(request(bottle, "c".repeat(32))));
+      vi.mocked(readPill).mockClear(); vi.mocked(consumeCheckLimit).mockClear();
+      expect((await events(await POST(request(bottle, id)))).at(-1).type).toBe("result");
+      expect(readPill).toHaveBeenCalledTimes(9); expect(consumeCheckLimit).toHaveBeenCalledTimes(2);
+    }
+  });
+  it("a check that finished releases its reservation: resending its id is charged again", async () => {
+    expect((await events(await POST(request()))).at(-1).type).toBe("result");
+    vi.mocked(consumeCheckLimit).mockClear();
+    await events(await POST(request()));
+    expect(consumeCheckLimit).toHaveBeenCalledTimes(2);
   });
   it("a photo the segmenter rejects is a retake, never a retryable error", async () => {
     const out = (await events(await POST(request(await scene(0))))).at(-1);

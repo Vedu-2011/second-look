@@ -338,10 +338,11 @@ Repo: github.com/Vedu-2011/second-look — PUBLIC (DSH requires a public repo).
   "blocked" (429/403/404, quota) or "ours" (network drop, timeout, cut-off stream, 5xx, a server error marked
   `retryable`). "Ours" keeps both photos, says "That took too long on our side — trying again…" and resends the SAME
   photos once; if that fails too: "Try again" (same photos). Retake only for a photo problem.
-- Server: a retry costs nothing twice. Readings (never photos) are cached 15 min per request scope (hash of every photo
-  + previousId + checkAnyway); the n-th read of one image maps to the n-th cached reading, so a deliberate second read
-  is still real and a follow-up photo always gets fresh reads. Quota those photos reserved is remembered 15 min (up to
-  3 free retries).
+- Server: a retry costs nothing twice. The browser makes one `checkId` per check and resends it only when retrying that
+  check. Readings (never photos) are cached 15 min per scope = hash(checkId + every photo + previousId + checkAnyway);
+  the n-th read of one image maps to the n-th cached reading, so a deliberate second read is still real and a follow-up
+  photo always gets fresh reads. Quota that scope reserved is remembered 15 min (up to 3 free retries) and released when
+  the check finishes. The same photos as a new check (new id, or none) pay and read again (codex review).
 - Diagnosis next time: the browser sends a tiny note to /api/client-error (kind, status, error name/message, attempt,
   timing, bytes, user agent; never photos or readings), so a failure that never reaches the server is in the logs.
 - Time: a 17-pill photo is 17 reads in 4 rounds of 5 (scripted, mocked latency): ~40 s at a slow 10 s read.

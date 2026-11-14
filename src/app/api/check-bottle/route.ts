@@ -11,7 +11,7 @@ import { MAX_BOTTLE_PIXELS } from "@/lib/bottle/segment";
 import { BOTTLE_BODY_BYTES, BOTTLE_UPLOAD_BYTES, LABEL_UPLOAD_BYTES } from "@/lib/bottle/upload";
 import type { BottleEvent } from "@/lib/bottle/types";
 import { friendlyFdaMessage } from "@/lib/fda/http";
-import { bottleCheckUnits, consumeCheckLimit, consumePreparationLimit, priorReservation, recordReservation } from "@/lib/rate-limit";
+import { bottleCheckUnits, consumeCheckLimit, consumePreparationLimit, priorReservation, recordReservation, releaseReservation } from "@/lib/rate-limit";
 import { canContinueBottle, getBottleResult, saveBottleResult, type StoredBottleResult } from "@/lib/result-store";
 
 // Hobby allows up to 300 s. A 17-pill photo measures ~6–7 rounds of reads (phase 11g); this is headroom, not the plan.
@@ -39,10 +39,13 @@ async function boundedForm(request: Request) {
 }
 export async function POST(request: Request) {
   await connection();
-  let label: { mediaType: "image/jpeg"; base64: string } | null = null, bottle: Buffer, previousId = "", continuationToken = "", checkAnyway = false;
+  let label: { mediaType: "image/jpeg"; base64: string } | null = null, bottle: Buffer, previousId = "", continuationToken = "", checkAnyway = false, checkId = "";
   try {
     const form = await boundedForm(request);
     checkAnyway = form.get("checkAnyway") === "1";
+    // The browser makes one id per check and resends it ONLY when it retries that check after a failure on our side.
+    const id = form.get("checkId");
+    checkId = typeof id === "string" && /^[a-f0-9]{32}$/.test(id) ? id : "";
     const labelFile = form.get("labelImage"), bottleFile = form.get("bottleImage"), previous = form.get("previousId");
     // "Flip and snap again" sends only the new pills photo plus the first check's saved id; the label is reused.
     continuationToken = typeof form.get("continuationToken") === "string" ? String(form.get("continuationToken")) : "";
@@ -77,13 +80,14 @@ export async function POST(request: Request) {
   }
   const tips = captureCoaching(prepared);
   if (tips.length && !checkAnyway) return new Response(JSON.stringify({ type: "coaching", tips }) + "\n", { headers: { "content-type": "application/x-ndjson", "cache-control": "no-store" } });
-  // The same photos sent again (the browser's retry after a failure on our side) reuse what they already reserved.
-  const photoHash = createHash("sha256").update(`${previousId}\n${checkAnyway ? 1 : 0}\n${label?.base64.length ?? 0}\n`).update(label?.base64 ?? "").update(bottle).digest("hex");
-  const prior = await priorReservation(photoHash);
+  // A retry of one check (same check id AND same photos) reuses what it already reserved and read. Without an id, or
+  // with new photos, it's a new check: fresh quota and fresh reads. A finished check releases its reservation.
+  const photoHash = createHash("sha256").update(`${checkId || randomBytes(16).toString("hex")}\n${previousId}\n${checkAnyway ? 1 : 0}\n${label?.base64.length ?? 0}\n`).update(label?.base64 ?? "").update(bottle).digest("hex");
+  const prior = checkId ? await priorReservation(photoHash) : 0;
   if (!prior) {
     const initial = await consumeCheckLimit(ip);
     if (!initial.allowed) return Response.json({ error: initial.message }, { status: 429, headers: { "cache-control": "no-store" } });
-    await recordReservation(photoHash, 1);
+    if (checkId) await recordReservation(photoHash, 1);
   }
   let canceled = false, reservedUnits = Math.max(1, prior);
   // Readings (never photos) are cached by image hash, so a retry of the same photos doesn't pay for them again.
@@ -98,12 +102,13 @@ export async function POST(request: Request) {
           const reserve = async (count: number) => {
             if (canceled || request.signal.aborted) throw new BottleQuotaError("The check was canceled. Please start again.");
             const units = bottleCheckUnits(count), extra = Math.max(0, units - reservedUnits);
-            if (extra) { const reserved = await consumeCheckLimit(ip, extra); if (!reserved.allowed) throw new BottleQuotaError(reserved.message); reservedUnits = units; await recordReservation(photoHash, units); }
+            if (extra) { const reserved = await consumeCheckLimit(ip, extra); if (!reserved.allowed) throw new BottleQuotaError(reserved.message); reservedUnits = units; if (checkId) await recordReservation(photoHash, units); }
           };
           const result = previous ? await runBottleFollowUp(previous.result, bottle, reserve, send, { prepared, checkAnyway: true, ...readers }) : await runBottleCheck(label!, bottle, reserve, send, { prepared, checkAnyway: true, ...readers });
           if (result && !canceled) {
             const continuationToken = randomBytes(32).toString("hex");
             send({ type: "result", result, shareId: await saveBottleResult(result, continuationToken), continuationToken });
+            if (checkId) await releaseReservation(photoHash);
           }
         } catch (error) {
           // Keep the real exception, but never log request bodies, photos, label readings or SDK headers.
