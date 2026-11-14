@@ -9,7 +9,7 @@ vi.mock("next/server", () => ({ connection: async () => {} }));
 vi.mock("@/lib/redis", () => ({ getRedis: () => null, key: (v: string) => "sl:" + v }));
 vi.mock("@/lib/rate-limit", async (original) => {
   const real = await original<typeof import("@/lib/rate-limit")>();
-  return { ...real, consumePreparationLimit: vi.fn(async () => ({ allowed: true, count: 1 })), consumeCheckLimit: vi.fn(async () => ({ allowed: true, count: 1 })) };
+  return { ...real, consumePreparationLimit: vi.fn(async () => ({ allowed: true, count: 1 })) };
 });
 vi.mock("@/lib/ai/readers", () => ({ readLabel: vi.fn(), readPill: vi.fn(), readPillGroup: vi.fn() }));
 vi.mock("@/lib/check-service", () => ({ resolveLabelData: vi.fn(async () => ({})), runResolvedCheck: vi.fn() }));
@@ -17,7 +17,9 @@ vi.mock("@/lib/check-service", () => ({ resolveLabelData: vi.fn(async () => ({})
 const { POST } = await import("./route");
 const { readLabel, readPill } = await import("@/lib/ai/readers");
 const { runResolvedCheck } = await import("@/lib/check-service");
-const { consumeCheckLimit, clearPaidForTests } = await import("@/lib/rate-limit");
+const { clearPaidForTests, clearRateLimitForTests, hourlyUsedForTests } = await import("@/lib/rate-limit");
+/** Quota units actually charged so far (the real in-memory limiter). */
+const used = () => hourlyUsedForTests("unknown");
 const { clearReadCacheForTests } = await import("@/lib/ai/read-cache");
 const source = SAMPLE_RESULTS[0].result;
 const label = await scene(1), bottle = await scene(9), other = await scene(8);
@@ -33,7 +35,7 @@ const events = async (response: Response) => (await response.text()).trim().spli
 const check = (label: LabelReading, pill: PillReading) => ({ ...structuredClone(source), label, pill, verdict: "MATCH" as const });
 
 beforeEach(() => {
-  vi.clearAllMocks(); clearReadCacheForTests(); clearPaidForTests();
+  vi.clearAllMocks(); clearReadCacheForTests(); clearPaidForTests(); clearRateLimitForTests();
   vi.mocked(readLabel).mockResolvedValue(source.label);
   vi.mocked(readPill).mockResolvedValue(source.pill);
   vi.mocked(runResolvedCheck).mockImplementation(async (l: LabelReading, p: PillReading) => check(l, p));
@@ -45,19 +47,19 @@ describe("phase 11g: retrying the same photos", () => {
     vi.mocked(runResolvedCheck).mockRejectedValueOnce(new Error("socket hang up"));
     const first = (await events(await POST(request()))).at(-1);
     expect(first).toMatchObject({ type: "error", retryable: true });
-    const reads = vi.mocked(readLabel).mock.calls.length + vi.mocked(readPill).mock.calls.length, quota = vi.mocked(consumeCheckLimit).mock.calls.length;
-    expect(reads).toBe(1 + 9); expect(quota).toBe(2);
+    const reads = vi.mocked(readLabel).mock.calls.length + vi.mocked(readPill).mock.calls.length, quota = used();
+    expect(reads).toBe(1 + 9); expect(quota).toBe(2); // 9 pills = 2 units
 
     const second = (await events(await POST(request()))).at(-1);
     expect(second.type).toBe("result"); expect(second.result.pills).toHaveLength(9); expect(second.result.decision.verdict).toBe("MATCH");
     expect(vi.mocked(readLabel).mock.calls.length + vi.mocked(readPill).mock.calls.length).toBe(reads);
-    expect(vi.mocked(consumeCheckLimit).mock.calls.length).toBe(quota);
+    expect(used()).toBe(quota);
   });
   it("different photos are a new check: fresh reads and fresh quota", async () => {
     await events(await POST(request()));
-    vi.mocked(readPill).mockClear(); vi.mocked(consumeCheckLimit).mockClear();
+    vi.mocked(readPill).mockClear(); const before = used();
     const out = (await events(await POST(request(other)))).at(-1);
-    expect(out.type).toBe("result"); expect(readPill).toHaveBeenCalledTimes(8); expect(consumeCheckLimit).toHaveBeenCalled();
+    expect(out.type).toBe("result"); expect(readPill).toHaveBeenCalledTimes(8); expect(used() - before).toBe(2);
   });
   it("a retry that dies halfway resumes: only the reads it never finished are paid", async () => {
     let n = 0;
@@ -75,26 +77,26 @@ describe("phase 11g: retrying the same photos", () => {
     vi.mocked(runResolvedCheck).mockRejectedValue(new Error("socket hang up")); // every attempt fails on our side
     await events(await POST(request()));
     for (let i = 0; i < 3; i++) await events(await POST(request()));
-    const before = vi.mocked(consumeCheckLimit).mock.calls.length;
+    const before = used();
     expect(before).toBe(2);
     await events(await POST(request()));
-    expect(vi.mocked(consumeCheckLimit).mock.calls.length).toBeGreaterThan(before);
+    expect(used()).toBeGreaterThan(before);
   });
   it("the same photos as a NEW check (new id, or none) are charged and read again: no free re-checks", async () => {
     for (const id of ["b".repeat(32), null]) {
       await events(await POST(request(bottle, "c".repeat(32))));
-      vi.mocked(readPill).mockClear(); vi.mocked(consumeCheckLimit).mockClear();
+      vi.mocked(readPill).mockClear(); const before = used();
       expect((await events(await POST(request(bottle, id)))).at(-1).type).toBe("result");
-      expect(readPill).toHaveBeenCalledTimes(9); expect(consumeCheckLimit).toHaveBeenCalledTimes(2);
+      expect(readPill).toHaveBeenCalledTimes(9); expect(used() - before).toBe(2);
     }
   });
   it("a result the phone never received: resending that check is free, from cache, at most 3 times", async () => {
     expect((await events(await POST(request()))).at(-1).type).toBe("result");
-    vi.mocked(consumeCheckLimit).mockClear(); vi.mocked(readPill).mockClear();
+    vi.mocked(readPill).mockClear(); const before = used();
     for (let i = 0; i < 3; i++) expect((await events(await POST(request()))).at(-1).type).toBe("result");
-    expect(consumeCheckLimit).not.toHaveBeenCalled(); expect(readPill).not.toHaveBeenCalled();
+    expect(used()).toBe(before); expect(readPill).not.toHaveBeenCalled();
     await events(await POST(request()));
-    expect(consumeCheckLimit).toHaveBeenCalled();
+    expect(used()).toBeGreaterThan(before);
   });
   it("a check that runs too long ends with a retryable error, and the retry reuses what was already read", async () => {
     process.env.BOTTLE_WATCHDOG_MS = "300";
@@ -118,6 +120,10 @@ describe("phase 11g: retrying the same photos", () => {
     expect(new Set(deadlines).size).toBe(1);
     expect(deadlines[0] - before).toBeGreaterThan(200_000); expect(deadlines[0] - before).toBeLessThan(270_000);
     expect(vi.mocked(readLabel).mock.calls[0][1]?.deadline).toBe(deadlines[0]);
+  });
+  it("a retry overlapping the still-running original never pays for the same units twice", async () => {
+    await Promise.all([events(await POST(request())), events(await POST(request()))]);
+    expect(used()).toBe(2);
   });
   it("a photo the segmenter rejects is a retake, never a retryable error", async () => {
     const out = (await events(await POST(request(await scene(0))))).at(-1);

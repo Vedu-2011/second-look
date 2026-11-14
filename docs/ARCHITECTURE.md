@@ -342,9 +342,9 @@ Repo: github.com/Vedu-2011/second-look — PUBLIC (DSH requires a public repo).
   check. Readings (never photos) are cached 15 min per scope = hash(checkId + every photo + previousId + checkAnyway);
   the n-th read of one image maps to the n-th cached reading, so a deliberate second read is still real and a follow-up
   photo always gets fresh reads. Quota is shared by the check's requests for 15 min (the first + up to 3 resends, even
-  after a result, since the phone may never have received it). Each step is atomic per check (claim N units → charge
-  only the difference; refused units are given back), so a retry overlapping the still-running original never pays
-  for the same units twice. The same photos as a new check (new id, or none) pay and read again (codex review).
+  after a result, since the phone may never have received it). The quota script charges only units nobody in that check has
+  paid for, in the same Redis transaction as the hourly/daily limits, so a retry overlapping the still-running
+  original never pays twice and a refused charge leaves nothing free. The same photos as a new check (new id, or none) pay and read again (codex review).
 - Diagnosis next time: the browser sends a tiny note to /api/client-error (kind, status, error name/message, attempt,
   timing, bytes, user agent; never photos or readings), so a failure that never reaches the server is in the logs.
 - Time: a 17-pill photo is 17 reads in 4 rounds of 5 (scripted, mocked latency): ~40 s at a slow 10 s read.

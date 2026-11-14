@@ -11,7 +11,7 @@ import { MAX_BOTTLE_PIXELS } from "@/lib/bottle/segment";
 import { BOTTLE_BODY_BYTES, BOTTLE_UPLOAD_BYTES, LABEL_UPLOAD_BYTES } from "@/lib/bottle/upload";
 import type { BottleEvent } from "@/lib/bottle/types";
 import { friendlyFdaMessage } from "@/lib/fda/http";
-import { bottleCheckUnits, consumeCheckLimit, consumePreparationLimit, claimUnits, joinCheck, returnUnits } from "@/lib/rate-limit";
+import { bottleCheckUnits, consumeCheckLimit, consumePreparationLimit, joinCheck } from "@/lib/rate-limit";
 import { canContinueBottle, getBottleResult, saveBottleResult, type StoredBottleResult } from "@/lib/result-store";
 
 // Hobby allows up to 300 s. A 17-pill photo measures ~6–7 rounds of reads (phase 11g); this is headroom, not the plan.
@@ -88,14 +88,12 @@ export async function POST(request: Request) {
   const photoHash = createHash("sha256").update(`${checkId || randomBytes(16).toString("hex")}\n${previousId}\n${checkAnyway ? 1 : 0}\n${label?.base64.length ?? 0}\n`).update(label?.base64 ?? "").update(bottle).digest("hex");
   const shared = checkId ? await joinCheck(photoHash) : false;
   let reservedUnits = 0;
-  /** Reserve up to `units` for this request; with a shared check, only units nobody has paid for yet are charged. */
+  /** Reserve up to `units` for this request; in a shared check only units nobody has paid for are charged (atomically). */
   const reserveUnits = async (units: number) => {
-    const extra = shared ? await claimUnits(photoHash, units) : Math.max(0, units - reservedUnits);
-    if (extra) {
-      const reserved = await consumeCheckLimit(ip, extra);
-      if (!reserved.allowed) { if (shared) await returnUnits(photoHash, extra); return reserved; }
-    }
-    reservedUnits = Math.max(reservedUnits, units);
+    if (units <= reservedUnits) return null;
+    const reserved = shared ? await consumeCheckLimit(ip, units, photoHash) : await consumeCheckLimit(ip, units - reservedUnits);
+    if (!reserved.allowed) return reserved;
+    reservedUnits = units;
     return null;
   };
   const initial = await reserveUnits(1);

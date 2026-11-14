@@ -2,10 +2,10 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { classifyFailure, OURS_MESSAGE } from "@/lib/bottle/retry";
 import { clearReadCacheForTests, requestReadCache } from "@/lib/ai/read-cache";
-import { claimUnits, clearPaidForTests, joinCheck, returnUnits } from "@/lib/rate-limit";
+import { clearPaidForTests, clearRateLimitForTests, consumeCheckLimit, hourlyUsedForTests, joinCheck } from "@/lib/rate-limit";
 
 vi.mock("@/lib/redis", () => ({ getRedis: () => null, key: (v: string) => "sl:" + v }));
-beforeEach(() => { clearReadCacheForTests(); clearPaidForTests(); });
+beforeEach(() => { clearReadCacheForTests(); clearPaidForTests(); clearRateLimitForTests(); });
 
 describe("only a photo problem sends you back to the camera", () => {
   it.each([
@@ -102,15 +102,18 @@ describe("overlapping reads (a retry while the cut-off request is still reading)
 
 describe("quota the same photos already paid for", () => {
   it("each unit of a check is charged once, even when an overlapping retry asks at the same time", async () => {
-    expect(await claimUnits("abc", 1)).toBe(1);
-    expect(await Promise.all([claimUnits("abc", 4), claimUnits("abc", 4)])).toEqual([3, 0]);
-    expect(await claimUnits("abc", 2)).toBe(0);
-    expect(await claimUnits("other", 2)).toBe(2);
+    await consumeCheckLimit("ip", 1, "abc");
+    await Promise.all([consumeCheckLimit("ip", 4, "abc"), consumeCheckLimit("ip", 4, "abc")]);
+    await consumeCheckLimit("ip", 2, "abc");
+    expect(hourlyUsedForTests("ip")).toBe(4);
+    await consumeCheckLimit("ip", 2, "other");
+    expect(hourlyUsedForTests("ip")).toBe(6);
   });
-  it("units the limit refused are given back, so they can be claimed again", async () => {
-    expect(await claimUnits("abc", 3)).toBe(3);
-    await returnUnits("abc", 2);
-    expect(await claimUnits("abc", 3)).toBe(2);
+  it("a refused charge leaves the check unpaid: nobody gets those units for free", async () => {
+    await consumeCheckLimit("ip", 8); await consumeCheckLimit("ip", 8); await consumeCheckLimit("ip", 8); // 24 of 30
+    expect((await consumeCheckLimit("ip", 8, "abc")).allowed).toBe(false);
+    expect((await consumeCheckLimit("ip", 6, "abc")).allowed).toBe(true); // the overlapping request pays for its own 6
+    expect(hourlyUsedForTests("ip")).toBe(30);
   });
   it("one check shares its quota over 1 + 3 requests", async () => {
     expect([await joinCheck("abc"), await joinCheck("abc"), await joinCheck("abc"), await joinCheck("abc"), await joinCheck("abc")]).toEqual([true, true, true, true, false]);
