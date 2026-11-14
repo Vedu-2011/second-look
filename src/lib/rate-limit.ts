@@ -104,3 +104,20 @@ export async function releaseReservation(photoHash: string): Promise<void> {
   paidMemory.delete(k);
 }
 export function clearPaidForTests() { paidMemory.clear(); }
+
+// Phase 11g: browser failure notes are for diagnosis only; a few a minute per IP is plenty, the rest aren't logged.
+const NOTES_PER_MINUTE = 10;
+const noteMemory = new Map<string, { count: number; expires: number }>();
+export async function allowFailureNote(ip: string): Promise<boolean> {
+  const now = Date.now(), k = key(`note:${ip.replace(/[^a-zA-Z0-9:._-]/g, "_").slice(0, 100)}:${Math.floor(now / 60_000)}`);
+  const redis = getRedis();
+  if (redis) {
+    try { return await redis.eval<[], number>("local n=redis.call('INCR', KEYS[1]); redis.call('EXPIRE', KEYS[1],120); return n", [k], []) <= NOTES_PER_MINUTE; }
+    catch { return false; }
+  }
+  for (const [name, v] of noteMemory) if (v.expires <= now) noteMemory.delete(name);
+  const count = (noteMemory.get(k)?.count ?? 0) + 1;
+  noteMemory.set(k, { count, expires: now + 120_000 });
+  return count <= NOTES_PER_MINUTE;
+}
+export function clearNotesForTests() { noteMemory.clear(); }
