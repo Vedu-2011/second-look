@@ -29,6 +29,6 @@
     {"name":"research","out":[125,137.88],"source":"work/research-proof.png"},
     {"name":"safety","out":[137.88,145.64],"source":"work/v2/safety.png"},
     {"name":"limits","out":[145.64,149.56],"source":"work/softgel-limit.png"},
-    {"name":"end","out":[149.56,158],"source":"work/end.png"}
+    {"name":"end","out":[149.56,158],"source":"work/v2/end.png"}
   ]
 }

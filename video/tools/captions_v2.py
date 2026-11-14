@@ -24,20 +24,62 @@ def main():
   after=after.replace('G12','G 12').replace('1000','1,000')
   if after!=before:changes.append({'time':w['start'],'asr':before,'caption':after,'reason':'spelling/entity or homophone correction, checked against the second local ASR pass and context'})
   w['text']=after
- cues=[];group=[]
- def flush():
-  if group:cues.append({'start':group[0]['start'],'end':group[-1]['end'],'text':' '.join(w['text']for w in group)});group.clear()
+ # Reviewed phrase boundaries preserve every ASR word while avoiding cut-off clauses.
+ phrases = """When your refill comes, do you check every pill?
+Most people don't.
+They pour them out and trust the bottle.
+But US pharmacies make an estimated 51.5 million dispensing errors a year.
+And when a refill just looks different, people stop taking it
+34% higher odds after a color change
+and 66% after a shape change.
+This is Second Look.
+Snap your label, pour out your pills, take one photo.
+In about 10 seconds, it checks every pill against the official FDA record
+for the medicine on your label.
+Here is a metformin refill. 10 pills.
+One of them is amoxicillin, an antibiotic that looks almost the same.
+White, oval, about the same size.
+Would you notice?
+Second Look reads the letters on every pill
+and checks them against every FDA-listed version of metformin 1,000 mg.
+The others say G 12.
+This one says 93, and no metformin has that.
+So it's red.
+Don't take any pills from this bottle. Call your pharmacy.
+Want to know what it is?
+Flip just that pill and snap again.
+It only reads that one pill again.
+93 on one side, 2263 on the other.
+That's amoxicillin, 500 mg.
+Not every different looking pill is a mistake.
+This label says Advil, but the pill is a store brand.
+Second Look shows it's the same medicine from a different company,
+so you don't stop taking it for no reason.
+The rule I built it on. AI reads, code decides.
+Claude only reads what's printed on each pill, and its color and shape.
+Plain code compares that with real FDA and national library of medicine records
+and makes the call.
+If the AI isn't sure, it reads again,
+and if it still can't tell, the app says so instead of guessing.
+It only shows green when it has read every pill,
+and it never saves your photos.
+I tested the first version of the pill reader
+on 150 NIH pill photos it had never seen.
+When I gave an answer, it was right 83 out of 88 times.
+Testing also caught a real safety bug.
+I fixed it and published the before and after,
+and I'm honest about limits.
+Shiny, see-through soft gels are hard to read.
+Second Look, a 10 second second look.
+Before you take it, try it at secondlook.vercel.app.""".splitlines()
+ expanded=[]
  for word in words:
-  if group and (len(' '.join(w['text']for w in group))+len(word['text'])>85 or word['end']-group[0]['start']>4.6):flush()
-  group.append(word)
-  if word['text'].endswith(('.', '?','!')) and len(group)>=3:flush()
- flush()
- # Keep tiny trailing fragments with the preceding phrase where that remains readable.
- clean=[]
- for cue in cues:
-  if clean and len(cue['text'].split())<3 and len(clean[-1]['text'])+len(cue['text'])<105 and cue['end']-clean[-1]['start']<6.2:
-   clean[-1]['text']+=' '+cue['text'];clean[-1]['end']=cue['end']
-  else:clean.append(cue)
+  for part in word['text'].split():expanded.append({**word,'text':part})
+ assert ' '.join(phrases).split()==[w['text'] for w in expanded], 'Reviewed phrase text must exactly preserve the corrected ASR transcript'
+ clean=[];cursor=0
+ for phrase in phrases:
+  count=len(phrase.split());matched=expanded[cursor:cursor+count];cursor+=count
+  clean.append({'start':matched[0]['start'],'end':matched[-1]['end'],'text':phrase})
  for i,cue in enumerate(clean):
   cue['end']=min(cue['end']+.08,clean[i+1]['start']-.01 if i+1<len(clean)else 157.4)
   assert cue['start']<cue['end']
