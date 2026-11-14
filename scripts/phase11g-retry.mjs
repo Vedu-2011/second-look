@@ -27,6 +27,8 @@ try {
   for (const width of [375, 1440]) for (const s of scenarios) {
     const page = await browser.newPage({viewport: {width, height: 1000}, reducedMotion: "reduce"});
     const bodies = [], beacons = [];
+    // Phase 12 reads the label before the pills; never a paid read here. A failed read falls back to the old path.
+    await page.route("**/api/read-label", route => route.abort("failed"));
     await page.route("**/api/client-error", async route => { beacons.push(JSON.parse(route.request().postData() || "{}")); await route.fulfill({status: 204}); });
     await page.route("**/api/check-bottle", async route => {
       bodies.push(route.request().postDataBuffer());
@@ -39,6 +41,7 @@ try {
     await page.goto(base + "/check", {waitUntil: "networkidle"});
     const upload = async file => { await page.locator("input[type=file]:not([capture])").setInputFiles(root + file); await page.locator("img[alt^='Your']").first().waitFor(); };
     await upload("test-images/real/bottle/label.jpg");
+    await page.getByText("We'll read your label together with the pills.").waitFor();
     await page.getByRole("button", {name: "Next: photo of the pills", exact: true}).click();
     await upload("test-images/real/bottle/pills.jpg");
     await page.getByRole("button", {name: "Check my pills", exact: true}).last().click();

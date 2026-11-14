@@ -197,7 +197,7 @@ export function BottleFlow() {
       : <div className="grid min-h-60 place-items-center overflow-hidden rounded-[var(--radius-photo)] bg-foil p-4">{photo ? <img src={photo.preview} alt={phase === "label" ? "Your label photo" : "Your full-resolution whole-bottle photo"} className="max-h-96 w-full rounded-2xl object-contain" /> : <div className="p-7 text-center"><Camera aria-hidden className="mx-auto mb-4 size-10 text-ink-soft" /><p>{phase === "label" ? "Your label goes here" : "Spread out all the pills here"}</p></div>}</div>}
       <input ref={camera} type="file" accept="image/jpeg,image/png,image/webp,image/gif" capture="environment" hidden onChange={(e) => { void choose(e.target.files?.[0]); e.target.value = ""; }} />
       <input ref={upload} type="file" accept="image/jpeg,image/png,image/webp,image/gif" hidden onChange={(e) => { void choose(e.target.files?.[0]); e.target.value = ""; }} />
-      <div className="flex flex-col gap-3 sm:flex-row"><Button variant="ink" disabled={busyPhoto} onClick={() => { adding.current = false; camera.current?.click(); }}><Camera aria-hidden />{photo ? "Retake photo" : phase === "label" ? "Take label photo" : "Take pills photo"}</Button><Button variant="secondary" disabled={busyPhoto} onClick={() => { adding.current = false; upload.current?.click(); }}><ImageUp aria-hidden />Upload a photo</Button></div>
+      <div className="flex flex-col gap-3 sm:flex-row"><Button variant="ink" disabled={busyPhoto} onClick={() => { adding.current = false; camera.current?.click(); }}><Camera aria-hidden />{photo ? (phase === "label" && labels.length > 1 ? "Retake label photos" : "Retake photo") : phase === "label" ? "Take label photo" : "Take pills photo"}</Button><Button variant="secondary" disabled={busyPhoto} onClick={() => { adding.current = false; upload.current?.click(); }}><ImageUp aria-hidden />Upload a photo</Button></div>
       {busyPhoto && <p role="status">Preparing your photo at full resolution…</p>}
       {phase === "label" && label && <LabelReadCard read={labelRead} shown={shownLabel} busy={labelBusy} note={labelNote} choices={choices} onChoose={(field, i) => setChoices((c) => ({ ...c, [field]: i }))}
         onAdd={labelRead && !labelBusy && labels.length < MAX_LABEL_PHOTOS ? () => { adding.current = true; camera.current?.click(); } : undefined} onUpload={() => { adding.current = true; upload.current?.click(); }} />}
@@ -233,10 +233,10 @@ function AskedPills({ result, photo }: { result: BottleResult; photo: string }) 
 
 /** What we read from the label photos, before the pills: the reading, what's missing, and any disagreement to settle. */
 function LabelReadCard({ read, shown, busy, note, choices, onChoose, onAdd, onUpload }: { read?: LabelRead; shown?: LabelReading; busy: boolean; note: string; choices: LabelChoices; onChoose: (field: KeyField, option: number) => void; onAdd?: () => void; onUpload: () => void }) {
-  if (busy) return <p role="status" className="rounded-[var(--radius-card)] bg-foil p-5 text-lg font-semibold">Reading your label…</p>;
+  if (busy) return <p role="status" className="rounded-[var(--radius-card)] bg-white p-5 text-lg font-semibold shadow-[var(--shadow-soft)]">Reading your label…</p>;
   if (!read) return note ? <p role="status" className="rounded-[var(--radius-card)] bg-foil p-5 text-lg">{note}</p> : null;
   const summary = shown ? labelSummary(shown) : "";
-  return <section aria-label="What we read from your label" className="space-y-4 rounded-[var(--radius-card)] bg-foil p-5">
+  return <section aria-label="What we read from your label" className="space-y-4 rounded-[var(--radius-card)] bg-white p-5 shadow-[var(--shadow-soft)]">
     {summary && <p className="text-xl"><span className="font-semibold">We read:</span> {summary}</p>}
     {read.photos > 1 && <p className="text-lg text-ink-soft">From {read.photos} photos of the label.</p>}
     {note && <p role="alert" className="text-lg font-semibold">{note}</p>}
