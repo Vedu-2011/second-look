@@ -125,12 +125,14 @@ def main():
     }
     (OUT / 'render-manifest-v2.json').write_text(json.dumps(manifest, indent=2) + '\n')
     if opt.publish:
+        # Verify this exact fresh encode before copying any deliverable or PASS report.
+        from verify_v2 import main as verify_final
+        verify_final()
         dest = Path('/Users/mellamputi_vedhanth/Hackathons/DSH Hacks/video/out')
         dest.mkdir(parents=True, exist_ok=True)
         for name in ['second-look-demo-v2.mp4', 'contact-sheet-v2.png', 'captions-v2.srt', 'render-manifest-v2.json', 'verification-v2.json']:
             source = OUT / name
-            if source.exists():
-                shutil.copy2(source, dest / name)
+            shutil.copy2(source, dest / name)
     print(json.dumps({'output': str(final), 'duration': manifest['duration'], 'captions': len(review['cues'])}))
 
 if __name__ == '__main__':
