@@ -1,0 +1,74 @@
+{
+  "status": "PASS",
+  "duration": 158.0,
+  "bytes": 11121034,
+  "videoSha256": "8df50e19ddf141dc7b48d06d95854195e2099faa4b4542951fa724aedcc1aea1",
+  "format": {
+    "video": "h264",
+    "width": 1920,
+    "height": 1080,
+    "fps": "30/1",
+    "audio": "aac",
+    "sampleRate": "48000"
+  },
+  "frameCount": 4740,
+  "fullDecode": "PASS",
+  "audioVideoDurationDelta": 0.0,
+  "captionCount": 47,
+  "captionWordsMatchReviewedActualRecording": true,
+  "captionMethod": "local whisper.cpp small.en full-token timestamps; cross-checked medium.en-q5_0 and three focused excerpts",
+  "captionTiming": "ASR token timing plus manually reviewed phrase boundaries; not frame-exact forced alignment.",
+  "voiceMasterUnscaled": true,
+  "voiceEnvelopeCorrelation": 0.98355957721034,
+  "voiceBestLagMs": 20,
+  "voiceWindowChecks": [
+    {
+      "fromSeconds": 0,
+      "durationSeconds": 25,
+      "correlationAtMeasuredLag": 0.9846105965695446,
+      "lagMs": 20
+    },
+    {
+      "fromSeconds": 50,
+      "durationSeconds": 25,
+      "correlationAtMeasuredLag": 0.9859612333278651,
+      "lagMs": 20
+    },
+    {
+      "fromSeconds": 100,
+      "durationSeconds": 25,
+      "correlationAtMeasuredLag": 0.9854928937235072,
+      "lagMs": 20
+    },
+    {
+      "fromSeconds": 130,
+      "durationSeconds": 25,
+      "correlationAtMeasuredLag": 0.9867866406562299,
+      "lagMs": 20
+    }
+  ],
+  "loudnessLUFS": -16.63,
+  "truePeakDbFS": -1.45,
+  "qrDecoded": [
+    "https://getsecondlook.vercel.app"
+  ],
+  "closingUrlDecision": "User approved unchanged spoken secondlook.vercel.app; working getsecondlook.vercel.app on end card and QR.",
+  "sourcesVerifiedAgainstRenderHashes": true,
+  "reviewAssets": [
+    "video/work/v2/timeline-1.png",
+    "video/work/v2/timeline-2.png",
+    "video/work/v2/timeline-3.png",
+    "video/work/v2/timeline-4.png"
+  ],
+  "notUploaded": true,
+  "paidAiCalls": 0,
+  "appChecks": {
+    "tests": "554 PASS / 57 files",
+    "lint": "PASS",
+    "build": "PASS",
+    "typescript": "PASS",
+    "appChanges": false
+  },
+  "reviewMethod": "Every-second sampled full timeline and enlarged critical source/output frames, full encoded decode, full-length local ASR cross-check and audio-envelope timing comparison. No claim of a human listening pass.",
+  "sourceOnlyBranch": "video/demo"
+}
