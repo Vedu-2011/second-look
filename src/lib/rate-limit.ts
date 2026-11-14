@@ -97,7 +97,7 @@ export async function recordReservation(photoHash: string, units: number): Promi
   const hit = paidMemory.get(k);
   paidMemory.set(k, { units: Math.max(units, hit?.units ?? 0), retries: hit?.retries ?? 0, expires: Date.now() + PAID_SECONDS * 1000 });
 }
-/** A check that finished is not retried: the same id and photos again count as a new check. */
+/** Forget a reservation (diagnostics; a finished check keeps its own until it expires, see the bottle route). */
 export async function releaseReservation(photoHash: string): Promise<void> {
   const redis = getRedis(), k = paidKey(photoHash);
   if (redis) { try { await redis.del(k); } catch {} return; }

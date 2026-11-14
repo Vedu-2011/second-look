@@ -88,11 +88,13 @@ describe("phase 11g: retrying the same photos", () => {
       expect(readPill).toHaveBeenCalledTimes(9); expect(consumeCheckLimit).toHaveBeenCalledTimes(2);
     }
   });
-  it("a check that finished releases its reservation: resending its id is charged again", async () => {
+  it("a result the phone never received: resending that check is free, from cache, at most 3 times", async () => {
     expect((await events(await POST(request()))).at(-1).type).toBe("result");
-    vi.mocked(consumeCheckLimit).mockClear();
+    vi.mocked(consumeCheckLimit).mockClear(); vi.mocked(readPill).mockClear();
+    for (let i = 0; i < 3; i++) expect((await events(await POST(request()))).at(-1).type).toBe("result");
+    expect(consumeCheckLimit).not.toHaveBeenCalled(); expect(readPill).not.toHaveBeenCalled();
     await events(await POST(request()));
-    expect(consumeCheckLimit).toHaveBeenCalledTimes(2);
+    expect(consumeCheckLimit).toHaveBeenCalled();
   });
   it("a check that runs too long ends with a retryable error, and the retry reuses what was already read", async () => {
     process.env.BOTTLE_WATCHDOG_MS = "300";

@@ -11,7 +11,7 @@ import { MAX_BOTTLE_PIXELS } from "@/lib/bottle/segment";
 import { BOTTLE_BODY_BYTES, BOTTLE_UPLOAD_BYTES, LABEL_UPLOAD_BYTES } from "@/lib/bottle/upload";
 import type { BottleEvent } from "@/lib/bottle/types";
 import { friendlyFdaMessage } from "@/lib/fda/http";
-import { bottleCheckUnits, consumeCheckLimit, consumePreparationLimit, priorReservation, recordReservation, releaseReservation } from "@/lib/rate-limit";
+import { bottleCheckUnits, consumeCheckLimit, consumePreparationLimit, priorReservation, recordReservation } from "@/lib/rate-limit";
 import { canContinueBottle, getBottleResult, saveBottleResult, type StoredBottleResult } from "@/lib/result-store";
 
 // Hobby allows up to 300 s. A 17-pill photo measures ~6–7 rounds of reads (phase 11g); this is headroom, not the plan.
@@ -83,7 +83,8 @@ export async function POST(request: Request) {
   const tips = captureCoaching(prepared);
   if (tips.length && !checkAnyway) return new Response(JSON.stringify({ type: "coaching", tips }) + "\n", { headers: { "content-type": "application/x-ndjson", "cache-control": "no-store" } });
   // A retry of one check (same check id AND same photos) reuses what it already reserved and read. Without an id, or
-  // with new photos, it's a new check: fresh quota and fresh reads. A finished check releases its reservation.
+  // with new photos, it's a new check: fresh quota and fresh reads. Kept even after a result, since the phone may never
+  // have received it; at most 3 free retries per check, within 15 minutes.
   const photoHash = createHash("sha256").update(`${checkId || randomBytes(16).toString("hex")}\n${previousId}\n${checkAnyway ? 1 : 0}\n${label?.base64.length ?? 0}\n`).update(label?.base64 ?? "").update(bottle).digest("hex");
   const prior = checkId ? await priorReservation(photoHash) : 0;
   if (!prior) {
@@ -118,7 +119,6 @@ export async function POST(request: Request) {
           if (result && !canceled) {
             const continuationToken = randomBytes(32).toString("hex");
             send({ type: "result", result, shareId: await saveBottleResult(result, continuationToken), continuationToken });
-            if (checkId) await releaseReservation(photoHash);
           }
         } catch (error) {
           // Keep the real exception, but never log request bodies, photos, label readings or SDK headers.
