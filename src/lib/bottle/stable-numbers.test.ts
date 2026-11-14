@@ -99,9 +99,14 @@ describe("keepNumbers", () => {
     const third = keepNumbers(previous(second.numbers, without5, { highestNumber: second.highest }), { image, boxes: [...without5, points[4]].map(box) });
     expect(third.numbers).toEqual([1, 2, 3, 4, 6, 7, 8, 9, 10, 11]);
   });
-  it("after a new pour, or when too few pills line up, the pills are numbered again", () => {
+  it("a fresh fallback where only a few pills line up still keeps those few numbers", () => {
+    // Seven pills taken away, two new ones dropped in: three of ten still line up.
+    const three = [points[0], points[1], points[2], { x: 1050, y: 930 }, { x: 560, y: 120 }];
+    expect(keepNumbers(previous(), { image, boxes: three.map(box) })).toEqual({ numbers: [1, 2, 3, 11, 12], highest: 12, renumbered: false });
+  });
+  it("after a new pour, or when no pill lines up, the pills are numbered again", () => {
     expect(keepNumbers(previous(undefined, undefined, { decision: { ...previous().decision, next: "pour_again" } }), { image, boxes: points.map(box) })).toMatchObject({ renumbered: true, numbers: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] });
-    const elsewhere = Array.from({ length: 10 }, (_, i) => ({ x: 100 + i * 105, y: 900 - (i % 2) * 40 }));
+    const elsewhere = Array.from({ length: 4 }, (_, i) => ({ x: 150 + i * 300, y: 960 }));
     expect(keepNumbers(previous(), { image, boxes: elsewhere.map(box) }).renumbered).toBe(true);
   });
 });

@@ -100,7 +100,7 @@ export function planFollowUp(previous: BottleResult, next: NextPhoto): FollowUpP
 /**
  * Phase 12: a pill found again by position keeps its number from the earlier photo, so "pill 4" is still pill 4 after
  * "Flip and snap again". A genuinely new object takes the next number never used in this check (a removed pill's
- * number is not reused). Only when too few pills line up to trust the match (or after a new pour) are the pills
+ * number is not reused). Only when no pill lines up (or after a new pour, where positions mean nothing) are the pills
  * numbered again from 1, and the caller says so. Numbers are only labels: every reading is still the new photo's.
  */
 export function keepNumbers(previous: BottleResult, next: { image: Size; boxes: readonly NormalizedBox[] }): { numbers: number[]; highest: number; renumbered: boolean } {
@@ -108,8 +108,7 @@ export function keepNumbers(previous: BottleResult, next: { image: Size; boxes: 
   if (previous.decision.next === "pour_again" || !previous.pills.length || !next.boxes.length) return fromOne;
   const size = median(previous.pills.map((p) => Math.max(p.box.width * previous.image.width, p.box.height * previous.image.height)));
   const { pairs } = matchLayouts(previous.pills.map((p) => centerOf(p.box, previous.image)), next.boxes.map((b) => centerOf(b, next.image)), size);
-  // One or two chance pairs in a layout that moved are not "the same pills": at least half of them must line up.
-  if (!pairs.length || pairs.length < Math.ceil(Math.min(previous.pills.length, next.boxes.length) / 2)) return fromOne;
+  if (!pairs.length) return fromOne;
   const kept = new Map(pairs.map(([i, j]) => [i, previous.pills[j].number]));
   let highest = Math.max(previous.highestNumber ?? 0, ...previous.pills.map((p) => p.number));
   return { numbers: next.boxes.map((_, i) => kept.get(i) ?? ++highest), highest, renumbered: false };
