@@ -1,7 +1,7 @@
 import { createHash, randomBytes } from "node:crypto";
 import { connection } from "next/server";
 import sharp from "sharp";
-import { AiUnavailableError } from "@/lib/ai/client";
+import { AiUnavailableError, type ImageInput, type ReadOptions } from "@/lib/ai/client";
 import { requestReadCache } from "@/lib/ai/read-cache";
 import { readLabel, readPill, readPillGroup } from "@/lib/ai/readers";
 import { BottleQuotaError, runBottleCheck, runBottleFollowUp } from "@/lib/bottle/check-bottle";
@@ -16,6 +16,8 @@ import { canContinueBottle, getBottleResult, saveBottleResult, type StoredBottle
 
 // Hobby allows up to 300 s. A 17-pill photo measures ~6–7 rounds of reads (phase 11g); this is headroom, not the plan.
 export const maxDuration = 300;
+/** End the stream with a retryable error before the platform kills the function; reads finished so far stay cached. */
+const WATCHDOG_MS = 270_000, READ_DEADLINE_MS = 262_000;
 const MAX_BODY = BOTTLE_BODY_BYTES;
 const supported = new Set(["image/jpeg", "image/png", "image/webp", "image/gif"]);
 const encoder = new TextEncoder();
@@ -92,10 +94,18 @@ export async function POST(request: Request) {
   let canceled = false, reservedUnits = Math.max(1, prior);
   // Readings (never photos) are cached by image hash, so a retry of the same photos doesn't pay for them again.
   const cache = requestReadCache(photoHash);
-  const readers = { readLabel: cache("label", readLabel), readPill: cache("pill", readPill), readPillGroup: cache("group", readPillGroup) };
+  const deadline = Date.now() + READ_DEADLINE_MS;
+  const timed = <T,>(reader: (image: ImageInput, options: ReadOptions) => Promise<T>) => (image: ImageInput, options: ReadOptions = {}) => reader(image, { ...options, deadline });
+  const readers = { readLabel: cache("label", timed(readLabel)), readPill: cache("pill", timed(readPill)), readPillGroup: cache("group", timed(readPillGroup)) };
   const stream = new ReadableStream<Uint8Array>({
     start(controller) {
       const send = (event: BottleEvent) => { if (!canceled) controller.enqueue(encoder.encode(`${JSON.stringify(event)}\n`)); };
+      const watchdog = setTimeout(() => {
+        if (canceled) return;
+        console.error("Bottle check failed", { name: "Watchdog", message: `Still running after ${Number(process.env.BOTTLE_WATCHDOG_MS) || WATCHDOG_MS} ms` });
+        send({ type: "error", retryable: true, message: "That took too long on our side." });
+        canceled = true; controller.close();
+      }, Number(process.env.BOTTLE_WATCHDOG_MS) || WATCHDOG_MS);
       void (async () => {
         try {
           // A re-snap counts like a check of the pills it re-reads: max(1, ceil(rereads / 5)).
@@ -118,7 +128,7 @@ export async function POST(request: Request) {
           // Quota and "AI isn't set up" won't fix themselves; anything else on our side is worth one more try.
           const retryable = !(error instanceof BottleQuotaError) && !(error instanceof AiUnavailableError);
           send({ type: "error", retryable, message: error instanceof BottleQuotaError ? error.message : error instanceof AiUnavailableError ? "Photo reading is unavailable right now. Try one pill or a saved sample." : friendlyFdaMessage(error) });
-        } finally { if (!canceled) controller.close(); }
+        } finally { clearTimeout(watchdog); if (!canceled) controller.close(); }
       })();
     },
     cancel() { canceled = true; },

@@ -94,6 +94,29 @@ describe("phase 11g: retrying the same photos", () => {
     await events(await POST(request()));
     expect(consumeCheckLimit).toHaveBeenCalledTimes(2);
   });
+  it("a check that runs too long ends with a retryable error, and the retry reuses what was already read", async () => {
+    process.env.BOTTLE_WATCHDOG_MS = "300";
+    try {
+      let n = 0;
+      vi.mocked(readPill).mockImplementation(async () => { if (++n > 5) await new Promise((r) => setTimeout(r, 2000)); return source.pill; });
+      const started = performance.now();
+      const out = await events(await POST(request()));
+      expect(out.at(-1)).toEqual({ type: "error", retryable: true, message: "That took too long on our side." });
+      expect(performance.now() - started).toBeLessThan(1500);
+      await new Promise((r) => setTimeout(r, 2200)); // the slow reads finish in the background and are cached
+    } finally { delete process.env.BOTTLE_WATCHDOG_MS; }
+    vi.mocked(readPill).mockClear(); vi.mocked(readPill).mockResolvedValue(source.pill);
+    expect((await events(await POST(request()))).at(-1).type).toBe("result");
+    expect(readPill).toHaveBeenCalledTimes(0);
+  }, 15000);
+  it("every AI read gets the same deadline, inside the function limit", async () => {
+    const before = Date.now();
+    await events(await POST(request()));
+    const deadlines = vi.mocked(readPill).mock.calls.map((c) => c[1]?.deadline as number);
+    expect(new Set(deadlines).size).toBe(1);
+    expect(deadlines[0] - before).toBeGreaterThan(200_000); expect(deadlines[0] - before).toBeLessThan(270_000);
+    expect(vi.mocked(readLabel).mock.calls[0][1]?.deadline).toBe(deadlines[0]);
+  });
   it("a photo the segmenter rejects is a retake, never a retryable error", async () => {
     const out = (await events(await POST(request(await scene(0))))).at(-1);
     expect(out.type).toBe("retake");

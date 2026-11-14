@@ -57,6 +57,8 @@ export type ReadOptions = {
   maxRetries?: number;
   /** Longer structured answers (a whole pile); single readers keep the 1200 default. */
   maxTokens?: number;
+  /** Epoch ms after which no new request starts; each request's timeout shrinks to fit. Set by the bottle API. */
+  deadline?: number;
 };
 
 export async function toolRead<T>({
@@ -69,6 +71,7 @@ export async function toolRead<T>({
   beforeAttempt,
   maxRetries,
   maxTokens = 1200,
+  deadline,
 }: {
   image: ImageInput;
   system: string;
@@ -76,11 +79,13 @@ export async function toolRead<T>({
   model?: string;
   validate: (input: unknown) => T;
 } & ReadOptions) {
-  // One SDK retry (429/5xx/timeouts) inside each of our two attempts, and a per-request timeout, so one stuck read can
-  // never hold the whole bottle check past the function limit: worst case 2 × 2 × timeout.
-  const client = getAnthropic(maxRetries ?? 1), timeout = maxTokens > 1200 ? 90_000 : 45_000;
+  // A per-request timeout so one stuck read can't hang. With a deadline (bottle checks), the SDK doesn't retry on its own:
+  // our two attempts each get only the time left, and none starts after the deadline. Without one: one SDK retry each.
+  const client = getAnthropic(maxRetries ?? (deadline ? 0 : 1)), timeout = maxTokens > 1200 ? 90_000 : 45_000;
   let lastError: unknown;
   for (let attempt = 0; attempt < 2; attempt++) {
+    const left = deadline === undefined ? timeout : deadline - Date.now();
+    if (left < 3_000) { lastError ??= new Error("No time left for this reading."); break; }
     await beforeAttempt?.();
     try {
       const response = await client.messages.create({
@@ -96,7 +101,7 @@ export async function toolRead<T>({
             { type: "text", text: "Use the tool and return only the structured reading." },
           ],
         }],
-      }, { timeout });
+      }, { timeout: Math.min(timeout, left) });
       recordUsage(model, response.usage, onUsage);
       const block = response.content.find((item) => item.type === "tool_use");
       if (!block || block.type !== "tool_use") throw new Error("Claude did not return the reading tool.");

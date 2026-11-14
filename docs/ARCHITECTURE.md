@@ -346,5 +346,7 @@ Repo: github.com/Vedu-2011/second-look — PUBLIC (DSH requires a public repo).
 - Diagnosis next time: the browser sends a tiny note to /api/client-error (kind, status, error name/message, attempt,
   timing, bytes, user agent; never photos or readings), so a failure that never reaches the server is in the logs.
 - Time: a 17-pill photo is 17 reads in 4 rounds of 5 (scripted, mocked latency): ~40 s at a slow 10 s read.
-  maxDuration 120 → 300 (Hobby max) as headroom; each AI request has a 45 s timeout (90 s for a pile read) and one SDK
-  retry inside our two attempts, so one stuck read can't hold the check past the limit. Browser waits 305 s.
+  maxDuration 120 → 300 (Hobby max) as headroom. Every AI read in a bottle check shares one deadline (262 s): no request
+  starts after it and each one's timeout (45 s, 90 s for a pile) shrinks to the time left, with no hidden SDK retries.
+  A watchdog ends the stream at 270 s with a retryable error, so the browser's retry resumes from the cached reads.
+  Browser waits 305 s.
