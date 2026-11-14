@@ -2,16 +2,17 @@
 // Usage: npm run diag:retry-redis
 import { randomBytes } from "node:crypto";
 import { getRedis, key } from "@/lib/redis";
-import { priorReservation, recordReservation, releaseReservation } from "@/lib/rate-limit";
+import { claimUnits, joinCheck, releaseReservation, returnUnits } from "@/lib/rate-limit";
 import { defaultReadStore, requestReadCache } from "@/lib/ai/read-cache";
 (async () => {
   const redis = getRedis();
   if (!redis) { console.error("Redis is not configured here."); process.exitCode = 1; return; }
   const hash = randomBytes(32).toString("hex"), check = (name: string, ok: boolean) => { console.log(ok ? "ok  " : "FAIL", name); if (!ok) process.exitCode = 1; };
-  check("no reservation yet", await priorReservation(hash) === 0);
-  await recordReservation(hash, 1); await recordReservation(hash, 4); await recordReservation(hash, 2);
-  check("highest reservation kept, 3 free retries", JSON.stringify([await priorReservation(hash), await priorReservation(hash), await priorReservation(hash)]) === "[4,4,4]");
-  check("4th retry is charged", await priorReservation(hash) === 0);
+  check("first unit is charged", await claimUnits(hash, 1) === 1);
+  check("overlapping claims charge each unit once", JSON.stringify(await Promise.all([claimUnits(hash, 4), claimUnits(hash, 4)]).then((r) => r.sort())) === "[0,3]");
+  await returnUnits(hash, 2);
+  check("returned units can be claimed again", await claimUnits(hash, 4) === 2);
+  check("1 + 3 shared requests, then not", JSON.stringify([await joinCheck(hash), await joinCheck(hash), await joinCheck(hash), await joinCheck(hash), await joinCheck(hash)]) === "[true,true,true,true,false]");
   await releaseReservation(hash);
   check("released", await redis.exists(key(`paid:${hash}`)) === 0);
   const scope = `diag-${hash}`, image = { mediaType: "image/png" as const, base64: "AAAA" };

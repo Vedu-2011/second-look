@@ -11,7 +11,7 @@ import { MAX_BOTTLE_PIXELS } from "@/lib/bottle/segment";
 import { BOTTLE_BODY_BYTES, BOTTLE_UPLOAD_BYTES, LABEL_UPLOAD_BYTES } from "@/lib/bottle/upload";
 import type { BottleEvent } from "@/lib/bottle/types";
 import { friendlyFdaMessage } from "@/lib/fda/http";
-import { bottleCheckUnits, consumeCheckLimit, consumePreparationLimit, priorReservation, recordReservation } from "@/lib/rate-limit";
+import { bottleCheckUnits, consumeCheckLimit, consumePreparationLimit, claimUnits, joinCheck, returnUnits } from "@/lib/rate-limit";
 import { canContinueBottle, getBottleResult, saveBottleResult, type StoredBottleResult } from "@/lib/result-store";
 
 // Hobby allows up to 300 s. A 17-pill photo measures ~6–7 rounds of reads (phase 11g); this is headroom, not the plan.
@@ -82,17 +82,25 @@ export async function POST(request: Request) {
   }
   const tips = captureCoaching(prepared);
   if (tips.length && !checkAnyway) return new Response(JSON.stringify({ type: "coaching", tips }) + "\n", { headers: { "content-type": "application/x-ndjson", "cache-control": "no-store" } });
-  // A retry of one check (same check id AND same photos) reuses what it already reserved and read. Without an id, or
-  // with new photos, it's a new check: fresh quota and fresh reads. Kept even after a result, since the phone may never
-  // have received it; at most 3 free retries per check, within 15 minutes.
+  // A retry of one check (same check id AND same photos) shares what that check already reserved and read, even while
+  // the original is still running. Without an id, or with new photos, it's a new check: fresh quota and fresh reads.
+  // Kept after a result too (the phone may never have received it); 1 + 3 requests per check, within 15 minutes.
   const photoHash = createHash("sha256").update(`${checkId || randomBytes(16).toString("hex")}\n${previousId}\n${checkAnyway ? 1 : 0}\n${label?.base64.length ?? 0}\n`).update(label?.base64 ?? "").update(bottle).digest("hex");
-  const prior = checkId ? await priorReservation(photoHash) : 0;
-  if (!prior) {
-    const initial = await consumeCheckLimit(ip);
-    if (!initial.allowed) return Response.json({ error: initial.message }, { status: 429, headers: { "cache-control": "no-store" } });
-    if (checkId) await recordReservation(photoHash, 1);
-  }
-  let canceled = false, reservedUnits = Math.max(1, prior);
+  const shared = checkId ? await joinCheck(photoHash) : false;
+  let reservedUnits = 0;
+  /** Reserve up to `units` for this request; with a shared check, only units nobody has paid for yet are charged. */
+  const reserveUnits = async (units: number) => {
+    const extra = shared ? await claimUnits(photoHash, units) : Math.max(0, units - reservedUnits);
+    if (extra) {
+      const reserved = await consumeCheckLimit(ip, extra);
+      if (!reserved.allowed) { if (shared) await returnUnits(photoHash, extra); return reserved; }
+    }
+    reservedUnits = Math.max(reservedUnits, units);
+    return null;
+  };
+  const initial = await reserveUnits(1);
+  if (initial) return Response.json({ error: initial.message }, { status: 429, headers: { "cache-control": "no-store" } });
+  let canceled = false;
   // Readings (never photos) are cached by image hash, so a retry of the same photos doesn't pay for them again.
   const cache = requestReadCache(photoHash);
   const deadline = Date.now() + READ_DEADLINE_MS;
@@ -112,8 +120,8 @@ export async function POST(request: Request) {
           // A re-snap counts like a check of the pills it re-reads: max(1, ceil(rereads / 5)).
           const reserve = async (count: number) => {
             if (canceled || request.signal.aborted) throw new BottleQuotaError("The check was canceled. Please start again.");
-            const units = bottleCheckUnits(count), extra = Math.max(0, units - reservedUnits);
-            if (extra) { const reserved = await consumeCheckLimit(ip, extra); if (!reserved.allowed) throw new BottleQuotaError(reserved.message); reservedUnits = units; if (checkId) await recordReservation(photoHash, units); }
+            const denied = await reserveUnits(bottleCheckUnits(count));
+            if (denied) throw new BottleQuotaError(denied.message);
           };
           const result = previous ? await runBottleFollowUp(previous.result, bottle, reserve, send, { prepared, checkAnyway: true, ...readers }) : await runBottleCheck(label!, bottle, reserve, send, { prepared, checkAnyway: true, ...readers });
           if (result && !canceled) {

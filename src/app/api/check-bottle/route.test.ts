@@ -48,7 +48,7 @@ describe("POST /api/check-bottle", () => {
     expect(output.filter((e) => e.type === "progress").map((e) => e.completed)).toEqual([0,1,2,3,4,5,6,7,8,9]);
     expect(readLabel).toHaveBeenCalledTimes(1); expect(readPill).toHaveBeenCalledTimes(9); expect(peak).toBe(5); expect(resolveLabelData).toHaveBeenCalledTimes(1);
     expect(vi.mocked(readPill).mock.calls.every((c) => c[1]?.model === "claude-sonnet-5-5")).toBe(true);
-    expect(consumeCheckLimit).toHaveBeenNthCalledWith(1, "unknown"); expect(consumeCheckLimit).toHaveBeenNthCalledWith(2, "unknown", 1);
+    expect(consumeCheckLimit).toHaveBeenNthCalledWith(1, "unknown", 1); expect(consumeCheckLimit).toHaveBeenNthCalledWith(2, "unknown", 1);
     const terminal = output.at(-1); expect(terminal.type).toBe("result"); expect(terminal.result.usage).toHaveLength(9);
     const stored = await getBottleResult(terminal.shareId); expect(stored?.result.pills).toHaveLength(9);
     const serialized = JSON.stringify(stored); for (const forbidden of ["base64", "dataUrl", "crops", "bottleImage", "labelImage"]) expect(serialized).not.toContain(forbidden);

@@ -68,36 +68,45 @@ export async function consumePreparationLimit(ip: string): Promise<LimitResult> 
   return count <= 30 ? { allowed: true, count } : { allowed: false, count, message: 'Please wait a minute before preparing another photo.' };
 }
 
-// Phase 11g: after a failure on our side the browser sends the SAME photos again. What those photos already reserved is
-// remembered for 15 minutes (keyed by a hash of the photos, never the photos), so the retry doesn't pay twice.
-// At most 3 free retries per set of photos; after that it counts like a new check.
-const PAID_SECONDS = 15 * 60, FREE_RETRIES = 3;
-const paidMemory = new Map<string, { units: number; retries: number; expires: number }>();
+// Phase 11g: after a failure on our side the browser resends the SAME check (same id, same photos). What that check
+// already reserved is shared by all its requests for 15 minutes (keyed by a hash, never the photos), so a retry, even one
+// overlapping the still-running original, never pays for the same units twice. Every step is atomic per check.
+// One check gets 1 + 3 requests on shared quota; after that each request pays on its own.
+const PAID_SECONDS = 15 * 60, SHARED_VISITS = 4;
+const paidMemory = new Map<string, { units: number; visits: number; expires: number }>();
 const paidKey = (photoHash: string) => key(`paid:${photoHash.replace(/[^a-f0-9]/g, "").slice(0, 64)}`);
-/** Units these exact photos already reserved (0 = none, or out of free retries). Counts one retry when non-zero. */
-export async function priorReservation(photoHash: string): Promise<number> {
-  const redis = getRedis(), k = paidKey(photoHash);
-  if (redis) {
-    try {
-      return await redis.eval<[number], number>("local u=tonumber(redis.call('HGET',KEYS[1],'units') or '0') if u==0 then return 0 end local r=redis.call('HINCRBY',KEYS[1],'retries',1) if r>tonumber(ARGV[1]) then return 0 end return u", [k], [FREE_RETRIES]);
-    } catch { return 0; }
-  }
+const paidEntry = (k: string) => {
   const now = Date.now(), hit = paidMemory.get(k);
-  if (!hit || hit.expires <= now) { paidMemory.delete(k); return 0; }
-  hit.retries++;
-  return hit.retries > FREE_RETRIES ? 0 : hit.units;
-}
-/** Remember the most these photos have reserved so far. A failure here only means a retry pays again. */
-export async function recordReservation(photoHash: string, units: number): Promise<void> {
+  if (hit && hit.expires > now) return hit;
+  const fresh = { units: 0, visits: 0, expires: now + PAID_SECONDS * 1000 };
+  paidMemory.set(k, fresh); return fresh;
+};
+/** Counts this request against the check. true = it shares the check's quota (the first request and up to 3 retries). */
+export async function joinCheck(photoHash: string): Promise<boolean> {
   const redis = getRedis(), k = paidKey(photoHash);
   if (redis) {
-    try { await redis.eval<[number, number], number>("local u=tonumber(redis.call('HGET',KEYS[1],'units') or '0') if tonumber(ARGV[1])>u then redis.call('HSET',KEYS[1],'units',ARGV[1]) end redis.call('EXPIRE',KEYS[1],tonumber(ARGV[2])) return 1", [k], [units, PAID_SECONDS]); } catch {}
-    return;
+    try { return await redis.eval<[number], number>("local v=redis.call('HINCRBY',KEYS[1],'visits',1) redis.call('EXPIRE',KEYS[1],ARGV[1]) return v", [k], [PAID_SECONDS]) <= SHARED_VISITS; }
+    catch { return false; }
   }
-  const hit = paidMemory.get(k);
-  paidMemory.set(k, { units: Math.max(units, hit?.units ?? 0), retries: hit?.retries ?? 0, expires: Date.now() + PAID_SECONDS * 1000 });
+  return ++paidEntry(k).visits <= SHARED_VISITS;
 }
-/** Forget a reservation (diagnostics; a finished check keeps its own until it expires, see the bottle route). */
+/** Raises the check's reservation to `units` and returns how many of those still need charging (0 if already paid). */
+export async function claimUnits(photoHash: string, units: number): Promise<number> {
+  const redis = getRedis(), k = paidKey(photoHash);
+  if (redis) {
+    try { return await redis.eval<[number, number], number>("local u=tonumber(redis.call('HGET',KEYS[1],'units') or '0') local want=tonumber(ARGV[1]) redis.call('EXPIRE',KEYS[1],ARGV[2]) if want>u then redis.call('HSET',KEYS[1],'units',want) return want-u end return 0", [k], [units, PAID_SECONDS]); }
+    catch { return units; }
+  }
+  const entry = paidEntry(k), extra = Math.max(0, units - entry.units);
+  entry.units = Math.max(entry.units, units); return extra;
+}
+/** Gives back units we claimed but couldn't charge (the limit said no). */
+export async function returnUnits(photoHash: string, units: number): Promise<void> {
+  const redis = getRedis(), k = paidKey(photoHash);
+  if (redis) { try { await redis.hincrby(k, "units", -units); } catch {} return; }
+  const entry = paidEntry(k); entry.units = Math.max(0, entry.units - units);
+}
+/** Forget a check's reservation (diagnostics only). */
 export async function releaseReservation(photoHash: string): Promise<void> {
   const redis = getRedis(), k = paidKey(photoHash);
   if (redis) { try { await redis.del(k); } catch {} return; }
