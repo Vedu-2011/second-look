@@ -76,7 +76,9 @@ export async function toolRead<T>({
   model?: string;
   validate: (input: unknown) => T;
 } & ReadOptions) {
-  const client = getAnthropic(maxRetries);
+  // One SDK retry (429/5xx/timeouts) inside each of our two attempts, and a per-request timeout, so one stuck read can
+  // never hold the whole bottle check past the function limit: worst case 2 × 2 × timeout.
+  const client = getAnthropic(maxRetries ?? 1), timeout = maxTokens > 1200 ? 90_000 : 45_000;
   let lastError: unknown;
   for (let attempt = 0; attempt < 2; attempt++) {
     await beforeAttempt?.();
@@ -94,7 +96,7 @@ export async function toolRead<T>({
             { type: "text", text: "Use the tool and return only the structured reading." },
           ],
         }],
-      });
+      }, { timeout });
       recordUsage(model, response.usage, onUsage);
       const block = response.content.find((item) => item.type === "tool_use");
       if (!block || block.type !== "tool_use") throw new Error("Claude did not return the reading tool.");

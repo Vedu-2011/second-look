@@ -328,3 +328,22 @@ Repo: github.com/Vedu-2011/second-look — PUBLIC (DSH requires a public repo).
 - Distance coaching uses separate silhouette lengths/areas AND touching/cutoff region boxes, not the median separate pill. Region boxes conservatively overestimate foreground. Ignore objects <12 working pixels long or <64 working pixels area, then <0.3 of the median of the three largest object areas. Coach only if all of the three largest lengths are <4% frame long edge, summed foreground <1.5%, AND kept objects span <65% long edge. No spreading pre-check reintroduced. Detection, pill verification thresholds, prompts and research artifacts unchanged.
 - Coaching constants frozen at7108417 on synthetic far/close/pile/speck controls before real audit. Far example lengths2%, foreground0.152%, span17.7% ->coach. Close9-pill spread lengths10%, foreground4.53%, span73.3% ->no coach. Close pile +8 small specks: specks ignored, large regions ->no coach. Real audit:15 image files,11 segment successfully, four label photos retake as too_many; no Move closer among eligible photos. This is a functional check, not a medical accuracy benchmark.
 - Incident13:40–13:46 UTC could not be recovered at15:21 UTC: time-window logs returned400, broad queries returned no records. Verified Vercel team is Hobby, runtime retention1h per official docs. The invalid-reservation exception is reproduced on pre-fix code, not claimed to be a recovered production stack trace. No paid AI needed.
+
+## Decisions in phase 11g (Claude Code, Nov 13) — a failure on our side never sends you back to the camera
+- The incident (Fri Nov 13, ~10:30 PM PT): the pills photo "failed, retry" twice, then worked. Vercel logs
+  (docs/screenshots/phase-11g/logs.txt) hold only the 3rd, successful POST (200, 12 AI reads). The 2 failures left no
+  request, no error and no timeout: they never reached the function, so the phone's upload dropped (iOS reports a
+  bare "Load failed"). The client then showed the raw message with only "Retake pills photo".
+- Browser (`src/lib/bottle/retry.ts`, bottle-flow.tsx): a failure is "photo" (segmenter retake, 400, too large),
+  "blocked" (429/403/404, quota) or "ours" (network drop, timeout, cut-off stream, 5xx, a server error marked
+  `retryable`). "Ours" keeps both photos, says "That took too long on our side — trying again…" and resends the SAME
+  photos once; if that fails too: "Try again" (same photos). Retake only for a photo problem.
+- Server: a retry costs nothing twice. Readings (never photos) are cached 15 min per request scope (hash of every photo
+  + previousId + checkAnyway); the n-th read of one image maps to the n-th cached reading, so a deliberate second read
+  is still real and a follow-up photo always gets fresh reads. Quota those photos reserved is remembered 15 min (up to
+  3 free retries).
+- Diagnosis next time: the browser sends a tiny note to /api/client-error (kind, status, error name/message, attempt,
+  timing, bytes, user agent; never photos or readings), so a failure that never reaches the server is in the logs.
+- Time: a 17-pill photo is 17 reads in 4 rounds of 5 (scripted, mocked latency): ~40 s at a slow 10 s read.
+  maxDuration 120 → 300 (Hobby max) as headroom; each AI request has a 45 s timeout (90 s for a pile read) and one SDK
+  retry inside our two attempts, so one stuck read can't hold the check past the limit. Browser waits 305 s.

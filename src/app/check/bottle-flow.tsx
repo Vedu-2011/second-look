@@ -8,9 +8,20 @@ import { CheckingSteps, type StepState } from "@/components/checking-steps";
 import type { BottleEvent, BottleResult } from "@/lib/bottle/types";
 import { pillRingPosition } from "@/lib/bottle/overlay";
 import { BOTTLE_BODY_BYTES, prepareBottlePhoto } from "@/lib/bottle/upload";
+import { classifyFailure, RETRYING_MESSAGE, type CheckFailure } from "@/lib/bottle/retry";
 
 type Photo = Awaited<ReturnType<typeof prepareBottlePhoto>>;
 type Phase = "label" | "bottle" | "again" | "checking" | "result" | "error" | "coaching";
+/** The server may take up to its 300 s limit; give it that before calling it a timeout. */
+const CHECK_TIMEOUT_MS = 305_000;
+/** A tiny note to our logs when a check fails before or outside the server: never photos or readings. */
+function reportFailure(failure: CheckFailure, extra: { attempt: number; elapsedMs: number; bytes: number; followUp: boolean; thrown?: unknown }) {
+  try {
+    const { thrown, ...rest } = extra;
+    const note = JSON.stringify({ ...rest, kind: failure.kind, why: failure.why, status: failure.status, name: thrown instanceof Error ? thrown.name : undefined, message: thrown instanceof Error ? thrown.message.slice(0, 160) : undefined, online: navigator.onLine });
+    if (!navigator.sendBeacon?.("/api/client-error", new Blob([note], { type: "application/json" }))) void fetch("/api/client-error", { method: "POST", body: note, keepalive: true }).catch(() => {});
+  } catch {}
+}
 const list = (n: readonly number[]) => n.length > 1 ? `${n.slice(0, -1).join(", ")} and ${n.at(-1)}` : String(n[0]);
 /** What to do before the second photo, from the first result. */
 function againSteps(result: BottleResult) {
@@ -32,10 +43,13 @@ export function BottleFlow() {
   const [coaching, setCoaching] = useState<string[]>([]);
   const [coachingPrevious, setCoachingPrevious] = useState<string>();
   const [busyPhoto, setBusyPhoto] = useState(false);
+  const [failure, setFailure] = useState<CheckFailure>();
+  const [retrying, setRetrying] = useState(false);
   const [steps, setSteps] = useState<StepState[]>(["waiting", "waiting", "waiting", "waiting"]);
   const [progress, setProgress] = useState({ completed: 0, total: 0 });
   const heading = useRef<HTMLDivElement>(null), camera = useRef<HTMLInputElement>(null), upload = useRef<HTMLInputElement>(null);
-  const urls = useRef<string[]>([]), controllerRef = useRef<AbortController | null>(null);
+  const urls = useRef<string[]>([]), controllerRef = useRef<AbortController | null>(null), running = useRef(false);
+  const lastCheck = useRef<{ previousId?: string; checkAnyway: boolean }>({ checkAnyway: false });
   useEffect(() => { heading.current?.focus(); }, [phase]);
   useEffect(() => () => { urls.current.forEach((url) => URL.revokeObjectURL(url)); controllerRef.current?.abort(); }, []);
   const coachingPhoto = coachingPrevious ? again : bottle;
@@ -48,37 +62,64 @@ export function BottleFlow() {
     catch (e) { setError(e instanceof Error ? e.message : "We couldn't prepare that photo."); }
     finally { setBusyPhoto(false); }
   }
-  /** First check: label + pills. "Snap again": only the new pills photo plus the first check's saved id. */
+  /**
+   * First check: label + pills. "Snap again": only the new pills photo plus the first check's saved id.
+   * A failure on our side keeps both photos and retries the SAME photos once by itself (the server reuses readings and
+   * the quota those photos already paid for). Only a photo problem sends you back to the camera.
+   */
   async function check(previousId?: string, checkAnyway = false) {
     const pills = previousId ? again : bottle;
-    if ((!previousId && !label) || !pills || controllerRef.current) return;
-    setCoaching([]); setError(""); if (!previousId) { setResult(undefined); setShareId(undefined); setContinuationToken(undefined); } setPhase("checking");
+    if ((!previousId && !label) || !pills || running.current) return;
+    running.current = true; lastCheck.current = { previousId, checkAnyway };
+    setCoaching([]); setError(""); setFailure(undefined); if (!previousId) { setResult(undefined); setShareId(undefined); setContinuationToken(undefined); } setPhase("checking");
+    try {
+      for (let attempt = 1; attempt <= 2; attempt++) {
+        setRetrying(attempt > 1);
+        const failed = await attemptCheck(pills, previousId, checkAnyway, attempt);
+        if (!failed) return;
+        if (failed.kind === "ours" && attempt === 1) { setRetrying(true); await new Promise((resolve) => setTimeout(resolve, 1500)); continue; }
+        setFailure(failed); setError(failed.message); setPhase("error"); return;
+      }
+    } finally { running.current = false; setRetrying(false); }
+  }
+  /** One request. Returns why it failed, or nothing when a result or coaching arrived. */
+  async function attemptCheck(pills: Photo, previousId: string | undefined, checkAnyway: boolean, attempt: number): Promise<CheckFailure | undefined> {
     setSteps(["waiting", "waiting", "waiting", "waiting"]); setProgress({ completed: 0, total: 0 });
     const controller = new AbortController(); controllerRef.current = controller;
-    const timer = setTimeout(() => controller.abort(), 125_000);
-    let terminal = false;
+    const timer = setTimeout(() => controller.abort(), CHECK_TIMEOUT_MS);
+    const started = performance.now();
+    let done = false, failed: CheckFailure | undefined, bytes = 0;
     function receive(event: BottleEvent) {
-      if (event.type === "coaching") { terminal = true; setCoaching(event.tips); setCoachingPrevious(previousId); setPhase("coaching"); }
+      if (event.type === "coaching") { done = true; setCoaching(event.tips); setCoachingPrevious(previousId); setPhase("coaching"); }
       if (event.type === "step") setSteps((s) => s.map((v, i) => i === event.step ? event.state : v));
       if (event.type === "progress") setProgress({ completed: event.completed, total: event.total });
       if (event.type === "segmented") setProgress({ completed: 0, total: event.boxes.length });
-      if (event.type === "retake" || event.type === "error") { terminal = true; setError(event.message); setPhase("error"); }
-      if (event.type === "result") { terminal = true; if (previousId) { setBottle(pills); setAgain(undefined); } setResult(event.result); setShareId(event.shareId); setContinuationToken(event.continuationToken); setPhase("result"); }
+      if (event.type === "retake" || event.type === "error") { done = true; failed = classifyFailure({ why: "event", event }); }
+      if (event.type === "result") { done = true; if (previousId) { setBottle(pills); setAgain(undefined); } setResult(event.result); setShareId(event.shareId); setContinuationToken(event.continuationToken); setPhase("result"); }
     }
+    let thrown: unknown;
     try {
-      const form = new FormData(); if (checkAnyway) form.set("checkAnyway", "1"); form.set("bottleImage", pills!.blob, "pills.jpg");
+      const form = new FormData(); if (checkAnyway) form.set("checkAnyway", "1"); form.set("bottleImage", pills.blob, "pills.jpg");
       if (previousId) { form.set("previousId", previousId); form.set("continuationToken", continuationToken ?? ""); } else form.set("labelImage", label!.blob, "label.jpg");
       // Browser-generated multipart overhead is bounded before sending, under the platform's cap.
-      if ((await new Response(form).blob()).size > BOTTLE_BODY_BYTES) throw new Error("Those photos are too large together. Please choose them again.");
-      const response = await fetch("/api/check-bottle", { method: "POST", body: form, signal: controller.signal });
-      if (!response.ok) { const body = await response.json().catch(() => ({})); throw new Error(body.error || "We couldn't start this check. Please try again with smaller photos."); }
-      if (!response.body) throw new Error("The check didn't start. Please try again.");
+      bytes = (await new Response(form).blob()).size;
+      if (bytes > BOTTLE_BODY_BYTES) return classifyFailure({ why: "too-large", message: "Those photos are too large together. Please choose them again." });
+      let response: Response;
+      try { response = await fetch("/api/check-bottle", { method: "POST", body: form, signal: controller.signal }); }
+      catch (e) { thrown = e; failed = classifyFailure({ why: controller.signal.aborted ? "timeout" : "network" }); return failed; }
+      if (!response.ok) { const body = await response.json().catch(() => ({})); failed = classifyFailure({ why: "http", status: response.status, error: body.error }); return failed; }
+      if (!response.body) { failed = classifyFailure({ why: "ended-early" }); return failed; }
       const reader = response.body.getReader(), decoder = new TextDecoder(); let buffer = "";
-      while (true) { const part = await reader.read(); if (part.done) break; buffer += decoder.decode(part.value, { stream: true }); const lines = buffer.split("\n"); buffer = lines.pop() || ""; for (const line of lines) if (line.trim()) receive(JSON.parse(line)); }
-      if (buffer.trim()) receive(JSON.parse(buffer));
-      if (!terminal) throw new Error("The check ended early. Please try again.");
-    } catch (e) { setError(controller.signal.aborted ? "That check took too long. Try fewer pills or check one pill." : e instanceof Error ? e.message : "We couldn't finish this check."); setPhase("error"); }
-    finally { clearTimeout(timer); controllerRef.current = null; }
+      try {
+        while (true) { const part = await reader.read(); if (part.done) break; buffer += decoder.decode(part.value, { stream: true }); const lines = buffer.split("\n"); buffer = lines.pop() || ""; for (const line of lines) if (line.trim()) receive(JSON.parse(line)); }
+        if (buffer.trim()) receive(JSON.parse(buffer));
+      } catch (e) { thrown = e; if (!done) failed = classifyFailure({ why: controller.signal.aborted ? "timeout" : e instanceof SyntaxError ? "bad-stream" : "network" }); }
+      if (!done && !failed) failed = classifyFailure({ why: "ended-early" });
+      return failed;
+    } finally {
+      clearTimeout(timer); controllerRef.current = null;
+      if (failed && failed.kind !== "photo") reportFailure(failed, { attempt, elapsedMs: performance.now() - started, bytes, followUp: Boolean(previousId), thrown });
+    }
   }
   const title = phase === "label" ? "Photo of the label" : phase === "bottle" ? "Photo of all the pills" : phase === "again" ? "Snap the same pills again" : phase === "coaching" ? "A clearer photo will help" : phase === "checking" ? "Checking the pills we find" : phase === "result" ? "Your whole-bottle photo check" : "Let's take another look";
   return <div className="space-y-6">
@@ -101,8 +142,12 @@ export function BottleFlow() {
       <p className="text-lg text-ink-soft">No AI reading has started. A clearer photo gives us a better chance of reading every pill.</p>
       <div className="flex flex-col gap-3 sm:flex-row"><Button size="lg" onClick={() => setPhase(coachingPrevious ? "again" : "bottle")}>Retake</Button><Button size="lg" variant="secondary" onClick={() => void check(coachingPrevious, true)}>Check anyway</Button></div>
     </section>}
+    {phase === "checking" && retrying && <p role="status" className="text-lg font-semibold">{RETRYING_MESSAGE}</p>}
     {phase === "checking" && <CheckingSteps states={steps} labels={["Reading your label", "Finding the pills", `Reading each pill (${progress.completed} of ${progress.total || "…"})`, "Checking with FDA records"]} className="rounded-[var(--radius-photo)] bg-foil p-3" />}
-    {error && <div role="alert" className="rounded-[var(--radius-card)] bg-foil p-5"><p className="text-lg font-semibold">{error}</p>{phase === "error" && <div className="mt-4 flex flex-col gap-3"><Button variant="secondary" onClick={() => setPhase(again ? "again" : "bottle")}>Retake pills photo</Button><Button variant="ghost" onClick={() => setPhase("label")}>Retake label photo</Button></div>}</div>}
+    {error && <div role="alert" className="rounded-[var(--radius-card)] bg-foil p-5"><p className="text-lg font-semibold">{error}</p>{phase === "error" && (failure?.kind === "ours" || failure?.kind === "blocked"
+      // Our side (or a limit): the photos are fine, so offer the SAME photos again, not the camera.
+      ? <div className="mt-4 flex flex-col gap-3 sm:flex-row"><Button onClick={() => void check(lastCheck.current.previousId, lastCheck.current.checkAnyway)}>Try again</Button>{failure.kind === "blocked" && <Button variant="ghost" onClick={() => { setError(""); setFailure(undefined); setPhase("label"); }}>Start a new check</Button>}</div>
+      : <div className="mt-4 flex flex-col gap-3"><Button variant="secondary" onClick={() => setPhase(again ? "again" : "bottle")}>Retake pills photo</Button><Button variant="ghost" onClick={() => setPhase("label")}>Retake label photo</Button></div>)}</div>}
     {phase === "result" && result && <BottleResultView result={result} photo={bottle?.preview} shareId={shareId} onNext={result.decision.next && shareId && continuationToken ? () => { setAgain(undefined); setError(""); setPhase("again"); } : undefined} onRetake={() => { setResult(undefined); setBottle(undefined); setPhase("bottle"); }} />}
   </div>;
 }

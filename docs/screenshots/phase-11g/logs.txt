@@ -1,0 +1,25 @@
+Phase 11g — Vercel runtime logs, project second-look, pulled Sat Nov 14 2026 06:38–06:45 UTC (Fri 10:38 PM PT)
+Commands: vercel logs --environment production --since 2026-11-14T06:15:00Z --json --expand
+          vercel logs --since 2h (all environments) ; --since 05:00Z --until 06:35:36Z ; --level error --since 6h ; --status-code 5xx --since 6h
+Production deployment the whole time: dpl_DxuiYQpbZ6P42G574D4MPYkRRM8U (created Nov 12 07:37 PT, commit 5ab119a).
+No photos and no readings below: only request lines, status codes and token counts.
+
+RESULT: the log store returns only 14 entries for the last 2h, all at/after 06:35:37 UTC.
+  05:00–06:35:36 UTC window: 0 entries.  --level error (6h): 0.  5xx (6h): 0.
+  Exactly ONE POST /api/check-bottle (06:36:02 UTC, 200, 12 AI calls) = the 3rd, successful attempt.
+  The 2 failed attempts (~06:30–06:35 UTC) left NO request line, NO 'Bottle check failed' error, NO timeout.
+
+06:35:37Z GET  /                                             304 static
+06:35:37Z GET  /samples                                      304 static
+06:35:37Z GET  /check                                        304 static
+06:35:38Z GET  /                                             304 static
+06:35:38Z GET  /samples                                      304 static
+06:35:41Z GET  /type                                         304 static
+06:35:41Z GET  /research                                     304 static
+06:35:41Z GET  /sources                                      304 static
+06:35:41Z GET  /type                                         304 static
+06:35:41Z GET  /research                                     304 static
+06:35:41Z GET  /sources                                      304 static
+06:36:02Z POST /api/check-bottle                             200 serverless  ai_calls=12 in_tokens=27826 out_tokens=5321  other: [tls-profile] applied 'commercial/2025' -> /var/runtime/tls-profiles/commercial-2025.conf
+06:36:44Z GET  /result/ddae279b-9cb9-4c9a-955f-735bf2863a4b  200 static
+06:36:45Z GET  /result/ddae279b-9cb9-4c9a-955f-735bf2863a4b  200 static

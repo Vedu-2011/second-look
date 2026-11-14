@@ -1,7 +1,9 @@
-import { randomBytes } from "node:crypto";
+import { createHash, randomBytes } from "node:crypto";
 import { connection } from "next/server";
 import sharp from "sharp";
 import { AiUnavailableError } from "@/lib/ai/client";
+import { requestReadCache } from "@/lib/ai/read-cache";
+import { readLabel, readPill, readPillGroup } from "@/lib/ai/readers";
 import { BottleQuotaError, runBottleCheck, runBottleFollowUp } from "@/lib/bottle/check-bottle";
 import { captureCoaching } from "@/lib/bottle/coaching";
 import { segmentBottle, SegmentationError } from "@/lib/bottle/segment";
@@ -9,10 +11,11 @@ import { MAX_BOTTLE_PIXELS } from "@/lib/bottle/segment";
 import { BOTTLE_BODY_BYTES, BOTTLE_UPLOAD_BYTES, LABEL_UPLOAD_BYTES } from "@/lib/bottle/upload";
 import type { BottleEvent } from "@/lib/bottle/types";
 import { friendlyFdaMessage } from "@/lib/fda/http";
-import { bottleCheckUnits, consumeCheckLimit, consumePreparationLimit } from "@/lib/rate-limit";
+import { bottleCheckUnits, consumeCheckLimit, consumePreparationLimit, priorReservation, recordReservation } from "@/lib/rate-limit";
 import { canContinueBottle, getBottleResult, saveBottleResult, type StoredBottleResult } from "@/lib/result-store";
 
-export const maxDuration = 120;
+// Hobby allows up to 300 s. A 17-pill photo measures ~6–7 rounds of reads (phase 11g); this is headroom, not the plan.
+export const maxDuration = 300;
 const MAX_BODY = BOTTLE_BODY_BYTES;
 const supported = new Set(["image/jpeg", "image/png", "image/webp", "image/gif"]);
 const encoder = new TextEncoder();
@@ -74,9 +77,18 @@ export async function POST(request: Request) {
   }
   const tips = captureCoaching(prepared);
   if (tips.length && !checkAnyway) return new Response(JSON.stringify({ type: "coaching", tips }) + "\n", { headers: { "content-type": "application/x-ndjson", "cache-control": "no-store" } });
-  const initial = await consumeCheckLimit(ip);
-  if (!initial.allowed) return Response.json({ error: initial.message }, { status: 429, headers: { "cache-control": "no-store" } });
-  let canceled = false, reservedUnits = 1;
+  // The same photos sent again (the browser's retry after a failure on our side) reuse what they already reserved.
+  const photoHash = createHash("sha256").update(`${previousId}\n${checkAnyway ? 1 : 0}\n${label?.base64.length ?? 0}\n`).update(label?.base64 ?? "").update(bottle).digest("hex");
+  const prior = await priorReservation(photoHash);
+  if (!prior) {
+    const initial = await consumeCheckLimit(ip);
+    if (!initial.allowed) return Response.json({ error: initial.message }, { status: 429, headers: { "cache-control": "no-store" } });
+    await recordReservation(photoHash, 1);
+  }
+  let canceled = false, reservedUnits = Math.max(1, prior);
+  // Readings (never photos) are cached by image hash, so a retry of the same photos doesn't pay for them again.
+  const cache = requestReadCache(photoHash);
+  const readers = { readLabel: cache("label", readLabel), readPill: cache("pill", readPill), readPillGroup: cache("group", readPillGroup) };
   const stream = new ReadableStream<Uint8Array>({
     start(controller) {
       const send = (event: BottleEvent) => { if (!canceled) controller.enqueue(encoder.encode(`${JSON.stringify(event)}\n`)); };
@@ -86,9 +98,9 @@ export async function POST(request: Request) {
           const reserve = async (count: number) => {
             if (canceled || request.signal.aborted) throw new BottleQuotaError("The check was canceled. Please start again.");
             const units = bottleCheckUnits(count), extra = Math.max(0, units - reservedUnits);
-            if (extra) { const reserved = await consumeCheckLimit(ip, extra); if (!reserved.allowed) throw new BottleQuotaError(reserved.message); reservedUnits = units; }
+            if (extra) { const reserved = await consumeCheckLimit(ip, extra); if (!reserved.allowed) throw new BottleQuotaError(reserved.message); reservedUnits = units; await recordReservation(photoHash, units); }
           };
-          const result = previous ? await runBottleFollowUp(previous.result, bottle, reserve, send, { prepared, checkAnyway: true }) : await runBottleCheck(label!, bottle, reserve, send, { prepared, checkAnyway: true });
+          const result = previous ? await runBottleFollowUp(previous.result, bottle, reserve, send, { prepared, checkAnyway: true, ...readers }) : await runBottleCheck(label!, bottle, reserve, send, { prepared, checkAnyway: true, ...readers });
           if (result && !canceled) {
             const continuationToken = randomBytes(32).toString("hex");
             send({ type: "result", result, shareId: await saveBottleResult(result, continuationToken), continuationToken });
@@ -98,7 +110,9 @@ export async function POST(request: Request) {
           console.error("Bottle check failed", error instanceof Error
             ? { name: error.name, message: error.message, stack: error.stack }
             : { name: "UnknownError", message: "Non-Error thrown" });
-          send({ type: "error", message: error instanceof BottleQuotaError ? error.message : error instanceof AiUnavailableError ? "Photo reading is unavailable right now. Try one pill or a saved sample." : friendlyFdaMessage(error) });
+          // Quota and "AI isn't set up" won't fix themselves; anything else on our side is worth one more try.
+          const retryable = !(error instanceof BottleQuotaError) && !(error instanceof AiUnavailableError);
+          send({ type: "error", retryable, message: error instanceof BottleQuotaError ? error.message : error instanceof AiUnavailableError ? "Photo reading is unavailable right now. Try one pill or a saved sample." : friendlyFdaMessage(error) });
         } finally { if (!canceled) controller.close(); }
       })();
     },

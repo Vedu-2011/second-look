@@ -15,10 +15,12 @@ const { readLabel, readPill, readPillGroup } = await import("@/lib/ai/readers");
 const { resolveLabelData, runResolvedCheck } = await import("@/lib/check-service");
 const { consumeCheckLimit } = await import("@/lib/rate-limit");
 const { getBottleResult } = await import("@/lib/result-store");
+const { clearReadCacheForTests } = await import("@/lib/ai/read-cache");
+const { clearPaidForTests } = await import("@/lib/rate-limit");
 const source = SAMPLE_RESULTS[0].result;
 let active = 0, peak = 0;
 beforeEach(() => {
-  vi.clearAllMocks(); active = 0; peak = 0;
+  vi.clearAllMocks(); active = 0; peak = 0; clearReadCacheForTests(); clearPaidForTests();
   vi.mocked(consumeCheckLimit).mockResolvedValue({ allowed: true, count: 1 });
   vi.mocked(readLabel).mockResolvedValue(source.label);
   vi.mocked(readPill).mockImplementation(async (_image, options) => {
@@ -58,7 +60,7 @@ describe("POST /api/check-bottle", () => {
   it("rejects the weighted reservation before starting any crop reader", async () => {
     vi.mocked(consumeCheckLimit).mockResolvedValueOnce({ allowed: true, count: 30 }).mockResolvedValueOnce({ allowed: false, count: 30, message: "Hourly limit" });
     const output = await events(await POST(await request()));
-    expect(output.at(-1)).toEqual({ type: "error", message: "Hourly limit" }); expect(readPill).not.toHaveBeenCalled(); expect(resolveLabelData).not.toHaveBeenCalled();
+    expect(output.at(-1)).toEqual({ type: "error", message: "Hourly limit", retryable: false }); expect(readPill).not.toHaveBeenCalled(); expect(resolveLabelData).not.toHaveBeenCalled();
   });
   it.each([0,25])("rejects %i detected pills before pill AI", async (n) => {
     const output = await events(await POST(await request(n))); expect(output.at(-1).type).toBe("retake"); expect(readPill).not.toHaveBeenCalled();
@@ -159,7 +161,7 @@ describe("POST /api/check-bottle", () => {
       vi.clearAllMocks();
       vi.mocked(consumeCheckLimit).mockResolvedValueOnce({ allowed: true, count: 1 }).mockResolvedValueOnce({ allowed: false, count: 30, message: "Hourly limit" });
       const out = await events(await POST(await again(first.shareId, 9, first.continuationToken)));
-      expect(readPill).toHaveBeenCalledTimes(1); expect(out.at(-1)).toEqual({ type: "error", message: "Hourly limit" });
+      expect(readPill).toHaveBeenCalledTimes(1); expect(out.at(-1)).toEqual({ type: "error", message: "Hourly limit", retryable: false });
       expect(out.some(e => e.type === "result")).toBe(false);
     });
     it("checks every pill again when the count changed, and says so", async () => {
@@ -185,7 +187,7 @@ it('extra-read quota denial starts no secondary readers and emits no success', a
   vi.mocked(readPill).mockResolvedValue({ ...source.pill, imprintConfidence: .6 });
   vi.mocked(consumeCheckLimit).mockResolvedValueOnce({ allowed:true,count:1 }).mockResolvedValueOnce({ allowed:true,count:2 }).mockResolvedValue({ allowed:false,count:30,message:'No extra quota' });
   const out=await events(await POST(await request(10)));
-  expect(out.at(-1)).toEqual({type:'error',message:'No extra quota'});
+  expect(out.at(-1)).toEqual({type:'error',message:'No extra quota',retryable:false});
   expect(vi.mocked(readPill).mock.calls.every(c=>!c[1]?.beforeAttempt)).toBe(true);
   expect(out.some(e=>e.type==='result')).toBe(false);
 });

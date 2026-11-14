@@ -35,6 +35,8 @@ export type BottleDependencies = {
   readPill?: (image: ImageInput, options: ReadOptions) => Promise<PillReading>;
   /** Pile reader for touching pills (bottle mode only). */
   readPillGroup?: PileReader;
+  /** The label reader; the API passes a cached one so a retry of the same photos doesn't pay twice. */
+  readLabel?: (image: ImageInput, options: ReadOptions) => Promise<LabelReading>;
   /** For the development-only smoke with a declared label, never a browser request. */
   label?: LabelReading;
   onUsage?: ReadOptions["onUsage"];
@@ -68,7 +70,7 @@ export async function runBottleCheck(
   const tips = captureCoaching(segmented);
   if (tips.length && !dependencies.checkAnyway) { send({ type: "coaching", tips }); return null; }
   send({ type: "step", step: 0, state: "working" });
-  const label = dependencies.label ?? await readLabel(labelImage, { model: DEFAULT_VISION_MODEL, onUsage });
+  const label = dependencies.label ?? await (dependencies.readLabel ?? readLabel)(labelImage, { model: DEFAULT_VISION_MODEL, onUsage });
   const exit = earlyExit(label, { ...unreadablePill(), pillVisible: true });
   if (exit?.kind === "label") {
     send({ type: "step", step: 0, state: "failed" });

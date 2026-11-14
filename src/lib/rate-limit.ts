@@ -67,3 +67,34 @@ export async function consumePreparationLimit(ip: string): Promise<LimitResult> 
   preparationMemory.set(k, { count, expires: now + 120_000 });
   return count <= 30 ? { allowed: true, count } : { allowed: false, count, message: 'Please wait a minute before preparing another photo.' };
 }
+
+// Phase 11g: after a failure on our side the browser sends the SAME photos again. What those photos already reserved is
+// remembered for 15 minutes (keyed by a hash of the photos, never the photos), so the retry doesn't pay twice.
+// At most 3 free retries per set of photos; after that it counts like a new check.
+const PAID_SECONDS = 15 * 60, FREE_RETRIES = 3;
+const paidMemory = new Map<string, { units: number; retries: number; expires: number }>();
+const paidKey = (photoHash: string) => key(`paid:${photoHash.replace(/[^a-f0-9]/g, "").slice(0, 64)}`);
+/** Units these exact photos already reserved (0 = none, or out of free retries). Counts one retry when non-zero. */
+export async function priorReservation(photoHash: string): Promise<number> {
+  const redis = getRedis(), k = paidKey(photoHash);
+  if (redis) {
+    try {
+      return await redis.eval<[number], number>("local u=tonumber(redis.call('HGET',KEYS[1],'units') or '0') if u==0 then return 0 end local r=redis.call('HINCRBY',KEYS[1],'retries',1) if r>tonumber(ARGV[1]) then return 0 end return u", [k], [FREE_RETRIES]);
+    } catch { return 0; }
+  }
+  const now = Date.now(), hit = paidMemory.get(k);
+  if (!hit || hit.expires <= now) { paidMemory.delete(k); return 0; }
+  hit.retries++;
+  return hit.retries > FREE_RETRIES ? 0 : hit.units;
+}
+/** Remember the most these photos have reserved so far. A failure here only means a retry pays again. */
+export async function recordReservation(photoHash: string, units: number): Promise<void> {
+  const redis = getRedis(), k = paidKey(photoHash);
+  if (redis) {
+    try { await redis.eval<[number, number], number>("local u=tonumber(redis.call('HGET',KEYS[1],'units') or '0') if tonumber(ARGV[1])>u then redis.call('HSET',KEYS[1],'units',ARGV[1]) end redis.call('EXPIRE',KEYS[1],tonumber(ARGV[2])) return 1", [k], [units, PAID_SECONDS]); } catch {}
+    return;
+  }
+  const hit = paidMemory.get(k);
+  paidMemory.set(k, { units: Math.max(units, hit?.units ?? 0), retries: hit?.retries ?? 0, expires: Date.now() + PAID_SECONDS * 1000 });
+}
+export function clearPaidForTests() { paidMemory.clear(); }

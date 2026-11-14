@@ -17,12 +17,13 @@ vi.mock('@/lib/ai/readers', () => ({readLabel:vi.fn(),readPill:vi.fn(),readPillG
 vi.mock('@/lib/check-service', () => ({resolveLabelData:vi.fn(),runResolvedCheck:vi.fn()}));
 const {POST}=await import('./route');
 const {segmentBottle}=await import('@/lib/bottle/segment');
-const {consumeCheckLimit,clearRateLimitForTests}=await import('@/lib/rate-limit');
+const {consumeCheckLimit,clearRateLimitForTests,clearPaidForTests}=await import('@/lib/rate-limit');
+const {clearReadCacheForTests}=await import('@/lib/ai/read-cache');
 const {readLabel,readPill,readPillGroup}=await import('@/lib/ai/readers');
 const {resolveLabelData,runResolvedCheck}=await import('@/lib/check-service');
 const source=SAMPLE_RESULTS[0].result;
 beforeEach(()=>{
- vi.clearAllMocks();clearRateLimitForTests();
+ vi.clearAllMocks();clearRateLimitForTests();clearPaidForTests();clearReadCacheForTests();
  vi.mocked(resolveLabelData).mockResolvedValue({} as never);
  vi.mocked(readLabel).mockResolvedValue(source.label);
  vi.mocked(readPill).mockResolvedValue({...source.pill,imprintConfidence:.95});
@@ -50,12 +51,12 @@ it('logs a real internal exception and never describes it as an FDA outage',asyn
  const log=vi.spyOn(console,'error').mockImplementation(()=>{});
  try{
   const output=await events(await POST(await input()));
-  expect(output.at(-1)).toEqual({type:'error',message:'Something went wrong on our side checking this pill. Please try again.'});
+  expect(output.at(-1)).toEqual({type:'error',retryable:true,message:'Something went wrong on our side checking this pill. Please try again.'});
   expect(log).toHaveBeenCalledWith('Bottle check failed',expect.objectContaining({name:'TypeError',message:error.message,stack:expect.any(String)}));
  }finally{log.mockRestore();}
 });
 it('still distinguishes a real FDA failure',async()=>{
  vi.mocked(resolveLabelData).mockRejectedValueOnce(new FdaError('timeout','mock lookup timed out','https://rxnav.nlm.nih.gov/REST/test'));
  const log=vi.spyOn(console,'error').mockImplementation(()=>{});
- try{expect((await events(await POST(await input()))).at(-1)).toEqual({type:'error',message:'The FDA database took too long to answer. Please try again in a moment.'});}finally{log.mockRestore();}
+ try{expect((await events(await POST(await input()))).at(-1)).toEqual({type:'error',retryable:true,message:'The FDA database took too long to answer. Please try again in a moment.'});}finally{log.mockRestore();}
 });

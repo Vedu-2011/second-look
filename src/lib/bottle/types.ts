@@ -83,5 +83,6 @@ export type BottleEvent =
   | { type: "segmented"; boxes: NormalizedBox[]; image: { width: number; height: number } }
   | { type: "progress"; completed: number; total: number }
   | { type: "retake"; message: string; code: string }
-  | { type: "error"; message: string }
+  /** retryable: our side failed (not the photo): the browser retries the SAME photos once, then offers "Try again". */
+  | { type: "error"; message: string; retryable?: boolean }
   | { type: "result"; result: BottleResult; shareId: string; continuationToken?: string };
