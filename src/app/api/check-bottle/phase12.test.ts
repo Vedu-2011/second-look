@@ -21,6 +21,7 @@ const { runResolvedCheck } = await import("@/lib/check-service");
 const { clearNotesForTests, clearPaidForTests, clearRateLimitForTests, hourlyUsedForTests } = await import("@/lib/rate-limit");
 const { clearReadCacheForTests } = await import("@/lib/ai/read-cache");
 const { clearLabelSessionsForTests } = await import("@/lib/result-store");
+const { LABEL_UPLOAD_BYTES: LABEL_LIMIT } = await import("@/lib/bottle/upload");
 const source = SAMPLE_RESULTS[0].result;
 const labelPhoto = await scene(1), sidePhoto = await scene(2), bottle = await scene(9), more = await scene(6);
 const FRONT: LabelReading = { drugName: "Metformin HCl", strength: "1,000 mg", ndc: null, isPrescriptionLabel: true, confidence: { drugName: 0.9, strength: 0.9, ndc: 0, form: 0.8 } };
@@ -88,6 +89,13 @@ describe("label photos read before the pills", () => {
     expect((await READ(readLabelRequest(sidePhoto, { labelId: first.labelId, labelToken: "0".repeat(64) }))).status).toBe(403);
     await READ(readLabelRequest(sidePhoto, first)); await READ(readLabelRequest(await scene(3), first));
     expect((await READ(readLabelRequest(await scene(4), first))).status).toBe(400);
+  });
+  it("an oversized label upload is refused while it streams, with no Content-Length to trust", async () => {
+    const big = new Uint8Array(LABEL_LIMIT + 200_000), boundary = "x";
+    const head = new TextEncoder().encode(`--${boundary}\r\nContent-Disposition: form-data; name="labelImage"; filename="a.png"\r\nContent-Type: image/png\r\n\r\n`);
+    const body = new ReadableStream({ start(c) { c.enqueue(head); for (let i = 0; i < big.length; i += 65536) c.enqueue(big.subarray(i, i + 65536)); c.close(); } });
+    const response = await READ(new Request("http://localhost/api/read-label", { method: "POST", body, headers: { "content-type": `multipart/form-data; boundary=${boundary}` }, duplex: "half" } as RequestInit));
+    expect(response.status).toBe(400); expect(readLabel).not.toHaveBeenCalled();
   });
   it("not a prescription label: said on the label step, before any pill is read", async () => {
     vi.mocked(readLabel).mockResolvedValue({ isPrescriptionLabel: false });

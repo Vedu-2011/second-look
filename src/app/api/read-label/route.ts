@@ -10,6 +10,7 @@ import { readLabel } from "@/lib/ai/readers";
 import { MAX_LABEL_PHOTOS, mergeLabelReadings } from "@/lib/bottle/label-merge";
 import { MAX_BOTTLE_PIXELS } from "@/lib/bottle/segment";
 import { LABEL_UPLOAD_BYTES } from "@/lib/bottle/upload";
+import { boundedForm } from "@/lib/bounded-form";
 import { earlyExit } from "@/lib/check-input";
 import { unreadablePill } from "@/lib/bottle/check-bottle";
 import { allowLabelRead, consumeCheckLimit, consumePreparationLimit } from "@/lib/rate-limit";
@@ -22,10 +23,9 @@ const json = (body: unknown, status = 200) => Response.json(body, { status, head
 
 export async function POST(request: Request) {
   await connection();
-  if (Number(request.headers.get("content-length") || 0) > MAX_BODY) return json({ error: "Use a label photo under 0.7 MB." }, 400);
   let image: { mediaType: "image/jpeg"; base64: string }, labelId = "", labelToken = "";
   try {
-    const form = await request.formData();
+    const form = await boundedForm(request, MAX_BODY, "Use a label photo under 0.7 MB.", "Choose a label photo.");
     const file = form.get("labelImage"), id = form.get("labelId"), token = form.get("labelToken");
     labelId = typeof id === "string" && /^[0-9a-f-]{36}$/i.test(id) ? id : "";
     labelToken = typeof token === "string" ? token : "";

@@ -10,6 +10,7 @@ import { segmentBottle, SegmentationError } from "@/lib/bottle/segment";
 import { MAX_BOTTLE_PIXELS } from "@/lib/bottle/segment";
 import { BOTTLE_BODY_BYTES, BOTTLE_UPLOAD_BYTES, LABEL_UPLOAD_BYTES } from "@/lib/bottle/upload";
 import type { BottleEvent } from "@/lib/bottle/types";
+import { boundedForm } from "@/lib/bounded-form";
 import { friendlyFdaMessage } from "@/lib/fda/http";
 import { bottleCheckUnits, consumeCheckLimit, consumePreparationLimit, joinCheck } from "@/lib/rate-limit";
 import { MAX_PILL_PHOTOS } from "@/lib/bottle/combine";
@@ -25,29 +26,14 @@ const MAX_BODY = BOTTLE_BODY_BYTES;
 const supported = new Set(["image/jpeg", "image/png", "image/webp", "image/gif"]);
 const encoder = new TextEncoder();
 
-/** Bound streamed bytes too, rather than trusting Content-Length or buffering unlimited uploads. */
-async function boundedForm(request: Request) {
-  if (!request.headers.get("content-type")?.startsWith("multipart/form-data")) throw new Error("Choose a label photo and a whole-bottle photo.");
-  if (Number(request.headers.get("content-length") || 0) > MAX_BODY) throw new Error("Those photos are too large. Use a bottle photo under 3 MB and a label under 0.7 MB.");
-  const reader = request.body?.getReader();
-  if (!reader) throw new Error("Please choose both photos again.");
-  const chunks: Uint8Array[] = []; let size = 0;
-  try {
-    while (true) {
-      const part = await reader.read(); if (part.done) break;
-      size += part.value.byteLength;
-      if (size > MAX_BODY) { await reader.cancel(); throw new Error("Those photos are too large. Use a bottle photo under 3 MB and a label under 0.7 MB."); }
-      chunks.push(part.value);
-    }
-  } finally { reader.releaseLock(); }
-  return new Response(Buffer.concat(chunks), { headers: { "content-type": request.headers.get("content-type")! } }).formData();
-}
+const TOO_LARGE = "Those photos are too large. Use a bottle photo under 3 MB and a label under 0.7 MB.";
+const boundedBottleForm = (request: Request) => boundedForm(request, MAX_BODY, TOO_LARGE, "Choose a label photo and a whole-bottle photo.");
 export async function POST(request: Request) {
   await connection();
   let label: { mediaType: "image/jpeg"; base64: string } | null = null, bottle: Buffer, previousId = "", continuationToken = "", checkAnyway = false, checkId = "";
   let labelId = "", labelToken = "", labelChoices: LabelChoices = {}, morePillsOf = "";
   try {
-    const form = await boundedForm(request);
+    const form = await boundedBottleForm(request);
     checkAnyway = form.get("checkAnyway") === "1";
     // The browser makes one id per check and resends it ONLY when it retries that check after a failure on our side.
     const id = form.get("checkId");
