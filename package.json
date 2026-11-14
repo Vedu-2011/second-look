@@ -17,7 +17,8 @@
     "smoke:bottle": "node --env-file-if-exists=.env.local --import tsx scripts/smoke-bottle.ts",
     "check:flip": "node --env-file-if-exists=.env.local --import tsx scripts/check-real-flip.ts",
     "smoke:piles": "node --env-file-if-exists=.env.local --import tsx scripts/check-phase11c.ts",
-    "diag:bottles": "node --env-file-if-exists=.env.local --import tsx scripts/recent-bottle-results.ts"
+    "diag:bottles": "node --env-file-if-exists=.env.local --import tsx scripts/recent-bottle-results.ts",
+    "diag:retry-redis": "node --env-file-if-exists=.env.local --import tsx scripts/check-retry-redis.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^1.7.0",
