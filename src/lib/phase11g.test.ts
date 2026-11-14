@@ -62,6 +62,31 @@ describe("the per-request read cache", () => {
   });
 });
 
+describe("overlapping reads (a retry while the cut-off request is still reading)", () => {
+  const image = { mediaType: "image/png" as const, base64: "BBBB" };
+  it("on the same server, the retry waits for the running read instead of paying again", async () => {
+    let release!: (v: string) => void;
+    const reader = vi.fn(() => new Promise<string>((resolve) => { release = resolve; }));
+    const first = requestReadCache("p")("pill", reader)(image), retry = requestReadCache("p")("pill", reader)(image);
+    await new Promise((r) => setTimeout(r, 10)); release("read once");
+    expect(await Promise.all([first, retry])).toEqual(["read once", "read once"]);
+    expect(reader).toHaveBeenCalledTimes(1);
+  });
+  it("on another server (pending marker taken), it waits for that answer", async () => {
+    let calls = 0;
+    const store = { get: async () => (++calls > 1 ? "theirs" : null), set: async () => {}, claim: async () => false };
+    const reader = vi.fn(async () => "mine");
+    expect(await requestReadCache("p", store)("pill", reader)(image)).toBe("theirs");
+    expect(reader).not.toHaveBeenCalled();
+  });
+  it("if the other server never answers before the deadline, it reads itself", async () => {
+    const store = { get: async () => null, set: async () => {}, claim: async () => false };
+    const reader = vi.fn(async () => "mine");
+    expect(await requestReadCache("p", store)("pill", reader)(image, { deadline: Date.now() + 1500 })).toBe("mine");
+    expect(reader).toHaveBeenCalledTimes(1);
+  });
+});
+
 describe("quota the same photos already paid for", () => {
   it("is remembered at its highest, reused by up to 3 retries, then charged again", async () => {
     expect(await priorReservation("abc")).toBe(0);
