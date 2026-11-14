@@ -62,6 +62,11 @@ export function BottleFlow() {
     catch (e) { setError(e instanceof Error ? e.message : "We couldn't prepare that photo."); }
     finally { setBusyPhoto(false); }
   }
+  /** A brand-new check: drop every photo and result from the last one, so nothing stale is sent with the new label. */
+  function startOver() {
+    setError(""); setFailure(undefined); setLabel(undefined); setBottle(undefined); setAgain(undefined); setResult(undefined);
+    setShareId(undefined); setContinuationToken(undefined); setCoaching([]); setCoachingPrevious(undefined); setPhase("label");
+  }
   /**
    * First check: label + pills. "Snap again": only the new pills photo plus the first check's saved id.
    * A failure on our side keeps both photos and retries the SAME photos once by itself (the server reuses readings and
@@ -148,7 +153,7 @@ export function BottleFlow() {
     {phase === "checking" && <CheckingSteps states={steps} labels={["Reading your label", "Finding the pills", `Reading each pill (${progress.completed} of ${progress.total || "…"})`, "Checking with FDA records"]} className="rounded-[var(--radius-photo)] bg-foil p-3" />}
     {error && <div role="alert" className="rounded-[var(--radius-card)] bg-foil p-5"><p className="text-lg font-semibold">{error}</p>{phase === "error" && (failure?.kind === "ours" || failure?.kind === "blocked"
       // Our side (or a limit): the photos are fine, so offer the SAME photos again, not the camera.
-      ? <div className="mt-4 flex flex-col gap-3 sm:flex-row"><Button onClick={() => void check(lastCheck.current.previousId, lastCheck.current.checkAnyway, lastCheck.current.checkId)}>Try again</Button>{failure.kind === "blocked" && <Button variant="ghost" onClick={() => { setError(""); setFailure(undefined); setPhase("label"); }}>Start a new check</Button>}</div>
+      ? <div className="mt-4 flex flex-col gap-3 sm:flex-row"><Button onClick={() => void check(lastCheck.current.previousId, lastCheck.current.checkAnyway, lastCheck.current.checkId)}>Try again</Button>{failure.kind === "blocked" && <Button variant="ghost" onClick={startOver}>Start a new check</Button>}</div>
       : <div className="mt-4 flex flex-col gap-3"><Button variant="secondary" onClick={() => setPhase(again ? "again" : "bottle")}>Retake pills photo</Button><Button variant="ghost" onClick={() => setPhase("label")}>Retake label photo</Button></div>)}</div>}
     {phase === "result" && result && <BottleResultView result={result} photo={bottle?.preview} shareId={shareId} onNext={result.decision.next && shareId && continuationToken ? () => { setAgain(undefined); setError(""); setPhase("again"); } : undefined} onRetake={() => { setResult(undefined); setBottle(undefined); setPhase("bottle"); }} />}
   </div>;

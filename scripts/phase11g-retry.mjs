@@ -19,6 +19,7 @@ const scenarios = [
   {name: "cut-short-once", replies: [ndjson(cutShort), "ok"], expect: "result", requests: 2},
   {name: "fails-twice", replies: ["abort", "abort", "ok"], expect: "try-again", requests: 3},
   {name: "photo-problem", replies: [ndjson(retake)], expect: "retake", requests: 1},
+  {name: "hourly-limit", replies: [{status: 429, contentType: "application/json", body: JSON.stringify({error: "You've reached the hourly limit."})}], expect: "start-over", requests: 1},
 ];
 await fs.mkdir(out, {recursive: true});
 const browser = await chromium.launch({executablePath: process.env.CHROME_PATH || "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome", headless: true});
@@ -56,6 +57,12 @@ try {
       await page.getByRole("button", {name: "Try again", exact: true}).click();
       await page.locator("#bottle-verdict").waitFor();
     }
+    if (s.expect === "start-over") {
+      await page.getByText("You've reached the hourly limit.").waitFor();
+      await page.getByRole("button", {name: "Start a new check", exact: true}).click();
+      await page.getByText("Your label goes here").waitFor();
+      assert.equal(await page.locator("img[alt^='Your']").count(), 0, "no stale photo after starting over");
+    }
     if (s.expect === "retake") {
       await page.getByRole("button", {name: "Retake pills photo"}).waitFor();
       assert.equal(await page.getByRole("button", {name: "Try again", exact: true}).count(), 0);
@@ -65,7 +72,7 @@ try {
     // Every retry sends exactly the same photos (byte for byte, except the multipart boundary).
     const strip = b => b.toString("latin1").replace(/-{2,}[\w-]+/g, "");
     for (const b of bodies.slice(1)) assert.equal(strip(b), strip(bodies[0]), `${s.name}: retry must resend the same photos`);
-    const expectedBeacons = s.name === "photo-problem" ? 0 : s.requests - 1;
+    const expectedBeacons = s.name === "photo-problem" ? 0 : s.name === "hourly-limit" ? 1 : s.requests - 1;
     assert.equal(beacons.length, expectedBeacons, `${s.name}: beacons`);
     console.log("ok", width, s.name, `requests=${bodies.length}`, `beacons=${JSON.stringify(beacons.map(b => b.why))}`);
     await page.close();
