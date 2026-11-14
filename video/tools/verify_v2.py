@@ -71,10 +71,11 @@ def main():
     windows = []
     for start in [0, 50, 100, 130]:
         x = original[start*50:(start+25)*50]
-        ys = encoded[start*50:(start+25)*50]
+        ys = encoded[start*50+max(0,lag):(start+25)*50+max(0,lag)]
+        x = x[max(0,-lag):]
         score = correlation(x, ys)
         assert score > .9, f'Audio envelope differs at {start}s: {score}'
-        windows.append({'fromSeconds': start, 'durationSeconds': 25, 'correlationAtZeroLag': score})
+        windows.append({'fromSeconds': start, 'durationSeconds': 25, 'correlationAtMeasuredLag': score, 'lagMs': lag*20})
     end = V2 / 'encoded-end-card.png'
     run([FF, '-y', '-v', 'error', '-ss', '154', '-i', str(target), '-frames:v', '1', str(end)])
     qr = json.loads(subprocess.check_output(['node', str(ROOT / 'video/tools/qr-check.mjs'), str(end)], text=True))
