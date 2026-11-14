@@ -25,6 +25,7 @@ def main():
     assert duration(voice) <= total and total - duration(voice) < .2
     review = json.loads((V2 / 'captions-reviewed.json').read_text())
     assert review['audioMaster'] == cfg['audio'] and review['audioTimeScale'] == 1
+    assert review['audioMasterSha256'] == digest(voice), 'Recording changed; transcribe and review captions again'
     # A single continuous source. No cut, tempo change, silence removal or synthesized voice.
     audio = V2 / 'voice-clean.wav'
     run([FF, '-y', '-v', 'error', '-i', str(voice), '-vn', '-af',

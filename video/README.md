@@ -1,6 +1,25 @@
-# Demo video edit
+# Demo video edit — v2 final cut
 
 This branch contains the reproducible local editor, not the raw media or encoded video. No application code changes.
+
+Current output: **`video/out/second-look-demo-v2.mp4`**, 2:38, 1920×1080, 30fps H.264/AAC. Uses Vedhanth's continuous original `voiceover-vedhanth.m4a` at its original speed, and the real `shot3-bottle-check.mov` with stable pill 5, hand flip and amoxicillin result. No synthetic voice, music, ElevenLabs credit or placeholder flip card. No media uploads.
+
+## Rebuild v2 locally
+
+The approved v1 assets/captures remain in ignored `video/work/`. Keep them; no need to make more API calls. Use FFmpeg-full, Python3, Node/Playwright and the existing isolated QR dependencies described below.
+
+1. Transcribe the actual recording locally with whisper.cpp (small.en full-token JSON timestamps). Cross-check a medium.en pass and difficult excerpts; keep actual wording rather than imposing SCRIPT.md. Outputs live in `video/work/v2/voice-transcript.{json,srt,txt}`. The medium pass hallucinated one phrase absent from the small/focused passes; it is excluded.
+2. `python3 video/tools/captions_v2.py` produces 47 reviewed phrase captions. It verifies that its reviewed phrase list preserves every corrected ASR word. If the recording changes, rerun transcription/review; the builder checks the recording hash against the caption report.
+3. `node video/tools/prepare_v2.mjs` reuses branded v1 templates with draft/voice-credit labels removed. `node video/tools/safety_v2.mjs` captures the real production research safety note (read-only GET, no paid check) and enlarges it.
+4. `python3 video/tools/build_v2.py` renders from `video/edit-v2.json`. Critical clips play at 1× then hold; only the two waiting clips run at 2–4×. Frame endpoint rounding keeps the total exactly 4,740 frames. Clean audio is one continuous stream, highpass60Hz + gentle4dB denoise + approximately−16LUFS normalization; only0.133s tail padding, no audio tempo changes or word cuts.
+5. `python3 video/tools/verify_v2.py` checks the actual encoded codecs, every-frame/sample decode, caption transcript/bounds, audio envelope alignment, loudness and QR. It also makes four one-second-sample timelines in `video/work/v2/` for visual review. These checks support review; they do not certify every sub-frame visual detail or replace listening.
+6. After verification, copy the five named v2 outputs locally to the home project's `video/out/`. `build_v2.py --publish` also does this (it rebuilds the final encode first). V1 files remain unchanged. Reverify if rebuilding.
+
+The spoken closing URL omits “get.” Vedhanth explicitly approved keeping his voice unchanged while showing the working **getsecondlook.vercel.app** address and QR. Captions retain the spoken URL. Other small changes from SCRIPT.md, including “When I gave an answer,” are retained as spoken. The NIH result remains clearly labelled historical first-version research; the softgel limitation is labelled previously recorded evidence.
+
+V2 deliverables: `second-look-demo-v2.mp4`, `contact-sheet-v2.png`, `captions-v2.srt`, `render-manifest-v2.json`, `verification-v2.json`. All remain local and ignored. Only source/config/docs and a small verification summary enter git.
+
+## V1 draft archive
 
 Current output: `video/out/second-look-demo.mp4`, 1920×1080, 30fps, H.264/AAC. The current cut is a **draft** because the supplied bottle take has no flip and numbers the wrong pill 4 while the verbatim script says 5. The draft clearly labels that section. The after-flip card uses the genuine previously recorded production result, explicitly labelled; no result is fabricated.
 

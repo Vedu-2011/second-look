@@ -1,5 +1,5 @@
 """Line captions from the actual local ASR words, never from the old synthetic narration."""
-import json,re,textwrap
+import hashlib,json,re,textwrap
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2];WORK=ROOT/'video/work/v2';OUT=ROOT/'video/out'
 def main():
@@ -94,7 +94,8 @@ Before you take it, try it at secondlook.vercel.app.""".splitlines()
   text=r'\N'.join(textwrap.wrap(c['text'],width=63,break_long_words=False))
   lines.append(f'Dialogue: 0,{ts(c["start"],True)},{ts(c["end"],True)},Default,,0,0,0,,{text}\n')
  (WORK/'captions.ass').write_text(header+''.join(lines))
- report={'method':'local whisper.cpp small.en full-token timestamps; cross-checked medium.en-q5_0 and three focused excerpts','corrections':changes,'audioMaster':'voiceover-vedhanth.m4a','audioTimeScale':1,'cues':clean,'transcript':' '.join(w['text']for w in words),'notes':['Full medium pass hallucinated and then you are done; the small pass and focused intro pass agree it is absent, so excluded.','Both main passes and focused research pass say When I gave an answer; retained I rather than imposing script it.','All passes omit get in the spoken closing URL; exact spoken address retained in captions, correct working URL and QR on end card.']}
+ with (ROOT/'video/raw/voiceover-vedhanth.m4a').open('rb') as source_audio:voice_sha=hashlib.file_digest(source_audio,'sha256').hexdigest()
+ report={'audioMasterSha256':voice_sha,'method':'local whisper.cpp small.en full-token timestamps; cross-checked medium.en-q5_0 and three focused excerpts','corrections':changes,'audioMaster':'voiceover-vedhanth.m4a','audioTimeScale':1,'cues':clean,'transcript':' '.join(w['text']for w in words),'notes':['Full medium pass hallucinated and then you are done; the small pass and focused intro pass agree it is absent, so excluded.','Both main passes and focused research pass say When I gave an answer; retained I rather than imposing script it.','All passes omit get in the spoken closing URL; exact spoken address retained in captions, correct working URL and QR on end card.']}
  (WORK/'captions-reviewed.json').write_text(json.dumps(report,indent=2)+'\n')
  print(json.dumps({'cues':len(clean),'corrections':changes,'transcript':report['transcript']},indent=2))
 if __name__=='__main__':main()
