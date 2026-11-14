@@ -73,6 +73,8 @@ export type BottleResult = {
   followUp?: { mode: "reread" | "fresh"; reread: number[]; reused: number; note: string };
   /** Highest pill number used so far in this check (follow-ups), so a removed pill's number is never given out again. */
   highestNumber?: number;
+  /** Earlier photos of other pills from the same bottle (their result ids, oldest first). */
+  photos?: string[];
   image: { width: number; height: number };
   checkedAt: string;
   elapsedMs: number;

@@ -63,6 +63,8 @@ export async function saveBottleResult(value: import("./bottle/types").BottleRes
     ...(value.clumps ? { clumps: value.clumps.map((c) => ({ kind: c.kind, box: safeBox(c.box), ...(c.minor ? { minor: true } : {}), ...(c.readAsOne ? { readAsOne: true } : {}), ...(typeof c.relativeArea === "number" ? { relativeArea: Number(c.relativeArea) } : {}), ...(c.pile ? { pile: { read: Number(c.pile.read), count: Number(c.pile.count), countConfidence: Number(c.pile.countConfidence), mayBeHidden: Boolean(c.pile.mayBeHidden) } } : {}) })) } : {}),
     ...(value.followUp ? { followUp: { mode: value.followUp.mode, reread: value.followUp.reread, reused: value.followUp.reused, note: value.followUp.note } } : {}),
     ...(typeof value.highestNumber === "number" ? { highestNumber: Number(value.highestNumber) } : {}),
+    // Earlier photos of other pills from the same bottle: ids this server issued, never photos.
+    ...(value.photos?.length ? { photos: value.photos.filter((p) => /^[0-9a-f-]{36}$/i.test(p)).slice(0, 2) } : {}),
     image: { width: value.image.width, height: value.image.height },
     ...(value.unresolvedRegions ? { unresolvedRegions: value.unresolvedRegions } : {}),
     pills: value.pills.map((p) => ({ number: p.number, box: safeBox(p.box), result: safeCheck(p.result), ...(p.appearanceWarning ? { appearanceWarning: p.appearanceWarning } : {}),
@@ -91,3 +93,31 @@ export async function getBottleResult(id: string) {
   if (!redis) return null;
   try { return await redis.get<StoredBottleResult>(key(`bottle-result:${id}`)); } catch { return null; }
 }
+
+// Phase 12: the label readings of one check (up to three photos), held until the pills are checked. Readings only,
+// never photos. Only the browser holding the token can add to it or use it.
+export type LabelSession = { readings: import("./verdict-engine").LabelReading[]; createdAt: string; tokenHash: string };
+const LABEL_TTL_SECONDS = 60 * 60;
+const labelMemory = new Map<string, LabelSession>();
+const hashToken = (token: string) => createHash("sha256").update(token).digest("hex");
+export function canUseLabelSession(session: LabelSession, token: string) {
+  if (!/^[a-f0-9]{64}$/.test(token)) return false;
+  const actual = Buffer.from(hashToken(token), "hex"), expected = Buffer.from(session.tokenHash, "hex");
+  return expected.length === actual.length && timingSafeEqual(expected, actual);
+}
+export async function saveLabelSession(id: string, readings: import("./verdict-engine").LabelReading[], token: string) {
+  const session: LabelSession = JSON.parse(JSON.stringify({ readings, createdAt: new Date().toISOString(), tokenHash: hashToken(token) }));
+  for (const [k, v] of labelMemory) if (Date.now() - Date.parse(v.createdAt) >= LABEL_TTL_SECONDS * 1000) labelMemory.delete(k);
+  labelMemory.set(id, session);
+  const redis = getRedis();
+  if (redis) { try { await redis.set(key(`label:${id}`), session, { ex: LABEL_TTL_SECONDS }); } catch { /* local fallback */ } }
+}
+export async function getLabelSession(id: string): Promise<LabelSession | null> {
+  const local = labelMemory.get(id);
+  if (local && Date.now() - Date.parse(local.createdAt) < LABEL_TTL_SECONDS * 1000) return local;
+  labelMemory.delete(id);
+  const redis = getRedis();
+  if (!redis) return null;
+  try { return await redis.get<LabelSession>(key(`label:${id}`)); } catch { return null; }
+}
+export function clearLabelSessionsForTests() { labelMemory.clear(); }

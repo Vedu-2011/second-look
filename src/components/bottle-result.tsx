@@ -1,7 +1,7 @@
 "use client";
 /* eslint-disable @next/next/no-img-element */
 import { useEffect, useMemo, useRef, useState } from "react";
-import { AlertTriangle, Check, EqualApproximately, HelpCircle, RotateCcw, X } from "lucide-react";
+import { AlertTriangle, Check, EqualApproximately, HelpCircle, Plus, RotateCcw, X } from "lucide-react";
 import { Button, ButtonLink } from "@/components/button";
 import { layoutMarks, pixelCrop, RING_PAD, undrawable, type MarkShape } from "@/lib/bottle/overlay";
 import type { BottleDecision, BottlePill, BottleResult } from "@/lib/bottle/types";
@@ -39,7 +39,7 @@ function MiniCrop({ photo, pill }: { photo: string; pill: BottlePill }) {
   }, [photo, pill.box]);
   return <canvas ref={canvas} role="img" aria-label={`Your photograph of pill ${pill.number}`} className="max-h-24 w-24 shrink-0 rounded-2xl object-contain" />;
 }
-export function BottleResultView({ result, photo, shareId, onRetake, onNext }: { result: BottleResult; photo?: string; shareId?: string; onRetake?: () => void; onNext?: () => void }) {
+export function BottleResultView({ result, photo, shareId, onRetake, onNext, onMore }: { result: BottleResult; photo?: string; shareId?: string; onRetake?: () => void; onNext?: () => void; onMore?: () => void }) {
   const [selected, setSelected] = useState<number | null>(null);
   const overlay = useRef<HTMLDivElement>(null);
   const [measured, setMeasured] = useState<{ width: number; height: number } | null>(null);
@@ -116,6 +116,7 @@ export function BottleResultView({ result, photo, shareId, onRetake, onNext }: {
       <p className="mt-4 text-xl">{decision.instruction}</p>
       {followUp && <p className="mt-4 text-lg">{followUp}</p>}
       {nextLabel && onNext && <Button size="lg" className="mt-6 w-full text-lg sm:w-auto" variant={decision.verdict === "MISMATCH" ? "secondary" : "primary"} onClick={onNext}><RotateCcw aria-hidden />{nextLabel}</Button>}
+      {onMore && <Button size="lg" variant="secondary" className={cn("mt-6 w-full text-lg sm:w-auto", nextLabel && onNext && "sm:ml-3")} onClick={onMore}><Plus aria-hidden />Check more pills from this bottle</Button>}
       <p className="mt-5 text-lg text-ink-soft">This doesn&apos;t replace your pharmacist.</p>
     </section>
     <p aria-label="Bottle summary" className="text-base font-semibold sm:text-lg">{bottleSummary(result.pills)}{piled ? ` · ${piled} read in a pile` : ""}{clumps.length ? ` · ${clumps.length} circled, not read` : ""}{unmarked ? ` · ${unmarked} in a pile not marked on the photo` : ""}</p>

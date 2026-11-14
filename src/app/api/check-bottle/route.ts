@@ -12,7 +12,10 @@ import { BOTTLE_BODY_BYTES, BOTTLE_UPLOAD_BYTES, LABEL_UPLOAD_BYTES } from "@/li
 import type { BottleEvent } from "@/lib/bottle/types";
 import { friendlyFdaMessage } from "@/lib/fda/http";
 import { bottleCheckUnits, consumeCheckLimit, consumePreparationLimit, joinCheck } from "@/lib/rate-limit";
-import { canContinueBottle, getBottleResult, saveBottleResult, type StoredBottleResult } from "@/lib/result-store";
+import { MAX_PILL_PHOTOS } from "@/lib/bottle/combine";
+import { KEY_FIELDS, mergeLabelReadings, type LabelChoices } from "@/lib/bottle/label-merge";
+import type { LabelReading } from "@/lib/verdict-engine";
+import { canContinueBottle, canUseLabelSession, getBottleResult, getLabelSession, saveBottleResult, type StoredBottleResult } from "@/lib/result-store";
 
 // Hobby allows up to 300 s. A 17-pill photo measures ~6–7 rounds of reads (phase 11g); this is headroom, not the plan.
 export const maxDuration = 300;
@@ -42,6 +45,7 @@ async function boundedForm(request: Request) {
 export async function POST(request: Request) {
   await connection();
   let label: { mediaType: "image/jpeg"; base64: string } | null = null, bottle: Buffer, previousId = "", continuationToken = "", checkAnyway = false, checkId = "";
+  let labelId = "", labelToken = "", labelChoices: LabelChoices = {}, morePillsOf = "";
   try {
     const form = await boundedForm(request);
     checkAnyway = form.get("checkAnyway") === "1";
@@ -52,9 +56,16 @@ export async function POST(request: Request) {
     // "Flip and snap again" sends only the new pills photo plus the first check's saved id; the label is reused.
     continuationToken = typeof form.get("continuationToken") === "string" ? String(form.get("continuationToken")) : "";
     previousId = typeof previous === "string" && /^[0-9a-f-]{36}$/i.test(previous) ? previous : "";
-    if (!(bottleFile instanceof File) || !supported.has(bottleFile.type) || (!previousId && (!(labelFile instanceof File) || !supported.has(labelFile.type)))) throw new Error("Choose JPG, PNG, WebP, or GIF photographs for both steps.");
+    // Phase 12: the label may already be read (label id + token, plus the person's picks where photos disagreed), or
+    // these are more pills from a bottle already checked ("more pills of" that result, with its token).
+    const id12 = (name: string) => { const v = form.get(name); return typeof v === "string" && /^[0-9a-f-]{36}$/i.test(v) ? v : ""; };
+    labelId = previousId ? "" : id12("labelId"); morePillsOf = previousId ? "" : id12("morePillsOf");
+    labelToken = typeof form.get("labelToken") === "string" ? String(form.get("labelToken")) : "";
+    try { const picks = JSON.parse(String(form.get("labelChoices") ?? "{}")); for (const f of KEY_FIELDS) if (Number.isInteger(picks?.[f])) labelChoices[f] = picks[f]; } catch { labelChoices = {}; }
+    const labelKnown = Boolean(previousId || labelId || morePillsOf);
+    if (!(bottleFile instanceof File) || !supported.has(bottleFile.type) || (!labelKnown && (!(labelFile instanceof File) || !supported.has(labelFile.type)))) throw new Error("Choose JPG, PNG, WebP, or GIF photographs for both steps.");
     if (bottleFile.size > BOTTLE_UPLOAD_BYTES || (labelFile instanceof File && labelFile.size > LABEL_UPLOAD_BYTES)) throw new Error("Use a label under 0.7 MB and a bottle photo under 3 MB.");
-    if (!previousId && labelFile instanceof File) {
+    if (!labelKnown && labelFile instanceof File) {
       const decoded = sharp(Buffer.from(await labelFile.arrayBuffer()), { limitInputPixels: MAX_BOTTLE_PIXELS });
       const meta = await decoded.metadata();
       if ((meta.pages ?? 1) > 1) throw new Error("Choose a still label photograph.");
@@ -71,6 +82,24 @@ export async function POST(request: Request) {
     if (!previous) return Response.json({ error: "That first check has expired. Start a new check with the label photo." }, { status: 404, headers: { "cache-control": "no-store" } });
     if (!canContinueBottle(previous, continuationToken)) return Response.json({ error: "Continue from the browser that made this check, or start a new check with your label photo." }, { status: 403, headers: { "cache-control": "no-store" } });
   }
+  // A label read before the pills: only readings this server made, merged with the person's picks.
+  let declaredLabel: LabelReading | undefined, photos: string[] | undefined;
+  if (labelId) {
+    const session = await getLabelSession(labelId);
+    if (!session) return Response.json({ error: "Your label reading has expired. Take the label photo again." }, { status: 404, headers: { "cache-control": "no-store" } });
+    if (!canUseLabelSession(session, labelToken)) return Response.json({ error: "Continue from the browser that took the label photo, or start a new check." }, { status: 403, headers: { "cache-control": "no-store" } });
+    const merged = mergeLabelReadings(session.readings, labelChoices);
+    if (merged.conflicts.length) return Response.json({ error: "Your label photos disagree. Pick which reading is on your label first." }, { status: 409, headers: { "cache-control": "no-store" } });
+    declaredLabel = merged.label;
+  }
+  if (morePillsOf) {
+    const earlier = await getBottleResult(morePillsOf);
+    if (!earlier) return Response.json({ error: "That check has expired. Start a new check with the label photo." }, { status: 404, headers: { "cache-control": "no-store" } });
+    if (!canContinueBottle(earlier, continuationToken)) return Response.json({ error: "Continue from the browser that made this check, or start a new check with your label photo." }, { status: 403, headers: { "cache-control": "no-store" } });
+    photos = [...(earlier.result.photos ?? []), morePillsOf];
+    if (photos.length >= MAX_PILL_PHOTOS) return Response.json({ error: `You can check up to ${MAX_PILL_PHOTOS} photos of pills from one bottle.` }, { status: 400, headers: { "cache-control": "no-store" } });
+    declaredLabel = earlier.result.label;
+  }
   const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || request.headers.get("x-real-ip") || "unknown";
   const preparation = await consumePreparationLimit(ip);
   if (!preparation.allowed) return Response.json({ error: preparation.message }, { status: 429, headers: { "cache-control": "no-store" } });
@@ -85,7 +114,7 @@ export async function POST(request: Request) {
   // A retry of one check (same check id AND same photos) shares what that check already reserved and read, even while
   // the original is still running. Without an id, or with new photos, it's a new check: fresh quota and fresh reads.
   // Kept after a result too (the phone may never have received it); 1 + 3 requests per check, within 15 minutes.
-  const photoHash = createHash("sha256").update(`${checkId || randomBytes(16).toString("hex")}\n${previousId}\n${checkAnyway ? 1 : 0}\n${label?.base64.length ?? 0}\n`).update(label?.base64 ?? "").update(bottle).digest("hex");
+  const photoHash = createHash("sha256").update(`${checkId || randomBytes(16).toString("hex")}\n${previousId}\n${checkAnyway ? 1 : 0}\n${labelId}\n${JSON.stringify(labelChoices)}\n${morePillsOf}\n${label?.base64.length ?? 0}\n`).update(label?.base64 ?? "").update(bottle).digest("hex");
   const shared = checkId ? await joinCheck(photoHash) : false;
   let reservedUnits = 0;
   /** Reserve up to `units` for this request; in a shared check only units nobody has paid for are charged (atomically). */
@@ -121,7 +150,9 @@ export async function POST(request: Request) {
             const denied = await reserveUnits(bottleCheckUnits(count));
             if (denied) throw new BottleQuotaError(denied.message);
           };
-          const result = previous ? await runBottleFollowUp(previous.result, bottle, reserve, send, { prepared, checkAnyway: true, ...readers }) : await runBottleCheck(label!, bottle, reserve, send, { prepared, checkAnyway: true, ...readers });
+          const result = previous ? await runBottleFollowUp(previous.result, bottle, reserve, send, { prepared, checkAnyway: true, ...readers })
+            : await runBottleCheck(label ?? { mediaType: "image/jpeg", base64: "" }, bottle, reserve, send, { prepared, checkAnyway: true, ...readers, ...(declaredLabel ? { label: declaredLabel } : {}) });
+          if (result && photos) result.photos = photos;
           if (result && !canceled) {
             const continuationToken = randomBytes(32).toString("hex");
             send({ type: "result", result, shareId: await saveBottleResult(result, continuationToken), continuationToken });

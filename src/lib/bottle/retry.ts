@@ -25,7 +25,7 @@ export function classifyFailure(input: FailureInput): CheckFailure {
     case "http":
       // 400 = the server couldn't open the photos; 403/404/429 = continuation or limits: retrying now won't help.
       if (input.status === 400) return { kind: "photo", message: input.error || "We couldn't open those photos. Please choose them again.", why: "http", status: 400 };
-      if ([403, 404, 429].includes(input.status)) return { kind: "blocked", message: input.error || "We couldn't start this check.", why: "http", status: input.status };
+      if ([403, 404, 409, 429].includes(input.status)) return { kind: "blocked", message: input.error || "We couldn't start this check.", why: "http", status: input.status };
       return { kind: "ours", message: OURS_MESSAGE, why: "http", status: input.status };
     case "too-large":
       return { kind: "photo", message: input.message, why: "too-large" };

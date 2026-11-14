@@ -37,7 +37,7 @@ export type BottleDependencies = {
   readPillGroup?: PileReader;
   /** The label reader; the API passes a cached one so a retry of the same photos doesn't pay twice. */
   readLabel?: (image: ImageInput, options: ReadOptions) => Promise<LabelReading>;
-  /** For the development-only smoke with a declared label, never a browser request. */
+  /** A label already read: by the server before the pills (phase 12), or a declared one in development smokes. Never a reading the browser sent. */
   label?: LabelReading;
   onUsage?: ReadOptions["onUsage"];
   prepared?: SegmentedBottle;
@@ -331,5 +331,5 @@ export async function runBottleFollowUp(
   const note = plan.mode === "fresh" ? `${plan.reason}${numbering.renumbered ? " We numbered the pills again." : ""}`
     : !reread.length ? `No new readings were made. All ${reused} earlier readings remain unconfirmed in this photo.`
     : `We read ${reread.length === 1 ? "pill" : "pills"} ${listNumbers(reread)} again and kept the other ${reused} ${reused === 1 ? "reading" : "readings"} as unconfirmed history from your first photo.`;
-  return { kind: "bottle", label: previous.label, pills, clumps: clumps, decision: unresolvedRegions && decideBottle(pills, clumps).verdict !== "MISMATCH" ? { ...decideBottle(pills, clumps), verdict: "UNSURE", title: "A circled region from an earlier photo is still unaccounted for.", instruction: "We cannot finish this bottle check. Put every pill back in view and start a new check.", asks: [], next: undefined } : decideBottle(pills, clumps), unresolvedRegions, highestNumber: numbering.highest, image: segmented.image, checkedAt: new Date().toISOString(), elapsedMs: Math.round(performance.now() - started), usage, followUp: { mode: plan.mode, reread, reused, note } };
+  return { kind: "bottle", label: previous.label, pills, clumps: clumps, decision: unresolvedRegions && decideBottle(pills, clumps).verdict !== "MISMATCH" ? { ...decideBottle(pills, clumps), verdict: "UNSURE", title: "A circled region from an earlier photo is still unaccounted for.", instruction: "We cannot finish this bottle check. Put every pill back in view and start a new check.", asks: [], next: undefined } : decideBottle(pills, clumps), unresolvedRegions, highestNumber: numbering.highest, ...(previous.photos ? { photos: previous.photos } : {}), image: segmented.image, checkedAt: new Date().toISOString(), elapsedMs: Math.round(performance.now() - started), usage, followUp: { mode: plan.mode, reread, reused, note } };
 }

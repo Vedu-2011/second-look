@@ -115,21 +115,27 @@ export async function releaseReservation(photoHash: string): Promise<void> {
 }
 export function clearPaidForTests() { paidMemory.clear(); }
 
-// Phase 11g: browser failure notes are for diagnosis only; a few a minute per IP is plenty, the rest aren't logged.
-const NOTES_PER_MINUTE = 10;
+// Small per-IP counters for things that aren't checks. Fails closed if Redis errors.
 const noteMemory = new Map<string, { count: number; expires: number }>();
-export async function allowFailureNote(ip: string): Promise<boolean> {
-  const now = Date.now(), k = key(`note:${ip.replace(/[^a-zA-Z0-9:._-]/g, "_").slice(0, 100)}:${Math.floor(now / 60_000)}`);
+async function withinWindow(name: string, ip: string, limit: number, windowMs: number): Promise<boolean> {
+  const now = Date.now(), k = key(`${name}:${ip.replace(/[^a-zA-Z0-9:._-]/g, "_").slice(0, 100)}:${Math.floor(now / windowMs)}`);
   const redis = getRedis();
   if (redis) {
-    try { return await redis.eval<[], number>("local n=redis.call('INCR', KEYS[1]); redis.call('EXPIRE', KEYS[1],120); return n", [k], []) <= NOTES_PER_MINUTE; }
+    try { return await redis.eval<[string], number>("local n=redis.call('INCR', KEYS[1]); redis.call('EXPIRE', KEYS[1], tonumber(ARGV[1])); return n", [k], [String(Math.ceil(windowMs / 500))]) <= limit; }
     catch { return false; }
   }
-  for (const [name, v] of noteMemory) if (v.expires <= now) noteMemory.delete(name);
+  for (const [entry, v] of noteMemory) if (v.expires <= now) noteMemory.delete(entry);
   const count = (noteMemory.get(k)?.count ?? 0) + 1;
-  noteMemory.set(k, { count, expires: now + 120_000 });
-  return count <= NOTES_PER_MINUTE;
+  noteMemory.set(k, { count, expires: now + 2 * windowMs });
+  return count <= limit;
 }
+// Phase 11g: browser failure notes are for diagnosis only; a few a minute per IP is plenty, the rest aren't logged.
+const NOTES_PER_MINUTE = 10;
+export const allowFailureNote = (ip: string) => withinWindow("note", ip, NOTES_PER_MINUTE, 60_000);
+// Phase 12: the first label photo of a check is read before the pills (it used to be read inside the check's
+// minimum unit). Extra label photos count as a check unit each; this caps the first reads per IP.
+export const LABEL_READS_PER_HOUR = 12;
+export const allowLabelRead = (ip: string) => withinWindow("label-read", ip, LABEL_READS_PER_HOUR, 3_600_000);
 export function clearNotesForTests() { noteMemory.clear(); }
 /** Units this IP used this hour in the in-memory fallback (tests only). */
 export function hourlyUsedForTests(ip: string) { return memory.get(key(`rate:${ip}:${Math.floor(Date.now() / 3_600_000)}`))?.count ?? 0; }
