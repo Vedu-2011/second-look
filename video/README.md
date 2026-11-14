@@ -12,6 +12,7 @@ Current output: `video/out/second-look-demo.mp4`, 1920×1080, 30fps, H.264/AAC. 
 - Local inputs, work files and output are git-ignored. Encoded output is also copied into the home project's `video/out` for Vedhanth.
 
 ```sh
+npm install --prefix video/work/qr-tools --ignore-scripts --no-audit --no-fund jsqr@1.4.0 pngjs@7.0.0
 python3 video/tools/narration.py
 node video/tools/assets.mjs
 node video/tools/details.mjs

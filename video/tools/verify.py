@@ -5,6 +5,7 @@ ROOT=Path(__file__).resolve().parents[2];OUT=ROOT/'video/out';WORK=ROOT/'video/w
 FF='/opt/homebrew/opt/ffmpeg-full/bin/ffmpeg';PROBE='/opt/homebrew/opt/ffmpeg-full/bin/ffprobe'
 def main():
  target=OUT/'second-look-demo.mp4';manifest=json.loads((OUT/'render-manifest.json').read_text())
+ assert not manifest['externalCaptionAlignmentNeedsReview'],'Supplied voiceover needs caption realignment before sync can be certified'
  probe=json.loads(subprocess.check_output([PROBE,'-v','error','-show_streams','-show_format','-of','json',str(target)],text=True))
  v=next(s for s in probe['streams']if s['codec_type']=='video');a=next(s for s in probe['streams']if s['codec_type']=='audio')
  seconds=float(probe['format']['duration'])
@@ -24,7 +25,7 @@ def main():
    def secs(t):
     h,m,s=t.split(':');return int(h)*3600+int(m)*60+float(s)
    captions.append((secs(f[1]),secs(f[2])))
- assert len(captions)==53 and all(0<=x<y<=seconds for x,y in captions)
+ assert len(captions)==sum(len(s['captions']) for s in n['sections']) and all(0<=x<y<=seconds for x,y in captions)
  assert all(captions[i][1]<=captions[i+1][0]+.011 for i in range(len(captions)-1))
  # Decode every frame/sample, then measure the encoded audio (not the input narration).
  subprocess.run([FF,'-v','error','-i',str(target),'-f','null','-'],check=True,stdout=subprocess.DEVNULL,stderr=subprocess.PIPE)
@@ -32,7 +33,7 @@ def main():
  data=json.JSONDecoder().raw_decode(loud[loud.rfind('{'):])[0];assert -20<float(data['input_i'])<-12 and float(data['input_tp'])<-.5
  end=WORK/'encoded-end-card.png'
  subprocess.run([FF,'-y','-v','error','-ss',str(seconds-4),'-i',str(target),'-frames:v','1',str(end)],check=True)
- qr=json.loads(subprocess.check_output(['swift',str(ROOT/'video/tools/qr-check.swift'),str(end)],text=True))
+ qr=json.loads(subprocess.check_output(['node',str(ROOT/'video/tools/qr-check.mjs'),str(end)],text=True))
  assert'https://getsecondlook.vercel.app'in qr,'QR must scan from the actual encoded end card'
  raw=ROOT/'video/raw';inputs=[]
  for name in [manifest['bottleSource'],'shot1-pour-take2.mov','shot2-single-pill-advil.mp4']:

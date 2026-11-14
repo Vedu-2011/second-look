@@ -1,0 +1,60 @@
+{
+  "format": {
+    "codec": "h264",
+    "width": 1920,
+    "height": 1080,
+    "fps": "30/1",
+    "audio": "aac",
+    "sampleRate": "48000"
+  },
+  "duration": 159.933333,
+  "audioVideoDurationDelta": 0.0,
+  "captionCount": 53,
+  "verbatimCaptions": true,
+  "captionMethod": "Each caption is timed to its independently generated audio chunk; same tempo and section delays applied. No ASR timing estimate for this macOS narration.",
+  "fullDecode": "PASS",
+  "loudnessLUFS": -15.99,
+  "truePeakDbFS": -1.5,
+  "qrDecoded": [
+    "https://getsecondlook.vercel.app"
+  ],
+  "sourceInputs": [
+    {
+      "file": "shot3-bottle-check-take1-messedup.mp4",
+      "bytes": 120157989,
+      "sha256": "4325262725a508680a52319d86e5ba12d160ab3ddc79076f692c8696811813ca"
+    },
+    {
+      "file": "shot1-pour-take2.mov",
+      "bytes": 348089181,
+      "sha256": "c3ed973b33fb209afeb4d23ba6be68d9c6ad91f46f26caa798c85c49d8d0d7c4"
+    },
+    {
+      "file": "shot2-single-pill-advil.mp4",
+      "bytes": 105999714,
+      "sha256": "6bedb2f6d6253f5b7d3987bef21613a6900a6424ff591ea60b87b82ebacef3f7"
+    }
+  ],
+  "videoSha256": "21a10092f707829b3e96f6a6f70aa92b8c422abd0c693278be5e2f776c1dec13",
+  "status": "DRAFT: replace bottle take before upload",
+  "remaining": [
+    "Replace placeholder (pill4) with good bottle+flip take matching narration pill5.",
+    "Review replacement ranges in video/edit.json.",
+    "Replace previously-recorded flip card with the actual new flip sequence if supplied."
+  ],
+  "privacyReview": "Only selected ranges used: no faces/notifications observed. Phone status/Safari bars cropped; pour crop excludes monitor. Source audio removed. Fictional demo label.",
+  "notUploaded": true,
+  "paidAiCalls": 0,
+  "appChecks": {
+    "unitTests": 554,
+    "testFiles": 57,
+    "lint": "PASS",
+    "typescript": "PASS after Next build generated route types",
+    "build": "PASS"
+  },
+  "review": {
+    "finding": "P2 hard-coded caption count rejected legitimate script revisions",
+    "resolution": "derive caption count from generated narration; explicit refusal to certify unaligned external voiceover",
+    "parentSelfReview": "source-only branch; no raw media, app changes, uploads or paid API calls"
+  }
+}
