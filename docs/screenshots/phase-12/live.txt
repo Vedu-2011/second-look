@@ -1,0 +1,9 @@
+Phase 12 live smoke — preview https://second-look-mqjf84qon-vedhanth.vercel.app (4e64206), Sat Nov 14 2026 ~02:43 AM PT
+PAID-API LOCK taken and released. node scripts/phase12-live.mjs <preview> --paid
+1. /api/read-label, real label.jpg → 200, photos 1: Metformin HCl · 1,000 mg · NDC 70010-065 · tablet,
+   confidence drug 0.97 / strength 0.97 / NDC 0.95; missing none; conflicts none.
+2. /api/check-bottle with labelId + token (no label photo sent), real pills.jpg → 200 result:
+   MISMATCH "Pill 5 doesn't match your label." (the 93), 10 pills, 11 AI calls (10 pills + 1 second read; no label read
+   in the check), measured check cost $0.0736. Label read not metered in the response; estimated ≈ $0.007.
+   Shared result 902cef97-2e43-4e98-92fd-4b5d2d848781 → 200.
+Total ≈ $0.08 (cap $0.10).

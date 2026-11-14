@@ -352,3 +352,18 @@ Repo: github.com/Vedu-2011/second-look — PUBLIC (DSH requires a public repo).
   starts after it and each one's timeout (45 s, 90 s for a pile) shrinks to the time left, with no hidden SDK retries.
   A watchdog ends the stream at 270 s with a retryable error, so the browser's retry resumes from the cached reads.
   Browser waits 305 s.
+
+## Decisions in phase 12 (Claude Code, Nov 14) — stable numbers, more than one photo
+- §0 (merged, cb7078c): after "Flip and snap again" every pill matched by position keeps its first-photo number
+  (`keepNumbers`); new objects take the next number never used in the check (`highestNumber` is stored). A fresh
+  fallback keeps every number it can match; only a new pour or no match at all renumbers, and the note says so.
+- Label photos (up to 3) are read BEFORE the pills by `/api/read-label`. Readings stay on the server under a label id +
+  token (1 h); the browser can never send a reading. `mergeLabelReadings`: a field comes only from a confident reading
+  (≥ 0.55, the existing bar); confident readings that disagree on drug, strength or NDC are a conflict the person picks
+  (never guessed; the check refuses with 409 until picked); nothing is invented. One photo = exactly its reading.
+  If the early read fails on our side, the first label photo goes with the pills exactly as before.
+- Quota: the first label photo is part of the check, as before (capped at 12 early reads/hour/IP); each extra label
+  photo counts as one check unit.
+- More pills (up to 3 photos of DIFFERENT pills): `morePillsOf` + continuation token reuses the saved label; each photo
+  is a normal check with its own numbers; the result stores earlier photo ids (`photos`). `combineBottle`: red if any
+  photo has a mismatch, green only if every photo is fully green, otherwise the weakest. Shared result shows all photos.
