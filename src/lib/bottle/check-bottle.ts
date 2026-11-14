@@ -9,7 +9,7 @@ import { earlyExit } from "@/lib/check-input";
 import { resolveLabelData, runResolvedCheck, type ResolvedLabelData } from "@/lib/check-service";
 import type { LabelReading, PillReading } from "@/lib/verdict-engine";
 import { annotatePills, appearanceWarning, decideBottle } from "./decide-bottle";
-import { planFollowUp } from "./match-positions";
+import { keepNumbers, planFollowUp } from "./match-positions";
 import { oneRegionsToRead, pileCrop, pilePills, pilesToRead, PILE_READ_UNITS, readingOrder, type PilePill, type PileReader } from "./pile";
 import { MAX_BOTTLE_PILLS, segmentBottle, SegmentationError, type SegmentedBottle } from "./segment";
 import type { BottleClump, BottleEvent, BottlePill, BottleResult } from "./types";
@@ -324,10 +324,12 @@ export async function runBottleFollowUp(
     pills = annotatePills(verified.map((p, i) => kept.get(i) ?? { ...p, reread: true }));
     read.push(...carriedIndices);
   }
-  pills = applyConsensus(pills, clumps, unresolvedRegions);
-  const reread = [...new Set(read)].sort((a, b) => a - b).map((i) => i + 1), reused = segmented.boxes.length - reread.length;
-  const note = plan.mode === "fresh" ? plan.reason
+  // Pills found again keep their first-photo numbers; the list reads in number order.
+  const numbering = keepNumbers(previous, { image: segmented.image, boxes: pills.map((p) => p.box) });
+  pills = applyConsensus(pills.map((p, i) => ({ ...p, number: numbering.numbers[i] })).sort((a, b) => a.number - b.number), clumps, unresolvedRegions);
+  const reread = [...new Set(read)].map((i) => numbering.numbers[i]).sort((a, b) => a - b), reused = segmented.boxes.length - reread.length;
+  const note = plan.mode === "fresh" ? `${plan.reason}${numbering.renumbered ? " We numbered the pills again." : ""}`
     : !reread.length ? `No new readings were made. All ${reused} earlier readings remain unconfirmed in this photo.`
     : `We read ${reread.length === 1 ? "pill" : "pills"} ${listNumbers(reread)} again and kept the other ${reused} ${reused === 1 ? "reading" : "readings"} as unconfirmed history from your first photo.`;
-  return { kind: "bottle", label: previous.label, pills, clumps: clumps, decision: unresolvedRegions && decideBottle(pills, clumps).verdict !== "MISMATCH" ? { ...decideBottle(pills, clumps), verdict: "UNSURE", title: "A circled region from an earlier photo is still unaccounted for.", instruction: "We cannot finish this bottle check. Put every pill back in view and start a new check.", asks: [], next: undefined } : decideBottle(pills, clumps), unresolvedRegions, image: segmented.image, checkedAt: new Date().toISOString(), elapsedMs: Math.round(performance.now() - started), usage, followUp: { mode: plan.mode, reread, reused, note } };
+  return { kind: "bottle", label: previous.label, pills, clumps: clumps, decision: unresolvedRegions && decideBottle(pills, clumps).verdict !== "MISMATCH" ? { ...decideBottle(pills, clumps), verdict: "UNSURE", title: "A circled region from an earlier photo is still unaccounted for.", instruction: "We cannot finish this bottle check. Put every pill back in view and start a new check.", asks: [], next: undefined } : decideBottle(pills, clumps), unresolvedRegions, highestNumber: numbering.highest, image: segmented.image, checkedAt: new Date().toISOString(), elapsedMs: Math.round(performance.now() - started), usage, followUp: { mode: plan.mode, reread, reused, note } };
 }

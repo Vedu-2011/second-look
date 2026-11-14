@@ -62,6 +62,7 @@ export async function saveBottleResult(value: import("./bottle/types").BottleRes
     kind: "bottle", label: safeLabel(value.label), decision: { verdict: value.decision.verdict, title: value.decision.title, instruction: value.decision.instruction, matched: value.decision.matched, unreadable: value.decision.unreadable, flagged: value.decision.flagged, ...(value.decision.asks ? { asks: value.decision.asks } : {}), ...(value.decision.next ? { next: value.decision.next } : {}) },
     ...(value.clumps ? { clumps: value.clumps.map((c) => ({ kind: c.kind, box: safeBox(c.box), ...(c.minor ? { minor: true } : {}), ...(c.readAsOne ? { readAsOne: true } : {}), ...(typeof c.relativeArea === "number" ? { relativeArea: Number(c.relativeArea) } : {}), ...(c.pile ? { pile: { read: Number(c.pile.read), count: Number(c.pile.count), countConfidence: Number(c.pile.countConfidence), mayBeHidden: Boolean(c.pile.mayBeHidden) } } : {}) })) } : {}),
     ...(value.followUp ? { followUp: { mode: value.followUp.mode, reread: value.followUp.reread, reused: value.followUp.reused, note: value.followUp.note } } : {}),
+    ...(typeof value.highestNumber === "number" ? { highestNumber: Number(value.highestNumber) } : {}),
     image: { width: value.image.width, height: value.image.height },
     ...(value.unresolvedRegions ? { unresolvedRegions: value.unresolvedRegions } : {}),
     pills: value.pills.map((p) => ({ number: p.number, box: safeBox(p.box), result: safeCheck(p.result), ...(p.appearanceWarning ? { appearanceWarning: p.appearanceWarning } : {}),

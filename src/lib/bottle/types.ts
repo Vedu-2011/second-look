@@ -71,6 +71,8 @@ export type BottleResult = {
   decision: BottleDecision;
   /** Present after "Flip and snap again": what was re-read and what was kept. */
   followUp?: { mode: "reread" | "fresh"; reread: number[]; reused: number; note: string };
+  /** Highest pill number used so far in this check (follow-ups), so a removed pill's number is never given out again. */
+  highestNumber?: number;
   image: { width: number; height: number };
   checkedAt: string;
   elapsedMs: number;
