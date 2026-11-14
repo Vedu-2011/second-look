@@ -8,9 +8,16 @@ import { getRedis, key } from "@/lib/redis";
 import type { ImageInput, ReadOptions } from "@/lib/ai/client";
 
 export const READ_CACHE_SECONDS = 15 * 60;
-/** claim: true if no other server is reading this key right now (a short "pending" marker). */
-type Store = { get(k: string): Promise<unknown>; set(k: string, value: unknown): Promise<void>; claim?(k: string): Promise<boolean> };
-const PENDING_SECONDS = 60, POLL_MS = 1000, MAX_WAIT_MS = 45_000;
+/**
+ * claim: true if no other server is reading this key right now (a "pending" marker, cleared by release when that read
+ * ends). pending: whether that marker still exists.
+ */
+type Store = {
+  get(k: string): Promise<unknown>; set(k: string, value: unknown): Promise<void>;
+  claim?(k: string): Promise<boolean>; pending?(k: string): Promise<boolean>; release?(k: string): Promise<void>;
+};
+/** Longer than our slowest read (two 90 s pile attempts), so a live marker always means a live read. */
+const PENDING_SECONDS = 200, POLL_MS = 1000;
 /** Reads still running in this server, so an overlapping retry waits for them instead of paying again. */
 const inflight = new Map<string, Promise<unknown>>();
 
@@ -25,6 +32,8 @@ export function defaultReadStore(): Store {
     get: (k) => redis.get(k),
     set: async (k, value) => { await redis.set(k, value, { ex: READ_CACHE_SECONDS }); },
     claim: async (k) => (await redis.set(`${k}:pending`, 1, { nx: true, ex: PENDING_SECONDS })) === "OK",
+    pending: async (k) => (await redis.exists(`${k}:pending`)) > 0,
+    release: async (k) => { await redis.del(`${k}:pending`); },
   } : memoryStore;
 }
 export const clearReadCacheForTests = () => { memory.clear(); inflight.clear(); };
@@ -44,18 +53,26 @@ export function requestReadCache(scope: string, store: Store = defaultReadStore(
       const pending = (async (): Promise<T> => {
         const hit = await store.get(k).catch(() => null);
         if (hit !== null && hit !== undefined) return hit as T;
-        // Another server is reading this exact image for this check right now (an overlapping retry): wait for its answer.
-        if (store.claim && !(await store.claim(k).catch(() => true))) {
-          const until = Math.min(Date.now() + MAX_WAIT_MS, options.deadline ?? Infinity);
+        // Another server is reading this exact image for this check right now (an overlapping retry): wait for its answer
+        // for as long as its read is alive (up to our deadline). Only if it ended without an answer do we read ourselves;
+        // past the deadline the reader itself starts nothing.
+        let claimed = true;
+        if (store.claim && !(claimed = await store.claim(k).catch(() => true))) {
+          const until = Math.min(Date.now() + PENDING_SECONDS * 1000, options.deadline ?? Infinity);
           while (Date.now() + POLL_MS < until) {
             await new Promise((resolve) => setTimeout(resolve, POLL_MS));
             const later = await store.get(k).catch(() => null);
             if (later !== null && later !== undefined) return later as T;
+            if (!(await store.pending?.(k).catch(() => true) ?? true)) break;
           }
+          const last = await store.get(k).catch(() => null);
+          if (last !== null && last !== undefined) return last as T;
         }
-        const value = await reader(image, options);
-        await store.set(k, value).catch(() => {});
-        return value;
+        try {
+          const value = await reader(image, options);
+          await store.set(k, value).catch(() => {});
+          return value;
+        } finally { if (claimed) await store.release?.(k).catch(() => {}); }
       })();
       inflight.set(k, pending);
       try { return await pending; } finally { if (inflight.get(k) === pending) inflight.delete(k); }

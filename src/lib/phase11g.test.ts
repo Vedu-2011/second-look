@@ -79,8 +79,21 @@ describe("overlapping reads (a retry while the cut-off request is still reading)
     expect(await requestReadCache("p", store)("pill", reader)(image)).toBe("theirs");
     expect(reader).not.toHaveBeenCalled();
   });
-  it("if the other server never answers before the deadline, it reads itself", async () => {
-    const store = { get: async () => null, set: async () => {}, claim: async () => false };
+  it("if the other server's read ended without an answer, it reads itself right away", async () => {
+    const store = { get: async () => null, set: async () => {}, claim: async () => false, pending: async () => false };
+    const reader = vi.fn(async () => "mine");
+    const started = Date.now();
+    expect(await requestReadCache("p", store)("pill", reader)(image)).toBe("mine");
+    expect(reader).toHaveBeenCalledTimes(1); expect(Date.now() - started).toBeLessThan(1500);
+  });
+  it("it releases its own marker when its read ends, even on failure", async () => {
+    const released: string[] = [];
+    const store = { get: async () => null, set: async () => {}, claim: async () => true, release: async (k: string) => { released.push(k); } };
+    await expect(requestReadCache("p", store)("pill", async () => { throw new Error("overloaded"); })(image)).rejects.toThrow();
+    expect(released).toHaveLength(1);
+  });
+  it("while the other server's read is alive it keeps waiting, up to the deadline only", async () => {
+    const store = { get: async () => null, set: async () => {}, claim: async () => false, pending: async () => true };
     const reader = vi.fn(async () => "mine");
     expect(await requestReadCache("p", store)("pill", reader)(image, { deadline: Date.now() + 1500 })).toBe("mine");
     expect(reader).toHaveBeenCalledTimes(1);
