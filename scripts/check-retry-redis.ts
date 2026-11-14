@@ -3,7 +3,7 @@
 import { randomBytes } from "node:crypto";
 import { getRedis, key } from "@/lib/redis";
 import { priorReservation, recordReservation, releaseReservation } from "@/lib/rate-limit";
-import { requestReadCache } from "@/lib/ai/read-cache";
+import { defaultReadStore, requestReadCache } from "@/lib/ai/read-cache";
 (async () => {
   const redis = getRedis();
   if (!redis) { console.error("Redis is not configured here."); process.exitCode = 1; return; }
@@ -16,16 +16,17 @@ import { requestReadCache } from "@/lib/ai/read-cache";
   check("released", await redis.exists(key(`paid:${hash}`)) === 0);
   const scope = `diag-${hash}`, image = { mediaType: "image/png" as const, base64: "AAAA" };
   let reads = 0; const reader = async () => ({ n: ++reads });
-  const first = requestReadCache(scope)("pill", reader);
+  // The real Redis store, recording exactly which keys this run writes, so cleanup touches nothing else.
+  const real = defaultReadStore(), made = new Set<string>();
+  const store = { ...real, set: async (k: string, v: unknown) => { made.add(k); await real.set(k, v); }, claim: async (k: string) => { made.add(`${k}:pending`); return real.claim!(k); } };
+  const first = requestReadCache(scope, store)("pill", reader);
   const a = await first(image, { model: "m" }), b = await first(image, { model: "m" });
-  const retry = requestReadCache(scope)("pill", reader);
+  const retry = requestReadCache(scope, store)("pill", reader);
   const c = await retry(image, { model: "m" }), d = await retry(image, { model: "m" });
   check("second read is real, retry reuses both in order", JSON.stringify([a, b, c, d]) === JSON.stringify([{ n: 1 }, { n: 2 }, { n: 1 }, { n: 2 }]) && reads === 2);
-  const keys: string[] = []; let cursor: string | number = 0;
-  do { const [next, batch]: [string | number, string[]] = await redis.scan(cursor, { match: key("read:*"), count: 500 }); cursor = next; keys.push(...batch); } while (String(cursor) !== "0");
-  check("no pending markers left behind", !keys.some((k) => k.endsWith(":pending")));
-  // Clean up only what this script made: the two reads under its own scope (found by value), then the paid key.
-  const mine = (await Promise.all(keys.map(async (k) => ({ k, v: await redis.get<{ n: number }>(k) })))).filter((r) => r.v && typeof r.v === "object" && "n" in r.v);
-  for (const r of mine) await redis.del(r.k);
-  console.log(`cleaned ${mine.length} test reading keys`);
+  const markers = [...made].filter((k) => k.endsWith(":pending"));
+  check("no pending markers left behind", (await Promise.all(markers.map((k) => redis.exists(k)))).every((n) => n === 0));
+  // Clean up only the keys this run wrote.
+  for (const k of made) await redis.del(k);
+  console.log(`cleaned ${made.size} keys this run made`);
 })();
