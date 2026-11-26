@@ -96,3 +96,38 @@ When imprint text is absent, uncertain or incomplete, `/check` offers “Flip th
 Phase 4 is now development data. Phase 5 freezes the code before a product-disjoint NIH holdout. `npm run research` only regenerates complete cached results; a new paid run requires an explicit `--run`, a matching frozen implementation and the separate $5 spending guard. The report, freeze hash, individual outcomes, raw readings and cost ledger are public under `research/`. Never tune on the holdout and then call it fresh evidence.
 
 This is a pharmacy double-check, not a diagnosis or a replacement for a pharmacist. It supports tablets/capsules with FDA records; unreadable or unlisted pills may remain unknown. A single photo cannot establish authenticity or measure size. Do not take a mismatched or uncertain pill until your pharmacist confirms it. User uploads are not saved as photos; result JSON expires after seven days. Demo photos are deliberately published. Checks are limited to 30/hour per IP and a configurable daily cap.
+
+## Reproduce the evaluation
+
+The headline is a **frozen historical holdout**, not a fresh run on every code change. From a fresh clone:
+
+```sh
+npm ci
+npm run research
+```
+
+No API key or other environment variables are needed for a cache-only replay. `npm run research` must run without `--run`; `--run` makes new Anthropic calls and is outside this reproduction procedure. The runner has a $5 spend guard for any explicitly authorized new run. Results and caches are under `research/out/`; the written metrics and protocol are in [`research/REPORT.md`](research/REPORT.md) and [`research/INTERPRETATION.md`](research/INTERPRETATION.md).
+
+The holdout was frozen at implementation commit `7cb343a9bf00668b77a20465edc2a884160f60ec`, with seed `20261110`, model `claude-sonnet-5-5`, prompt `pill-v2`, and 150 photos from 75 product-disjoint products. The current app has changed since that freeze. Its runner checks source hashes and stops if they differ; in this checkout `npm run research` stops with “Missing freeze or implementation/cohort changed since freeze.” The historical output remains available in the committed report and `research/out/holdout-results.json`. Do not remove the hash guard or pass `--run` to make the old result appear reproducible. A full fresh replay requires the exact frozen source and cached inputs, not just the current app.
+
+## Who benefits, and who could be harmed
+
+This can help someone checking a refill, or a caregiver helping with that check, spot a possible mismatch and find the FDA record behind the result. The frozen one-view test also shows the risk clearly: **1 of 150 wrong pills was called fine**. A false alarm can cause worry or delay someone taking the right medicine; there were **4 of 150** in the test. An unsure answer can also leave someone without an answer. Second Look abstains when it cannot confirm a pill and tells the person to ask a pharmacist. It is a double-check, not a diagnosis or permission to take a pill.
+
+## Limitations
+
+The holdout used 2016-era NIH consumer photos showing one side of a pill. Its 150 products were selected to include look-alikes, so it is not a sample of pharmacy use. The one-view pipeline said “can't tell” on **212 of 300 pairs (70.6%)**. Its one observed wrong pass is not proof of safety, and the test was not clinical validation. The app supports pills with matching US FDA records; it cannot establish authenticity, and one photo cannot measure size. FDA records and the archive may be incomplete or out of date. See the report for the pair construction, baseline settings, full outcomes, and post-hoc results.
+
+## What I'd do with another month
+
+I would work with a pharmacist and caregivers to collect current, consented phone photos, then evaluate them on a new product-disjoint holdout. I would study why the checker abstains, improve reading of faint or one-sided imprints, and measure how often a real user can complete a check safely. I would keep the existing holdout out of tuning.
+
+## AI tools
+
+Claude Code and Codex wrote the code under my direction; Claude (Anthropic API) reads the photos in the app.
+
+## Attribution
+
+- **Datasets and reference data:** NIH/NLM Pill Image Recognition Challenge consumer photos; FDA DailyMed labels and appearance fields; NLM RxNorm/RxNav product records. Links and research citation are in [Real data](#real-data) and [`research/REPORT.md`](research/REPORT.md).
+- **Model:** Anthropic Claude Sonnet 5.5 reads pill and label photos; Anthropic Claude models also provide the app's text explanation.
+- **Libraries and services:** Next.js, React, Tailwind CSS, Base UI, Anthropic TypeScript SDK, Upstash Redis, class-variance-authority, `cn`, Lucide, qrcode.react, shadcn, tw-animate-css, Recharts, Zod, Sharp, Vitest, TypeScript, ESLint, Playwright, Lighthouse, and Vercel. See [`package.json`](package.json) for the dependency list.
