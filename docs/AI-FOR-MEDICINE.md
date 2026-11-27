@@ -24,7 +24,22 @@ I froze the implementation before evaluation (commit `7cb343a9bf00668b77a20465ed
 
 Two views had no wrong pass in this sample, but answered less often and had no better false-alarm count. I report the one-view result as the headline because it was the predeclared method. The test also found a short-imprint look-alike that passed incorrectly. A later fix removed that observed pass in a cached post-hoc rescore; because the holdout informed the fix, that rescore is not fresh evidence and does not replace the frozen table.
 
-The [report](../research/REPORT.md), [interpretation](../research/INTERPRETATION.md), [individual outcomes](../research/out/holdout-results.json), and [source data manifest](../research/HOLDOUT-DATA.md) document the test. The historical run used seed `20261110` and prompt `pill-v2`. The current app has changed since the frozen implementation; the replay runner checks implementation hashes and stops instead of presenting a changed system as the original test. The current checkout reports that mismatch when `npm run research` is run. No new paid model run was used for this write-up.
+The [report](../research/REPORT.md), [interpretation](../research/INTERPRETATION.md), [individual outcomes](../research/out/holdout-results.json), and [source data manifest](../research/HOLDOUT-DATA.md) document the test. The historical run used seed `20261110` and prompt `pill-v2`. The current app has changed since the frozen implementation, so replaying against current source fails its hash guard. The following cache-only replay uses the exact frozen commit and the saved inputs on the `ai-for-medicine` branch. It needs no API key and makes no model calls. From a fresh terminal, run:
+
+```sh
+git clone --branch ai-for-medicine https://github.com/Vedu-2011/second-look.git second-look
+cd second-look
+git worktree add --detach /tmp/sl-frozen 7cb343a9bf00668b77a20465edc2a884160f60ec
+mkdir -p /tmp/sl-frozen/research/out
+for f in cohort.json holdout-cohort.json holdout-readings.json holdout-baseline.json holdout-freeze.json holdout-cost.json; do
+  cp "research/out/$f" "/tmp/sl-frozen/research/out/$f"
+done
+cd /tmp/sl-frozen
+npm ci
+npm run research
+```
+
+The runner regenerates `research/out/holdout-results.json` and `research/REPORT.md` from those cached readings and prints the frozen table. The copied files are inputs, not the result being checked. If any saved model reading is missing, the run stops; it does not call a model unless `--run` is explicitly added. Replacing missing readings requires an Anthropic API key and paid calls, subject to the runner's $5 cap. I did not make any new model calls for this evaluation replay.
 
 ## Who benefits, and who could be harmed
 

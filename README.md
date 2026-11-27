@@ -99,16 +99,24 @@ This is a pharmacy double-check, not a diagnosis or a replacement for a pharmaci
 
 ## Reproduce the evaluation
 
-The headline is a **frozen historical holdout**, not a fresh run on every code change. From a fresh clone:
+The headline is a **frozen historical holdout**, not a fresh run on every code change. These commands replay its committed model readings and direct-baseline answers against the frozen source. They make no model calls and need no API key. Run them in a fresh terminal (the `/tmp/sl-frozen` worktree path must not already exist):
 
 ```sh
+git clone --branch ai-for-medicine https://github.com/Vedu-2011/second-look.git second-look
+cd second-look
+git worktree add --detach /tmp/sl-frozen 7cb343a9bf00668b77a20465edc2a884160f60ec
+mkdir -p /tmp/sl-frozen/research/out
+for f in cohort.json holdout-cohort.json holdout-readings.json holdout-baseline.json holdout-freeze.json holdout-cost.json; do
+  cp "research/out/$f" "/tmp/sl-frozen/research/out/$f"
+done
+cd /tmp/sl-frozen
 npm ci
 npm run research
 ```
 
-No API key or other environment variables are needed for a cache-only replay. `npm run research` must run without `--run`; `--run` makes new Anthropic calls and is outside this reproduction procedure. The runner has a $5 spend guard for any explicitly authorized new run. Results and caches are under `research/out/`; the written metrics and protocol are in [`research/REPORT.md`](research/REPORT.md) and [`research/INTERPRETATION.md`](research/INTERPRETATION.md).
+The replay prints the metrics from [`research/REPORT.md`](research/REPORT.md); its generated results are in `/tmp/sl-frozen/research/out/holdout-results.json`. The command copies the cohorts, saved Sonnet readings, direct-AI answers, freeze metadata, and cost ledger from this branch. It does not copy the report or held-out result file being regenerated. The written interpretation and protocol are in [`research/INTERPRETATION.md`](research/INTERPRETATION.md).
 
-The holdout was frozen at implementation commit `7cb343a9bf00668b77a20465edc2a884160f60ec`, with seed `20261110`, model `claude-sonnet-5-5`, prompt `pill-v2`, and 150 photos from 75 product-disjoint products. The current app has changed since that freeze. Its runner checks source hashes and stops if they differ; in this checkout `npm run research` stops with “Missing freeze or implementation/cohort changed since freeze.” The historical output remains available in the committed report and `research/out/holdout-results.json`. Do not remove the hash guard or pass `--run` to make the old result appear reproducible. A full fresh replay requires the exact frozen source and cached inputs, not just the current app.
+The holdout was frozen at implementation commit `7cb343a9bf00668b77a20465edc2a884160f60ec`, with seed `20261110`, model `claude-sonnet-5-5`, prompt `pill-v2`, and 150 photos from 75 product-disjoint products. The current app has changed since that freeze, so its hash guard correctly rejects replaying these outcomes against the current implementation. This procedure uses the exact frozen source and committed caches instead of weakening that guard. A full rerun that replaces missing model readings is a different, paid operation: it requires `--run`, an Anthropic API key, and is bounded by the runner's $5 spend guard. Do not add `--run` for this cache-only replay.
 
 ## Who benefits, and who could be harmed
 
